@@ -19,7 +19,7 @@ import {
   Users,
   X,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import aperitif from "@/assets/aperitif.jpg";
 import candle from "@/assets/candle.jpg";
@@ -232,6 +232,9 @@ function DeliveryStep({ onBack, onApprove, count }: { onBack: () => void; onAppr
 function GuestFlow({ step, setStep, selectedGift, setSelectedGift, items: visibleItems, claimedIds, setClaimedIds, giftedIds }: { step: GuestStep; setStep: (step: GuestStep) => void; selectedGift: number | null; setSelectedGift: (id: number | null) => void; items: Item[]; claimedIds: Set<number>; setClaimedIds: (ids: Set<number>) => void; giftedIds: Set<number> }) {
   const [browseState, setBrowseState] = useState<BrowseState>("ready");
   const [filter, setFilter] = useState("All ideas");
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [step]);
   const gift = visibleItems.find((item) => item.id === selectedGift);
   const statuses = (id: number): GiftStatus => giftedIds.has(id) ? "Gifted" : claimedIds.has(id) ? "Claimed" : "Available";
   const claimGift = () => {
