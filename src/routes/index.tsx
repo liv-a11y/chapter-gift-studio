@@ -4,20 +4,22 @@ import {
   ArrowRight,
   Check,
   CheckCircle2,
-  ChevronRight,
-  Clock3,
+  CircleAlert,
   EyeOff,
-  Gift,
+  LoaderCircle,
+  MapPin,
+  MessageCircle,
+  PackageCheck,
+  RotateCcw,
   Heart,
   LockKeyhole,
   Mail,
-  Minus,
   Plus,
   Sparkles,
   Users,
   X,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import aperitif from "@/assets/aperitif.jpg";
 import candle from "@/assets/candle.jpg";
@@ -43,7 +45,9 @@ export const Route = createFileRoute("/")({
 type View = "friend" | "maya" | "guest";
 type FriendStep = "chapter" | "edit" | "circle" | "sent";
 type MayaStep = "review" | "delivery" | "approved";
-type GuestStep = "browse" | "checkout" | "thanks";
+type GuestStep = "landing" | "browse" | "claim" | "offlist" | "confirmed" | "gifted";
+type GiftStatus = "Available" | "Claimed" | "Gifted";
+type BrowseState = "ready" | "loading" | "empty" | "error";
 type Band = "Easy yes" | "Considered" | "Practical" | "Group candidate";
 
 type Item = {
@@ -78,7 +82,9 @@ function GoodChapterPrototype() {
   const [view, setView] = useState<View>("friend");
   const [friendStep, setFriendStep] = useState<FriendStep>("chapter");
   const [mayaStep, setMayaStep] = useState<MayaStep>("review");
-  const [guestStep, setGuestStep] = useState<GuestStep>("browse");
+  const [guestStep, setGuestStep] = useState<GuestStep>("landing");
+  const [claimedIds, setClaimedIds] = useState(() => new Set([2, 5]));
+  const [giftedIds] = useState(() => new Set([3]));
   const [kept, setKept] = useState(() => new Set(items.map((item) => item.id)));
   const [selectedGift, setSelectedGift] = useState<number | null>(null);
   const [guests, setGuests] = useState(["Leah Park", "Nina Shah", "Sam Rivera", "Jordan Lee"]);
@@ -89,7 +95,7 @@ function GoodChapterPrototype() {
     setView(next);
     setFriendStep("chapter");
     setMayaStep("review");
-    setGuestStep("browse");
+    setGuestStep("landing");
     setSelectedGift(null);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -119,7 +125,7 @@ function GoodChapterPrototype() {
 
       {view === "friend" && <FriendFlow step={friendStep} setStep={setFriendStep} guests={guests} setGuests={setGuests} />}
       {view === "maya" && <MayaFlow step={mayaStep} setStep={setMayaStep} kept={kept} setKept={setKept} />}
-      {view === "guest" && <GuestFlow step={guestStep} setStep={setGuestStep} selectedGift={selectedGift} setSelectedGift={setSelectedGift} items={approvedItems} />}
+      {view === "guest" && <GuestFlow step={guestStep} setStep={setGuestStep} selectedGift={selectedGift} setSelectedGift={setSelectedGift} items={approvedItems} claimedIds={claimedIds} setClaimedIds={setClaimedIds} giftedIds={giftedIds} />}
     </main>
   );
 }
@@ -223,34 +229,104 @@ function DeliveryStep({ onBack, onApprove, count }: { onBack: () => void; onAppr
   return <div className="mx-auto max-w-4xl px-5 py-10 md:px-10 md:py-14"><FlowTop onBack={onBack} label="Private approval · 2 of 2" /><div className="mt-12 grid gap-12 md:grid-cols-[1fr_1.05fr]"><div><p className="eyebrow">Delivery</p><h1 className="mt-4 font-display text-5xl md:text-6xl">Where should<br /><em>the good things land?</em></h1><div className="mt-8 flex gap-3 border-t border-border pt-5"><LockKeyhole className="mt-1 size-4 shrink-0" /><p className="text-sm leading-6 text-muted-foreground">Only Good Chapter and the fulfilling brand receive your address. Guests and Leah never see it.</p></div></div><form onSubmit={(e) => { e.preventDefault(); onApprove(); }} className="grid gap-4 border-t-2 border-foreground pt-5"><Field label="Full name" value="Maya Ellison" /><Field label="Street address" value="48 Willow Street" /><div className="grid grid-cols-2 gap-4"><Field label="City" value="Brooklyn" /><Field label="ZIP" value="11231" /></div><div className="mt-4 border border-border bg-secondary p-4"><div className="flex items-center justify-between"><span className="text-sm font-semibold">{count} things approved</span><CheckCircle2 className="size-5 text-success" /></div></div><Button type="submit" variant="lime" size="lg" className="mt-2 w-full">Approve this chapter <Check className="size-4" /></Button><p className="text-center text-xs text-muted-foreground">That’s click two. Nothing is sent from you.</p></form></div></div>;
 }
 
-function GuestFlow({ step, setStep, selectedGift, setSelectedGift, items: visibleItems }: { step: GuestStep; setStep: (step: GuestStep) => void; selectedGift: number | null; setSelectedGift: (id: number | null) => void; items: Item[] }) {
-  const gift = visibleItems.find((item) => item.id === selectedGift) ?? visibleItems[0];
-  if (step === "thanks") return <CenteredSuccess icon={<Heart className="size-8" />} eyebrow="Gift sent" title="You showed up." copy="Leah will let Maya know her people are thinking of her. We’ll handle everything else." action="Choose another gift" onAction={() => { setSelectedGift(null); setStep("browse"); }} />;
-  if (step === "checkout" && gift) return <CheckoutStep gift={gift} onBack={() => setStep("browse")} onSend={() => setStep("thanks")} />;
+function GuestFlow({ step, setStep, selectedGift, setSelectedGift, items: visibleItems, claimedIds, setClaimedIds, giftedIds }: { step: GuestStep; setStep: (step: GuestStep) => void; selectedGift: number | null; setSelectedGift: (id: number | null) => void; items: Item[]; claimedIds: Set<number>; setClaimedIds: (ids: Set<number>) => void; giftedIds: Set<number> }) {
+  const [browseState, setBrowseState] = useState<BrowseState>("ready");
+  const [filter, setFilter] = useState("All ideas");
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [step]);
+  const gift = visibleItems.find((item) => item.id === selectedGift);
+  const statuses = (id: number): GiftStatus => giftedIds.has(id) ? "Gifted" : claimedIds.has(id) ? "Claimed" : "Available";
+  const claimGift = () => {
+    if (!gift) return;
+    setClaimedIds(new Set([...claimedIds, gift.id]));
+    setStep("confirmed");
+  };
+
+  if (step === "landing") return <GuestLanding claimed={claimedIds.size + giftedIds.size} onBrowse={() => setStep("browse")} onOffList={() => setStep("offlist")} />;
+  if (step === "claim" && gift) return <ClaimStep gift={gift} onBack={() => setStep("browse")} onClaim={claimGift} />;
+  if (step === "offlist") return <OffListStep onBack={() => setStep("landing")} onSubmit={() => setStep("confirmed")} />;
+  if (step === "confirmed") return <ClaimConfirmed gift={gift} onBrowse={() => { setSelectedGift(null); setStep("browse"); }} onGifted={() => setStep("gifted")} />;
+  if (step === "gifted") return <GiftedState onBrowse={() => setStep("browse")} />;
+
+  const filtered = visibleItems.filter((item) => {
+    if (filter === "Under $50") return item.price < 50;
+    if (filter === "Kitchen") return [2, 5, 7, 8].includes(item.id);
+    if (filter === "Getting settled") return [1, 3, 4, 6].includes(item.id);
+    return true;
+  });
+
   return (
-    <div>
-      <section className="border-b border-foreground bg-highlight">
-        <div className="mx-auto grid max-w-[1500px] gap-10 px-5 py-12 md:grid-cols-[1.2fr_.8fr] md:px-10 md:py-16">
-          <div><p className="eyebrow">A First Place chapter · From Leah</p><h1 className="mt-5 max-w-4xl font-display text-6xl md:text-8xl">Maya bought<br /><em>her first place.</em></h1><p className="mt-7 max-w-xl text-lg leading-8">No shower. No registry. Just a home worth marking — and eight things she quietly approved.</p></div>
-          <div className="flex items-end"><div className="w-full border-t border-foreground pt-5"><p className="text-xs font-bold uppercase">A note from Leah</p><blockquote className="mt-4 font-display text-2xl leading-snug">“She did this one on her own. Let’s make sure settling in doesn’t feel that way.”</blockquote><p className="mt-4 text-sm font-semibold">— Leah, Nina, Sam & her circle</p></div></div>
-        </div>
-      </section>
-      <div className="mx-auto max-w-[1500px] px-5 py-10 md:px-10 md:py-14">
-        <div className="flex flex-col justify-between gap-4 border-b border-foreground pb-6 md:flex-row md:items-end"><div><p className="eyebrow">Eight things · One reason each</p><h2 className="mt-2 font-display text-4xl md:text-5xl">Choose the one that feels like you.</h2></div><div className="flex items-center gap-2 text-sm font-semibold"><Clock3 className="size-4" /> About 5 minutes</div></div>
-        <div className="mt-8 grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">{visibleItems.map((item) => <ProductCard key={item.id} item={item} mode="guest" onChoose={() => { setSelectedGift(item.id); setStep("checkout"); }} />)}</div>
-        <div className="mt-16 border-t border-border py-8 text-center text-sm text-muted-foreground">Sent by Leah. Maya didn’t make or send this page.</div>
+    <div className="mx-auto max-w-[1320px] px-4 py-7 sm:px-6 md:px-10 md:py-12">
+      <GuestTop onBack={() => setStep("landing")} label="Sam’s First Place" />
+      <div className="mt-8 border-b-2 border-foreground pb-7 md:flex md:items-end md:justify-between">
+        <div><p className="eyebrow">Approved by Sam · Shared by Jules</p><h1 className="mt-3 max-w-3xl font-display text-5xl leading-[.95] md:text-7xl">A few useful things<br className="hidden sm:block" /> for the new place.</h1></div>
+        <p className="mt-5 max-w-sm text-sm leading-6 text-muted-foreground md:mt-0">Claiming simply keeps the group from doubling up. Purchase wherever you like.</p>
       </div>
+      <div className="mt-5 flex gap-2 overflow-x-auto pb-2" aria-label="Gift filters">
+        {["All ideas", "Under $50", "Kitchen", "Getting settled"].map((name) => <Button key={name} variant={filter === name ? "ink" : "outline"} size="sm" onClick={() => { setFilter(name); setBrowseState("ready"); }}>{name}</Button>)}
+      </div>
+      <div className="mt-4 flex items-center justify-between border-y border-border py-3 text-xs font-mono uppercase"><span>{visibleItems.length} ideas · {claimedIds.size + giftedIds.size} already claimed</span><button className="text-muted-foreground underline underline-offset-4" onClick={() => setBrowseState(browseState === "ready" ? "loading" : browseState === "loading" ? "empty" : browseState === "empty" ? "error" : "ready")}>Preview states</button></div>
+      {browseState === "loading" && <GuestSystemState icon={<LoaderCircle className="size-6 animate-spin" />} title="Gathering Sam’s list" copy="One quiet moment while the latest claims are checked." />}
+      {browseState === "empty" && <GuestSystemState title="Nothing matches that filter" copy="Try all ideas, or bring something only you would think of." action="Show all ideas" onAction={() => { setFilter("All ideas"); setBrowseState("ready"); }} />}
+      {browseState === "error" && <GuestSystemState icon={<CircleAlert className="size-6" />} title="The list didn’t load" copy="No claim was changed. Try again when you’re ready." action="Try again" onAction={() => setBrowseState("ready")} />}
+      {browseState === "ready" && filtered.length > 0 && <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">{filtered.map((item) => <ClaimCard key={item.id} item={item} status={statuses(item.id)} onClaim={() => { setSelectedGift(item.id); setStep("claim"); }} />)}</div>}
+      <div className="mt-12 border-t-2 border-foreground py-7 text-center"><p className="font-display text-2xl">Have another idea?</p><button onClick={() => setStep("offlist")} className="mt-2 text-sm font-semibold underline underline-offset-4">Bring something off-list</button></div>
     </div>
   );
 }
 
-function CheckoutStep({ gift, onBack, onSend }: { gift: Item; onBack: () => void; onSend: () => void }) {
-  const [amount, setAmount] = useState(gift.band === "Group candidate" ? 75 : gift.price);
-  return <div className="mx-auto max-w-5xl px-5 py-10 md:px-10 md:py-14"><FlowTop onBack={onBack} label="Your gift · 2 of 2" /><div className="mt-10 grid gap-10 md:grid-cols-[.8fr_1.2fr]"><div><img src={gift.image} alt={gift.name} width={816} height={816} className="aspect-square w-full object-cover" /><p className="mt-4 text-xs font-bold uppercase">{gift.brand}</p><h1 className="mt-1 font-display text-3xl">{gift.name}</h1><p className="mt-2 text-sm leading-6 text-muted-foreground">“{gift.reason}”</p></div><form onSubmit={(e) => { e.preventDefault(); onSend(); }} className="border-t-2 border-foreground pt-5"><p className="eyebrow">For Maya, from you</p><h2 className="mt-4 font-display text-4xl md:text-5xl">One last thing.</h2>{gift.band === "Group candidate" ? <div className="mt-8"><label className="text-xs font-bold uppercase">Your contribution</label><div className="mt-2 flex items-center border border-input"><button type="button" onClick={() => setAmount(Math.max(25, amount - 25))} className="p-4" aria-label="Decrease contribution"><Minus className="size-4" /></button><div className="flex-1 text-center font-display text-3xl">${amount}</div><button type="button" onClick={() => setAmount(Math.min(gift.price, amount + 25))} className="p-4" aria-label="Increase contribution"><Plus className="size-4" /></button></div><p className="mt-2 text-xs text-muted-foreground">${gift.price - amount} left for the circle</p></div> : <div className="mt-8 flex items-end justify-between border-y border-border py-4"><span className="text-sm text-muted-foreground">Gift total</span><span className="font-display text-4xl">${gift.price}</span></div>}<label htmlFor="note" className="mt-7 block text-xs font-bold uppercase">A note for Maya</label><textarea id="note" defaultValue="So proud of you — may this place hold every good thing next." className="mt-2 h-28 w-full resize-none border border-input bg-background p-4 text-sm leading-6 outline-none focus:border-foreground" /><div className="mt-6 grid grid-cols-2 gap-3"><Field label="Your name" value="Alex Morgan" /><Field label="Email" value="alex@example.com" /></div><Button type="submit" size="lg" className="mt-6 w-full">Send this gift <Gift className="size-4" /></Button><p className="mt-3 text-center text-xs text-muted-foreground">Secure checkout · Delivery is handled for you</p></form></div></div>;
+function GuestLanding({ claimed, onBrowse, onOffList }: { claimed: number; onBrowse: () => void; onOffList: () => void }) {
+  return <div className="mx-auto max-w-[1240px] px-4 py-7 sm:px-6 md:px-10 md:py-14">
+    <div className="flex items-center justify-between border-b-2 border-foreground pb-4"><span className="font-mono text-[10px] uppercase">Private Chapter · First Place</span><span className="flex items-center gap-2 font-mono text-[10px] uppercase"><LockKeyhole className="size-3" /> Small circle</span></div>
+    <section className="grid gap-10 py-10 md:grid-cols-[1.35fr_.65fr] md:py-16">
+      <div><p className="eyebrow">From Jules · Approved by Sam</p><h1 className="mt-5 max-w-4xl font-display text-6xl leading-[.92] sm:text-7xl md:text-8xl">Sam has a new front door. <em>Let’s help make it feel like home.</em></h1><p className="mt-7 max-w-2xl text-base leading-7 md:text-lg">Jules put together a small, private Good Chapter for Sam’s first home. Sam approved every part of it. Choose something useful, bring something personal, or simply send your love.</p></div>
+      <aside className="self-end border-t-2 border-foreground pt-5"><p className="font-mono text-[10px] uppercase">A note from Jules</p><blockquote className="mt-4 font-display text-3xl leading-tight">“Sam made this happen on her own. I’d love for the first few weeks to feel held by all of us.”</blockquote><p className="mt-5 text-sm font-semibold">Shared with a small circle of people who care about Sam.</p></aside>
+    </section>
+    <section className="border-2 border-foreground md:grid md:grid-cols-[.7fr_1.3fr]">
+      <div className="bg-emphasis p-5 text-emphasis-foreground md:p-7"><p className="font-mono text-[10px] uppercase">Chapter status</p><p className="mt-3 font-display text-3xl">8 ideas · {claimed} already claimed</p></div>
+      <div className="p-5 md:p-7"><p className="text-sm leading-6">Claiming an idea helps the group avoid duplicates. You can purchase it anywhere you like. Good Chapter coordinates the choice—not the money or order.</p><div className="mt-6 flex flex-col items-start gap-4 sm:flex-row sm:items-center"><Button size="lg" onClick={onBrowse}>See what Sam needs <ArrowRight className="size-4" /></Button><button onClick={onOffList} className="text-sm font-semibold underline underline-offset-4">I’d rather bring something off-list</button></div></div>
+    </section>
+  </div>;
 }
 
-function ProductCard({ item, mode, active = true, onToggle, onChoose }: { item: Item; mode: "edit" | "review" | "guest"; active?: boolean; onToggle?: () => void; onChoose?: () => void }) {
-  return <article className={cn("group", !active && "opacity-45")}><div className="relative overflow-hidden bg-secondary"><img src={item.image} alt={item.name} loading="lazy" width={816} height={816} className="aspect-square w-full object-cover transition duration-500 group-hover:scale-[1.02]" /><span className="absolute left-3 top-3 bg-background px-2 py-1 text-[10px] font-bold uppercase">{item.band} · {bandLabels[item.band]}</span>{mode === "review" && <button onClick={onToggle} className={cn("absolute right-3 top-3 flex size-9 items-center justify-center rounded-full border", active ? "border-foreground bg-foreground text-background" : "border-border bg-background text-foreground")} aria-label={active ? `Cut ${item.name}` : `Keep ${item.name}`}>{active ? <Check className="size-4" /> : <Plus className="size-4" />}</button>}</div><div className="border-t border-foreground pt-3"><div className="flex items-start justify-between gap-3"><div><p className="text-[10px] font-bold uppercase text-muted-foreground">{item.brand}</p><h3 className="mt-1 font-display text-2xl">{item.name}</h3></div><span className="font-display text-2xl">${item.price}</span></div><p className="mt-3 min-h-10 text-sm leading-5 text-muted-foreground">{item.reason}</p>{mode === "edit" && <button className="mt-4 flex items-center gap-2 text-xs font-bold uppercase"><CheckCircle2 className="size-4 text-success" /> Selected</button>}{mode === "review" && <button onClick={onToggle} className="mt-4 flex items-center gap-2 text-xs font-bold uppercase">{active ? <><X className="size-4" /> Cut privately</> : <><Plus className="size-4" /> Put it back</>}</button>}{mode === "guest" && <Button variant="outline" className="mt-4 w-full" onClick={onChoose}>Choose this <ChevronRight className="size-4" /></Button>}</div></article>;
+function ClaimCard({ item, status, onClaim }: { item: Item; status: GiftStatus; onClaim: () => void }) {
+  const unavailable = status !== "Available";
+  return <article className={cn("border-2 border-foreground bg-card", unavailable && "bg-secondary")}><div className="relative"><img src={item.image} alt="" width={816} height={816} className={cn("aspect-[4/3] w-full object-cover", unavailable && "grayscale opacity-60")} /><span className={cn("absolute left-3 top-3 border border-foreground px-2 py-1 font-mono text-[10px] uppercase", status === "Available" ? "bg-background" : status === "Gifted" ? "bg-emphasis text-emphasis-foreground" : "bg-foreground text-background")}>{status}</span></div><div className="border-t-2 border-foreground p-4"><h2 className="font-display text-3xl leading-none">{item.name}</h2><p className="mt-3 min-h-10 text-sm leading-5">{item.reason}</p><p className="mt-4 font-mono text-[10px] uppercase text-muted-foreground">Usually around {bandLabels[item.band]}</p>{unavailable ? <div className="mt-4 flex h-11 items-center gap-2 border-t border-border pt-3 text-sm font-semibold"><Check className="size-4" /> {status === "Claimed" ? "Someone has this covered" : "Already given"}</div> : <Button className="mt-4 w-full" onClick={onClaim}>Claim this <ArrowRight className="size-4" /></Button>}</div></article>;
+}
+
+function ClaimStep({ gift, onBack, onClaim }: { gift: Item; onBack: () => void; onClaim: () => void }) {
+  const [method, setMethod] = useState("housewarming");
+  const methods: Array<[string, string]> = [["housewarming", "I’ll bring it to the housewarming"], ["ship", "I’ll ship it directly"], ["starter", "I’m coordinating with Jules"]];
+  return <div className="mx-auto max-w-5xl px-4 py-7 sm:px-6 md:px-10 md:py-12"><GuestTop onBack={onBack} label="Private gift claim" /><div className="mt-8 grid gap-8 md:grid-cols-[.72fr_1.28fr]"><div><img src={gift.image} alt="" className="aspect-[4/3] w-full border-2 border-foreground object-cover" /><p className="mt-4 font-mono text-[10px] uppercase">Usually around {bandLabels[gift.band]}</p><h1 className="mt-2 font-display text-4xl">{gift.name}</h1><p className="mt-3 text-sm leading-6">{gift.reason}</p></div><form onSubmit={(event) => { event.preventDefault(); onClaim(); }} className="border-t-2 border-foreground pt-6"><p className="eyebrow">You’ve got it.</p><h2 className="mt-3 font-display text-5xl">Make the claim.</h2><p className="mt-4 max-w-xl text-sm leading-6 text-muted-foreground">Claiming lets everyone else know Sam is covered. Buy it wherever works for you, then bring it by or send it when you’re ready.</p><div className="mt-7 grid gap-4 sm:grid-cols-2"><InputField label="Your name" placeholder="Your name" required /><InputField label="Email or phone" placeholder="For claim coordination" required /></div><label className="mt-4 block font-mono text-[10px] uppercase">Any delivery details or questions?<textarea className="mt-2 h-24 w-full resize-none border-2 border-input bg-background p-3 font-sans text-sm normal-case outline-none focus:border-foreground" /></label><fieldset className="mt-5"><legend className="font-mono text-[10px] uppercase">How will it get there?</legend><div className="mt-2 divide-y divide-border border-y border-border">{methods.map(([value, label]) => <label key={value} className="flex cursor-pointer items-center gap-3 py-3 text-sm"><input type="radio" name="method" value={value} checked={method === value} onChange={() => setMethod(value)} className="accent-primary" />{label}</label>)}</div></fieldset><Button type="submit" size="lg" className="mt-6 w-full">Claim {gift.name}</Button><p className="mt-3 text-center text-xs leading-5 text-muted-foreground">This is not a purchase through Good Chapter. We’ll only use your details to coordinate this gift.</p></form></div></div>;
+}
+
+function OffListStep({ onBack, onSubmit }: { onBack: () => void; onSubmit: () => void }) {
+  return <div className="mx-auto max-w-4xl px-4 py-7 sm:px-6 md:px-10 md:py-12"><GuestTop onBack={onBack} label="Your own idea" /><div className="mt-10 grid gap-10 md:grid-cols-[.9fr_1.1fr]"><div><p className="eyebrow">Equally welcome</p><h1 className="mt-4 font-display text-6xl leading-[.95]">Bringing your own idea? <em>Perfect.</em></h1><p className="mt-6 leading-7 text-muted-foreground">Useful gifts are only one way to show up. You might bring a meal, a plant, moving-day help, a favorite local spot, or something only you would think of.</p><div className="mt-8 bg-emphasis p-5 text-emphasis-foreground"><p className="font-mono text-[10px] uppercase">No amount needed</p><p className="mt-2 font-display text-2xl">The group will simply see “Off-list gift” as claimed.</p></div></div><form onSubmit={(event) => { event.preventDefault(); onSubmit(); }} className="border-t-2 border-foreground pt-6"><InputField label="What are you thinking of bringing?" placeholder="A meal for moving night" required /><div className="mt-4"><InputField label="Your name" placeholder="Your name" required /></div><label className="mt-4 block font-mono text-[10px] uppercase">Optional note for Jules<textarea className="mt-2 h-28 w-full resize-none border-2 border-input bg-background p-3 font-sans text-sm normal-case outline-none focus:border-foreground" /></label><Button type="submit" size="lg" className="mt-6 w-full">Let the group know</Button><p className="mt-3 text-center text-xs text-muted-foreground">Only Jules uses these details to coordinate. Sam won’t be asked to respond.</p></form></div></div>;
+}
+
+function ClaimConfirmed({ gift, onBrowse, onGifted }: { gift: Item | undefined; onBrowse: () => void; onGifted: () => void }) {
+  return <div className="mx-auto flex min-h-[calc(100vh-112px)] max-w-3xl items-center px-4 py-12 sm:px-6"><div className="w-full border-t-2 border-foreground pt-7"><PackageCheck className="size-10" /><p className="eyebrow mt-7">Claim recorded</p><h1 className="mt-3 font-display text-6xl">You’ve got it.</h1><p className="mt-5 max-w-xl text-base leading-7">{gift ? `${gift.name} is now marked Claimed. ` : "Your off-list gift is now noted. "}There’s no purchase here and nothing else you need to report.</p><div className="mt-8 border-y border-border py-5"><button className="flex items-center gap-3 text-sm font-semibold"><MapPin className="size-4" /> Want the delivery address?</button><button className="mt-4 flex items-center gap-3 text-sm font-semibold"><MessageCircle className="size-4" /> Message Jules</button></div><div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center"><Button size="lg" onClick={onBrowse}>Back to Sam’s Chapter</Button>{gift && <button onClick={onGifted} className="text-sm font-semibold underline underline-offset-4">Preview gifted state</button>}</div></div></div>;
+}
+
+function GiftedState({ onBrowse }: { onBrowse: () => void }) {
+  return <div className="mx-auto flex min-h-[calc(100vh-112px)] max-w-3xl items-center px-4 py-12 sm:px-6"><div className="w-full border-t-2 border-foreground pt-7"><Heart className="size-10" /><p className="eyebrow mt-7">A good thing, given</p><h1 className="mt-3 font-display text-6xl leading-[.95]">Thank you for helping make this new place feel more like Sam’s.</h1><p className="mt-6 max-w-xl text-lg leading-7">Good Chapter is here to make showing up easier—not to make anyone ask.</p><div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center"><Button size="lg">Send Sam a note <MessageCircle className="size-4" /></Button><button onClick={onBrowse} className="text-sm font-semibold underline underline-offset-4">Return to the Chapter</button></div></div></div>;
+}
+
+function GuestSystemState({ icon, title, copy, action, onAction }: { icon?: React.ReactNode; title: string; copy: string; action?: string; onAction?: () => void }) {
+  return <div className="my-12 border-2 border-foreground p-8 text-center"><div className="mx-auto flex size-10 items-center justify-center">{icon}</div><h2 className="mt-3 font-display text-3xl">{title}</h2><p className="mx-auto mt-2 max-w-sm text-sm text-muted-foreground">{copy}</p>{action && onAction && <Button className="mt-5" onClick={onAction}>{action} <RotateCcw className="size-4" /></Button>}</div>;
+}
+
+function GuestTop({ onBack, label }: { onBack: () => void; label: string }) {
+  return <div className="flex items-center justify-between border-b border-border pb-4"><Button variant="ghost" size="sm" onClick={onBack}><ArrowLeft className="size-4" /> Back</Button><span className="font-mono text-[10px] uppercase">{label}</span></div>;
+}
+
+function InputField({ label, placeholder, required = false }: { label: string; placeholder: string; required?: boolean }) {
+  return <label className="block font-mono text-[10px] uppercase">{label}<input required={required} placeholder={placeholder} className="mt-2 h-12 w-full border-2 border-input bg-background px-3 font-sans text-sm normal-case outline-none focus:border-foreground" /></label>;
+}
+
+function ProductCard({ item, mode, active = true, onToggle }: { item: Item; mode: "edit" | "review"; active?: boolean; onToggle?: () => void }) {
+  return <article className={cn("group", !active && "opacity-45")}><div className="relative overflow-hidden bg-secondary"><img src={item.image} alt={item.name} loading="lazy" width={816} height={816} className="aspect-square w-full object-cover transition duration-500 group-hover:scale-[1.02]" /><span className="absolute left-3 top-3 bg-background px-2 py-1 text-[10px] font-bold uppercase">{item.band} · {bandLabels[item.band]}</span>{mode === "review" && <button onClick={onToggle} className={cn("absolute right-3 top-3 flex size-9 items-center justify-center rounded-full border", active ? "border-foreground bg-foreground text-background" : "border-border bg-background text-foreground")} aria-label={active ? `Cut ${item.name}` : `Keep ${item.name}`}>{active ? <Check className="size-4" /> : <Plus className="size-4" />}</button>}</div><div className="border-t border-foreground pt-3"><div className="flex items-start justify-between gap-3"><div><p className="text-[10px] font-bold uppercase text-muted-foreground">{item.brand}</p><h3 className="mt-1 font-display text-2xl">{item.name}</h3></div><span className="font-display text-2xl">${item.price}</span></div><p className="mt-3 min-h-10 text-sm leading-5 text-muted-foreground">{item.reason}</p>{mode === "edit" && <button className="mt-4 flex items-center gap-2 text-xs font-bold uppercase"><CheckCircle2 className="size-4 text-success" /> Selected</button>}{mode === "review" && <button onClick={onToggle} className="mt-4 flex items-center gap-2 text-xs font-bold uppercase">{active ? <><X className="size-4" /> Cut privately</> : <><Plus className="size-4" /> Put it back</>}</button>}</div></article>;
 }
 
 function StepHeader({ number, eyebrow, title, copy }: { number: string; eyebrow: string; title: React.ReactNode; copy: string }) {

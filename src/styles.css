@@ -61,36 +61,41 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --color-highlight: var(--highlight);
   --color-highlight-foreground: var(--highlight-foreground);
+  --color-emphasis: var(--emphasis);
+  --color-emphasis-foreground: var(--emphasis-foreground);
   --color-success: var(--success);
-  --font-display: "Instrument Serif", Georgia, serif;
-  --font-sans: "Work Sans", Arial, sans-serif;
-  --shadow-editorial: 6px 6px 0 var(--foreground);
+  --font-display: "Young Serif", Georgia, serif;
+  --font-sans: "Satoshi", Arial, sans-serif;
+  --font-mono: "DM Mono", monospace;
+  --shadow-editorial: none;
 }
 
 :root {
-  --radius: 0.2rem;
-  --background: oklch(0.974 0.012 88);
-  --foreground: oklch(0.145 0.008 74);
-  --card: oklch(0.985 0.008 88);
-  --card-foreground: oklch(0.145 0.008 74);
+  --radius: 0.25rem;
+  --background: oklch(0.93 0.034 64);
+  --foreground: oklch(0.235 0.052 162);
+  --card: oklch(0.96 0.023 66);
+  --card-foreground: oklch(0.235 0.052 162);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.145 0.008 74);
-  --primary-foreground: oklch(0.974 0.012 88);
-  --secondary: oklch(0.925 0.015 84);
-  --secondary-foreground: oklch(0.145 0.008 74);
-  --muted: oklch(0.925 0.015 84);
-  --muted-foreground: oklch(0.45 0.015 74);
+  --primary: oklch(0.46 0.21 264);
+  --primary-foreground: oklch(0.98 0.01 65);
+  --secondary: oklch(0.885 0.037 63);
+  --secondary-foreground: oklch(0.235 0.052 162);
+  --muted: oklch(0.885 0.037 63);
+  --muted-foreground: oklch(0.43 0.04 159);
   --accent: oklch(0.968 0.007 247.896);
   --accent-foreground: oklch(0.208 0.042 265.755);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.78 0.015 78);
-  --input: oklch(0.68 0.015 78);
-  --ring: oklch(0.145 0.008 74);
+  --border: oklch(0.54 0.03 158);
+  --input: oklch(0.42 0.045 159);
+  --ring: oklch(0.46 0.21 264);
   --highlight: oklch(0.91 0.22 115);
   --highlight-foreground: oklch(0.145 0.008 74);
   --success: oklch(0.5 0.12 150);
+  --emphasis: oklch(0.49 0.16 31);
+  --emphasis-foreground: oklch(0.97 0.018 65);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -162,7 +167,8 @@
 @utility eyebrow {
   font-size: 0.6875rem;
   line-height: 1rem;
-  font-weight: 700;
+  font-family: var(--font-mono);
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0;
 }
