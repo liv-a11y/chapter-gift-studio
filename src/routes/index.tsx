@@ -43,7 +43,7 @@ export const Route = createFileRoute("/")({
 });
 
 type View = "friend" | "maya" | "guest";
-type FriendStep = "chapter" | "edit" | "circle" | "sent";
+type FriendStep = "chapter" | "spark" | "edit" | "circle" | "sent";
 type MayaStep = "review" | "delivery" | "approved";
 type GuestStep = "landing" | "browse" | "claim" | "offlist" | "confirmed" | "gifted";
 type GiftStatus = "Available" | "Claimed" | "Gifted";
@@ -139,8 +139,9 @@ function MobileViewTab({ active, children, onClick }: { active: boolean; childre
 }
 
 function FriendFlow({ step, setStep, guests, setGuests }: { step: FriendStep; setStep: (step: FriendStep) => void; guests: string[]; setGuests: (guests: string[]) => void }) {
-  if (step === "chapter") return <ChapterStep onContinue={() => setStep("edit")} />;
-  if (step === "edit") return <EditStep onBack={() => setStep("chapter")} onContinue={() => setStep("circle")} />;
+  if (step === "chapter") return <ChapterStep onContinue={() => setStep("spark")} />;
+  if (step === "spark") return <SparkStep onBack={() => setStep("chapter")} onContinue={() => setStep("edit")} />;
+  if (step === "edit") return <EditStep onBack={() => setStep("spark")} onContinue={() => setStep("circle")} />;
   if (step === "circle") return <CircleStep guests={guests} setGuests={setGuests} onBack={() => setStep("edit")} onContinue={() => setStep("sent")} />;
   return <SentStep onGuest={() => setStep("chapter")} />;
 }
@@ -166,16 +167,69 @@ function ChapterStep({ onContinue }: { onContinue: () => void }) {
   );
 }
 
+const sparkPrompts = [
+  { q: "What's Maya's most unhinged-but-correct opinion?", a: "Candles are a food group. Also, overhead lighting is a crime." },
+  { q: "What does she do the second she gets home?", a: "Shoes off, record on, something bubbly in a real glass." },
+  { q: "What's the dish she'd make to impress someone?", a: "A very serious shakshuka. She owns zero good pans." },
+  { q: "What's on the wall she keeps talking about?", a: "Nothing yet. She has a folder of photos from her trip to Lisbon." },
+  { q: "If her new place had a theme song, what would it be?", a: "Something by Fleetwood Mac, loud, with the windows open." },
+];
+
+const tailoredReasons: Record<number, string> = {
+  1: "Because overhead lighting is a crime, and you know she agrees.",
+  2: "For the shoes-off, something-bubbly ritual — now in a real glass.",
+  3: "For the one Lisbon photo that finally leaves the folder.",
+  4: "Candles are a food group. This is a balanced diet.",
+  5: "For Fleetwood Mac, windows open, friends on the floor.",
+  6: "For the blank wall — Lisbon, part two and three.",
+  7: "For the very serious shakshuka. It deserves a good pan.",
+  8: "The pans she's never owned, from everyone who's eaten her shakshuka.",
+};
+
+function SparkStep({ onBack, onContinue }: { onBack: () => void; onContinue: () => void }) {
+  const [answers, setAnswers] = useState(() => sparkPrompts.map((p) => p.a));
+  const [tailoring, setTailoring] = useState(false);
+  const tailor = () => { setTailoring(true); window.setTimeout(onContinue, 1400); };
+  return (
+    <div className="mx-auto max-w-5xl px-5 py-10 md:px-10 md:py-14">
+      <FlowTop onBack={onBack} label="First Place · About Maya" />
+      <div className="mt-10 grid gap-10 md:grid-cols-[.85fr_1.15fr]">
+        <div>
+          <p className="eyebrow">The fun part</p>
+          <h1 className="mt-4 font-display text-5xl md:text-6xl">Tell us something <em>only you’d know.</em></h1>
+          <p className="mt-6 max-w-sm leading-7 text-muted-foreground">Silly counts. Specific is better. We use your answers to tailor the eight ideas and the reasons behind them. Maya never sees this.</p>
+          <div className="mt-8 inline-flex items-center gap-3 bg-secondary px-4 py-3 text-sm font-semibold"><EyeOff className="size-4" /> Just between you and Good Chapter.</div>
+        </div>
+        <div className="border-t-2 border-foreground pt-5">
+          <div className="space-y-6">
+            {sparkPrompts.map((p, i) => (
+              <label key={p.q} className="block">
+                <span className="font-mono text-[10px] uppercase text-muted-foreground">Question {String(i + 1).padStart(2, "0")}</span>
+                <span className="mt-1 block font-display text-2xl leading-tight">{p.q}</span>
+                <textarea value={answers[i]} onChange={(e) => setAnswers(answers.map((a, j) => (j === i ? e.target.value : a)))} rows={2} className="mt-2 w-full resize-none border-2 border-input bg-background p-3 text-sm outline-none focus:border-foreground" />
+              </label>
+            ))}
+          </div>
+          <Button size="lg" className="mt-8 w-full" onClick={tailor} disabled={tailoring}>
+            {tailoring ? <><LoaderCircle className="size-4 animate-spin" /> Reading between the lines…</> : <>Tailor the edit for Maya <ArrowRight className="size-4" /></>}
+          </Button>
+          <button onClick={onContinue} className="mt-3 w-full text-center text-sm font-semibold underline underline-offset-4">Skip for now</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function EditStep({ onBack, onContinue }: { onBack: () => void; onContinue: () => void }) {
   return (
     <div className="mx-auto max-w-[1500px] px-5 py-10 md:px-10 md:py-14">
       <FlowTop onBack={onBack} label="First Place · 2 of 3" />
       <div className="mt-9 flex flex-col justify-between gap-5 border-b border-foreground pb-8 md:flex-row md:items-end">
         <div><p className="eyebrow">Eight things · Four price bands</p><h1 className="mt-3 font-display text-5xl md:text-7xl">The edit for Maya.</h1></div>
-        <p className="max-w-sm text-sm leading-6 text-muted-foreground">Curated for her first place. Each one has a reason, so nobody has to guess why it belongs.</p>
+        <p className="max-w-sm text-sm leading-6 text-muted-foreground">Tailored from what you told us — candles, shakshuka, Lisbon, Fleetwood Mac. Each one has a reason, so nobody has to guess why it belongs.</p>
       </div>
       <BandSummary />
-      <div className="mt-8 grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">{items.map((item) => <ProductCard key={item.id} item={item} mode="edit" />)}</div>
+      <div className="mt-8 grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">{items.map((item) => <ProductCard key={item.id} item={{ ...item, reason: tailoredReasons[item.id] ?? item.reason }} mode="edit" />)}</div>
       <div className="sticky bottom-4 mt-12 flex items-center justify-between rounded-sm border border-foreground bg-foreground p-3 pl-5 text-background shadow-editorial">
         <div><p className="text-sm font-bold">8 of 8 selected</p><p className="hidden text-xs text-background/65 sm:block">The mix is balanced across all four price bands.</p></div>
         <Button variant="lime" size="lg" onClick={onContinue}>Add her people <ArrowRight className="size-4" /></Button>
@@ -298,11 +352,18 @@ function ClaimCard({ item, status, onClaim }: { item: Item; status: GiftStatus; 
 function ClaimStep({ gift, onBack, onClaim }: { gift: Item; onBack: () => void; onClaim: () => void }) {
   const [method, setMethod] = useState("housewarming");
   const methods: Array<[string, string]> = [["housewarming", "I’ll bring it to the housewarming"], ["ship", "I’ll ship it directly"], ["starter", "I’m coordinating with Jules"]];
-  return <div className="mx-auto max-w-5xl px-4 py-7 sm:px-6 md:px-10 md:py-12"><GuestTop onBack={onBack} label="Private gift claim" /><div className="mt-8 grid gap-8 md:grid-cols-[.72fr_1.28fr]"><div><img src={gift.image} alt="" className="aspect-[4/3] w-full border-2 border-foreground object-cover" /><p className="mt-4 font-mono text-[10px] uppercase">Usually around {bandLabels[gift.band]}</p><h1 className="mt-2 font-display text-4xl">{gift.name}</h1><p className="mt-3 text-sm leading-6">{gift.reason}</p></div><form onSubmit={(event) => { event.preventDefault(); onClaim(); }} className="border-t-2 border-foreground pt-6"><p className="eyebrow">You’ve got it.</p><h2 className="mt-3 font-display text-5xl">Make the claim.</h2><p className="mt-4 max-w-xl text-sm leading-6 text-muted-foreground">Claiming lets everyone else know Sam is covered. Buy it wherever works for you, then bring it by or send it when you’re ready.</p><div className="mt-7 grid gap-4 sm:grid-cols-2"><InputField label="Your name" placeholder="Your name" required /><InputField label="Email or phone" placeholder="For claim coordination" required /></div><label className="mt-4 block font-mono text-[10px] uppercase">Any delivery details or questions?<textarea className="mt-2 h-24 w-full resize-none border-2 border-input bg-background p-3 font-sans text-sm normal-case outline-none focus:border-foreground" /></label><fieldset className="mt-5"><legend className="font-mono text-[10px] uppercase">How will it get there?</legend><div className="mt-2 divide-y divide-border border-y border-border">{methods.map(([value, label]) => <label key={value} className="flex cursor-pointer items-center gap-3 py-3 text-sm"><input type="radio" name="method" value={value} checked={method === value} onChange={() => setMethod(value)} className="accent-primary" />{label}</label>)}</div></fieldset><Button type="submit" size="lg" className="mt-6 w-full">Claim {gift.name}</Button><p className="mt-3 text-center text-xs leading-5 text-muted-foreground">This is not a purchase through Good Chapter. We’ll only use your details to coordinate this gift.</p></form></div></div>;
+  return <div className="mx-auto max-w-5xl px-4 py-7 sm:px-6 md:px-10 md:py-12"><GuestTop onBack={onBack} label="Private gift claim" /><div className="mt-8 grid gap-8 md:grid-cols-[.72fr_1.28fr]"><div><img src={gift.image} alt="" className="aspect-[4/3] w-full border-2 border-foreground object-cover" /><p className="mt-4 font-mono text-[10px] uppercase">Usually around {bandLabels[gift.band]}</p><h1 className="mt-2 font-display text-4xl">{gift.name}</h1><p className="mt-3 text-sm leading-6">{gift.reason}</p></div><form onSubmit={(event) => { event.preventDefault(); onClaim(); }} className="border-t-2 border-foreground pt-6"><p className="eyebrow">You’ve got it.</p><h2 className="mt-3 font-display text-5xl">Make the claim.</h2><p className="mt-4 max-w-xl text-sm leading-6 text-muted-foreground">Claiming lets everyone else know Sam is covered. Buy it wherever works for you, then bring it by or send it when you’re ready.</p><div className="mt-7 grid gap-4 sm:grid-cols-2"><InputField label="Your name" placeholder="Your name" required /><InputField label="Email or phone" placeholder="For claim coordination" required /></div><label className="mt-4 block font-mono text-[10px] uppercase">Any delivery details or questions?<textarea className="mt-2 h-24 w-full resize-none border-2 border-input bg-background p-3 font-sans text-sm normal-case outline-none focus:border-foreground" /></label><fieldset className="mt-5"><legend className="font-mono text-[10px] uppercase">How will it get there?</legend><div className="mt-2 divide-y divide-border border-y border-border">{methods.map(([value, label]) => <label key={value} className="flex cursor-pointer items-center gap-3 py-3 text-sm"><input type="radio" name="method" value={value} checked={method === value} onChange={() => setMethod(value)} className="accent-primary" />{label}</label>)}</div></fieldset><GuestSpark /><Button type="submit" size="lg" className="mt-6 w-full">Claim {gift.name}</Button><p className="mt-3 text-center text-xs leading-5 text-muted-foreground">This is not a purchase through Good Chapter. We’ll only use your details to coordinate this gift.</p></form></div></div>;
+}
+
+const guestPrompts = ["One thing about Sam only you’d know?", "Your favorite Sam story, in one line?", "What should Sam do first in the new place?", "The most Sam thing Sam has ever said?"];
+
+function GuestSpark() {
+  const [i, setI] = useState(0);
+  return <div className="mt-5 border-2 border-foreground p-4"><div className="flex items-start justify-between gap-3"><div><p className="font-mono text-[10px] uppercase">Optional · For your note to Sam</p><p className="mt-1 font-display text-xl leading-tight">{guestPrompts[i]}</p></div><button type="button" onClick={() => setI((i + 1) % guestPrompts.length)} className="shrink-0 p-1 text-muted-foreground hover:text-foreground" aria-label="Try another question"><RotateCcw className="size-4" /></button></div><textarea rows={2} placeholder="Silly is welcome." className="mt-3 w-full resize-none border-2 border-input bg-background p-3 text-sm outline-none focus:border-foreground" /><p className="mt-2 text-xs text-muted-foreground">Tucked in with your gift. Sam never has to reply.</p></div>;
 }
 
 function OffListStep({ onBack, onSubmit }: { onBack: () => void; onSubmit: () => void }) {
-  return <div className="mx-auto max-w-4xl px-4 py-7 sm:px-6 md:px-10 md:py-12"><GuestTop onBack={onBack} label="Your own idea" /><div className="mt-10 grid gap-10 md:grid-cols-[.9fr_1.1fr]"><div><p className="eyebrow">Equally welcome</p><h1 className="mt-4 font-display text-6xl leading-[.95]">Bringing your own idea? <em>Perfect.</em></h1><p className="mt-6 leading-7 text-muted-foreground">Useful gifts are only one way to show up. You might bring a meal, a plant, moving-day help, a favorite local spot, or something only you would think of.</p><div className="mt-8 bg-emphasis p-5 text-emphasis-foreground"><p className="font-mono text-[10px] uppercase">No amount needed</p><p className="mt-2 font-display text-2xl">The group will simply see “Off-list gift” as claimed.</p></div></div><form onSubmit={(event) => { event.preventDefault(); onSubmit(); }} className="border-t-2 border-foreground pt-6"><InputField label="What are you thinking of bringing?" placeholder="A meal for moving night" required /><div className="mt-4"><InputField label="Your name" placeholder="Your name" required /></div><label className="mt-4 block font-mono text-[10px] uppercase">Optional note for Jules<textarea className="mt-2 h-28 w-full resize-none border-2 border-input bg-background p-3 font-sans text-sm normal-case outline-none focus:border-foreground" /></label><Button type="submit" size="lg" className="mt-6 w-full">Let the group know</Button><p className="mt-3 text-center text-xs text-muted-foreground">Only Jules uses these details to coordinate. Sam won’t be asked to respond.</p></form></div></div>;
+  return <div className="mx-auto max-w-4xl px-4 py-7 sm:px-6 md:px-10 md:py-12"><GuestTop onBack={onBack} label="Your own idea" /><div className="mt-10 grid gap-10 md:grid-cols-[.9fr_1.1fr]"><div><p className="eyebrow">Equally welcome</p><h1 className="mt-4 font-display text-6xl leading-[.95]">Bringing your own idea? <em>Perfect.</em></h1><p className="mt-6 leading-7 text-muted-foreground">Useful gifts are only one way to show up. You might bring a meal, a plant, moving-day help, a favorite local spot, or something only you would think of.</p><div className="mt-8 bg-emphasis p-5 text-emphasis-foreground"><p className="font-mono text-[10px] uppercase">No amount needed</p><p className="mt-2 font-display text-2xl">The group will simply see “Off-list gift” as claimed.</p></div></div><form onSubmit={(event) => { event.preventDefault(); onSubmit(); }} className="border-t-2 border-foreground pt-6"><InputField label="What are you thinking of bringing?" placeholder="A meal for moving night" required /><div className="mt-4"><InputField label="Your name" placeholder="Your name" required /></div><label className="mt-4 block font-mono text-[10px] uppercase">Optional note for Jules<textarea className="mt-2 h-28 w-full resize-none border-2 border-input bg-background p-3 font-sans text-sm normal-case outline-none focus:border-foreground" /></label><GuestSpark /><Button type="submit" size="lg" className="mt-6 w-full">Let the group know</Button><p className="mt-3 text-center text-xs text-muted-foreground">Only Jules uses these details to coordinate. Sam won’t be asked to respond.</p></form></div></div>;
 }
 
 function ClaimConfirmed({ gift, onBrowse, onGifted }: { gift: Item | undefined; onBrowse: () => void; onGifted: () => void }) {
