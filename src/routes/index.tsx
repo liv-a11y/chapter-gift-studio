@@ -83,21 +83,40 @@ function HomePage() {
 
       <section className="border-y-2 border-foreground" aria-labelledby="registry-story">
         <div className="site-container site-section">
-          <div className="grid gap-12 lg:grid-cols-[minmax(240px,.55fr)_minmax(0,1.45fr)] lg:gap-20">
-            <div className="border-t-2 border-foreground pt-5">
-              <p className="eyebrow text-emphasis">Chicago, 1924</p>
-              <p className="mt-5 max-w-[26rem] text-[17px] leading-[1.5] text-muted-foreground">
-                Marshall Field’s popularized the modern bridal registry: a list of china, silver, and crystal for a couple beginning one particular kind of life.
-              </p>
+          <div className="grid gap-12 lg:grid-cols-[minmax(300px,.72fr)_minmax(0,1.28fr)] lg:gap-20">
+            <div>
+              <div className="grid grid-cols-2 overflow-hidden rounded-sm border-2 border-foreground bg-card">
+                <div className="col-span-2 flex items-end justify-between gap-5 border-b-2 border-foreground bg-highlight p-5">
+                  <span className="font-display text-[52px] leading-none sm:text-[64px]">1924</span>
+                  <span className="eyebrow text-right text-muted-foreground">One accepted<br />life script</span>
+                </div>
+                <img src={cookware} alt="Cookware representing the traditional new household" className="aspect-square h-full w-full border-r-2 border-foreground object-cover" />
+                <div className="flex flex-col justify-between p-5">
+                  <span className="eyebrow text-emphasis">The bridal list</span>
+                  <p className="mt-10 font-display text-[24px] leading-[1.12]">China.<br />Silver.<br />Crystal.</p>
+                </div>
+                <div className="col-span-2 border-t-2 border-foreground bg-primary p-5 text-primary-foreground">
+                  <div className="flex items-end justify-between gap-5">
+                    <span className="font-display text-[52px] leading-none sm:text-[64px]">Now</span>
+                    <span className="eyebrow text-right text-primary-foreground/80">Every life<br />worth marking</span>
+                  </div>
+                </div>
+                <img src={frame} alt="A framed memory chosen for a first home" className="aspect-square h-full w-full border-r-2 border-foreground object-cover" />
+                <img src={aperitif} alt="A thoughtful gift for a life lived outside the old script" className="aspect-square h-full w-full object-cover" />
+              </div>
+              <p className="mt-5 text-[15px] leading-[1.5] text-muted-foreground">From one prescribed household to every way a life can change.</p>
             </div>
             <div>
-              <p className="eyebrow text-muted-foreground">The old script</p>
+              <p className="eyebrow text-emphasis">The anti-registry</p>
               <h2 id="registry-story" className="site-h2 mt-5 max-w-[17ch]">
                 The registry solved a real problem. Then it stopped keeping up.
               </h2>
+              <p className="mt-7 max-w-[42rem] text-[17px] leading-[1.5] text-muted-foreground">
+                In 1924, Marshall Field’s popularized the modern bridal registry: a list of china, silver, and crystal for a couple beginning one particular kind of life.<sup><a href="#source-1" className="ml-1 font-mono text-[12px] text-primary underline decoration-1 underline-offset-2" aria-label="See source 1">1</a></sup>
+              </p>
               <blockquote className="mt-10 border-l-2 border-emphasis pl-6 sm:pl-8">
                 <p className="font-display text-[clamp(32px,4.6vw,58px)] leading-[1.04] tracking-[-0.01em]">
-                  The registry was built for a woman leaving her father’s house for her husband’s. <span className="text-emphasis">We built one for everything else she does.</span>
+                  The registry was built for a woman leaving her father’s house for her husband’s. <span className="text-emphasis">We built one for everything else she does.</span><sup><a href="#source-2" className="ml-1 align-super font-mono text-[12px] text-primary underline decoration-1 underline-offset-2" aria-label="See source 2">2</a></sup>
                 </p>
               </blockquote>
               <div className="mt-10 grid gap-6 text-[17px] leading-[1.5] text-muted-foreground sm:grid-cols-2 sm:gap-10">
@@ -107,6 +126,21 @@ function HomePage() {
               <p className="mt-10 border-t-2 border-foreground pt-6 font-display text-[28px] leading-[1.18] sm:text-[34px]">
                 Good Chapter is not a better wedding registry. It is the ritual for everything the registry left out.
               </p>
+              <aside className="mt-10 border-t-2 border-foreground pt-5" aria-label="Sources for the registry story">
+                <p className="eyebrow text-muted-foreground">Sources & context</p>
+                <ol className="mt-5 space-y-4 text-[15px] leading-[1.5] text-muted-foreground">
+                  <li id="source-1" className="grid grid-cols-[1.5rem_1fr] gap-2">
+                    <span className="font-mono text-foreground">1</span>
+                    <span>
+                      Marshall Field’s bridal-services archive, Chicago History Museum; see also WTTW’s history of Marshall Field’s. <a href="https://images.chicagohistory.org/asset/23427/" target="_blank" rel="noreferrer" className="text-primary underline decoration-1 underline-offset-2">Museum archive ↗</a>{" · "}<a href="https://www.wttw.com/chicago-stories/marshall-fields/how-marshall-fields-transformed-shopping-from-errand-to-experience" target="_blank" rel="noreferrer" className="text-primary underline decoration-1 underline-offset-2">WTTW history ↗</a>
+                    </span>
+                  </li>
+                  <li id="source-2" className="grid grid-cols-[1.5rem_1fr] gap-2">
+                    <span className="font-mono text-foreground">2</span>
+                    <span>Good Chapter Brand Guidelines v3, September 2026. This is Good Chapter’s interpretation of the old social script—not a quotation from Marshall Field’s.</span>
+                  </li>
+                </ol>
+              </aside>
             </div>
           </div>
         </div>
