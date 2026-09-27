@@ -24,8 +24,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-50 border-b-2 border-foreground bg-background">
-        <div className="site-container flex min-h-20 items-center gap-4 py-3">
-          <Link to="/" className="shrink-0 font-display text-2xl" aria-label="Good Chapter home">
+        <div className="site-container flex min-h-20 items-center gap-2 py-3 sm:gap-4">
+          <Link to="/" className="shrink-0 font-display text-xl sm:text-2xl" aria-label="Good Chapter home">
             <BrandMark />
           </Link>
           <nav className="ml-auto hidden items-center gap-7 lg:flex" aria-label="Main navigation">
@@ -39,8 +39,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
               </Link>
             ))}
           </nav>
-          <Button asChild className="ml-auto lg:ml-5">
-            <Link to="/new">Start one for a friend</Link>
+          <Button asChild size="sm" className="ml-auto px-3 text-[12px] sm:h-11 sm:px-5 sm:text-sm lg:ml-5">
+            <Link to="/new"><span className="sm:hidden">Start one</span><span className="hidden sm:inline">Start one for a friend</span></Link>
           </Button>
           <button type="button" onClick={() => setOpen(!open)} className="flex size-11 shrink-0 items-center justify-center rounded-sm border-2 border-foreground lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open}>
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
