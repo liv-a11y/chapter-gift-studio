@@ -29,8 +29,12 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <BrandMark />
           </Link>
           <nav className="ml-auto hidden items-center gap-7 lg:flex" aria-label="Main navigation">
-            {links.map((link) => (
-              <Link key={link.label} to={link.to} hash={"hash" in link ? link.hash : undefined} className="text-[15px] font-medium transition-colors duration-175 hover:text-primary" activeProps={{ className: "text-primary" }}>
+            {links.map((link) => "hash" in link ? (
+              <Link key={link.label} to={link.to} hash={link.hash} className="text-[15px] font-medium transition-colors duration-175 hover:text-primary">
+                {link.label}
+              </Link>
+            ) : (
+              <Link key={link.label} to={link.to} className="text-[15px] font-medium transition-colors duration-175 hover:text-primary" activeProps={{ className: "text-primary" }}>
                 {link.label}
               </Link>
             ))}
@@ -44,8 +48,12 @@ export function SiteShell({ children }: { children: ReactNode }) {
         </div>
         {open && (
           <nav className="border-t-2 border-foreground bg-background px-5 py-2 lg:hidden" aria-label="Mobile navigation">
-            {links.map((link) => (
-              <Link key={link.label} to={link.to} hash={"hash" in link ? link.hash : undefined} onClick={() => setOpen(false)} className="block border-b border-border py-4 text-lg font-medium last:border-b-0">
+            {links.map((link) => "hash" in link ? (
+              <Link key={link.label} to={link.to} hash={link.hash} onClick={() => setOpen(false)} className="block border-b border-border py-4 text-lg font-medium last:border-b-0">
+                {link.label}
+              </Link>
+            ) : (
+              <Link key={link.label} to={link.to} onClick={() => setOpen(false)} className="block border-b border-border py-4 text-lg font-medium last:border-b-0">
                 {link.label}
               </Link>
             ))}
