@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Public marketing routes use `SiteShell`; `/new`, `/approve`, and `/guest` render the focused shared demo component without the marketing shell, keeping product demos isolated while avoiding duplicated flow code.
