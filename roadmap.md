@@ -11,4 +11,5 @@
 - [x] Build /partners per Prompt 2: hero, ink steps band, pathway cards, non-negotiables, clay CTA
 - [x] Build the complete consumer home-page narrative for Prompt 1
 - [x] Add the Marshall Field’s anti-registry history and father’s-house manifesto to the home narrative
+- [x] Add visible historical sources and a more visual 1924-to-now story treatment
 
