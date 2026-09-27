@@ -9,4 +9,5 @@
 - [x] Apply global flat-design, type, spacing, and motion rules
 - [x] Verify all routes and demo journeys on desktop and mobile
 - [x] Build /partners per Prompt 2: hero, ink steps band, pathway cards, non-negotiables, clay CTA
+- [x] Build the complete consumer home-page narrative for Prompt 1
 
