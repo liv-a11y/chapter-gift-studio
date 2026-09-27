@@ -1,0 +1,3 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { GoodChapterDemo } from "@/components/good-chapter-demo";
+export const Route = createFileRoute("/guest")({ head: () => ({ meta: [{ title: "Sam’s First Place Chapter — Good Chapter" }, { name: "description", content: "Claim a thoughtful idea for Sam’s first home without duplicate gifts." }, { property: "og:title", content: "Sam’s First Place Chapter — Good Chapter" }, { property: "og:description", content: "Claim a thoughtful idea for Sam’s first home without duplicate gifts." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }), component: () => <GoodChapterDemo initialView="guest" /> });

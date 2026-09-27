@@ -60,6 +60,7 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-highlight: var(--highlight);
+  --color-coral: var(--coral);
   --color-highlight-foreground: var(--highlight-foreground);
   --color-emphasis: var(--emphasis);
   --color-emphasis-foreground: var(--emphasis-foreground);
@@ -92,6 +93,7 @@
   --input: oklch(0.42 0.045 159);
   --ring: oklch(0.46 0.21 264);
   --highlight: oklch(0.91 0.22 115);
+  --coral: oklch(0.65 0.2 28);
   --highlight-foreground: oklch(0.145 0.008 74);
   --success: oklch(0.5 0.12 150);
   --emphasis: oklch(0.49 0.16 31);
@@ -151,6 +153,8 @@
     border-color: var(--color-border);
   }
 
+  html { scroll-behavior: smooth; }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -165,10 +169,62 @@
 }
 
 @utility eyebrow {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   line-height: 1rem;
   font-family: var(--font-mono);
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0;
+  letter-spacing: 0.14em;
+}
+
+
+@utility site-container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 20px;
+  @media (width >= 768px) { padding-inline: 32px; }
+}
+
+@utility site-section {
+  padding-block: 80px;
+  @media (width >= 768px) { padding-block: 112px; }
+}
+
+@utility site-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 6vw, 80px);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+
+@utility site-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4.2vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+@utility site-body {
+  font-size: clamp(17px, 1.6vw, 20px);
+  line-height: 1.5;
+}
+
+@utility sticker {
+  display: inline-flex;
+  border: 1.5px solid var(--color-foreground);
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  transform: rotate(-2.4deg);
+}
+
+@utility lift-card {
+  border-radius: 4px;
+  transition: transform 170ms linear;
+  &:hover { transform: translateY(-4px); }
 }
