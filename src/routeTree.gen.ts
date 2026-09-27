@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApproveRouteImport } from './routes/approve'
+import { Route as GuestRouteImport } from './routes/guest'
+import { Route as NewRouteImport } from './routes/new'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApproveRoute = ApproveRouteImport.update({
+  id: '/approve',
+  path: '/approve',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuestRoute = GuestRouteImport.update({
+  id: '/guest',
+  path: '/guest',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewRoute = NewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/approve': typeof ApproveRoute
+  '/guest': typeof GuestRoute
+  '/new': typeof NewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/approve': typeof ApproveRoute
+  '/guest': typeof GuestRoute
+  '/new': typeof NewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/approve': typeof ApproveRoute
+  '/guest': typeof GuestRoute
+  '/new': typeof NewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/approve' | '/guest' | '/new'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/approve' | '/guest' | '/new'
+  id: '__root__' | '/' | '/approve' | '/guest' | '/new'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApproveRoute: typeof ApproveRoute
+  GuestRoute: typeof GuestRoute
+  NewRoute: typeof NewRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/approve': {
+      id: '/approve'
+      path: '/approve'
+      fullPath: '/approve'
+      preLoaderRoute: typeof ApproveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guest': {
+      id: '/guest'
+      path: '/guest'
+      fullPath: '/guest'
+      preLoaderRoute: typeof GuestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new': {
+      id: '/new'
+      path: '/new'
+      fullPath: '/new'
+      preLoaderRoute: typeof NewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApproveRoute: ApproveRoute,
+  GuestRoute: GuestRoute,
+  NewRoute: NewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
