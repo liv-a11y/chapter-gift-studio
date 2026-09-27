@@ -11,10 +11,10 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Good Chapter — Celebrate the chapters life forgot" },
-      { name: "description", content: "A friend starts a chapter. The person approves it privately. Their people show up." },
-      { property: "og:title", content: "Good Chapter — Celebrate the chapters life forgot" },
-      { property: "og:description", content: "A friend starts a chapter. The person approves it privately. Their people show up." },
+      { title: "Good Chapter — The anti-registry for everything else she does" },
+      { name: "description", content: "The registry served one old life script. Good Chapter helps friends show up for first homes, fresh starts, recovery, and everything else." },
+      { property: "og:title", content: "Good Chapter — The anti-registry for everything else she does" },
+      { property: "og:description", content: "The registry served one old life script. Good Chapter helps friends show up for first homes, fresh starts, recovery, and everything else." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -81,7 +81,38 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="border-y-2 border-foreground">
+      <section className="border-y-2 border-foreground" aria-labelledby="registry-story">
+        <div className="site-container site-section">
+          <div className="grid gap-12 lg:grid-cols-[minmax(240px,.55fr)_minmax(0,1.45fr)] lg:gap-20">
+            <div className="border-t-2 border-foreground pt-5">
+              <p className="eyebrow text-emphasis">Chicago, 1924</p>
+              <p className="mt-5 max-w-[26rem] text-[17px] leading-[1.5] text-muted-foreground">
+                Marshall Field’s popularized the modern bridal registry: a list of china, silver, and crystal for a couple beginning one particular kind of life.
+              </p>
+            </div>
+            <div>
+              <p className="eyebrow text-muted-foreground">The old script</p>
+              <h2 id="registry-story" className="site-h2 mt-5 max-w-[17ch]">
+                The registry solved a real problem. Then it stopped keeping up.
+              </h2>
+              <blockquote className="mt-10 border-l-2 border-emphasis pl-6 sm:pl-8">
+                <p className="font-display text-[clamp(32px,4.6vw,58px)] leading-[1.04] tracking-[-0.01em]">
+                  The registry was built for a woman leaving her father’s house for her husband’s. <span className="text-emphasis">We built one for everything else she does.</span>
+                </p>
+              </blockquote>
+              <div className="mt-10 grid gap-6 text-[17px] leading-[1.5] text-muted-foreground sm:grid-cols-2 sm:gap-10">
+                <p>It made care legible at marriage: here is the household, here is what it needs, here is how everyone can help without guessing.</p>
+                <p>But women kept building lives outside that script—buying homes alone, starting over, getting sober, healing, moving cities. The care stayed. The ritual did not.</p>
+              </div>
+              <p className="mt-10 border-t-2 border-foreground pt-6 font-display text-[28px] leading-[1.18] sm:text-[34px]">
+                Good Chapter is not a better wedding registry. It is the ritual for everything the registry left out.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
         <div className="site-container site-section grid items-center gap-14 lg:grid-cols-[minmax(320px,.82fr)_minmax(0,1.18fr)] lg:gap-20">
           <div className="rounded-sm border-2 border-foreground bg-card p-5 sm:p-7">
             <div className="flex items-center justify-between border-b border-border pb-4">
@@ -104,7 +135,7 @@ function HomePage() {
           <div>
             <p className="eyebrow text-emphasis">The awkward gap</p>
             <h2 className="site-h2 mt-5 max-w-[16ch]">The offer is always real. The answer never comes.</h2>
-            <p className="site-body mt-7 max-w-[42rem] text-muted-foreground">Maya Ellison, 34, bought a house alone. No shower, no party. Every friend offered help and meant it. She needed a lamp. Saying so would turn affection into an invoice. The person who needs help is the one who has to name it, and naming it is the cost nobody pays.</p>
+            <p className="site-body mt-7 max-w-[42rem] text-muted-foreground">Maya Ellison, 34, bought a house alone. The old script has no shower for her, no list, no obvious way for people to mark what she did. Every friend offered help and meant it. She needed a lamp. Saying so would turn affection into an invoice. The person who needs help is the one who has to name it, and naming it is the cost nobody pays.</p>
             <p className="mt-8 border-l-2 border-emphasis pl-5 font-display text-[26px] leading-[1.25]">The problem is not wanting help. It is asking for it.</p>
           </div>
         </div>
