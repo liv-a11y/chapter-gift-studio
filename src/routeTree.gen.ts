@@ -12,7 +12,12 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApproveRouteImport } from './routes/approve'
 import { Route as GuestRouteImport } from './routes/guest'
+import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as NewRouteImport } from './routes/new'
+import { Route as PartnersRouteImport } from './routes/partners'
+import { Route as PartnersBrandsRouteImport } from './routes/partners.brands'
+import { Route as PartnersEmployersRouteImport } from './routes/partners.employers'
+import { Route as PartnersRealEstateRouteImport } from './routes/partners.real-estate'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -29,44 +34,114 @@ const GuestRoute = GuestRouteImport.update({
   path: '/guest',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InvestorsRoute = InvestorsRouteImport.update({
+  id: '/investors',
+  path: '/investors',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NewRoute = NewRouteImport.update({
   id: '/new',
   path: '/new',
   getParentRoute: () => rootRouteImport,
+} as any)
+const PartnersRoute = PartnersRouteImport.update({
+  id: '/partners',
+  path: '/partners',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnersBrandsRoute = PartnersBrandsRouteImport.update({
+  id: '/brands',
+  path: '/brands',
+  getParentRoute: () => PartnersRoute,
+} as any)
+const PartnersEmployersRoute = PartnersEmployersRouteImport.update({
+  id: '/employers',
+  path: '/employers',
+  getParentRoute: () => PartnersRoute,
+} as any)
+const PartnersRealEstateRoute = PartnersRealEstateRouteImport.update({
+  id: '/real-estate',
+  path: '/real-estate',
+  getParentRoute: () => PartnersRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/approve': typeof ApproveRoute
   '/guest': typeof GuestRoute
+  '/investors': typeof InvestorsRoute
   '/new': typeof NewRoute
+  '/partners': typeof PartnersRouteWithChildren
+  '/partners/brands': typeof PartnersBrandsRoute
+  '/partners/employers': typeof PartnersEmployersRoute
+  '/partners/real-estate': typeof PartnersRealEstateRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/approve': typeof ApproveRoute
   '/guest': typeof GuestRoute
+  '/investors': typeof InvestorsRoute
   '/new': typeof NewRoute
+  '/partners': typeof PartnersRouteWithChildren
+  '/partners/brands': typeof PartnersBrandsRoute
+  '/partners/employers': typeof PartnersEmployersRoute
+  '/partners/real-estate': typeof PartnersRealEstateRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/approve': typeof ApproveRoute
   '/guest': typeof GuestRoute
+  '/investors': typeof InvestorsRoute
   '/new': typeof NewRoute
+  '/partners': typeof PartnersRouteWithChildren
+  '/partners/brands': typeof PartnersBrandsRoute
+  '/partners/employers': typeof PartnersEmployersRoute
+  '/partners/real-estate': typeof PartnersRealEstateRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/approve' | '/guest' | '/new'
+  fullPaths:
+    | '/'
+    | '/approve'
+    | '/guest'
+    | '/investors'
+    | '/new'
+    | '/partners'
+    | '/partners/brands'
+    | '/partners/employers'
+    | '/partners/real-estate'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/approve' | '/guest' | '/new'
-  id: '__root__' | '/' | '/approve' | '/guest' | '/new'
+  to:
+    | '/'
+    | '/approve'
+    | '/guest'
+    | '/investors'
+    | '/new'
+    | '/partners'
+    | '/partners/brands'
+    | '/partners/employers'
+    | '/partners/real-estate'
+  id:
+    | '__root__'
+    | '/'
+    | '/approve'
+    | '/guest'
+    | '/investors'
+    | '/new'
+    | '/partners'
+    | '/partners/brands'
+    | '/partners/employers'
+    | '/partners/real-estate'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApproveRoute: typeof ApproveRoute
   GuestRoute: typeof GuestRoute
+  InvestorsRoute: typeof InvestorsRoute
   NewRoute: typeof NewRoute
+  PartnersRoute: typeof PartnersRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -92,6 +167,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuestRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/investors': {
+      id: '/investors'
+      path: '/investors'
+      fullPath: '/investors'
+      preLoaderRoute: typeof InvestorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/new': {
       id: '/new'
       path: '/new'
@@ -99,14 +181,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/partners': {
+      id: '/partners'
+      path: '/partners'
+      fullPath: '/partners'
+      preLoaderRoute: typeof PartnersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partners/brands': {
+      id: '/partners/brands'
+      path: '/brands'
+      fullPath: '/partners/brands'
+      preLoaderRoute: typeof PartnersBrandsRouteImport
+      parentRoute: typeof PartnersRoute
+    }
+    '/partners/employers': {
+      id: '/partners/employers'
+      path: '/employers'
+      fullPath: '/partners/employers'
+      preLoaderRoute: typeof PartnersEmployersRouteImport
+      parentRoute: typeof PartnersRoute
+    }
+    '/partners/real-estate': {
+      id: '/partners/real-estate'
+      path: '/real-estate'
+      fullPath: '/partners/real-estate'
+      preLoaderRoute: typeof PartnersRealEstateRouteImport
+      parentRoute: typeof PartnersRoute
+    }
   }
 }
+
+interface PartnersRouteChildren {
+  PartnersBrandsRoute: typeof PartnersBrandsRoute
+  PartnersEmployersRoute: typeof PartnersEmployersRoute
+  PartnersRealEstateRoute: typeof PartnersRealEstateRoute
+}
+
+const PartnersRouteChildren: PartnersRouteChildren = {
+  PartnersBrandsRoute: PartnersBrandsRoute,
+  PartnersEmployersRoute: PartnersEmployersRoute,
+  PartnersRealEstateRoute: PartnersRealEstateRoute,
+}
+
+const PartnersRouteWithChildren = PartnersRoute._addFileChildren(
+  PartnersRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApproveRoute: ApproveRoute,
   GuestRoute: GuestRoute,
+  InvestorsRoute: InvestorsRoute,
   NewRoute: NewRoute,
+  PartnersRoute: PartnersRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
