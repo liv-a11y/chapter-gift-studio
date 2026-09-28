@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
+import toasterAsset from "@/assets/toaster.png.asset.json";
 
 import aperitif from "@/assets/aperitif.jpg";
 import bench from "@/assets/bench.jpg";
@@ -70,20 +71,37 @@ function HomePage() {
       <section className="site-section">
         <div className="site-container grid items-center gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(380px,.92fr)] lg:gap-16">
           <div className="flex flex-col items-start gap-7">
-            <p className="sticker">The anti-registry</p>
+            <p className="eyebrow text-emphasis">A registry for the rest of it</p>
             <h1 className="site-h1 max-w-[13ch]">A friend starts it. The person approves it. <span className="bg-emphasis px-2 text-emphasis-foreground">Nobody asks.</span></h1>
-            <p className="site-body max-w-[38rem] text-muted-foreground">For first homes, fresh starts, recovery, new cities: every chapter weddings never covered.</p>
+            <p className="site-body max-w-[38rem] text-muted-foreground">Friend-started. Person-approved. For first homes, fresh starts, messy new beginnings, recovery, new cities: every chapter weddings never covered.</p>
             <div className="mt-1 flex flex-wrap gap-4">
               <Button asChild size="lg"><Link to="/new">Start one for a friend <ArrowRight className="size-4" /></Link></Button>
               <Button asChild variant="outline" size="lg"><a href="#how">How it works</a></Button>
             </div>
           </div>
-          <div className="relative mx-auto aspect-[5/6] w-full max-w-[510px]" aria-label="A collection of thoughtful objects for a first home">
-            <img src={cookware} alt="Ceramic cookware in a bright first-home kitchen" className="absolute left-0 top-0 h-[76%] w-[78%] rounded-sm border-2 border-foreground object-cover" />
-            <img src={aperitif} alt="An aperitif set ready for friends around the table" className="absolute bottom-0 right-0 h-[48%] w-[52%] rotate-2 rounded-sm border-2 border-foreground object-cover" />
+          <div className="relative mx-auto w-full max-w-[460px]">
+            <span className="absolute -top-4 left-5 z-10 -rotate-3 bg-primary px-3.5 py-2 font-mono text-[12px] uppercase tracking-[0.14em] text-primary-foreground">This counts, too.</span>
+            <img src={toasterAsset.url} alt="A toaster and a plate of buttered toast on a sunny plaster counter" className="aspect-[4/5] w-full rounded-sm border-2 border-foreground object-cover" />
+            <div className="border-x-2 border-b-2 border-foreground bg-foreground px-5 py-5 text-background">
+              <span className="eyebrow text-background/70">Chapter 01</span>
+              <p className="mt-2 font-display text-[26px] leading-[1.1]">A place of your own.</p>
+            </div>
           </div>
         </div>
       </section>
+
+      <div className="border-y-2 border-foreground" aria-hidden="true">
+        <div className="flex items-center justify-between gap-6 overflow-hidden px-5 py-4 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground md:px-8">
+          <span>The first home</span>
+          <span>The fresh start</span>
+          <span className="hidden sm:inline">The new city</span>
+          <span className="hidden md:inline">The year sober</span>
+          <span className="hidden sm:inline">The recovery</span>
+          <span className="hidden lg:inline">The solo baby</span>
+          <span className="hidden md:inline">The pivot</span>
+          <span>The best of your life</span>
+        </div>
+      </div>
 
       <section className="border-y-2 border-foreground" aria-labelledby="registry-story">
         <div className="site-container site-section">
@@ -111,18 +129,16 @@ function HomePage() {
               <p className="mt-5 text-[15px] leading-[1.5] text-muted-foreground">From one prescribed household to every way a life can change.</p>
             </div>
             <div>
-              <p className="eyebrow text-emphasis">The anti-registry</p>
-              <h2 id="registry-story" className="site-h2 mt-5 max-w-[17ch]">
-                The registry solved a real problem. Then it stopped keeping up.
+              <p className="eyebrow text-emphasis">Why we exist</p>
+              <h2 id="registry-story" className="site-h2 mt-5 max-w-[16ch]">
+                You shouldn’t have to get married to get a <span className="bg-emphasis px-2 text-emphasis-foreground">fucking toaster.</span>
               </h2>
+              <p className="mt-8 max-w-[36rem] font-display text-[clamp(22px,2.8vw,30px)] leading-[1.25]">
+                The registry was built for a woman leaving her father’s house for her husband’s. <span className="text-emphasis">We built one for everything else she does.</span><sup><a href="#source-2" className="ml-1 align-super font-mono text-[12px] text-primary underline decoration-1 underline-offset-2" aria-label="See source 2">2</a></sup>
+              </p>
               <p className="mt-7 max-w-[42rem] text-[17px] leading-[1.5] text-muted-foreground">
                 In 1924, Marshall Field’s popularized the modern bridal registry: a list of china, silver, and crystal for a couple beginning one particular kind of life.<sup><a href="#source-1" className="ml-1 font-mono text-[12px] text-primary underline decoration-1 underline-offset-2" aria-label="See source 1">1</a></sup>
               </p>
-              <blockquote className="mt-10 border-l-2 border-emphasis pl-6 sm:pl-8">
-                <p className="font-display text-[clamp(32px,4.6vw,58px)] leading-[1.04] tracking-[-0.01em]">
-                  The registry was built for a woman leaving her father’s house for her husband’s. <span className="text-emphasis">We built one for everything else she does.</span><sup><a href="#source-2" className="ml-1 align-super font-mono text-[12px] text-primary underline decoration-1 underline-offset-2" aria-label="See source 2">2</a></sup>
-                </p>
-              </blockquote>
               <div className="mt-10 grid gap-6 text-[17px] leading-[1.5] text-muted-foreground sm:grid-cols-2 sm:gap-10">
                 <p>It made care legible at marriage: here is the household, here is what it needs, here is how everyone can help without guessing.</p>
                 <p>But women kept building lives outside that script—buying homes alone, starting over, getting sober, healing, moving cities. The care stayed. The ritual did not.</p>
