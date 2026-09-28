@@ -131,7 +131,7 @@ function HomePage() {
             <div>
               <p className="eyebrow text-emphasis">Why we exist</p>
               <h2 id="registry-story" className="site-h2 mt-5 max-w-[16ch]">
-                You shouldn’t have to get married to get a <span className="bg-emphasis px-2 text-emphasis-foreground">fucking toaster.</span>
+                You shouldn’t have to get married to get a <span className="bg-emphasis px-2 text-emphasis-foreground">f$%#ng toaster.</span>
               </h2>
               <p className="mt-8 max-w-[36rem] font-display text-[clamp(22px,2.8vw,30px)] leading-[1.25]">
                 The registry was built for a woman leaving her father’s house for her husband’s. <span className="text-emphasis">We built one for everything else she does.</span><sup><a href="#source-2" className="ml-1 align-super font-mono text-[12px] text-primary underline decoration-1 underline-offset-2" aria-label="See source 2">2</a></sup>
