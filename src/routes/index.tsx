@@ -2,9 +2,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
 
 import aperitif from "@/assets/aperitif.jpg";
+import bench from "@/assets/bench.jpg";
 import candle from "@/assets/candle.jpg";
 import cookware from "@/assets/cookware.jpg";
 import frame from "@/assets/frame.jpg";
+import lamp from "@/assets/lamp.jpg";
+import pottery from "@/assets/pottery.jpg";
+import throwImg from "@/assets/throw.jpg";
 import { SiteShell } from "@/components/site/site-shell";
 import { Button } from "@/components/ui/button";
 
@@ -30,13 +34,13 @@ const steps = [
 
 const gifts = [
   { band: "Under $50", name: "Otherland Fallen Fir candle", reason: "For the first quiet night when the boxes are still everywhere.", photo: candle },
-  { band: "Under $50", name: "Linen kitchen towels", reason: "Because Maya has been using the same two since her first apartment.", photo: cookware },
+  { band: "Under $50", name: "Handmade stoneware mug set", reason: "For the slow morning coffee that finally isn't from a to-go cup.", photo: pottery },
   { band: "$50–$100", name: "Ghia aperitif set", reason: "For her alcohol-free Friday dinners around the new table.", photo: aperitif },
-  { band: "$50–$100", name: "Ceramic bedside lamp", reason: "The lamp she needs, without ever having to name it herself.", photo: candle },
+  { band: "$50–$100", name: "Ceramic bedside lamp", reason: "The lamp she needs, without ever having to name it herself.", photo: lamp },
   { band: "$100–$250", name: "Custom Framebridge print", reason: "A permanent place for the photo from her solo closing day.", photo: frame },
-  { band: "$100–$250", name: "Soft wool throw", reason: "For the reading chair she has already claimed by the window.", photo: frame },
+  { band: "$100–$250", name: "Soft wool throw", reason: "For the reading chair she has already claimed by the window.", photo: throwImg },
   { band: "Splurge", name: "Caraway ceramic pan", reason: "A real upgrade for the elaborate one-pan dinners she loves making.", photo: cookware },
-  { band: "Splurge", name: "Entryway bench", reason: "So the shoes, tote bags, and dog lead finally have a landing place.", photo: frame },
+  { band: "Splurge", name: "Entryway bench", reason: "So the shoes, tote bags, and dog lead finally have a landing place.", photo: bench },
 ];
 
 const assurances = [
