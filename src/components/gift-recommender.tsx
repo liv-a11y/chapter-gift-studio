@@ -62,7 +62,7 @@ export function GiftRecommender({ name = "Maya", defaultChapter = "Bought a hous
       <Button size="lg" className="mt-5 w-full" onClick={generate} disabled={loading || chapter.trim().length < 3}>
         {loading ? <><LoaderCircle className="size-4 animate-spin" /> {loadingLines[line]}</> : ideas.length ? <><RotateCcw className="size-4" /> Re-spin at {spice}</> : <><Sparkles className="size-4" /> Pitch me ideas</>}
       </Button>
-      {error && <p role="alert" className="mt-4 rounded-sm border-2 border-clay p-3 text-[15px]">{error}</p>}
+      {error && <p role="alert" className="mt-4 rounded-sm border-2 border-accent p-3 text-[15px]">{error}</p>}
       {ideas.length > 0 && (
         <ul className="mt-6 grid gap-3 sm:grid-cols-2">
           {ideas.map((i, idx) => (
@@ -70,7 +70,7 @@ export function GiftRecommender({ name = "Maya", defaultChapter = "Bought a hous
               <div className="flex items-baseline justify-between gap-2 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground"><span>{i.brand}</span><span>{i.price}</span></div>
               <p className="mt-2 font-display text-xl leading-tight">{i.name}</p>
               <p className="mt-2 text-[15px] leading-[1.5]">{i.reason}</p>
-              <p className="mt-3 font-mono text-[12px] uppercase tracking-[0.14em] text-clay">{i.band}</p>
+              <p className="mt-3 font-mono text-[12px] uppercase tracking-[0.14em] text-accent">{i.band}</p>
             </li>
           ))}
         </ul>
