@@ -25,6 +25,7 @@ import aperitif from "@/assets/aperitif.jpg";
 import candle from "@/assets/candle.jpg";
 import cookware from "@/assets/cookware.jpg";
 import frame from "@/assets/frame.jpg";
+import { GiftRecommender } from "@/components/gift-recommender";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -191,6 +192,7 @@ function SparkStep({ onBack, onContinue }: { onBack: () => void; onContinue: () 
           <button onClick={onContinue} className="mt-3 w-full text-center text-sm font-semibold underline underline-offset-4">Skip for now</button>
         </div>
       </div>
+      <div className="mt-14"><GiftRecommender details={answers.join(" · ")} /></div>
     </div>
   );
 }
