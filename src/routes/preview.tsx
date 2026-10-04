@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
 import toasterCouple from "@/assets/06-toaster-and-couple.png.asset.json";
 import familyDoor from "@/assets/03-family-through-door.png.asset.json";
-import { Illustration } from "@/components/site/illustration";
+import { Illustration, ToasterIllustration, ToasterLine } from "@/components/site/illustration";
 
 import aperitif from "@/assets/aperitif.jpg";
 import bench from "@/assets/bench.jpg";

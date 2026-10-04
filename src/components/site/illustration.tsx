@@ -3,7 +3,7 @@ import toasterCouple from "@/assets/06-toaster-and-couple.png.asset.json";
 type Props = {
   src: string;
   alt: string;
-  eager?: boolean;
+  eager?: boolean | undefined;
   multiply?: boolean;
   className?: string;
 };
