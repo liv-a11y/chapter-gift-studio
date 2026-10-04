@@ -210,7 +210,7 @@ function SparkStep({ onBack, onContinue, onUseAiEdit }: { onBack: () => void; on
           <button onClick={onContinue} className="mt-3 w-full text-center text-sm font-semibold underline underline-offset-4">Skip for now</button>
         </div>
       </div>
-      <div className="mt-14"><GiftRecommender details={answers.join(" · ")} onUseIdeas={onUseAiEdit} /></div>
+      <div className="mt-14"><GiftRecommender onUseIdeas={onUseAiEdit} /></div>
     </div>
   );
 }

@@ -7,16 +7,34 @@ import { recommendGifts, type Recommendation } from "@/lib/recommend.functions";
 import { cn } from "@/lib/utils";
 
 type Spice = "mild" | "medium" | "unhinged";
+type Chapter = "first-home" | "fresh-start" | "new-place" | "career-change" | "recovery" | "off-script";
+type Focus = "settling-in" | "kitchen" | "rest" | "hosting" | "practical";
 const spices: { id: Spice; label: string; hint: string }[] = [
   { id: "mild", label: "Mild", hint: "Tender and practical" },
   { id: "medium", label: "Medium", hint: "Inside-joke energy" },
   { id: "unhinged", label: "Unhinged", hint: "Chaotic, with love" },
 ];
 const loadingLines = ["Scouting gifts they’d never ask for…", "Reading between the lines…", "Finding things worth celebrating on purpose…"];
+const chapters: { id: Chapter; label: string }[] = [
+  { id: "first-home", label: "First home" },
+  { id: "fresh-start", label: "Fresh start" },
+  { id: "new-place", label: "New place" },
+  { id: "career-change", label: "Career change" },
+  { id: "recovery", label: "Recovery" },
+  { id: "off-script", label: "Off-script" },
+];
+const focuses: { id: Focus; label: string }[] = [
+  { id: "settling-in", label: "Getting settled" },
+  { id: "kitchen", label: "Kitchen" },
+  { id: "rest", label: "Rest" },
+  { id: "hosting", label: "Hosting" },
+  { id: "practical", label: "Practical help" },
+];
 
-export function GiftRecommender({ name = "Maya", defaultChapter = "Bought a house alone at 34. First place that's entirely hers.", details = "", onUseIdeas }: { name?: string; defaultChapter?: string; details?: string; onUseIdeas?: (ideas: Recommendation[]) => void }) {
+export function GiftRecommender({ onUseIdeas }: { onUseIdeas?: (ideas: Recommendation[]) => void }) {
   const run = useServerFn(recommendGifts);
-  const [chapter, setChapter] = useState(defaultChapter);
+  const [chapter, setChapter] = useState<Chapter>("first-home");
+  const [focus, setFocus] = useState<Focus>("settling-in");
   const [spice, setSpice] = useState<Spice>("medium");
   const [ideas, setIdeas] = useState<Recommendation[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -32,7 +50,7 @@ export function GiftRecommender({ name = "Maya", defaultChapter = "Bought a hous
   const generate = async () => {
     setLoading(true); setError(null);
     try {
-      const res = await run({ data: { name, chapter, details, spice } });
+      const res = await run({ data: { chapter, focus, spice } });
       if (res.error) setError(res.error); else setIdeas(res.ideas);
     } catch {
       setError("Couldn’t reach the idea generator. Try again.");
@@ -43,10 +61,18 @@ export function GiftRecommender({ name = "Maya", defaultChapter = "Bought a hous
     <section className="rounded-sm border-2 border-foreground bg-card p-5 md:p-7" aria-label="AI gift ideas">
       <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground">Idea generator</p>
       <h2 className="mt-2 font-display text-3xl leading-tight">Describe the chapter. We’ll pitch eight ideas.</h2>
-      <label className="mt-5 block">
-        <span className="font-mono text-[12px] uppercase tracking-[0.14em]">Their life chapter</span>
-        <textarea value={chapter} onChange={(e) => setChapter(e.target.value)} rows={2} maxLength={400} className="mt-2 w-full resize-none rounded-sm border-2 border-foreground bg-background p-3 text-[16px] outline-none" />
-      </label>
+      <fieldset className="mt-5">
+        <legend className="font-mono text-[12px] uppercase tracking-[0.14em]">The chapter</legend>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {chapters.map((item) => <Button key={item.id} type="button" size="sm" variant={chapter === item.id ? "lime" : "outline"} onClick={() => setChapter(item.id)}>{item.label}</Button>)}
+        </div>
+      </fieldset>
+      <fieldset className="mt-5">
+        <legend className="font-mono text-[12px] uppercase tracking-[0.14em]">What would help most?</legend>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {focuses.map((item) => <Button key={item.id} type="button" size="sm" variant={focus === item.id ? "lime" : "outline"} onClick={() => setFocus(item.id)}>{item.label}</Button>)}
+        </div>
+      </fieldset>
       <fieldset className="mt-5">
         <legend className="font-mono text-[12px] uppercase tracking-[0.14em]">How spicy?</legend>
         <div className="mt-2 grid grid-cols-3 gap-2">
@@ -59,7 +85,7 @@ export function GiftRecommender({ name = "Maya", defaultChapter = "Bought a hous
           ))}
         </div>
       </fieldset>
-      <Button size="lg" className="mt-5 w-full" onClick={generate} disabled={loading || chapter.trim().length < 3}>
+      <Button size="lg" className="mt-5 w-full" onClick={generate} disabled={loading}>
         {loading ? <><LoaderCircle className="size-4 animate-spin" /> {loadingLines[line]}</> : ideas.length ? <><RotateCcw className="size-4" /> Re-spin at {spice}</> : <><Sparkles className="size-4" /> Pitch me ideas</>}
       </Button>
       {error && <p role="alert" className="mt-4 rounded-sm border-2 border-destructive p-3 text-[15px]">{error}</p>}
