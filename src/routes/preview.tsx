@@ -1,3 +1,4 @@
+import { Unlearning } from "@/components/site/unlearning";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
 import toasterCouple from "@/assets/06-toaster-and-couple.png.asset.json";
@@ -165,6 +166,8 @@ function HomePage() {
           </div>
         </div>
       </section>
+
+      <Unlearning />
 
       <section>
         <div className="site-container site-section grid items-center gap-14 lg:grid-cols-[minmax(320px,.82fr)_minmax(0,1.18fr)] lg:gap-20">
