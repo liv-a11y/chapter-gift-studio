@@ -42,7 +42,7 @@ function FounderPage() {
         ] },
         { n: "IV", heading: "So we flipped it", body: [
           "Good Chapter is the list I wanted. A friend starts it. The person approves it, privately, and decides everything. Nobody asks.",
-          <>I'm building it with a small group first. <Link to="/founding" className={inlineLink}>Founding partners</Link>, people and organizations, who tell me what a good list looks like and what I got wrong.</>,
+          <>I'm building it with a small group first. <a href="/founding" className={inlineLink}>Founding partners</a>, people and organizations, who tell me what a good list looks like and what I got wrong.</>,
           "If someone you love just started a new chapter, you already know one or two things they need. Start there.",
         ] },
       ]}
