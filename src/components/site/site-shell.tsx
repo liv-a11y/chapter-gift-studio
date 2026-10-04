@@ -77,6 +77,7 @@ function SiteFooter() {
         </div>
         <nav className="grid grid-cols-2 gap-x-6 gap-y-3 text-[15px] md:justify-self-end" aria-label="Footer navigation">
           <Link to="/">Home</Link>
+          <Link to="/catalog">Catalog</Link>
           <Link to="/partners">Partners</Link>
           <Link to="/partners/employers">Employers</Link>
           <Link to="/partners/real-estate">Real estate</Link>
