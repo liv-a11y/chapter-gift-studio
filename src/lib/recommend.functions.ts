@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { catalogPromptText } from "./catalog";
 
 const inputSchema = z.object({
   name: z.string().trim().min(1).max(60),
@@ -34,7 +35,10 @@ Life chapter: ${data.chapter}
 Things only the friend would know: ${data.details || "(none given)"}
 Tone: ${tone[data.spice]}
 
-Recommend exactly 8 gifts, two per price band: "Under $50", "$50–$120", "$120–$250", "Splurge / group". Prefer real brands (e.g. Otherland, Ghia, Caraway, Framebridge, or independent makers). Each reason is ONE line, under 110 characters, personal to the details above. No cash, gift cards, or donations.
+Good Chapter's curated catalog (choose ONLY from these items, matching the chapter where possible):
+${catalogPromptText()}
+
+Recommend exactly 8 gifts, two per tier, using these band labels: "$25–50", "$60–120", "$120–250", "$250–500". Use the exact brand, item name, and price from the catalog. Products always stay tasteful; any tone or chaos lives only in the reason. Each reason is ONE line, under 110 characters, personal to the details above. No cash, gift cards, or donations.
 Return ONLY JSON: {"ideas":[{"name":"","brand":"","band":"","price":"$xx","reason":""}]}`;
     try {
       const result = streamText({
