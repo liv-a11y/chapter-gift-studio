@@ -17,6 +17,7 @@ import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as NewRouteImport } from './routes/new'
 import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as PreviewRouteImport } from './routes/preview'
+import { Route as JournalVulnerabilityTaxRouteImport } from './routes/journal.vulnerability-tax'
 import { Route as PartnersBrandsRouteImport } from './routes/partners.brands'
 import { Route as PartnersEmployersRouteImport } from './routes/partners.employers'
 import { Route as PartnersRealEstateRouteImport } from './routes/partners.real-estate'
@@ -61,6 +62,11 @@ const PreviewRoute = PreviewRouteImport.update({
   path: '/preview',
   getParentRoute: () => rootRouteImport,
 } as any)
+const JournalVulnerabilityTaxRoute = JournalVulnerabilityTaxRouteImport.update({
+  id: '/journal/vulnerability-tax',
+  path: '/journal/vulnerability-tax',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PartnersBrandsRoute = PartnersBrandsRouteImport.update({
   id: '/brands',
   path: '/brands',
@@ -86,6 +92,7 @@ export interface FileRoutesByFullPath {
   '/new': typeof NewRoute
   '/partners': typeof PartnersRouteWithChildren
   '/preview': typeof PreviewRoute
+  '/journal/vulnerability-tax': typeof JournalVulnerabilityTaxRoute
   '/partners/brands': typeof PartnersBrandsRoute
   '/partners/employers': typeof PartnersEmployersRoute
   '/partners/real-estate': typeof PartnersRealEstateRoute
@@ -99,6 +106,7 @@ export interface FileRoutesByTo {
   '/new': typeof NewRoute
   '/partners': typeof PartnersRouteWithChildren
   '/preview': typeof PreviewRoute
+  '/journal/vulnerability-tax': typeof JournalVulnerabilityTaxRoute
   '/partners/brands': typeof PartnersBrandsRoute
   '/partners/employers': typeof PartnersEmployersRoute
   '/partners/real-estate': typeof PartnersRealEstateRoute
@@ -113,6 +121,7 @@ export interface FileRoutesById {
   '/new': typeof NewRoute
   '/partners': typeof PartnersRouteWithChildren
   '/preview': typeof PreviewRoute
+  '/journal/vulnerability-tax': typeof JournalVulnerabilityTaxRoute
   '/partners/brands': typeof PartnersBrandsRoute
   '/partners/employers': typeof PartnersEmployersRoute
   '/partners/real-estate': typeof PartnersRealEstateRoute
@@ -128,6 +137,7 @@ export interface FileRouteTypes {
     | '/new'
     | '/partners'
     | '/preview'
+    | '/journal/vulnerability-tax'
     | '/partners/brands'
     | '/partners/employers'
     | '/partners/real-estate'
@@ -141,6 +151,7 @@ export interface FileRouteTypes {
     | '/new'
     | '/partners'
     | '/preview'
+    | '/journal/vulnerability-tax'
     | '/partners/brands'
     | '/partners/employers'
     | '/partners/real-estate'
@@ -154,6 +165,7 @@ export interface FileRouteTypes {
     | '/new'
     | '/partners'
     | '/preview'
+    | '/journal/vulnerability-tax'
     | '/partners/brands'
     | '/partners/employers'
     | '/partners/real-estate'
@@ -168,6 +180,7 @@ export interface RootRouteChildren {
   NewRoute: typeof NewRoute
   PartnersRoute: typeof PartnersRouteWithChildren
   PreviewRoute: typeof PreviewRoute
+  JournalVulnerabilityTaxRoute: typeof JournalVulnerabilityTaxRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -228,6 +241,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/journal/vulnerability-tax': {
+      id: '/journal/vulnerability-tax'
+      path: '/journal/vulnerability-tax'
+      fullPath: '/journal/vulnerability-tax'
+      preLoaderRoute: typeof JournalVulnerabilityTaxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/partners/brands': {
       id: '/partners/brands'
       path: '/brands'
@@ -277,6 +297,7 @@ const rootRouteChildren: RootRouteChildren = {
   NewRoute: NewRoute,
   PartnersRoute: PartnersRouteWithChildren,
   PreviewRoute: PreviewRoute,
+  JournalVulnerabilityTaxRoute: JournalVulnerabilityTaxRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
