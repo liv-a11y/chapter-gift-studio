@@ -65,80 +65,102 @@ function TeaserPage() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <header className="border-b-2 border-foreground">
-        <div className="site-container flex min-h-20 items-center justify-between py-3">
-          <span className="font-display text-2xl"><BrandMark /></span>
-          <span className="eyebrow text-muted-foreground">Pilot · Opening soon</span>
+        <div className="site-container flex min-h-20 items-center justify-between gap-4 py-3">
+          <span className="font-display text-[26px] sm:text-[32px]"><BrandMark /></span>
+          <span className="eyebrow text-right text-muted-foreground">Pilot · Opening soon</span>
         </div>
       </header>
 
       <main className="flex-1">
-        <section className="site-container grid items-center gap-12 py-14 md:py-20 lg:grid-cols-[minmax(0,1.1fr)_minmax(340px,.9fr)] lg:gap-16">
-          <div className="flex flex-col items-start gap-7">
+        <section className="hero-bleed pb-14 pt-7 md:pb-20 md:pt-10">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 border-b-2 border-foreground pb-5">
             <p className="eyebrow text-emphasis">A registry for the rest of it</p>
-            <h1 className="site-h1 max-w-[13ch]">
-              A friend starts it. The person approves it.{" "}
-              <span className="bg-emphasis px-2 text-emphasis-foreground">Nobody asks.</span>
-            </h1>
-            <p className="site-body max-w-[36rem] text-muted-foreground">
-              We’re opening the pilot in small circles for first homes, fresh starts, and every milestone weddings never covered. Get on the list and we’ll invite you when the next one opens.
-            </p>
-
-            {status === "done" ? (
-              <div className="w-full max-w-[34rem] rounded-sm border-2 border-foreground bg-card p-6" role="status">
-                <span className="eyebrow flex items-center gap-2 text-primary"><Check className="size-4" /> You’re on the list</span>
-                <p className="mt-3 font-display text-[26px] leading-[1.15]">We’ll write when the next circle opens.</p>
-                <p className="mt-3 text-[15px] leading-[1.5] text-muted-foreground">One email, no spam, no pressure. That’s the whole deal.</p>
-              </div>
-            ) : (
-              <form onSubmit={onSubmit} noValidate className="w-full max-w-[34rem] rounded-sm border-2 border-foreground bg-card p-5 sm:p-6">
-                <fieldset>
-                  <legend className="eyebrow text-muted-foreground">Whose chapter? (optional)</legend>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {chapters.map((c) => {
-                      const active = chapter === c;
-                      return (
-                        <button
-                          key={c}
-                          type="button"
-                          aria-pressed={active}
-                          onClick={() => setChapter(active ? undefined : c)}
-                          className={`rounded-sm border-2 border-foreground px-3 py-1.5 text-[15px] font-medium transition-colors duration-150 ${active ? "bg-foreground text-background" : "bg-background hover:bg-muted"}`}
-                        >
-                          {c}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </fieldset>
-                <label htmlFor="email" className="eyebrow mt-6 block text-muted-foreground">Your email</label>
-                <div className="mt-3 flex flex-col gap-3 sm:flex-row">
-                  <input
-                    id="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    maxLength={255}
-                    value={email}
-                    onChange={(e) => { setEmail(e.target.value); if (status === "error") setStatus("idle"); }}
-                    placeholder="you@example.com"
-                    aria-invalid={status === "error"}
-                    aria-describedby={status === "error" ? "email-error" : undefined}
-                    className="h-12 flex-1 rounded-sm border-2 border-foreground bg-background px-4 text-[17px] outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                  />
-                  <Button type="submit" size="lg" disabled={status === "loading"} className="h-12">
-                    {status === "loading" ? "Adding you…" : <>Get on the list <ArrowRight className="size-4" /></>}
-                  </Button>
-                </div>
-                {status === "error" && <p id="email-error" className="mt-3 text-[15px] text-emphasis">{error}</p>}
-              </form>
-            )}
+            <p className="eyebrow text-muted-foreground">First homes · Fresh starts · Off-script</p>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[440px]">
-            <span className="absolute -top-4 left-5 z-10 -rotate-3 bg-primary px-3.5 py-2 font-mono text-[12px] uppercase tracking-[0.14em] text-primary-foreground">This counts, too.</span>
-            <img src={toasterAsset.url} alt="A toaster and buttered toast on a sunny plaster counter" className="aspect-[4/5] w-full rounded-sm border-2 border-foreground object-cover" />
-            <div className="border-x-2 border-b-2 border-foreground bg-foreground px-5 py-5 text-background">
-              <p className="font-display text-[24px] leading-[1.15]">You shouldn’t have to get married to get a toaster.</p>
+          <h1 className="site-hero mt-7 sm:mt-9">
+            <span className="block">A friend starts it.</span>
+            <span className="block">The person approves it.</span>
+            <span className="mt-3 block bg-emphasis px-[0.08em] pb-[0.16em] pt-[0.1em] text-emphasis-foreground sm:mt-5">
+              Nobody asks.
+            </span>
+          </h1>
+
+          <div className="mt-16 grid grid-cols-[minmax(0,1fr)] items-start gap-12 border-t-2 border-foreground pt-14 lg:mt-20 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,.85fr)] lg:gap-16">
+
+
+            <div className="flex flex-col items-start gap-7">
+              <p className="site-body max-w-[46ch] text-muted-foreground">
+                We’re opening the pilot in small circles for first homes, fresh starts, and every milestone weddings never covered. Get on the list and we’ll invite you when the next one opens.
+              </p>
+
+              {status === "done" ? (
+                <div className="w-full max-w-[38rem] border-2 border-foreground bg-card" role="status">
+                  <div className="border-b-2 border-foreground bg-foreground px-5 py-3 text-background">
+                    <span className="eyebrow flex items-center gap-2"><Check className="size-4" /> You’re on the list</span>
+                  </div>
+                  <div className="p-6">
+                    <p className="font-display text-[30px] leading-[1.08] sm:text-[38px]">We’ll write when the next circle opens.</p>
+                    <p className="mt-4 text-[17px] leading-[1.5] text-muted-foreground">One email, no spam, no pressure. That’s the whole deal.</p>
+                  </div>
+                </div>
+              ) : (
+                <form onSubmit={onSubmit} noValidate className="w-full max-w-[38rem] border-2 border-foreground bg-card">
+                  <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b-2 border-foreground bg-foreground px-5 py-3 text-background">
+                    <span className="eyebrow">Get on the list</span>
+                    <span className="eyebrow text-background/60">One email · No spam</span>
+                  </div>
+                  <div className="p-5 sm:p-6">
+                    <fieldset>
+                      <legend className="eyebrow text-muted-foreground">Whose chapter? (optional)</legend>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {chapters.map((c) => {
+                          const active = chapter === c;
+                          return (
+                            <button
+                              key={c}
+                              type="button"
+                              aria-pressed={active}
+                              onClick={() => setChapter(active ? undefined : c)}
+                              className={`rounded-sm border-2 border-foreground px-4 py-2 text-[16px] font-semibold transition-colors duration-175 ${active ? "bg-foreground text-background" : "bg-background hover:bg-muted"}`}
+                            >
+                              {c}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </fieldset>
+                    <label htmlFor="email" className="eyebrow mt-6 block text-muted-foreground">Your email</label>
+                    <div className="mt-3 flex flex-col gap-3 sm:flex-row">
+                      <input
+                        id="email"
+                        type="email"
+                        autoComplete="email"
+                        required
+                        maxLength={255}
+                        value={email}
+                        onChange={(e) => { setEmail(e.target.value); if (status === "error") setStatus("idle"); }}
+                        placeholder="you@example.com"
+                        aria-invalid={status === "error"}
+                        aria-describedby={status === "error" ? "email-error" : undefined}
+                        className="h-14 flex-1 rounded-sm border-2 border-foreground bg-background px-4 text-[18px] outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                      />
+                      <Button type="submit" size="lg" disabled={status === "loading"} className="h-14 px-7 text-[17px] font-semibold">
+                        {status === "loading" ? "Adding you…" : <>Get on the list <ArrowRight className="size-5" /></>}
+                      </Button>
+                    </div>
+                    {status === "error" && <p id="email-error" className="mt-3 text-[15px] text-emphasis">{error}</p>}
+                  </div>
+                </form>
+              )}
+            </div>
+
+            <div className="relative mx-auto w-full max-w-[440px] lg:mx-0">
+              <span className="absolute -top-4 left-5 z-10 -rotate-3 border-2 border-foreground bg-background px-3.5 py-2 font-mono text-[12px] uppercase tracking-[0.14em] text-foreground">This counts, too.</span>
+              <img src={toasterAsset.url} alt="A toaster and buttered toast on a sunny plaster counter" className="aspect-[4/5] w-full rounded-sm border-2 border-foreground object-cover" />
+              <div className="border-x-2 border-b-2 border-foreground bg-foreground px-5 py-6 text-background">
+                <p className="font-display text-[26px] leading-[1.08] sm:text-[30px]">You shouldn’t have to get married to get a toaster.</p>
+              </div>
             </div>
           </div>
         </section>

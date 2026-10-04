@@ -205,6 +205,26 @@
   letter-spacing: -0.01em;
 }
 
+/* Full-bleed hero shell: wider than the article measure so the display type
+   can run edge to edge without touching the viewport edge. */
+@utility hero-bleed {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 20px;
+  @media (width >= 768px) { padding-inline: 32px; }
+}
+
+@utility site-hero {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(48px, 8.4vw, 120px);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+
 @utility site-body {
   font-size: clamp(17px, 1.6vw, 20px);
   line-height: 1.5;
