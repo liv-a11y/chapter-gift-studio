@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApproveRouteImport } from './routes/approve'
+import { Route as CatalogRouteImport } from './routes/catalog'
 import { Route as GuestRouteImport } from './routes/guest'
 import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as NewRouteImport } from './routes/new'
@@ -27,6 +28,11 @@ const IndexRoute = IndexRouteImport.update({
 const ApproveRoute = ApproveRouteImport.update({
   id: '/approve',
   path: '/approve',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CatalogRoute = CatalogRouteImport.update({
+  id: '/catalog',
+  path: '/catalog',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GuestRoute = GuestRouteImport.update({
@@ -68,6 +74,7 @@ const PartnersRealEstateRoute = PartnersRealEstateRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/approve': typeof ApproveRoute
+  '/catalog': typeof CatalogRoute
   '/guest': typeof GuestRoute
   '/investors': typeof InvestorsRoute
   '/new': typeof NewRoute
@@ -79,6 +86,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/approve': typeof ApproveRoute
+  '/catalog': typeof CatalogRoute
   '/guest': typeof GuestRoute
   '/investors': typeof InvestorsRoute
   '/new': typeof NewRoute
@@ -91,6 +99,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/approve': typeof ApproveRoute
+  '/catalog': typeof CatalogRoute
   '/guest': typeof GuestRoute
   '/investors': typeof InvestorsRoute
   '/new': typeof NewRoute
@@ -104,6 +113,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/approve'
+    | '/catalog'
     | '/guest'
     | '/investors'
     | '/new'
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/approve'
+    | '/catalog'
     | '/guest'
     | '/investors'
     | '/new'
@@ -126,6 +137,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/approve'
+    | '/catalog'
     | '/guest'
     | '/investors'
     | '/new'
@@ -138,6 +150,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApproveRoute: typeof ApproveRoute
+  CatalogRoute: typeof CatalogRoute
   GuestRoute: typeof GuestRoute
   InvestorsRoute: typeof InvestorsRoute
   NewRoute: typeof NewRoute
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       path: '/approve'
       fullPath: '/approve'
       preLoaderRoute: typeof ApproveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/catalog': {
+      id: '/catalog'
+      path: '/catalog'
+      fullPath: '/catalog'
+      preLoaderRoute: typeof CatalogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/guest': {
@@ -231,6 +251,7 @@ const PartnersRouteWithChildren = PartnersRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApproveRoute: ApproveRoute,
+  CatalogRoute: CatalogRoute,
   GuestRoute: GuestRoute,
   InvestorsRoute: InvestorsRoute,
   NewRoute: NewRoute,
