@@ -155,7 +155,7 @@ function TeaserPage() {
             </div>
 
             <div className="relative mx-auto w-full max-w-[440px] lg:mx-0">
-              <span className="absolute -top-4 left-5 z-10 -rotate-3 bg-primary px-3.5 py-2 font-mono text-[12px] uppercase tracking-[0.14em] text-primary-foreground">This counts, too.</span>
+              <span className="absolute -top-4 left-5 z-10 -rotate-3 border-2 border-foreground bg-background px-3.5 py-2 font-mono text-[12px] uppercase tracking-[0.14em] text-foreground">This counts, too.</span>
               <img src={toasterAsset.url} alt="A toaster and buttered toast on a sunny plaster counter" className="aspect-[4/5] w-full rounded-sm border-2 border-foreground object-cover" />
               <div className="border-x-2 border-b-2 border-foreground bg-foreground px-5 py-6 text-background">
                 <p className="font-display text-[26px] leading-[1.08] sm:text-[30px]">You shouldn’t have to get married to get a toaster.</p>
