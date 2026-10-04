@@ -61,18 +61,9 @@ ${catalogPromptText()}
 Return ONLY JSON: {"ideas":[{"name":"","brand":"","band":"","price":"$xx","reason":""}]}`;
     try {
       const result = streamText({
-        model: provider.responses("openai/gpt-6-astra"),
+        model: provider("anthropic/claude-haiku-4-5"),
         prompt,
         maxRetries: 0,
-        providerOptions: {
-          openai: {
-            forceReasoning: true,
-            reasoningEffort: "low",
-            reasoningSummary: "auto",
-            store: false,
-            include: ["reasoning.encrypted_content"],
-          },
-        },
       });
       const text = await result.text;
       const match = text.match(/\{[\s\S]*\}/);
