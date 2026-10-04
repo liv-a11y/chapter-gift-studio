@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 const links = [
   { label: "How it works", to: "/preview", hash: "how" },
   { label: "Chapters", to: "/preview", hash: "chapters" },
+  { label: "Read", to: "/read" },
   { label: "Partners", to: "/partners" },
   { label: "Investors", to: "/investors" },
 ] as const;
@@ -78,6 +79,8 @@ function SiteFooter() {
         <nav className="grid grid-cols-2 gap-x-6 gap-y-3 text-[15px] md:justify-self-end" aria-label="Footer navigation">
           <Link to="/preview">Home</Link>
           <Link to="/catalog">Catalog</Link>
+          <Link to="/read">Read</Link>
+          <Link to="/journal/vulnerability-tax">The vulnerability tax</Link>
           <Link to="/partners">Partners</Link>
           <Link to="/partners/employers">Employers</Link>
           <Link to="/partners/real-estate">Real estate</Link>

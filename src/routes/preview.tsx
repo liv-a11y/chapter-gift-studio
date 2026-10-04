@@ -166,6 +166,8 @@ function HomePage() {
         </div>
       </section>
 
+      <Unlearning />
+
       <section>
         <div className="site-container site-section grid items-center gap-14 lg:grid-cols-[minmax(320px,.82fr)_minmax(0,1.18fr)] lg:gap-20">
           <div className="rounded-sm border-2 border-foreground bg-card p-5 sm:p-7">
