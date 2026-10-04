@@ -73,7 +73,7 @@ function TeaserPage() {
 
       <main className="flex-1">
         <section className="hero-bleed pb-14 pt-7 md:pb-20 md:pt-10">
-          <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2 border-b-2 border-foreground pb-4">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 border-b-2 border-foreground pb-5">
             <p className="eyebrow text-emphasis">A registry for the rest of it</p>
             <p className="eyebrow text-muted-foreground">First homes · Fresh starts · Off-script</p>
           </div>
@@ -81,12 +81,13 @@ function TeaserPage() {
           <h1 className="site-hero mt-7 sm:mt-9">
             <span className="block">A friend starts it.</span>
             <span className="block">The person approves it.</span>
-            <span className="mt-2 block bg-emphasis px-[0.07em] pb-[0.05em] pt-[0.03em] text-emphasis-foreground sm:mt-4">
+            <span className="mt-3 block bg-emphasis px-[0.08em] pb-[0.1em] pt-[0.07em] text-emphasis-foreground sm:mt-5">
               Nobody asks.
             </span>
           </h1>
 
-          <div className="mt-12 grid items-start gap-12 border-t-2 border-foreground pt-10 lg:mt-16 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,.85fr)] lg:gap-16">
+          <div className="mt-14 grid grid-cols-[minmax(0,1fr)] items-start gap-12 border-t-2 border-foreground pt-12 lg:mt-20 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,.85fr)] lg:gap-16">
+
             <div className="flex flex-col items-start gap-7">
               <p className="site-body max-w-[46ch] text-muted-foreground">
                 We’re opening the pilot in small circles for first homes, fresh starts, and every milestone weddings never covered. Get on the list and we’ll invite you when the next one opens.
