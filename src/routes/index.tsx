@@ -81,12 +81,13 @@ function TeaserPage() {
           <h1 className="site-hero mt-7 sm:mt-9">
             <span className="block">A friend starts it.</span>
             <span className="block">The person approves it.</span>
-            <span className="mt-3 block bg-emphasis px-[0.08em] pb-[0.1em] pt-[0.07em] text-emphasis-foreground sm:mt-5">
+            <span className="mt-3 block bg-emphasis px-[0.08em] pb-[0.16em] pt-[0.1em] text-emphasis-foreground sm:mt-5">
               Nobody asks.
             </span>
           </h1>
 
-          <div className="mt-14 grid grid-cols-[minmax(0,1fr)] items-start gap-12 border-t-2 border-foreground pt-12 lg:mt-20 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,.85fr)] lg:gap-16">
+          <div className="mt-16 grid grid-cols-[minmax(0,1fr)] items-start gap-12 border-t-2 border-foreground pt-14 lg:mt-20 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,.85fr)] lg:gap-16">
+
 
             <div className="flex flex-col items-start gap-7">
               <p className="site-body max-w-[46ch] text-muted-foreground">
