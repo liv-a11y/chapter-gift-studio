@@ -1,0 +1,110 @@
+import { ArrowRight, Check } from "lucide-react";
+import { useState, type FormEvent } from "react";
+import { z } from "zod";
+
+import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
+
+const chapters = ["First home", "Fresh start", "New city", "Career pivot", "Recovery", "Off-script"];
+const schema = z.object({
+  email: z.string().trim().email("That email doesn’t look quite right.").max(254),
+  chapter: z.string().max(80).optional(),
+});
+type Status = "idle" | "loading" | "done" | "error";
+
+export function WaitlistForm() {
+  const [email, setEmail] = useState("");
+  const [chapter, setChapter] = useState<string | undefined>();
+  const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState("");
+
+  async function onSubmit(event: FormEvent) {
+    event.preventDefault();
+    const parsed = schema.safeParse({ email, chapter });
+    if (!parsed.success) {
+      setError(parsed.error.issues[0]?.message ?? "Please check your email.");
+      setStatus("error");
+      return;
+    }
+    setStatus("loading");
+    setError("");
+    const { error: databaseError } = await supabase
+      .from("waitlist_signups")
+      .insert({ email: parsed.data.email.toLowerCase(), chapter: parsed.data.chapter ?? null });
+    if (databaseError && databaseError.code !== "23505") {
+      setError("Something went sideways. Try again in a moment.");
+      setStatus("error");
+      return;
+    }
+    setStatus("done");
+  }
+
+  if (status === "done") {
+    return (
+      <div className="w-full border-2 border-foreground bg-card" role="status">
+        <div className="border-b-2 border-foreground bg-foreground px-5 py-3 text-background">
+          <span className="eyebrow flex items-center gap-2"><Check className="size-4" /> You’re on the list</span>
+        </div>
+        <div className="p-6">
+          <p className="font-display text-[30px] leading-[1.08] sm:text-[38px]">We’ll write when the next circle opens.</p>
+          <p className="mt-4 text-[17px] leading-[1.5] text-muted-foreground">One email. No spam. No pressure.</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={onSubmit} noValidate className="w-full border-2 border-foreground bg-card">
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b-2 border-foreground bg-foreground px-5 py-3 text-background">
+        <span className="eyebrow">Get on the list</span>
+        <span className="eyebrow text-background/60">One email · No spam</span>
+      </div>
+      <div className="p-5 sm:p-6">
+        <fieldset>
+          <legend className="eyebrow text-muted-foreground">Which chapter? Optional.</legend>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {chapters.map((choice) => {
+              const active = chapter === choice;
+              return (
+                <Button
+                  key={choice}
+                  type="button"
+                  variant={active ? "ink" : "outline"}
+                  size="sm"
+                  aria-pressed={active}
+                  onClick={() => setChapter(active ? undefined : choice)}
+                  className={active ? "bg-highlight text-highlight-foreground" : undefined}
+                >
+                  {choice}
+                </Button>
+              );
+            })}
+          </div>
+        </fieldset>
+        <label htmlFor="waitlist-email" className="eyebrow mt-6 block text-muted-foreground">Your email</label>
+        <div className="mt-3 flex flex-col gap-3 sm:flex-row">
+          <input
+            id="waitlist-email"
+            type="email"
+            autoComplete="email"
+            required
+            maxLength={254}
+            value={email}
+            onChange={(event) => {
+              setEmail(event.target.value);
+              if (status === "error") setStatus("idle");
+            }}
+            placeholder="you@example.com"
+            aria-invalid={status === "error"}
+            aria-describedby={status === "error" ? "waitlist-email-error" : undefined}
+            className="h-14 min-w-0 flex-1 rounded-sm border-2 border-foreground bg-background px-4 text-[18px] outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          />
+          <Button type="submit" size="lg" disabled={status === "loading"} className="h-14 px-7 text-[17px]">
+            {status === "loading" ? "Adding you…" : <>Get on the list <ArrowRight className="size-5" /></>}
+          </Button>
+        </div>
+        {status === "error" && <p id="waitlist-email-error" className="mt-3 text-[15px] text-emphasis">{error}</p>}
+      </div>
+    </form>
+  );
+}

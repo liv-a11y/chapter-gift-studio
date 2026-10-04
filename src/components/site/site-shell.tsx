@@ -5,8 +5,8 @@ import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 
 const links = [
-  { label: "How it works", to: "/preview", hash: "how" },
-  { label: "Chapters", to: "/preview", hash: "chapters" },
+  { label: "How it works", to: "/", hash: "how" },
+  { label: "Chapters", to: "/", hash: "chapters" },
   { label: "Read", to: "/read" },
   { label: "Partners", to: "/partners" },
   { label: "Investors", to: "/investors" },
@@ -26,7 +26,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
     <div className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-50 border-b-2 border-foreground bg-background">
         <div className="site-container flex min-h-20 items-center gap-2 py-3 sm:gap-4">
-          <Link to="/preview" className="shrink-0 font-display text-xl sm:text-2xl" aria-label="Good Chapter home">
+          <Link to="/" className="shrink-0 font-display text-xl sm:text-2xl" aria-label="Good Chapter home">
             <BrandMark />
           </Link>
           <nav className="ml-auto hidden items-center gap-7 lg:flex" aria-label="Main navigation">
@@ -72,18 +72,19 @@ function SiteFooter() {
     <footer className="border-t-2 border-foreground bg-foreground text-background">
       <div className="site-container grid gap-12 py-14 md:grid-cols-[1.2fr_.8fr] md:py-16">
         <div>
-          <Link to="/preview" className="font-display text-3xl"><BrandMark inverse /></Link>
+          <Link to="/" className="font-display text-3xl"><BrandMark inverse /></Link>
           <p className="mt-5 max-w-md text-lg leading-[1.5] text-background/80">Not a wedding. Not a baby. Still worth celebrating on purpose.</p>
           <a href="mailto:liv@goodchapter.com" className="mt-7 inline-block text-[15px] font-semibold underline underline-offset-4">liv@goodchapter.com</a>
         </div>
         <nav className="grid grid-cols-2 gap-x-6 gap-y-3 text-[15px] md:justify-self-end" aria-label="Footer navigation">
-          <Link to="/preview">Home</Link>
+          <Link to="/">Home</Link>
           <Link to="/catalog">Catalog</Link>
           <Link to="/read">Read</Link>
           <Link to="/journal/vulnerability-tax">The vulnerability tax</Link>
           <Link to="/journal/how-to-show-up-without-being-weird">How to show up</Link>
           <Link to="/history">History</Link>
           <Link to="/founder">Founder note</Link>
+          <Link to="/founding">Founding partners</Link>
           <Link to="/partners">Partners</Link>
           <Link to="/partners/employers">Employers</Link>
           <Link to="/partners/real-estate">Real estate</Link>
