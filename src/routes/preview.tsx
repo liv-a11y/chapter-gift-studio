@@ -83,9 +83,7 @@ function HomePage() {
           </div>
           <div className="relative mx-auto w-full max-w-[460px]">
             <span className="absolute -top-4 left-5 z-10 -rotate-3 bg-primary px-3.5 py-2 font-mono text-[12px] uppercase tracking-[0.14em] text-primary-foreground">This counts, too.</span>
-            <div className="overflow-hidden rounded-t-[4px] border-2 border-foreground bg-background">
-              <img src={toasterCouple.url} width={1536} height={1024} fetchPriority="high" alt="A very large toaster with two slices of yellow toast. A small bride and groom stand beside it looking up." className="block aspect-[3/2] h-auto w-full object-cover" style={{ mixBlendMode: "multiply" }} />
-            </div>
+            <ToasterIllustration eager className="mb-5" />
             <div className="border-x-2 border-b-2 border-foreground bg-foreground px-5 py-5 text-background">
               <span className="eyebrow text-background/70">Chapter 01</span>
               <p className="mt-2 font-display text-[26px] leading-[1.1]">A place of your own.</p>
@@ -134,9 +132,7 @@ function HomePage() {
             </div>
             <div>
               <p className="eyebrow text-emphasis">Why we exist</p>
-              <h2 id="registry-story" className="site-h2 mt-5 max-w-[16ch]">
-                You shouldn’t have to get married to get a <span className="bg-emphasis px-2 text-emphasis-foreground">f$%#ng toaster.</span>
-              </h2>
+              <ToasterLine as="h2" id="registry-story" className="site-h2 mt-5 max-w-[16ch]" />
               <p className="mt-8 max-w-[36rem] font-display text-[clamp(22px,2.8vw,30px)] leading-[1.25]">
                 The registry was built for a woman leaving her father’s house for her husband’s. <span className="text-emphasis">We built one for everything else she does.</span><sup><a href="#source-2" className="ml-1 align-super font-mono text-[12px] text-primary underline decoration-1 underline-offset-2" aria-label="See source 2">2</a></sup>
               </p>
@@ -205,10 +201,8 @@ function HomePage() {
           <h2 className="site-h2 mt-5 max-w-[18ch]">No awkward asking. Just people showing up.</h2>
           <Illustration
             className="mt-12"
-            captionClassName="text-background/75"
             src={familyDoor.url}
             alt="Two adults and a small child walk hand in hand through a large open door into a room with a lamp, a sofa, and plants."
-            caption="Illustration. A friend starts it. The person walks in."
           />
           <div className="mt-12 grid gap-10 md:grid-cols-3 md:gap-12">
             {steps.map((step) => <div key={step.n} className="border-t-2 border-background pt-5"><span className="font-display text-5xl text-secondary">{step.n}</span><h3 className="mt-7 font-display text-[28px] leading-[1.1]">{step.title}</h3><p className="mt-4 text-[17px] leading-[1.5] text-background/85">{step.copy}</p></div>)}
