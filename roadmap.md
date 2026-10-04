@@ -14,5 +14,7 @@
 - [x] Add visible historical sources and a more visual 1924-to-now story treatment
 - [x] Make the teaser hero headline much bolder (edge-to-edge display type, clay band)
 - [x] Rework the toaster caption and sticker wording on the teaser hero
+- [x] Add the moving-out illustration to the waitlist form page
+- [x] Soften the teaser context line typography and remove the milestone sticker
 
 
