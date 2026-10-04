@@ -12,12 +12,15 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApproveRouteImport } from './routes/approve'
 import { Route as CatalogRouteImport } from './routes/catalog'
+import { Route as FounderRouteImport } from './routes/founder'
 import { Route as GuestRouteImport } from './routes/guest'
+import { Route as HistoryRouteImport } from './routes/history'
 import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as NewRouteImport } from './routes/new'
 import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as PreviewRouteImport } from './routes/preview'
 import { Route as ReadRouteImport } from './routes/read'
+import { Route as JournalHowToShowUpWithoutBeingWeirdRouteImport } from './routes/journal.how-to-show-up-without-being-weird'
 import { Route as JournalVulnerabilityTaxRouteImport } from './routes/journal.vulnerability-tax'
 import { Route as PartnersBrandsRouteImport } from './routes/partners.brands'
 import { Route as PartnersEmployersRouteImport } from './routes/partners.employers'
@@ -38,9 +41,19 @@ const CatalogRoute = CatalogRouteImport.update({
   path: '/catalog',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FounderRoute = FounderRouteImport.update({
+  id: '/founder',
+  path: '/founder',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GuestRoute = GuestRouteImport.update({
   id: '/guest',
   path: '/guest',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoryRoute = HistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InvestorsRoute = InvestorsRouteImport.update({
@@ -68,6 +81,12 @@ const ReadRoute = ReadRouteImport.update({
   path: '/read',
   getParentRoute: () => rootRouteImport,
 } as any)
+const JournalHowToShowUpWithoutBeingWeirdRoute =
+  JournalHowToShowUpWithoutBeingWeirdRouteImport.update({
+    id: '/journal/how-to-show-up-without-being-weird',
+    path: '/journal/how-to-show-up-without-being-weird',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const JournalVulnerabilityTaxRoute = JournalVulnerabilityTaxRouteImport.update({
   id: '/journal/vulnerability-tax',
   path: '/journal/vulnerability-tax',
@@ -93,12 +112,15 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/approve': typeof ApproveRoute
   '/catalog': typeof CatalogRoute
+  '/founder': typeof FounderRoute
   '/guest': typeof GuestRoute
+  '/history': typeof HistoryRoute
   '/investors': typeof InvestorsRoute
   '/new': typeof NewRoute
   '/partners': typeof PartnersRouteWithChildren
   '/preview': typeof PreviewRoute
   '/read': typeof ReadRoute
+  '/journal/how-to-show-up-without-being-weird': typeof JournalHowToShowUpWithoutBeingWeirdRoute
   '/journal/vulnerability-tax': typeof JournalVulnerabilityTaxRoute
   '/partners/brands': typeof PartnersBrandsRoute
   '/partners/employers': typeof PartnersEmployersRoute
@@ -108,12 +130,15 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/approve': typeof ApproveRoute
   '/catalog': typeof CatalogRoute
+  '/founder': typeof FounderRoute
   '/guest': typeof GuestRoute
+  '/history': typeof HistoryRoute
   '/investors': typeof InvestorsRoute
   '/new': typeof NewRoute
   '/partners': typeof PartnersRouteWithChildren
   '/preview': typeof PreviewRoute
   '/read': typeof ReadRoute
+  '/journal/how-to-show-up-without-being-weird': typeof JournalHowToShowUpWithoutBeingWeirdRoute
   '/journal/vulnerability-tax': typeof JournalVulnerabilityTaxRoute
   '/partners/brands': typeof PartnersBrandsRoute
   '/partners/employers': typeof PartnersEmployersRoute
@@ -124,12 +149,15 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/approve': typeof ApproveRoute
   '/catalog': typeof CatalogRoute
+  '/founder': typeof FounderRoute
   '/guest': typeof GuestRoute
+  '/history': typeof HistoryRoute
   '/investors': typeof InvestorsRoute
   '/new': typeof NewRoute
   '/partners': typeof PartnersRouteWithChildren
   '/preview': typeof PreviewRoute
   '/read': typeof ReadRoute
+  '/journal/how-to-show-up-without-being-weird': typeof JournalHowToShowUpWithoutBeingWeirdRoute
   '/journal/vulnerability-tax': typeof JournalVulnerabilityTaxRoute
   '/partners/brands': typeof PartnersBrandsRoute
   '/partners/employers': typeof PartnersEmployersRoute
@@ -141,12 +169,15 @@ export interface FileRouteTypes {
     | '/'
     | '/approve'
     | '/catalog'
+    | '/founder'
     | '/guest'
+    | '/history'
     | '/investors'
     | '/new'
     | '/partners'
     | '/preview'
     | '/read'
+    | '/journal/how-to-show-up-without-being-weird'
     | '/journal/vulnerability-tax'
     | '/partners/brands'
     | '/partners/employers'
@@ -156,12 +187,15 @@ export interface FileRouteTypes {
     | '/'
     | '/approve'
     | '/catalog'
+    | '/founder'
     | '/guest'
+    | '/history'
     | '/investors'
     | '/new'
     | '/partners'
     | '/preview'
     | '/read'
+    | '/journal/how-to-show-up-without-being-weird'
     | '/journal/vulnerability-tax'
     | '/partners/brands'
     | '/partners/employers'
@@ -171,12 +205,15 @@ export interface FileRouteTypes {
     | '/'
     | '/approve'
     | '/catalog'
+    | '/founder'
     | '/guest'
+    | '/history'
     | '/investors'
     | '/new'
     | '/partners'
     | '/preview'
     | '/read'
+    | '/journal/how-to-show-up-without-being-weird'
     | '/journal/vulnerability-tax'
     | '/partners/brands'
     | '/partners/employers'
@@ -187,12 +224,15 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApproveRoute: typeof ApproveRoute
   CatalogRoute: typeof CatalogRoute
+  FounderRoute: typeof FounderRoute
   GuestRoute: typeof GuestRoute
+  HistoryRoute: typeof HistoryRoute
   InvestorsRoute: typeof InvestorsRoute
   NewRoute: typeof NewRoute
   PartnersRoute: typeof PartnersRouteWithChildren
   PreviewRoute: typeof PreviewRoute
   ReadRoute: typeof ReadRoute
+  JournalHowToShowUpWithoutBeingWeirdRoute: typeof JournalHowToShowUpWithoutBeingWeirdRoute
   JournalVulnerabilityTaxRoute: typeof JournalVulnerabilityTaxRoute
 }
 
@@ -219,11 +259,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CatalogRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/founder': {
+      id: '/founder'
+      path: '/founder'
+      fullPath: '/founder'
+      preLoaderRoute: typeof FounderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/guest': {
       id: '/guest'
       path: '/guest'
       fullPath: '/guest'
       preLoaderRoute: typeof GuestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/history': {
+      id: '/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof HistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/investors': {
@@ -259,6 +313,13 @@ declare module '@tanstack/react-router' {
       path: '/read'
       fullPath: '/read'
       preLoaderRoute: typeof ReadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/journal/how-to-show-up-without-being-weird': {
+      id: '/journal/how-to-show-up-without-being-weird'
+      path: '/journal/how-to-show-up-without-being-weird'
+      fullPath: '/journal/how-to-show-up-without-being-weird'
+      preLoaderRoute: typeof JournalHowToShowUpWithoutBeingWeirdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/journal/vulnerability-tax': {
@@ -312,12 +373,16 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApproveRoute: ApproveRoute,
   CatalogRoute: CatalogRoute,
+  FounderRoute: FounderRoute,
   GuestRoute: GuestRoute,
+  HistoryRoute: HistoryRoute,
   InvestorsRoute: InvestorsRoute,
   NewRoute: NewRoute,
   PartnersRoute: PartnersRouteWithChildren,
   PreviewRoute: PreviewRoute,
   ReadRoute: ReadRoute,
+  JournalHowToShowUpWithoutBeingWeirdRoute:
+    JournalHowToShowUpWithoutBeingWeirdRoute,
   JournalVulnerabilityTaxRoute: JournalVulnerabilityTaxRoute,
 }
 export const routeTree = rootRouteImport
