@@ -18,3 +18,4 @@
 - [x] Soften the teaser context line typography and remove the milestone sticker
 
 
+- [x] Build /journal/vulnerability-tax founder essay with bench illustration
