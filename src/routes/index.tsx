@@ -1,174 +1,267 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Unlearning } from "@/components/site/unlearning";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
-import { useState, type FormEvent } from "react";
-import { z } from "zod";
+import { WaitlistForm } from "@/components/site/waitlist-form";
+import toasterCouple from "@/assets/06-toaster-and-couple.png.asset.json";
+import familyDoor from "@/assets/03-family-through-door.png.asset.json";
+import { Illustration, ToasterIllustration, ToasterLine } from "@/components/site/illustration";
 
-import { MovingOutIllustration, ToasterIllustration } from "@/components/site/illustration";
-import { BrandMark } from "@/components/site/site-shell";
+import aperitif from "@/assets/aperitif.jpg";
+import bench from "@/assets/bench.jpg";
+import candle from "@/assets/candle.jpg";
+import cookware from "@/assets/cookware.jpg";
+import frame from "@/assets/frame.jpg";
+import lamp from "@/assets/lamp.jpg";
+import pottery from "@/assets/pottery.jpg";
+import throwImg from "@/assets/throw.jpg";
+import { SiteShell } from "@/components/site/site-shell";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/integrations/supabase/client";
-
-const TITLE = "Good Chapter — A registry for the rest of it";
-const DESC = "A friend starts it. The person approves it. Nobody asks. Get on the list for the first Good Chapter circles.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: TITLE },
-      { name: "description", content: DESC },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESC },
+      { title: "Good Chapter · A registry for the rest of it" },
+      { name: "description", content: "The registry served one old life script. Good Chapter helps friends show up for first homes, fresh starts, recovery, and everything else." },
+      { property: "og:title", content: "Good Chapter — The anti-registry for everything else she does" },
+      { property: "og:description", content: "The registry served one old life script. Good Chapter helps friends show up for first homes, fresh starts, recovery, and everything else." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: TeaserPage,
+  component: HomePage,
 });
 
-const chapters = ["First home", "Fresh start", "New city", "Career pivot", "Recovery", "Off-script"];
+const steps = [
+  { n: "01", title: "A friend starts.", copy: "One friend starts the chapter so the honoree never has to ask." },
+  { n: "02", title: "The person decides.", copy: "Maya keeps, cuts, or adds items in complete privacy. The friend never sees edits." },
+  { n: "03", title: "Guests give.", copy: "Friends and family claim ideas to coordinate—no awkward group chats, no checkout, no invoice." },
+];
 
-const schema = z.object({
-  email: z.string().trim().email("That email doesn’t look quite right.").max(255),
-  chapter: z.string().max(80).optional(),
-});
+const gifts = [
+  { band: "Under $50", name: "Otherland Fallen Fir candle", reason: "For the first quiet night when the boxes are still everywhere.", photo: candle },
+  { band: "Under $50", name: "Handmade stoneware mug set", reason: "For the slow morning coffee that finally isn't from a to-go cup.", photo: pottery },
+  { band: "$50–$100", name: "Ghia aperitif set", reason: "For her alcohol-free Friday dinners around the new table.", photo: aperitif },
+  { band: "$50–$100", name: "Ceramic bedside lamp", reason: "The lamp she needs, without ever having to name it herself.", photo: lamp },
+  { band: "$100–$250", name: "Custom Framebridge print", reason: "A permanent place for the photo from her solo closing day.", photo: frame },
+  { band: "$100–$250", name: "Soft wool throw", reason: "For the reading chair she has already claimed by the window.", photo: throwImg },
+  { band: "Splurge", name: "Caraway ceramic pan", reason: "A real upgrade for the elaborate one-pan dinners she loves making.", photo: cookware },
+  { band: "Splurge", name: "Entryway bench", reason: "So the shoes, tote bags, and dog lead finally have a landing place.", photo: bench },
+];
 
-type Status = "idle" | "loading" | "done" | "error";
+const assurances = [
+  "You approve every item and every guest.",
+  "Your friend never sees your edits.",
+  "No cash, ever.",
+];
 
-function TeaserPage() {
-  const [email, setEmail] = useState("");
-  const [chapter, setChapter] = useState<string | undefined>();
-  const [status, setStatus] = useState<Status>("idle");
-  const [error, setError] = useState("");
+const chapters = [
+  ["First Place", "Buying a home on your own, with people ready to help make it yours."],
+  ["Moving In", "A new set of keys, a new neighborhood, and a home still taking shape."],
+  ["Starting Over", "Rebuilding a space and a rhythm after life changes direction."],
+  ["Fresh Start", "For the reset that deserves more than a quiet thumbs-up."],
+  ["New Baby Solo", "A growing family, supported without putting the asking on one parent."],
+  ["Adoption & Foster", "Welcoming someone home with care chosen for the life ahead."],
+  ["Coming Home", "A thoughtful landing after hospital, treatment, service, or time away."],
+  ["New City", "A soft arrival when familiar people are suddenly far away."],
+  ["Career Change", "The brave leap into new work, study, or an independent path."],
+  ["Sobriety", "Marking a meaningful milestone with gifts that support the next chapter."],
+  ["Recovery", "Practical comfort while healing takes the time it takes."],
+  ["Off-Script", "For the life moment that never came with a registry, but matters anyway."],
+];
 
-  async function onSubmit(e: FormEvent) {
-    e.preventDefault();
-    const parsed = schema.safeParse({ email, chapter });
-    if (!parsed.success) {
-      setError(parsed.error.issues[0]?.message ?? "Please check your email.");
-      setStatus("error");
-      return;
-    }
-    setStatus("loading");
-    setError("");
-    const { error: dbError } = await supabase
-      .from("waitlist_signups")
-      .insert({ email: parsed.data.email.toLowerCase(), chapter: parsed.data.chapter ?? null });
-    // A duplicate email means they're already on the list — treat as success.
-    if (dbError && dbError.code !== "23505") {
-      setError("Something went sideways. Try again in a moment.");
-      setStatus("error");
-      return;
-    }
-    setStatus("done");
-  }
-
+function HomePage() {
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
-      <header className="border-b-2 border-foreground">
-        <div className="site-container flex min-h-20 items-center justify-between gap-4 py-3">
-          <span className="font-display text-[26px] sm:text-[32px]"><BrandMark /></span>
-          <span className="eyebrow text-right text-muted-foreground">Pilot · Opening soon</span>
-        </div>
-      </header>
-
-      <main className="flex-1">
-        <section className="hero-bleed pb-14 pt-7 md:pb-20 md:pt-10">
-          <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 border-b-2 border-foreground pb-5">
-            <p className="font-sans text-[17px] font-medium leading-[1.5] text-emphasis">A registry for the rest of it</p>
-            <p className="font-sans text-[17px] font-normal leading-[1.5] text-muted-foreground">First homes · Fresh starts · Off-script</p>
+    <SiteShell>
+      <section className="site-section">
+        <div className="site-container grid items-center gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(380px,.92fr)] lg:gap-16">
+          <div className="flex flex-col items-start gap-7">
+            <p className="eyebrow text-emphasis">A registry for the rest of it</p>
+            <h1 className="site-h1 max-w-[13ch]">A friend starts it. The person approves it. <span className="bg-emphasis px-2 text-emphasis-foreground">Nobody asks.</span></h1>
+            <p className="site-body max-w-[38rem] text-muted-foreground">Friend-started. Person-approved. For first homes, fresh starts, messy new beginnings, recovery, new cities: every chapter weddings never covered.</p>
+            <div className="mt-1 flex flex-wrap gap-4">
+              <Button asChild size="lg"><Link to="/new">Start one for a friend <ArrowRight className="size-4" /></Link></Button>
+              <Button asChild variant="outline" size="lg"><a href="#how">How it works</a></Button>
+            </div>
           </div>
+          <div className="relative mx-auto w-full max-w-[460px]">
+            <span className="absolute -top-4 left-5 z-10 -rotate-3 bg-primary px-3.5 py-2 font-mono text-[12px] uppercase tracking-[0.14em] text-primary-foreground">This counts, too.</span>
+            <ToasterIllustration eager className="mb-5" />
+            <div className="rounded-[4px] border-2 border-foreground bg-foreground px-5 py-5 text-background">
+              <span className="eyebrow text-background/70">Chapter 01</span>
+              <p className="mt-2 font-display text-[26px] leading-[1.1]">A place of your own.</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-          <h1 className="site-hero mt-7 sm:mt-9">
-            <span className="block">A friend starts it.</span>
-            <span className="block">The person approves it.</span>
-            <span className="mt-3 block bg-emphasis px-[0.08em] pb-[0.16em] pt-[0.1em] text-emphasis-foreground sm:mt-5">
-              Nobody asks.
-            </span>
-          </h1>
+      <div className="border-y-2 border-foreground" aria-hidden="true">
+        <div className="flex items-center justify-between gap-6 overflow-hidden px-5 py-4 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground md:px-8">
+          <span>The first home</span>
+          <span>The fresh start</span>
+          <span className="hidden sm:inline">The new city</span>
+          <span className="hidden md:inline">The year sober</span>
+          <span className="hidden sm:inline">The recovery</span>
+          <span className="hidden lg:inline">The solo baby</span>
+          <span className="hidden md:inline">The pivot</span>
+          <span>The best of your life</span>
+        </div>
+      </div>
 
-          <div className="mt-16 grid grid-cols-[minmax(0,1fr)] items-start gap-12 border-t-2 border-foreground pt-14 lg:mt-20 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,.85fr)] lg:gap-16">
-
-
-            <div className="flex flex-col items-start gap-7">
-              <p className="site-body max-w-[46ch] text-muted-foreground">
-                We’re opening the pilot in small circles for first homes, fresh starts, and every milestone weddings never covered. Get on the list and we’ll invite you when the next one opens.
-              </p>
-
-              {status === "done" ? (
-                <div className="w-full max-w-[38rem] border-2 border-foreground bg-card" role="status">
-                  <div className="border-b-2 border-foreground bg-foreground px-5 py-3 text-background">
-                    <span className="eyebrow flex items-center gap-2"><Check className="size-4" /> You’re on the list</span>
-                  </div>
-                  <div className="p-6">
-                    <p className="font-display text-[30px] leading-[1.08] sm:text-[38px]">We’ll write when the next circle opens.</p>
-                    <p className="mt-4 text-[17px] leading-[1.5] text-muted-foreground">One email, no spam, no pressure. That’s the whole deal.</p>
+      <section className="border-y-2 border-foreground" aria-labelledby="registry-story">
+        <div className="site-container site-section">
+          <div className="grid gap-12 lg:grid-cols-[minmax(300px,.72fr)_minmax(0,1.28fr)] lg:gap-20">
+            <div>
+              <div className="grid grid-cols-2 overflow-hidden rounded-sm border-2 border-foreground bg-card">
+                <div className="col-span-2 flex items-end justify-between gap-5 border-b-2 border-foreground bg-highlight p-5">
+                  <span className="font-display text-[52px] leading-none sm:text-[64px]">1924</span>
+                  <span className="eyebrow text-right text-muted-foreground">One accepted<br />life script</span>
+                </div>
+                <img src={cookware} alt="Cookware representing the traditional new household" className="aspect-square h-full w-full border-r-2 border-foreground object-cover" />
+                <div className="flex flex-col justify-between p-5">
+                  <span className="eyebrow text-emphasis">The bridal list</span>
+                  <p className="mt-10 font-display text-[24px] leading-[1.12]">China.<br />Silver.<br />Crystal.</p>
+                </div>
+                <div className="col-span-2 border-t-2 border-foreground bg-primary p-5 text-primary-foreground">
+                  <div className="flex items-end justify-between gap-5">
+                    <span className="font-display text-[52px] leading-none sm:text-[64px]">Now</span>
+                    <span className="eyebrow text-right text-primary-foreground/80">Every life<br />worth marking</span>
                   </div>
                 </div>
-              ) : (
-                <form onSubmit={onSubmit} noValidate className="w-full max-w-[38rem] border-2 border-foreground bg-card">
-                  <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b-2 border-foreground bg-foreground px-5 py-3 text-background">
-                    <span className="eyebrow">Get on the list</span>
-                    <span className="eyebrow text-background/60">One email · No spam</span>
-                  </div>
-                  <div className="p-5 sm:p-6">
-                    <fieldset>
-                      <legend className="eyebrow text-muted-foreground">Whose chapter? (optional)</legend>
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {chapters.map((c) => {
-                          const active = chapter === c;
-                          return (
-                            <button
-                              key={c}
-                              type="button"
-                              aria-pressed={active}
-                              onClick={() => setChapter(active ? undefined : c)}
-                              className={`rounded-sm border-2 border-foreground px-4 py-2 text-[16px] font-semibold transition-colors duration-175 ${active ? "bg-foreground text-background" : "bg-background hover:bg-muted"}`}
-                            >
-                              {c}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </fieldset>
-                    <label htmlFor="email" className="eyebrow mt-6 block text-muted-foreground">Your email</label>
-                    <div className="mt-3 flex flex-col gap-3 sm:flex-row">
-                      <input
-                        id="email"
-                        type="email"
-                        autoComplete="email"
-                        required
-                        maxLength={255}
-                        value={email}
-                        onChange={(e) => { setEmail(e.target.value); if (status === "error") setStatus("idle"); }}
-                        placeholder="you@example.com"
-                        aria-invalid={status === "error"}
-                        aria-describedby={status === "error" ? "email-error" : undefined}
-                        className="h-14 flex-1 rounded-sm border-2 border-foreground bg-background px-4 text-[18px] outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                      />
-                      <Button type="submit" size="lg" disabled={status === "loading"} className="h-14 px-7 text-[17px] font-semibold">
-                        {status === "loading" ? "Adding you…" : <>Get on the list <ArrowRight className="size-5" /></>}
-                      </Button>
-                    </div>
-                    {status === "error" && <p id="email-error" className="mt-3 text-[15px] text-emphasis">{error}</p>}
-                  </div>
-                </form>
-              )}
-            </div>
-
-              <div className="flex w-full flex-col gap-10">
-                <MovingOutIllustration eager />
-                <ToasterIllustration />
+                <img src={frame} alt="A framed memory chosen for a first home" className="aspect-square h-full w-full border-r-2 border-foreground object-cover" />
+                <img src={aperitif} alt="A thoughtful gift for a life lived outside the old script" className="aspect-square h-full w-full object-cover" />
               </div>
+              <p className="mt-5 text-[15px] leading-[1.5] text-muted-foreground">From one prescribed household to every way a life can change.</p>
+            </div>
+            <div>
+              <p className="eyebrow text-emphasis">Why we exist</p>
+              <ToasterLine as="h2" id="registry-story" className="site-h2 mt-5 max-w-[16ch]" />
+              <p className="mt-8 max-w-[36rem] font-display text-[clamp(22px,2.8vw,30px)] leading-[1.25]">
+                The registry was built for a woman leaving her father’s house for her husband’s. <span className="text-emphasis">We built one for everything else she does.</span><sup><a href="#source-2" className="ml-1 align-super font-mono text-[12px] text-primary underline decoration-1 underline-offset-2" aria-label="See source 2">2</a></sup>
+              </p>
+              <p className="mt-7 max-w-[42rem] text-[17px] leading-[1.5] text-muted-foreground">
+                In 1924, Marshall Field’s popularized the modern bridal registry: a list of china, silver, and crystal for a couple beginning one particular kind of life.<sup><a href="#source-1" className="ml-1 font-mono text-[12px] text-primary underline decoration-1 underline-offset-2" aria-label="See source 1">1</a></sup>
+              </p>
+              <div className="mt-10 grid gap-6 text-[17px] leading-[1.5] text-muted-foreground sm:grid-cols-2 sm:gap-10">
+                <p>It made care legible at marriage: here is the household, here is what it needs, here is how everyone can help without guessing.</p>
+                <p>But women kept building lives outside that script—buying homes alone, starting over, getting sober, healing, moving cities. The care stayed. The ritual did not.</p>
+              </div>
+              <p className="mt-10 border-t-2 border-foreground pt-6 font-display text-[28px] leading-[1.18] sm:text-[34px]">
+                Good Chapter is not a better wedding registry. It is the ritual for everything the registry left out.
+              </p>
+              <aside className="mt-10 border-t-2 border-foreground pt-5" aria-label="Sources for the registry story">
+                <p className="eyebrow text-muted-foreground">Sources & context</p>
+                <ol className="mt-5 space-y-4 text-[15px] leading-[1.5] text-muted-foreground">
+                  <li id="source-1" className="grid grid-cols-[1.5rem_1fr] gap-2">
+                    <span className="font-mono text-foreground">1</span>
+                    <span>
+                      Marshall Field’s bridal-services archive, Chicago History Museum; see also WTTW’s history of Marshall Field’s. <a href="https://images.chicagohistory.org/asset/23427/" target="_blank" rel="noreferrer" className="text-primary underline decoration-1 underline-offset-2">Museum archive ↗</a>{" · "}<a href="https://www.wttw.com/chicago-stories/marshall-fields/how-marshall-fields-transformed-shopping-from-errand-to-experience" target="_blank" rel="noreferrer" className="text-primary underline decoration-1 underline-offset-2">WTTW history ↗</a>
+                    </span>
+                  </li>
+                  <li id="source-2" className="grid grid-cols-[1.5rem_1fr] gap-2">
+                    <span className="font-mono text-foreground">2</span>
+                    <span>Good Chapter Brand Guidelines v3, September 2026. This is Good Chapter’s interpretation of the old social script—not a quotation from Marshall Field’s.</span>
+                  </li>
+                </ol>
+              </aside>
+            </div>
           </div>
-        </section>
-      </main>
-
-      <footer className="border-t-2 border-foreground bg-foreground text-background">
-        <div className="site-container flex flex-col gap-4 py-10 sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-md text-[17px] leading-[1.5] text-background/80">Not a wedding. Not a baby. Still worth celebrating on purpose.</p>
-          <a href="mailto:liv@goodchapter.com" className="text-[15px] font-semibold underline underline-offset-4">liv@goodchapter.com</a>
         </div>
-      </footer>
-    </div>
+      </section>
+
+      <Unlearning />
+
+      <section>
+        <div className="site-container site-section grid items-center gap-14 lg:grid-cols-[minmax(320px,.82fr)_minmax(0,1.18fr)] lg:gap-20">
+          <div className="rounded-sm border-2 border-foreground bg-card p-5 sm:p-7">
+            <div className="flex items-center justify-between border-b border-border pb-4">
+              <span className="eyebrow text-muted-foreground">Messages</span>
+              <span className="text-[15px] font-medium">Maya</span>
+            </div>
+            <div className="mt-7 flex flex-col gap-5 text-[16px] leading-[1.45]">
+              <div className="max-w-[88%] self-start rounded-sm border-2 border-foreground bg-background px-4 py-3">Congrats on the house!! LMK if I can do anything</div>
+              <div className="max-w-[82%] self-end rounded-sm bg-primary px-4 py-3 text-primary-foreground">
+                Sure, thank you so much
+                <span className="mt-1 block text-right font-mono text-[12px] uppercase tracking-[0.14em] text-primary-foreground/75">Read</span>
+              </div>
+              <div className="flex items-center gap-3 py-2"><span className="h-px flex-1 bg-border" /><span className="font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground">3 weeks later</span><span className="h-px flex-1 bg-border" /></div>
+              <div className="rounded-sm border-2 border-dashed border-foreground p-5 text-center text-muted-foreground">
+                <span className="block font-display text-3xl text-foreground">···</span>
+                The intent is there. Without a simple action, nothing happens.
+              </div>
+            </div>
+          </div>
+          <div>
+            <p className="eyebrow text-emphasis">The awkward gap</p>
+            <h2 className="site-h2 mt-5 max-w-[16ch]">The offer is always real. The answer never comes.</h2>
+            <p className="site-body mt-7 max-w-[42rem] text-muted-foreground">Maya Ellison, 34, bought a house alone. The old script has no shower for her, no list, no obvious way for people to mark what she did. Every friend offered help and meant it. She needed a lamp. Saying so would turn affection into an invoice. The person who needs help is the one who has to name it, and naming it is the cost nobody pays.</p>
+            <p className="mt-8 border-l-2 border-emphasis pl-5 font-display text-[26px] leading-[1.25]">The problem is not wanting help. It is asking for it.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="how" className="scroll-mt-20 bg-foreground text-background">
+        <div className="site-container site-section">
+          <p className="eyebrow text-background/70">How it works</p>
+          <h2 className="site-h2 mt-5 max-w-[18ch]">No awkward asking. Just people showing up.</h2>
+          <Illustration
+            className="mt-12"
+            src={familyDoor.url}
+            alt="Two adults and a small child walk hand in hand through a large open door into a room with a lamp, a sofa, and plants."
+          />
+          <div className="mt-12 grid gap-10 md:grid-cols-3 md:gap-12">
+            {steps.map((step) => <div key={step.n} className="border-t-2 border-background pt-5"><span className="font-display text-5xl text-secondary">{step.n}</span><h3 className="mt-7 font-display text-[28px] leading-[1.1]">{step.title}</h3><p className="mt-4 text-[17px] leading-[1.5] text-background/85">{step.copy}</p></div>)}
+          </div>
+        </div>
+      </section>
+
+      <section className="site-section">
+        <div className="site-container">
+          <div className="grid items-end gap-8 md:grid-cols-[1fr_auto]">
+            <div><p className="eyebrow text-emphasis">A chapter, made personal</p><h2 className="site-h2 mt-5">Maya’s First Place.</h2></div>
+            <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground">Maya, 34 · First Place Chapter</p>
+          </div>
+          <div className="mt-12 grid overflow-hidden rounded-sm border-2 border-foreground sm:grid-cols-2 lg:grid-cols-4">
+            {gifts.map((gift, index) => (
+              <article key={gift.name} className={`lift-card flex min-w-0 flex-col bg-card ${index > 0 ? "border-t-2 border-foreground sm:border-t-0" : ""} ${index % 2 === 1 ? "sm:border-l-2 sm:border-foreground" : ""} ${index >= 2 ? "sm:border-t-2 sm:border-foreground" : ""} ${index % 4 !== 0 ? "lg:border-l-2 lg:border-foreground" : "lg:border-l-0"} ${index >= 4 ? "lg:border-t-2 lg:border-foreground" : "lg:border-t-0"}`}>
+                <img src={gift.photo} alt="" className="aspect-[4/3] w-full border-b-2 border-foreground object-cover" />
+                <div className="flex flex-1 flex-col p-5"><span className="eyebrow text-emphasis">{gift.band}</span><h3 className="mt-3 font-display text-2xl leading-[1.1]">{gift.name}</h3><p className="mt-3 text-[15px] leading-[1.5] text-muted-foreground">{gift.reason}</p></div>
+              </article>
+            ))}
+          </div>
+          <div className="border-x-2 border-b-2 border-foreground bg-highlight px-6 py-5 text-center font-display text-xl leading-[1.3]">The person receiving the gifts is never the person doing the asking.</div>
+        </div>
+      </section>
+
+      <section className="border-y-2 border-foreground bg-card">
+        <div className="site-container site-section grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
+          <div><p className="eyebrow text-emphasis">Private by design</p><h2 className="site-h2 mt-5 max-w-[13ch]">Someone started one for you?</h2></div>
+          <div className="grid gap-0 rounded-sm border-2 border-foreground bg-background sm:grid-cols-3">
+            {assurances.map((assurance, index) => <div key={assurance} className={`p-6 ${index > 0 ? "border-t-2 border-foreground sm:border-l-2 sm:border-t-0" : ""}`}><Check className="size-6 text-primary" aria-hidden="true" /><p className="mt-5 font-display text-2xl leading-[1.2]">{assurance}</p></div>)}
+          </div>
+        </div>
+      </section>
+
+      <section id="chapters" className="site-section scroll-mt-20">
+        <div className="site-container">
+          <p className="eyebrow text-emphasis">Chapters</p>
+          <h2 className="site-h2 mt-5 max-w-[18ch]">The moments still worth marking.</h2>
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {chapters.map(([name, description], index) => <article key={name} className="lift-card min-h-48 border-2 border-foreground p-7"><span className="eyebrow text-primary">{String(index + 1).padStart(2, "0")}</span><h3 className="mt-7 font-display text-3xl leading-[1.1]">{name}</h3><p className="mt-4 text-[15px] leading-[1.5] text-muted-foreground">{description}</p></article>)}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t-2 border-foreground bg-emphasis text-emphasis-foreground">
+        <div className="site-container grid gap-10 py-16 md:grid-cols-[minmax(0,.8fr)_minmax(360px,1.2fr)] md:items-start md:py-20">
+          <div>
+            <p className="eyebrow text-emphasis-foreground/75">The first circles</p>
+            <h2 className="site-h2 mt-5 max-w-[13ch]">Read the story. Then join the list.</h2>
+            <p className="mt-6 max-w-[34rem] text-[18px] leading-[1.55] text-emphasis-foreground/85">We are opening Good Chapter carefully. Join for an invitation when the next circle opens.</p>
+            <Button asChild variant="ink" size="lg" className="mt-8"><Link to="/new">Try the sample chapter <ArrowRight className="size-4" /></Link></Button>
+          </div>
+          <WaitlistForm />
+        </div>
+      </section>
+    </SiteShell>
   );
 }
