@@ -4,8 +4,7 @@ import { useState, type FormEvent } from "react";
 import { z } from "zod";
 
 import keyDoor from "@/assets/01-key-and-door.png.asset.json";
-import toasterCouple from "@/assets/06-toaster-and-couple.png.asset.json";
-import { Illustration } from "@/components/site/illustration";
+import { Illustration, ToasterIllustration } from "@/components/site/illustration";
 import { BrandMark } from "@/components/site/site-shell";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -162,17 +161,10 @@ function TeaserPage() {
                 src={keyDoor.url}
                 eager
                 alt="Two people walk toward a large open door. One carries a box. The other lifts a big yellow key."
-                caption="Illustration. The door is open."
               />
               <div className="relative">
                 <span className="absolute -top-4 left-5 z-10 -rotate-3 border-2 border-foreground bg-background px-3.5 py-2 font-mono text-[12px] uppercase tracking-[0.14em] text-foreground">Also a milestone.</span>
-                <div className="overflow-hidden rounded-t-[4px] border-2 border-foreground bg-background">
-                  <img src={toasterCouple.url} width={1536} height={1024} loading="lazy" decoding="async" alt="A very large toaster with two slices of yellow toast. A small bride and groom stand beside it looking up." className="block aspect-[3/2] h-auto w-full object-cover" style={{ mixBlendMode: "multiply" }} />
-                </div>
-                <div className="border-x-2 border-b-2 border-foreground bg-foreground px-5 py-6 text-background">
-                  <p className="font-display text-[26px] leading-[1.08] sm:text-[30px]">Married people get toasters. You just got a house.</p>
-                </div>
-                <p className="mt-3 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground">Illustration. A very large toaster, a very small wedding.</p>
+                <ToasterIllustration />
               </div>
             </div>
           </div>
