@@ -19,6 +19,6 @@
 
 
 - [x] Build /journal/vulnerability-tax founder essay with bench illustration
-- [ ] Add /founding with the shared editorial article layout
-- [ ] Merge the full narrative and waitlist into the public home page
-- [ ] Improve the existing gift recommender with a useful Lovable AI feature
+- [x] Add /founding with the shared editorial article layout
+- [x] Merge the full narrative and waitlist into the public home page
+- [x] Improve the existing gift recommender with a useful Lovable AI feature

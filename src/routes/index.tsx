@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: "Good Chapter · A registry for the rest of it" },
       { name: "description", content: "The registry served one old life script. Good Chapter helps friends show up for first homes, fresh starts, recovery, and everything else." },
-      { property: "og:title", content: "Good Chapter — The anti-registry for everything else she does" },
+      { property: "og:title", content: "Good Chapter , The anti-registry for everything else she does" },
       { property: "og:description", content: "The registry served one old life script. Good Chapter helps friends show up for first homes, fresh starts, recovery, and everything else." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -33,17 +33,17 @@ export const Route = createFileRoute("/")({
 
 const steps = [
   { n: "01", title: "A friend starts.", copy: "One friend starts the chapter so the honoree never has to ask." },
-  { n: "02", title: "The person decides.", copy: "Maya keeps, cuts, or adds items in complete privacy. The friend never sees edits." },
-  { n: "03", title: "Guests give.", copy: "Friends and family claim ideas to coordinate—no awkward group chats, no checkout, no invoice." },
+  { n: "02", title: "The person decides.", copy: "The person keeps, cuts, or adds items in complete privacy. The friend never sees edits." },
+  { n: "03", title: "Guests give.", copy: "Friends and family claim ideas to coordinate. No awkward group chats, no checkout, no invoice." },
 ];
 
 const gifts = [
   { band: "Under $50", name: "Otherland Fallen Fir candle", reason: "For the first quiet night when the boxes are still everywhere.", photo: candle },
   { band: "Under $50", name: "Handmade stoneware mug set", reason: "For the slow morning coffee that finally isn't from a to-go cup.", photo: pottery },
-  { band: "$50–$100", name: "Ghia aperitif set", reason: "For her alcohol-free Friday dinners around the new table.", photo: aperitif },
-  { band: "$50–$100", name: "Ceramic bedside lamp", reason: "The lamp she needs, without ever having to name it herself.", photo: lamp },
-  { band: "$100–$250", name: "Custom Framebridge print", reason: "A permanent place for the photo from her solo closing day.", photo: frame },
-  { band: "$100–$250", name: "Soft wool throw", reason: "For the reading chair she has already claimed by the window.", photo: throwImg },
+  { band: "$50 to $100", name: "Ghia aperitif set", reason: "For her alcohol-free Friday dinners around the new table.", photo: aperitif },
+  { band: "$50 to $100", name: "Ceramic bedside lamp", reason: "The lamp she needs, without ever having to name it herself.", photo: lamp },
+  { band: "$100 to $250", name: "Custom Framebridge print", reason: "A permanent place for the photo from her solo closing day.", photo: frame },
+  { band: "$100 to $250", name: "Soft wool throw", reason: "For the reading chair she has already claimed by the window.", photo: throwImg },
   { band: "Splurge", name: "Caraway ceramic pan", reason: "A real upgrade for the elaborate one-pan dinners she loves making.", photo: cookware },
   { band: "Splurge", name: "Entryway bench", reason: "So the shoes, tote bags, and dog lead finally have a landing place.", photo: bench },
 ];
@@ -64,8 +64,7 @@ const chapters = [
   ["Coming Home", "A thoughtful landing after hospital, treatment, service, or time away."],
   ["New City", "A soft arrival when familiar people are suddenly far away."],
   ["Career Change", "The brave leap into new work, study, or an independent path."],
-  ["Sobriety", "Marking a meaningful milestone with gifts that support the next chapter."],
-  ["Recovery", "Practical comfort while healing takes the time it takes."],
+    ["Recovery", "Practical comfort while healing takes the time it takes."],
   ["Off-Script", "For the life moment that never came with a registry, but matters anyway."],
 ];
 
@@ -143,7 +142,7 @@ function HomePage() {
               </p>
               <div className="mt-10 grid gap-6 text-[17px] leading-[1.5] text-muted-foreground sm:grid-cols-2 sm:gap-10">
                 <p>It made care legible at marriage: here is the household, here is what it needs, here is how everyone can help without guessing.</p>
-                <p>But women kept building lives outside that script—buying homes alone, starting over, getting sober, healing, moving cities. The care stayed. The ritual did not.</p>
+                <p>But women kept building lives outside that script,buying homes alone, starting over, healing, and moving somewhere new. The care stayed. The ritual did not.</p>
               </div>
               <p className="mt-10 border-t-2 border-foreground pt-6 font-display text-[28px] leading-[1.18] sm:text-[34px]">
                 Good Chapter is not a better wedding registry. It is the ritual for everything the registry left out.
@@ -159,7 +158,7 @@ function HomePage() {
                   </li>
                   <li id="source-2" className="grid grid-cols-[1.5rem_1fr] gap-2">
                     <span className="font-mono text-foreground">2</span>
-                    <span>Good Chapter Brand Guidelines v3, September 2026. This is Good Chapter’s interpretation of the old social script—not a quotation from Marshall Field’s.</span>
+                    <span>Good Chapter Brand Guidelines v3, September 2026. This is Good Chapter’s interpretation of the old social script,not a quotation from Marshall Field’s.</span>
                   </li>
                 </ol>
               </aside>
@@ -193,7 +192,7 @@ function HomePage() {
           <div>
             <p className="eyebrow text-emphasis">The awkward gap</p>
             <h2 className="site-h2 mt-5 max-w-[16ch]">The offer is always real. The answer never comes.</h2>
-            <p className="site-body mt-7 max-w-[42rem] text-muted-foreground">Maya Ellison, 34, bought a house alone. The old script has no shower for her, no list, no obvious way for people to mark what she did. Every friend offered help and meant it. She needed a lamp. Saying so would turn affection into an invoice. The person who needs help is the one who has to name it, and naming it is the cost nobody pays.</p>
+            <p className="site-body mt-7 max-w-[42rem] text-muted-foreground">Someone you love bought a house alone. The old script has no shower for her, no list, no obvious way for people to mark what she did. Every friend offered help and meant it. She needed a lamp. Saying so would turn affection into an invoice. The person who needs help is the one who has to name it, and naming it is the cost nobody pays.</p>
             <p className="mt-8 border-l-2 border-emphasis pl-5 font-display text-[26px] leading-[1.25]">The problem is not wanting help. It is asking for it.</p>
           </div>
         </div>
@@ -217,8 +216,8 @@ function HomePage() {
       <section className="site-section">
         <div className="site-container">
           <div className="grid items-end gap-8 md:grid-cols-[1fr_auto]">
-            <div><p className="eyebrow text-emphasis">A chapter, made personal</p><h2 className="site-h2 mt-5">Maya’s First Place.</h2></div>
-            <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground">Maya, 34 · First Place Chapter</p>
+            <div><p className="eyebrow text-emphasis">A chapter, made personal</p><h2 className="site-h2 mt-5">A First Place chapter.</h2></div>
+            <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground">First Place chapter · Eight thoughtful gifts</p>
           </div>
           <div className="mt-12 grid overflow-hidden rounded-sm border-2 border-foreground sm:grid-cols-2 lg:grid-cols-4">
             {gifts.map((gift, index) => (
