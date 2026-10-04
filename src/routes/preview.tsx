@@ -84,7 +84,7 @@ function HomePage() {
           <div className="relative mx-auto w-full max-w-[460px]">
             <span className="absolute -top-4 left-5 z-10 -rotate-3 bg-primary px-3.5 py-2 font-mono text-[12px] uppercase tracking-[0.14em] text-primary-foreground">This counts, too.</span>
             <ToasterIllustration eager className="mb-5" />
-            <div className="border-x-2 border-b-2 border-foreground bg-foreground px-5 py-5 text-background">
+            <div className="rounded-[4px] border-2 border-foreground bg-foreground px-5 py-5 text-background">
               <span className="eyebrow text-background/70">Chapter 01</span>
               <p className="mt-2 font-display text-[26px] leading-[1.1]">A place of your own.</p>
             </div>
