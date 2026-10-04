@@ -26,6 +26,7 @@ import candle from "@/assets/candle.jpg";
 import cookware from "@/assets/cookware.jpg";
 import frame from "@/assets/frame.jpg";
 import { GiftRecommender } from "@/components/gift-recommender";
+import type { Recommendation } from "@/lib/recommend.functions";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -75,8 +76,25 @@ export function GoodChapterDemo({ initialView }: { initialView: View }) {
   const [kept, setKept] = useState(() => new Set(items.map((item) => item.id)));
   const [selectedGift, setSelectedGift] = useState<number | null>(null);
   const [guests, setGuests] = useState(["Leah Park", "Nina Shah", "Sam Rivera", "Jordan Lee"]);
+  const [chapterItems, setChapterItems] = useState(items);
 
-  const approvedItems = useMemo(() => items.filter((item) => kept.has(item.id)), [kept]);
+  const approvedItems = useMemo(() => chapterItems.filter((item) => kept.has(item.id)), [chapterItems, kept]);
+
+  function useAiEdit(ideas: Recommendation[]) {
+    const images = [candle, aperitif, frame, cookware];
+    const nextItems: Item[] = ideas.map((idea, index) => ({
+      id: index + 101,
+      brand: idea.brand.toUpperCase(),
+      name: idea.name,
+      price: Number(idea.price.replace(/[^0-9.]/g, "")) || 0,
+      band: index < 2 ? "Easy yes" : index < 4 ? "Considered" : index < 6 ? "Practical" : "Group candidate",
+      reason: idea.reason,
+      image: images[index % images.length] ?? candle,
+    }));
+    setChapterItems(nextItems);
+    setKept(new Set(nextItems.map((item) => item.id)));
+    setFriendStep("edit");
+  }
 
   function reset(next: View) {
     setView(next);
@@ -103,8 +121,8 @@ export function GoodChapterDemo({ initialView }: { initialView: View }) {
         </div>
       </header>
 
-      {view === "friend" && <FriendFlow step={friendStep} setStep={setFriendStep} guests={guests} setGuests={setGuests} />}
-      {view === "maya" && <MayaFlow step={mayaStep} setStep={setMayaStep} kept={kept} setKept={setKept} />}
+      {view === "friend" && <FriendFlow step={friendStep} setStep={setFriendStep} guests={guests} setGuests={setGuests} items={chapterItems} onUseAiEdit={useAiEdit} />}
+      {view === "maya" && <MayaFlow step={mayaStep} setStep={setMayaStep} kept={kept} setKept={setKept} items={chapterItems} />}
       {view === "guest" && <GuestFlow step={guestStep} setStep={setGuestStep} selectedGift={selectedGift} setSelectedGift={setSelectedGift} items={approvedItems} claimedIds={claimedIds} setClaimedIds={setClaimedIds} giftedIds={giftedIds} />}
     </main>
   );
@@ -114,10 +132,10 @@ function DemoLink({ to, active, children, onClick }: { to: "/new" | "/approve" |
   return <Link to={to} onClick={onClick} className={cn("rounded-sm px-3 py-2 text-sm font-semibold transition-colors duration-175", active ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground")}>{children}</Link>;
 }
 
-function FriendFlow({ step, setStep, guests, setGuests }: { step: FriendStep; setStep: (step: FriendStep) => void; guests: string[]; setGuests: (guests: string[]) => void }) {
+function FriendFlow({ step, setStep, guests, setGuests, items: chapterItems, onUseAiEdit }: { step: FriendStep; setStep: (step: FriendStep) => void; guests: string[]; setGuests: (guests: string[]) => void; items: Item[]; onUseAiEdit: (ideas: Recommendation[]) => void }) {
   if (step === "chapter") return <ChapterStep onContinue={() => setStep("spark")} />;
-  if (step === "spark") return <SparkStep onBack={() => setStep("chapter")} onContinue={() => setStep("edit")} />;
-  if (step === "edit") return <EditStep onBack={() => setStep("spark")} onContinue={() => setStep("circle")} />;
+  if (step === "spark") return <SparkStep onBack={() => setStep("chapter")} onContinue={() => setStep("edit")} onUseAiEdit={onUseAiEdit} />;
+  if (step === "edit") return <EditStep onBack={() => setStep("spark")} onContinue={() => setStep("circle")} items={chapterItems} />;
   if (step === "circle") return <CircleStep guests={guests} setGuests={setGuests} onBack={() => setStep("edit")} onContinue={() => setStep("sent")} />;
   return <SentStep onGuest={() => setStep("chapter")} />;
 }
@@ -162,7 +180,7 @@ const tailoredReasons: Record<number, string> = {
   8: "The pans she's never owned, from everyone who's eaten her shakshuka.",
 };
 
-function SparkStep({ onBack, onContinue }: { onBack: () => void; onContinue: () => void }) {
+function SparkStep({ onBack, onContinue, onUseAiEdit }: { onBack: () => void; onContinue: () => void; onUseAiEdit: (ideas: Recommendation[]) => void }) {
   const [answers, setAnswers] = useState(() => sparkPrompts.map((p) => p.a));
   const [tailoring, setTailoring] = useState(false);
   const tailor = () => { setTailoring(true); window.setTimeout(onContinue, 1400); };
@@ -192,12 +210,12 @@ function SparkStep({ onBack, onContinue }: { onBack: () => void; onContinue: () 
           <button onClick={onContinue} className="mt-3 w-full text-center text-sm font-semibold underline underline-offset-4">Skip for now</button>
         </div>
       </div>
-      <div className="mt-14"><GiftRecommender details={answers.join(" · ")} /></div>
+      <div className="mt-14"><GiftRecommender details={answers.join(" · ")} onUseIdeas={onUseAiEdit} /></div>
     </div>
   );
 }
 
-function EditStep({ onBack, onContinue }: { onBack: () => void; onContinue: () => void }) {
+function EditStep({ onBack, onContinue, items: chapterItems }: { onBack: () => void; onContinue: () => void; items: Item[] }) {
   return (
     <div className="mx-auto max-w-[1500px] px-5 py-10 md:px-10 md:py-14">
       <FlowTop onBack={onBack} label="First Place · 2 of 3" />
@@ -206,7 +224,7 @@ function EditStep({ onBack, onContinue }: { onBack: () => void; onContinue: () =
         <p className="max-w-sm text-sm leading-6 text-muted-foreground">Tailored from what you told us — candles, shakshuka, Lisbon, Fleetwood Mac. Each one has a reason, so nobody has to guess why it belongs.</p>
       </div>
       <BandSummary />
-      <div className="mt-8 grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">{items.map((item) => <ProductCard key={item.id} item={{ ...item, reason: tailoredReasons[item.id] ?? item.reason }} mode="edit" />)}</div>
+      <div className="mt-8 grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">{chapterItems.map((item) => <ProductCard key={item.id} item={{ ...item, reason: tailoredReasons[item.id] ?? item.reason }} mode="edit" />)}</div>
       <div className="sticky bottom-4 mt-12 flex items-center justify-between rounded-sm border border-foreground bg-foreground p-3 pl-5 text-background ">
         <div><p className="text-sm font-bold">8 of 8 selected</p><p className="hidden text-xs text-background/65 sm:block">The mix is balanced across all four price bands.</p></div>
         <Button variant="default" size="lg" onClick={onContinue}>Add her people <ArrowRight className="size-4" /></Button>
@@ -243,14 +261,14 @@ function SentStep({ onGuest }: { onGuest: () => void }) {
   return <CenteredSuccess icon={<Mail className="size-8" />} eyebrow="Sent privately" title="Maya has the first say." copy="She’ll keep or cut anything, add delivery details, and approve. You’ll never see what changed." action="Back to start" onAction={onGuest} />;
 }
 
-function MayaFlow({ step, setStep, kept, setKept }: { step: MayaStep; setStep: (step: MayaStep) => void; kept: Set<number>; setKept: (value: Set<number>) => void }) {
+function MayaFlow({ step, setStep, kept, setKept, items: chapterItems }: { step: MayaStep; setStep: (step: MayaStep) => void; kept: Set<number>; setKept: (value: Set<number>) => void; items: Item[] }) {
   if (step === "approved") return <CenteredSuccess icon={<Check className="size-8" />} eyebrow="Approved" title="That’s it. Leah takes it from here." copy="Your address stays private. Leah will send the chapter, and you won’t need to ask anyone for a thing." action="Review again" onAction={() => setStep("review")} />;
   if (step === "delivery") return <DeliveryStep onBack={() => setStep("review")} onApprove={() => setStep("approved")} count={kept.size} />;
   return (
     <div className="mx-auto max-w-[1500px] px-5 py-10 md:px-10 md:py-14">
       <div className="flex items-center justify-between"><p className="eyebrow">Private for Maya</p><span className="flex items-center gap-2 text-xs font-semibold text-muted-foreground"><LockKeyhole className="size-4" /> Leah won’t see your edits</span></div>
       <div className="mt-9 grid gap-8 border-b border-foreground pb-9 md:grid-cols-[1fr_400px] md:items-end"><h1 className="font-display text-5xl md:text-7xl">Leah picked these<br /><em>with you in mind.</em></h1><div><p className="leading-7 text-muted-foreground">Keep what feels right. Cut anything that doesn’t. No explanation, no awkwardness, no one notified.</p><div className="mt-4 h-1 bg-secondary"><div className="h-full bg-secondary" style={{ width: `${(kept.size / items.length) * 100}%` }} /></div><p className="mt-2 text-xs font-bold uppercase">{kept.size} of {items.length} kept</p></div></div>
-      <div className="mt-8 grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">{items.map((item) => <ProductCard key={item.id} item={item} mode="review" active={kept.has(item.id)} onToggle={() => { const next = new Set(kept); if (next.has(item.id)) next.delete(item.id); else next.add(item.id); setKept(next); }} />)}</div>
+      <div className="mt-8 grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">{chapterItems.map((item) => <ProductCard key={item.id} item={item} mode="review" active={kept.has(item.id)} onToggle={() => { const next = new Set(kept); if (next.has(item.id)) next.delete(item.id); else next.add(item.id); setKept(next); }} />)}</div>
       <div className="sticky bottom-4 mt-12 flex items-center justify-between rounded-sm border border-foreground bg-foreground p-3 pl-5 text-background "><p className="text-sm font-bold">Looks right? One step left.</p><Button variant="default" size="lg" onClick={() => setStep("delivery")} disabled={kept.size === 0}>Delivery details <ArrowRight className="size-4" /></Button></div>
     </div>
   );

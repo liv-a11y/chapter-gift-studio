@@ -14,7 +14,7 @@ const spices: { id: Spice; label: string; hint: string }[] = [
 ];
 const loadingLines = ["Scouting gifts they’d never ask for…", "Reading between the lines…", "Finding things worth celebrating on purpose…"];
 
-export function GiftRecommender({ name = "Maya", defaultChapter = "Bought a house alone at 34. First place that's entirely hers.", details = "" }: { name?: string; defaultChapter?: string; details?: string }) {
+export function GiftRecommender({ name = "Maya", defaultChapter = "Bought a house alone at 34. First place that's entirely hers.", details = "", onUseIdeas }: { name?: string; defaultChapter?: string; details?: string; onUseIdeas?: (ideas: Recommendation[]) => void }) {
   const run = useServerFn(recommendGifts);
   const [chapter, setChapter] = useState(defaultChapter);
   const [spice, setSpice] = useState<Spice>("medium");
@@ -64,16 +64,19 @@ export function GiftRecommender({ name = "Maya", defaultChapter = "Bought a hous
       </Button>
       {error && <p role="alert" className="mt-4 rounded-sm border-2 border-destructive p-3 text-[15px]">{error}</p>}
       {ideas.length > 0 && (
-        <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-          {ideas.map((i, idx) => (
-            <li key={idx} className="rounded-sm border-2 border-foreground bg-background p-4">
-              <div className="flex items-baseline justify-between gap-2 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground"><span>{i.brand}</span><span>{i.price}</span></div>
-              <p className="mt-2 font-display text-xl leading-tight">{i.name}</p>
-              <p className="mt-2 text-[15px] leading-[1.5]">{i.reason}</p>
-              <p className="mt-3 font-mono text-[12px] uppercase tracking-[0.14em] text-primary">{i.band}</p>
-            </li>
-          ))}
-        </ul>
+        <>
+          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+            {ideas.map((i, idx) => (
+              <li key={idx} className="rounded-sm border-2 border-foreground bg-background p-4">
+                <div className="flex items-baseline justify-between gap-2 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground"><span>{i.brand}</span><span>{i.price}</span></div>
+                <p className="mt-2 font-display text-xl leading-tight">{i.name}</p>
+                <p className="mt-2 text-[15px] leading-[1.5]">{i.reason}</p>
+                <p className="mt-3 font-mono text-[12px] uppercase tracking-[0.14em] text-primary">{i.band}</p>
+              </li>
+            ))}
+          </ul>
+          {onUseIdeas && <Button size="lg" className="mt-4 w-full" onClick={() => onUseIdeas(ideas)}><Check className="size-4" /> Use these eight</Button>}
+        </>
       )}
     </section>
   );
