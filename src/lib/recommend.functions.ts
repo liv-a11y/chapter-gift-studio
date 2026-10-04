@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { catalogPromptText } from "./catalog";
+import { createLovableAiGatewayRunIdFetch } from "./lovable-ai-run-id.server";
 
 const inputSchema = z.object({
   name: z.string().trim().min(1).max(60),
@@ -25,10 +26,12 @@ export const recommendGifts = createServerFn({ method: "POST" })
     if (!apiKey) return { ideas: [], error: "AI is not configured yet." };
     const { createOpenAI } = await import("@ai-sdk/openai");
     const { streamText } = await import("ai");
+    const runIdFetch = createLovableAiGatewayRunIdFetch();
     const provider = createOpenAI({
       baseURL: "https://ai.gateway.lovable.dev/v1",
       apiKey,
       headers: { "Lovable-API-Key": apiKey, "X-Lovable-AIG-SDK": "vercel-ai-sdk" },
+      fetch: runIdFetch.fetch,
     });
     const prompt = `You are Good Chapter, an anti-registry for life milestones weddings never covered. A friend is starting a chapter for ${data.name}.
 Life chapter: ${data.chapter}
@@ -67,8 +70,10 @@ Return ONLY JSON: {"ideas":[{"name":"","brand":"","band":"","price":"$xx","reaso
     } catch (err) {
       const status = (err as { statusCode?: number })?.statusCode;
       console.error("recommendGifts failed", err);
+      const safeMessage = err instanceof Error && err.message ? err.message : "Couldn’t reach the idea generator. Try again.";
       if (status === 429) return { ideas: [], error: "Lots of people are asking at once. Try again in a minute." };
-      if (status === 402) return { ideas: [], error: "AI credits have run out for this workspace." };
-      return { ideas: [], error: "Couldn’t reach the idea generator. Try again." };
+      if (status === 402 || status === 403) return { ideas: [], error: safeMessage };
+      if (status && status >= 400 && status < 500) return { ideas: [], error: safeMessage };
+      return { ideas: [], error: safeMessage };
     }
   });

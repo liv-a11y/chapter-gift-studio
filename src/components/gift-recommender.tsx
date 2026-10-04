@@ -1,5 +1,5 @@
 import { useServerFn } from "@tanstack/react-start";
-import { LoaderCircle, RotateCcw, Sparkles } from "lucide-react";
+import { Check, LoaderCircle, RotateCcw, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
