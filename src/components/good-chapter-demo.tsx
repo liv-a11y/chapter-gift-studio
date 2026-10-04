@@ -109,7 +109,7 @@ export function GoodChapterDemo({ initialView }: { initialView: View }) {
     <main className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-40 border-b-2 border-foreground bg-background">
         <div className="mx-auto flex min-h-16 max-w-[1200px] items-center justify-between gap-4 px-5 py-3 md:px-8">
-          <Link to="/preview" className="font-display text-xl" aria-label="Good Chapter home">
+          <Link to="/" className="font-display text-xl" aria-label="Good Chapter home">
             Good Chapter<span className="text-coral">.</span>
           </Link>
           <nav className="flex items-center gap-1" aria-label="Product demo views">

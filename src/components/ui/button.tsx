@@ -5,15 +5,15 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center gap-2 rounded-sm font-medium transition-[transform,background-color,color] duration-175 ease-linear focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-45",
+  "inline-flex shrink-0 items-center justify-center gap-2 rounded-sm font-medium transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-45",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:-rotate-1 hover:bg-primary/88",
-        outline: "border-2 border-foreground bg-transparent text-foreground hover:bg-secondary",
-        ghost: "text-foreground hover:bg-secondary",
-        lime: "bg-highlight text-highlight-foreground hover:bg-highlight/82",
-        ink: "bg-foreground text-background hover:bg-foreground/88",
+        default: "border-2 border-primary bg-primary text-primary-foreground hover:border-foreground hover:bg-foreground hover:text-background",
+        outline: "border-2 border-foreground bg-transparent text-foreground hover:bg-foreground hover:text-background",
+        ghost: "text-foreground hover:bg-foreground hover:text-background",
+        lime: "border-2 border-foreground bg-highlight text-highlight-foreground hover:bg-foreground hover:text-background",
+        ink: "border-2 border-foreground bg-foreground text-background hover:bg-background hover:text-foreground",
       },
       size: {
         default: "h-11 px-5 text-sm",
