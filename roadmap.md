@@ -13,6 +13,6 @@
 - [x] Add the Marshall Field’s anti-registry history and father’s-house manifesto to the home narrative
 - [x] Add visible historical sources and a more visual 1924-to-now story treatment
 - [x] Make the teaser hero headline much bolder (edge-to-edge display type, clay band)
-- [ ] Rework the toaster caption and sticker wording on the teaser hero
+- [x] Rework the toaster caption and sticker wording on the teaser hero
 
 
