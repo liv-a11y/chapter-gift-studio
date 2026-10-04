@@ -9,22 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApproveRouteImport } from './routes/approve'
 import { Route as CatalogRouteImport } from './routes/catalog'
 import { Route as GuestRouteImport } from './routes/guest'
 import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as NewRouteImport } from './routes/new'
 import { Route as PartnersRouteImport } from './routes/partners'
+import { Route as PreviewRouteImport } from './routes/preview'
 import { Route as PartnersBrandsRouteImport } from './routes/partners.brands'
 import { Route as PartnersEmployersRouteImport } from './routes/partners.employers'
 import { Route as PartnersRealEstateRouteImport } from './routes/partners.real-estate'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ApproveRoute = ApproveRouteImport.update({
   id: '/approve',
   path: '/approve',
@@ -55,6 +50,11 @@ const PartnersRoute = PartnersRouteImport.update({
   path: '/partners',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PreviewRoute = PreviewRouteImport.update({
+  id: '/preview',
+  path: '/preview',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PartnersBrandsRoute = PartnersBrandsRouteImport.update({
   id: '/brands',
   path: '/brands',
@@ -72,38 +72,38 @@ const PartnersRealEstateRoute = PartnersRealEstateRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/approve': typeof ApproveRoute
   '/catalog': typeof CatalogRoute
   '/guest': typeof GuestRoute
   '/investors': typeof InvestorsRoute
   '/new': typeof NewRoute
   '/partners': typeof PartnersRouteWithChildren
+  '/preview': typeof PreviewRoute
   '/partners/brands': typeof PartnersBrandsRoute
   '/partners/employers': typeof PartnersEmployersRoute
   '/partners/real-estate': typeof PartnersRealEstateRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/approve': typeof ApproveRoute
   '/catalog': typeof CatalogRoute
   '/guest': typeof GuestRoute
   '/investors': typeof InvestorsRoute
   '/new': typeof NewRoute
   '/partners': typeof PartnersRouteWithChildren
+  '/preview': typeof PreviewRoute
   '/partners/brands': typeof PartnersBrandsRoute
   '/partners/employers': typeof PartnersEmployersRoute
   '/partners/real-estate': typeof PartnersRealEstateRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/approve': typeof ApproveRoute
   '/catalog': typeof CatalogRoute
   '/guest': typeof GuestRoute
   '/investors': typeof InvestorsRoute
   '/new': typeof NewRoute
   '/partners': typeof PartnersRouteWithChildren
+  '/preview': typeof PreviewRoute
   '/partners/brands': typeof PartnersBrandsRoute
   '/partners/employers': typeof PartnersEmployersRoute
   '/partners/real-estate': typeof PartnersRealEstateRoute
@@ -111,61 +111,54 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/approve'
     | '/catalog'
     | '/guest'
     | '/investors'
     | '/new'
     | '/partners'
+    | '/preview'
     | '/partners/brands'
     | '/partners/employers'
     | '/partners/real-estate'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/approve'
     | '/catalog'
     | '/guest'
     | '/investors'
     | '/new'
     | '/partners'
+    | '/preview'
     | '/partners/brands'
     | '/partners/employers'
     | '/partners/real-estate'
   id:
     | '__root__'
-    | '/'
     | '/approve'
     | '/catalog'
     | '/guest'
     | '/investors'
     | '/new'
     | '/partners'
+    | '/preview'
     | '/partners/brands'
     | '/partners/employers'
     | '/partners/real-estate'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   ApproveRoute: typeof ApproveRoute
   CatalogRoute: typeof CatalogRoute
   GuestRoute: typeof GuestRoute
   InvestorsRoute: typeof InvestorsRoute
   NewRoute: typeof NewRoute
   PartnersRoute: typeof PartnersRouteWithChildren
+  PreviewRoute: typeof PreviewRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/approve': {
       id: '/approve'
       path: '/approve'
@@ -206,6 +199,13 @@ declare module '@tanstack/react-router' {
       path: '/partners'
       fullPath: '/partners'
       preLoaderRoute: typeof PartnersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/preview': {
+      id: '/preview'
+      path: '/preview'
+      fullPath: '/preview'
+      preLoaderRoute: typeof PreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/partners/brands': {
@@ -249,13 +249,13 @@ const PartnersRouteWithChildren = PartnersRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   ApproveRoute: ApproveRoute,
   CatalogRoute: CatalogRoute,
   GuestRoute: GuestRoute,
   InvestorsRoute: InvestorsRoute,
   NewRoute: NewRoute,
   PartnersRoute: PartnersRouteWithChildren,
+  PreviewRoute: PreviewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
