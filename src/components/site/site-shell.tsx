@@ -81,6 +81,9 @@ function SiteFooter() {
           <Link to="/catalog">Catalog</Link>
           <Link to="/read">Read</Link>
           <Link to="/journal/vulnerability-tax">The vulnerability tax</Link>
+          <Link to="/journal/how-to-show-up-without-being-weird">How to show up</Link>
+          <Link to="/history">History</Link>
+          <Link to="/founder">Founder note</Link>
           <Link to="/partners">Partners</Link>
           <Link to="/partners/employers">Employers</Link>
           <Link to="/partners/real-estate">Real estate</Link>
