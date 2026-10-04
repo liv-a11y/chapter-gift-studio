@@ -13,10 +13,10 @@ import throwImg from "@/assets/throw.jpg";
 import { SiteShell } from "@/components/site/site-shell";
 import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/preview")({
   head: () => ({
     meta: [
-      { title: "Good Chapter — The anti-registry for everything else she does" },
+      { title: "Good Chapter — Full site preview" }, { name: "robots", content: "noindex" },
       { name: "description", content: "The registry served one old life script. Good Chapter helps friends show up for first homes, fresh starts, recovery, and everything else." },
       { property: "og:title", content: "Good Chapter — The anti-registry for everything else she does" },
       { property: "og:description", content: "The registry served one old life script. Good Chapter helps friends show up for first homes, fresh starts, recovery, and everything else." },
