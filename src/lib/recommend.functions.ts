@@ -40,10 +40,10 @@ export const recommendGifts = createServerFn({ method: "POST" })
   .handler(async ({ data }): Promise<RecommendResult> => {
     const apiKey = process.env["LOVABLE_API_KEY"];
     if (!apiKey) return { ideas: [], error: "AI is not configured yet." };
-    const { createOpenAI } = await import("@ai-sdk/openai");
+    const { createAnthropic } = await import("@ai-sdk/anthropic");
     const { streamText } = await import("ai");
     const runIdFetch = createLovableAiGatewayRunIdFetch();
-    const provider = createOpenAI({
+    const provider = createAnthropic({
       baseURL: "https://ai.gateway.lovable.dev/v1",
       apiKey,
       headers: { "Lovable-API-Key": apiKey, "X-Lovable-AIG-SDK": "vercel-ai-sdk" },
