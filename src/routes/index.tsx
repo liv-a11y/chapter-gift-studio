@@ -3,7 +3,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { z } from "zod";
 
-import keyDoor from "@/assets/01-key-and-door.png.asset.json";
+import movingOut from "@/assets/07-moving-out.png.asset.json";
 import { Illustration, ToasterIllustration } from "@/components/site/illustration";
 import { BrandMark } from "@/components/site/site-shell";
 import { Button } from "@/components/ui/button";
@@ -75,8 +75,8 @@ function TeaserPage() {
       <main className="flex-1">
         <section className="hero-bleed pb-14 pt-7 md:pb-20 md:pt-10">
           <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 border-b-2 border-foreground pb-5">
-            <p className="eyebrow text-emphasis">A registry for the rest of it</p>
-            <p className="eyebrow text-muted-foreground">First homes · Fresh starts · Off-script</p>
+            <p className="font-sans text-[17px] font-medium leading-[1.5] text-emphasis">A registry for the rest of it</p>
+            <p className="font-sans text-[17px] font-normal leading-[1.5] text-muted-foreground">First homes · Fresh starts · Off-script</p>
           </div>
 
           <h1 className="site-hero mt-7 sm:mt-9">
@@ -158,14 +158,11 @@ function TeaserPage() {
 
             <div className="flex w-full flex-col gap-10">
               <Illustration
-                src={keyDoor.url}
+                src={movingOut.url}
                 eager
-                alt="Two people walk toward a large open door. One carries a box. The other lifts a big yellow key."
+                alt="One person stands in a furnished home while another carries a bag into an empty home."
               />
-              <div className="relative">
-                <span className="absolute -top-4 left-5 z-10 -rotate-3 border-2 border-foreground bg-background px-3.5 py-2 font-mono text-[12px] uppercase tracking-[0.14em] text-foreground">Also a milestone.</span>
-                <ToasterIllustration />
-              </div>
+              <ToasterIllustration />
             </div>
           </div>
         </section>
