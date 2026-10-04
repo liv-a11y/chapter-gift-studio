@@ -3,8 +3,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { z } from "zod";
 
-import movingOut from "@/assets/07-moving-out.png.asset.json";
-import { Illustration, ToasterIllustration } from "@/components/site/illustration";
+import { MovingOutIllustration, ToasterIllustration } from "@/components/site/illustration";
 import { BrandMark } from "@/components/site/site-shell";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -156,14 +155,10 @@ function TeaserPage() {
               )}
             </div>
 
-            <div className="flex w-full flex-col gap-10">
-              <Illustration
-                src={movingOut.url}
-                eager
-                alt="One person stands in a furnished home while another carries a bag into an empty home."
-              />
-              <ToasterIllustration />
-            </div>
+              <div className="flex w-full flex-col gap-10">
+                <MovingOutIllustration eager />
+                <ToasterIllustration />
+              </div>
           </div>
         </section>
       </main>

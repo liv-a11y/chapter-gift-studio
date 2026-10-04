@@ -1,4 +1,5 @@
 import toasterCouple from "@/assets/06-toaster-and-couple.png.asset.json";
+import movingOut from "@/assets/07-moving-out.png.asset.json";
 
 type Props = {
   src: string;
@@ -49,6 +50,22 @@ export function ToasterIllustration({ eager, className = "" }: { eager?: boolean
         alt="A very large toaster with two slices of yellow toast. A small bride and groom stand beside it looking up."
       />
       <ToasterLine className="mt-5 text-[clamp(28px,3.2vw,40px)] leading-[1.08]" />
+    </div>
+  );
+}
+
+/** Moving-out illustration always paired with its live-text line beneath. */
+export function MovingOutIllustration({ eager, className = "" }: { eager?: boolean; className?: string }) {
+  return (
+    <div className={className}>
+      <Illustration
+        src={movingOut.url}
+        eager={eager}
+        alt="One person stands in a furnished home while another carries a bag into an empty home."
+      />
+      <p className="mt-5 text-left font-display font-normal text-[clamp(28px,3.2vw,40px)] leading-[1.08]">
+        You shouldn’t have to stay married just to have a furnished living room.
+      </p>
     </div>
   );
 }
