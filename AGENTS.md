@@ -12,3 +12,4 @@
 - Public marketing routes use `SiteShell`; `/new`, `/approve`, and `/guest` render the focused shared demo component without the marketing shell, keeping product demos isolated while avoiding duplicated flow code.
 - Keep the waitlist UI in the shared `WaitlistForm` component so public story routes can place the same privacy-safe signup without duplicating submission logic.
 - Keep Lovable AI provider setup and run correlation in server-only modules, while client code imports only `*.functions.ts` wrappers, to protect credentials and preserve server boundaries.
+- The gift idea generator uses Anthropic Claude (`anthropic/claude-haiku-4-5`) via the gateway's native `/v1/messages` endpoint with `@ai-sdk/anthropic`, per user request; keep the exact `anthropic/` model id and stream with `streamText`.
