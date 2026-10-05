@@ -40,10 +40,10 @@ export const recommendGifts = createServerFn({ method: "POST" })
   .handler(async ({ data }): Promise<RecommendResult> => {
     const apiKey = process.env["LOVABLE_API_KEY"];
     if (!apiKey) return { ideas: [], error: "AI is not configured yet." };
-    const { createOpenAI } = await import("@ai-sdk/openai");
+    const { createAnthropic } = await import("@ai-sdk/anthropic");
     const { streamText } = await import("ai");
     const runIdFetch = createLovableAiGatewayRunIdFetch();
-    const provider = createOpenAI({
+    const provider = createAnthropic({
       baseURL: "https://ai.gateway.lovable.dev/v1",
       apiKey,
       headers: { "Lovable-API-Key": apiKey, "X-Lovable-AIG-SDK": "vercel-ai-sdk" },
@@ -61,18 +61,9 @@ ${catalogPromptText()}
 Return ONLY JSON: {"ideas":[{"name":"","brand":"","band":"","price":"$xx","reason":""}]}`;
     try {
       const result = streamText({
-        model: provider.responses("openai/gpt-6-astra"),
+        model: provider("anthropic/claude-haiku-4-5"),
         prompt,
         maxRetries: 0,
-        providerOptions: {
-          openai: {
-            forceReasoning: true,
-            reasoningEffort: "low",
-            reasoningSummary: "auto",
-            store: false,
-            include: ["reasoning.encrypted_content"],
-          },
-        },
       });
       const text = await result.text;
       const match = text.match(/\{[\s\S]*\}/);
