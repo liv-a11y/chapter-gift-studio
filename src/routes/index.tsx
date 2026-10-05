@@ -3,6 +3,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
 import { WaitlistForm } from "@/components/site/waitlist-form";
 import toasterCouple from "@/assets/06-toaster-and-couple.png.asset.json";
+import mfInterior from "@/assets/marshall-field-interior.jpg.asset.json";
+import mfStreet from "@/assets/marshall-field-1906.jpg.asset.json";
 import familyDoor from "@/assets/03-family-through-door.png.asset.json";
 import { Illustration, ToasterIllustration, ToasterLine } from "@/components/site/illustration";
 
@@ -115,28 +117,26 @@ function HomePage() {
                   <span className="font-display text-[52px] leading-none sm:text-[64px]">1924</span>
                   <span className="eyebrow text-right text-muted-foreground">One accepted<br />life script</span>
                 </div>
-                <img src={cookware} alt="Cookware representing the traditional new household" className="aspect-square h-full w-full border-r-2 border-foreground object-cover" />
+                <img src={mfInterior.url} alt="Archival photograph of the Marshall Field's store interior, about 1910, with tall columns and shoppers on the main floor." loading="lazy" width={300} height={446} className="aspect-square h-full w-full border-r-2 border-foreground object-cover grayscale" />
                 <div className="flex flex-col justify-between p-5">
                   <span className="eyebrow text-emphasis">The bridal list</span>
                   <p className="mt-10 font-display text-[24px] leading-[1.12]">China.<br />Silver.<br />Crystal.</p>
                 </div>
+                <img src={mfStreet.url} alt="Archival 1906 postcard of crowds on the street outside the Marshall Field's store." loading="lazy" width={1920} height={1254} className="col-span-2 aspect-[3/2] h-full w-full border-t-2 border-foreground object-cover" />
                 <div className="col-span-2 border-t-2 border-foreground bg-primary p-5 text-primary-foreground">
                   <div className="flex items-end justify-between gap-5">
                     <span className="font-display text-[52px] leading-none sm:text-[64px]">Now</span>
                     <span className="eyebrow text-right text-primary-foreground/80">Every life<br />worth marking</span>
                   </div>
                 </div>
-                <img src={frame} alt="A framed memory chosen for a first home" className="aspect-square h-full w-full border-r-2 border-foreground object-cover" />
-                <img src={aperitif} alt="A thoughtful gift for a life lived outside the old script" className="aspect-square h-full w-full object-cover" />
               </div>
-              <p className="mt-5 text-[15px] leading-[1.5] text-muted-foreground">From one prescribed household to every way a life can change.</p>
+              <p className="mt-5 text-[15px] leading-[1.5] text-muted-foreground">Archival images: Marshall Field's, about 1906 to 1910. Public domain, via Wikimedia Commons.</p>
             </div>
             <div>
               <p className="eyebrow text-emphasis">Why we exist</p>
-              <ToasterLine as="h2" id="registry-story" className="site-h2 mt-5 max-w-[16ch]" />
-              <p className="mt-8 max-w-[36rem] font-display text-[clamp(22px,2.8vw,30px)] leading-[1.25]">
+              <h2 id="registry-story" className="site-h2 mt-5 max-w-[20ch]">
                 The registry was built for a woman leaving her father’s house for her husband’s. <span className="text-emphasis">We built one for everything else she does.</span><sup><a href="#source-2" className="ml-1 align-super font-mono text-[12px] text-primary underline decoration-1 underline-offset-2" aria-label="See source 2">2</a></sup>
-              </p>
+              </h2>
               <p className="mt-7 max-w-[42rem] text-[17px] leading-[1.5] text-muted-foreground">
                 In 1924, Marshall Field’s popularized the modern bridal registry: a list of china, silver, and crystal for a couple beginning one particular kind of life.<sup><a href="#source-1" className="ml-1 font-mono text-[12px] text-primary underline decoration-1 underline-offset-2" aria-label="See source 1">1</a></sup>
               </p>
