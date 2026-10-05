@@ -198,28 +198,25 @@ function HomePage() {
         </div>
       </section>
 
-      <section id="how" className="scroll-mt-20 bg-foreground text-background">
-        <div className="site-container site-section">
-          <p className="eyebrow text-background/70">How it works</p>
-          <h2 className="site-h2 mt-5 max-w-[18ch]">No awkward asking. Just people showing up.</h2>
+      <section id="how" className="site-section scroll-mt-20">
+        <div className="site-container">
+          <div className="grid items-end gap-8 md:grid-cols-[1fr_auto]">
+            <div>
+              <p className="eyebrow text-emphasis">How it works</p>
+              <h2 className="site-h2 mt-5 max-w-[18ch]">A First Place chapter.</h2>
+            </div>
+            <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground">First Place chapter · Eight thoughtful gifts</p>
+          </div>
+          <p className="site-body mt-6 max-w-[42rem] text-muted-foreground">No awkward asking. Just people showing up. Here is one whole chapter, from the first hello to the last claimed gift.</p>
+          <div className="mt-12 grid gap-10 md:grid-cols-3 md:gap-12">
+            {steps.map((step) => <div key={step.n} className="border-t-2 border-foreground pt-5"><span className="font-display text-5xl text-primary">{step.n}</span><h3 className="mt-7 font-display text-[28px] leading-[1.1]">{step.title}</h3><p className="mt-4 text-[17px] leading-[1.5] text-muted-foreground">{step.copy}</p></div>)}
+          </div>
           <Illustration
-            className="mt-12"
+            className="mt-14"
             src={familyDoor.url}
             alt="Two adults and a small child walk hand in hand through a large open door into a room with a lamp, a sofa, and plants."
           />
-          <div className="mt-12 grid gap-10 md:grid-cols-3 md:gap-12">
-            {steps.map((step) => <div key={step.n} className="border-t-2 border-background pt-5"><span className="font-display text-5xl text-secondary">{step.n}</span><h3 className="mt-7 font-display text-[28px] leading-[1.1]">{step.title}</h3><p className="mt-4 text-[17px] leading-[1.5] text-background/85">{step.copy}</p></div>)}
-          </div>
-        </div>
-      </section>
-
-      <section className="site-section">
-        <div className="site-container">
-          <div className="grid items-end gap-8 md:grid-cols-[1fr_auto]">
-            <div><p className="eyebrow text-emphasis">A chapter, made personal</p><h2 className="site-h2 mt-5">A First Place chapter.</h2></div>
-            <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground">First Place chapter · Eight thoughtful gifts</p>
-          </div>
-          <div className="mt-12 grid overflow-hidden rounded-sm border-2 border-foreground sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-14 grid overflow-hidden rounded-sm border-2 border-foreground sm:grid-cols-2 lg:grid-cols-4">
             {gifts.map((gift, index) => (
               <article key={gift.name} className={`lift-card flex min-w-0 flex-col bg-card ${index > 0 ? "border-t-2 border-foreground sm:border-t-0" : ""} ${index % 2 === 1 ? "sm:border-l-2 sm:border-foreground" : ""} ${index >= 2 ? "sm:border-t-2 sm:border-foreground" : ""} ${index % 4 !== 0 ? "lg:border-l-2 lg:border-foreground" : "lg:border-l-0"} ${index >= 4 ? "lg:border-t-2 lg:border-foreground" : "lg:border-t-0"}`}>
                 <img src={gift.photo} alt="" className="aspect-[4/3] w-full border-b-2 border-foreground object-cover" />
