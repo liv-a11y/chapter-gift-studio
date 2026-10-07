@@ -3,7 +3,7 @@ import { useState, type FormEvent } from "react";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/integrations/supabase/client";
+import { joinWaitlist } from "@/lib/waitlist.functions";
 
 const chapters = ["First home", "Fresh start", "New city", "Career pivot", "Recovery", "Off-script"];
 const inquiryTypes = ["Consumer", "Founding partner: Employer", "Founding partner: Real estate", "Founding partner: Brand", "Investor", "General inquiry"];
@@ -36,10 +36,9 @@ export function WaitlistForm({ pilot = false }: { pilot?: boolean }) {
     }
     setStatus("loading");
     setError("");
-    const { error: databaseError } = await supabase
-      .from("waitlist_signups")
-      .insert({ email: parsed.data.email.toLowerCase(), chapter: parsed.data.chapter ?? null, comments: parsed.data.comments || null });
-    if (databaseError && databaseError.code !== "23505") {
+    try {
+      await joinWaitlist({ data: { email: parsed.data.email, chapter: parsed.data.chapter, comments: parsed.data.comments || undefined } });
+    } catch {
       setError("Something went sideways. Try again in a moment.");
       setStatus("error");
       return;
