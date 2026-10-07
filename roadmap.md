@@ -22,3 +22,4 @@
 - [x] Add /founding with the shared editorial article layout
 - [x] Merge the full narrative and waitlist into the public home page
 - [x] Improve the existing gift recommender with a useful Lovable AI feature
+- [ ] Make the Gmail signature tagline angsty and add more color
