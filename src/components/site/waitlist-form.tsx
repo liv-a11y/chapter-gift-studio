@@ -1,4 +1,5 @@
 import { ArrowRight, Check } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { z } from "zod";
 
@@ -12,6 +13,15 @@ const schema = z.object({
   chapter: z.string().max(80).optional(),
   comments: z.string().trim().max(1000, "Keep it under 1,000 characters.").optional(),
 });
+const partnerConfirm = "Thank you. We'll be in touch about founding partner conversations. Nothing is agreed until we sign something together.";
+const segments: Record<string, { helper: string; disclosure?: string; confirm: string }> = {
+  "Consumer": { helper: "Optional comment. Please leave out names or details about anyone else, and please don't include health information.", confirm: "You're on the list. We'll write when the first circle opens. You can unsubscribe from any email." },
+  "Founding partner: Employer": { helper: "Tell us about your organization and the benefit or program you have in mind. Please don't include employee names or personal details.", disclosure: "Requesting an invitation is not a commitment from either side, and it does not mean Good Chapter endorses your organization or you endorse ours.", confirm: partnerConfirm },
+  "Founding partner: Real estate": { helper: "Tell us about your brokerage or practice and the clients you serve. Please don't include client names or details.", disclosure: "Requesting an invitation does not create a referral arrangement, and no compensation is offered or promised for referrals. Any future arrangement will be in writing and will follow applicable real estate laws.", confirm: partnerConfirm },
+  "Founding partner: Brand": { helper: "Tell us about your brand and the kind of gifts or experiences you offer. Please don't include personal details about customers.", disclosure: "Requesting an invitation does not create a partnership, commission arrangement, or right to appear on Good Chapter. Any future affiliate or partner terms will be in writing, and sponsored or commissioned items will be clearly disclosed to guests.", confirm: partnerConfirm },
+  "Investor": { helper: "Tell us a little about you and what interests you about Good Chapter.", disclosure: "Choosing Investor means you would like to hear from us. This is not an offer to sell securities or a solicitation of an offer to buy them. Any offering would be made only by separate documents to eligible investors.", confirm: "Thank you. If there is a fit, we'll reach out directly. Nothing on this site is an offer of securities." },
+  "General inquiry": { helper: "What would you like to ask or share? Please leave out names or details about anyone else, and please don't include health information.", confirm: "Thanks for writing. We read every message and will reply if you've asked for one." },
+};
 type Status = "idle" | "loading" | "done" | "error";
 
 export function WaitlistForm({ pilot = false }: { pilot?: boolean }) {
@@ -46,6 +56,19 @@ export function WaitlistForm({ pilot = false }: { pilot?: boolean }) {
     setStatus("done");
   }
 
+  const segment = segments[pilot && chapter ? chapter : "Consumer"] ?? segments.Consumer;
+  if (status === "done" && pilot) {
+    return (
+      <div className="w-full border-2 border-foreground bg-card" role="status">
+        <div className="border-b-2 border-foreground bg-foreground px-5 py-3 text-background">
+          <span className="eyebrow flex items-center gap-2"><Check className="size-4" /> Received</span>
+        </div>
+        <div className="p-6">
+          <p className="font-display text-[26px] leading-[1.15] sm:text-[32px]">{segment.confirm}</p>
+        </div>
+      </div>
+    );
+  }
   if (status === "done") {
     return (
       <div className="w-full border-2 border-foreground bg-card" role="status">
@@ -96,7 +119,8 @@ export function WaitlistForm({ pilot = false }: { pilot?: boolean }) {
         {pilot && <div className="mt-6">
           <label htmlFor="waitlist-comments" className="eyebrow block text-muted-foreground">Comments. Optional.</label>
           <textarea id="waitlist-comments" rows={4} maxLength={1000} value={comments} disabled={status === "loading"} onChange={(event) => setComments(event.target.value)} placeholder="Tell us what brought you here." className="mt-3 w-full rounded-[4px] border-2 border-foreground bg-background px-4 py-3 font-sans text-[17px] outline-none focus-visible:ring-2 focus-visible:ring-primary" />
-          <p className="mt-2 text-[14px] text-muted-foreground">Please leave out names or details about anyone else.</p>
+          <p className="mt-2 text-[14px] text-muted-foreground">{segment.helper}</p>
+          {segment.disclosure && <p className="mt-3 border-l-2 border-foreground pl-3 text-[14px] leading-[1.5]">{segment.disclosure}</p>}
         </div>}
         <label htmlFor="waitlist-email" className="eyebrow mt-6 block text-muted-foreground">Your email</label>
         <div className={`mt-3 flex flex-col gap-3 ${pilot ? "" : "sm:flex-row"}`}>
@@ -121,6 +145,7 @@ export function WaitlistForm({ pilot = false }: { pilot?: boolean }) {
             {status === "loading" ? "Adding you…" : <>{pilot ? "Count me in" : "Get on the list"} <ArrowRight className="size-5" /></>}
           </Button>
         </div>
+        {pilot && <p className="mt-4 text-[13px] leading-[1.5] text-muted-foreground">By requesting an invitation, you agree to receive emails from Good Chapter, Co. about the pilot and you accept our <Link to="/privacy" className="underline underline-offset-2">Privacy Policy</Link> and <Link to="/terms" className="underline underline-offset-2">Terms</Link>. You can unsubscribe any time.</p>}
         {status === "error" && <p id="waitlist-email-error" className="mt-3 text-[15px] text-emphasis">{error}</p>}
       </div>
     </form>
