@@ -20,8 +20,10 @@ import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as NewRouteImport } from './routes/new'
 import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as PreviewRouteImport } from './routes/preview'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ReadRouteImport } from './routes/read'
 import { Route as StoryRouteImport } from './routes/story'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as JournalHowToShowUpWithoutBeingWeirdRouteImport } from './routes/journal.how-to-show-up-without-being-weird'
 import { Route as JournalVulnerabilityTaxRouteImport } from './routes/journal.vulnerability-tax'
 import { Route as PartnersBrandsRouteImport } from './routes/partners.brands'
@@ -84,6 +86,11 @@ const PreviewRoute = PreviewRouteImport.update({
   path: '/preview',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReadRoute = ReadRouteImport.update({
   id: '/read',
   path: '/read',
@@ -92,6 +99,11 @@ const ReadRoute = ReadRouteImport.update({
 const StoryRoute = StoryRouteImport.update({
   id: '/story',
   path: '/story',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JournalHowToShowUpWithoutBeingWeirdRoute =
@@ -139,8 +151,10 @@ export interface FileRoutesByFullPath {
   '/new': typeof NewRoute
   '/partners': typeof PartnersRouteWithChildren
   '/preview': typeof PreviewRoute
+  '/privacy': typeof PrivacyRoute
   '/read': typeof ReadRoute
   '/story': typeof StoryRoute
+  '/terms': typeof TermsRoute
   '/journal/how-to-show-up-without-being-weird': typeof JournalHowToShowUpWithoutBeingWeirdRoute
   '/journal/vulnerability-tax': typeof JournalVulnerabilityTaxRoute
   '/partners/brands': typeof PartnersBrandsRoute
@@ -160,8 +174,10 @@ export interface FileRoutesByTo {
   '/new': typeof NewRoute
   '/partners': typeof PartnersRouteWithChildren
   '/preview': typeof PreviewRoute
+  '/privacy': typeof PrivacyRoute
   '/read': typeof ReadRoute
   '/story': typeof StoryRoute
+  '/terms': typeof TermsRoute
   '/journal/how-to-show-up-without-being-weird': typeof JournalHowToShowUpWithoutBeingWeirdRoute
   '/journal/vulnerability-tax': typeof JournalVulnerabilityTaxRoute
   '/partners/brands': typeof PartnersBrandsRoute
@@ -182,8 +198,10 @@ export interface FileRoutesById {
   '/new': typeof NewRoute
   '/partners': typeof PartnersRouteWithChildren
   '/preview': typeof PreviewRoute
+  '/privacy': typeof PrivacyRoute
   '/read': typeof ReadRoute
   '/story': typeof StoryRoute
+  '/terms': typeof TermsRoute
   '/journal/how-to-show-up-without-being-weird': typeof JournalHowToShowUpWithoutBeingWeirdRoute
   '/journal/vulnerability-tax': typeof JournalVulnerabilityTaxRoute
   '/partners/brands': typeof PartnersBrandsRoute
@@ -205,8 +223,10 @@ export interface FileRouteTypes {
     | '/new'
     | '/partners'
     | '/preview'
+    | '/privacy'
     | '/read'
     | '/story'
+    | '/terms'
     | '/journal/how-to-show-up-without-being-weird'
     | '/journal/vulnerability-tax'
     | '/partners/brands'
@@ -226,8 +246,10 @@ export interface FileRouteTypes {
     | '/new'
     | '/partners'
     | '/preview'
+    | '/privacy'
     | '/read'
     | '/story'
+    | '/terms'
     | '/journal/how-to-show-up-without-being-weird'
     | '/journal/vulnerability-tax'
     | '/partners/brands'
@@ -247,8 +269,10 @@ export interface FileRouteTypes {
     | '/new'
     | '/partners'
     | '/preview'
+    | '/privacy'
     | '/read'
     | '/story'
+    | '/terms'
     | '/journal/how-to-show-up-without-being-weird'
     | '/journal/vulnerability-tax'
     | '/partners/brands'
@@ -269,8 +293,10 @@ export interface RootRouteChildren {
   NewRoute: typeof NewRoute
   PartnersRoute: typeof PartnersRouteWithChildren
   PreviewRoute: typeof PreviewRoute
+  PrivacyRoute: typeof PrivacyRoute
   ReadRoute: typeof ReadRoute
   StoryRoute: typeof StoryRoute
+  TermsRoute: typeof TermsRoute
   JournalHowToShowUpWithoutBeingWeirdRoute: typeof JournalHowToShowUpWithoutBeingWeirdRoute
   JournalVulnerabilityTaxRoute: typeof JournalVulnerabilityTaxRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
@@ -355,6 +381,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/read': {
       id: '/read'
       path: '/read'
@@ -367,6 +400,13 @@ declare module '@tanstack/react-router' {
       path: '/story'
       fullPath: '/story'
       preLoaderRoute: typeof StoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/journal/how-to-show-up-without-being-weird': {
@@ -442,8 +482,10 @@ const rootRouteChildren: RootRouteChildren = {
   NewRoute: NewRoute,
   PartnersRoute: PartnersRouteWithChildren,
   PreviewRoute: PreviewRoute,
+  PrivacyRoute: PrivacyRoute,
   ReadRoute: ReadRoute,
   StoryRoute: StoryRoute,
+  TermsRoute: TermsRoute,
   JournalHowToShowUpWithoutBeingWeirdRoute:
     JournalHowToShowUpWithoutBeingWeirdRoute,
   JournalVulnerabilityTaxRoute: JournalVulnerabilityTaxRoute,

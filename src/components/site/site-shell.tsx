@@ -67,6 +67,8 @@ export function SiteShell({ children, pilot = false }: { children: ReactNode; pi
           <p>Good people. Different rules.</p>
           <Link to="/read" className="underline underline-offset-4 hover:text-highlight">Our why ↗</Link>
           <a href="mailto:liv@goodchaptercollective.com" className="underline underline-offset-4 hover:text-highlight">liv@goodchaptercollective.com</a>
+          <nav className="flex gap-4" aria-label="Legal"><Link to="/privacy" className="underline underline-offset-4 hover:text-highlight">Privacy</Link><Link to="/terms" className="underline underline-offset-4 hover:text-highlight">Terms</Link><a href="mailto:liv@goodchaptercollective.com" className="underline underline-offset-4 hover:text-highlight">Contact</a></nav>
+          <p className="w-full text-background/70">© 2026 Good Chapter, Co. All rights reserved.</p>
         </div>
       </footer> : <SiteFooter />}
     </div>
@@ -96,7 +98,11 @@ function SiteFooter() {
           <Link to="/partners/real-estate">Real estate</Link>
           <Link to="/partners/brands">Brands</Link>
           <Link to="/investors">Investors</Link>
+          <Link to="/privacy">Privacy</Link>
+          <Link to="/terms">Terms</Link>
+          <a href="mailto:liv@goodchaptercollective.com">Contact</a>
         </nav>
+        <p className="text-[14px] text-background/70 md:col-span-2">© 2026 Good Chapter, Co. All rights reserved.</p>
       </div>
     </footer>
   );
