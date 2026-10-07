@@ -47,6 +47,9 @@ function PilotGate() {
           </div>
         </div>
       </section>
+      <div className="border-t-2 border-foreground">
+        <HistoryArticleBody />
+      </div>
     </SiteShell>
   );
 }
