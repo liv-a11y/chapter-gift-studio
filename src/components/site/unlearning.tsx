@@ -7,7 +7,7 @@ import { Illustration } from "@/components/site/illustration";
 const barriers = [
   {
     n: "01",
-    title: "The marriage barrier",
+    title: "The single tax",
     body: "For a hundred years, care came with a ring or a baby. Buy a home alone or start over, and you furnish that life in private.",
   },
   {
