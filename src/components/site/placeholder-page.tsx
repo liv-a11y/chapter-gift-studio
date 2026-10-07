@@ -15,7 +15,7 @@ export function PlaceholderPage({ eyebrow, title, copy }: { eyebrow: string; tit
           </div>
           <div className="border-t-2 border-foreground pt-6">
             <p className="site-body text-muted-foreground">{copy}</p>
-            <Button asChild className="mt-7"><a href="mailto:liv@goodchapter.com">Talk with Liv <ArrowRight className="size-4" /></a></Button>
+            <Button asChild className="mt-7"><a href="mailto:liv@goodchaptercollective.com">Talk with Liv <ArrowRight className="size-4" /></a></Button>
           </div>
         </div>
       </section>

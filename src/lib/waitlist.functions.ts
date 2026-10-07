@@ -20,7 +20,7 @@ export const joinWaitlist = createServerFn({ method: "POST" })
     if (error && error.code !== "23505") throw new Error("Could not save signup");
     try {
       const { sendTemplateEmail } = await import("@/lib/email-templates/send-email");
-      await sendTemplateEmail("new-inquiry", "liv@goodchapter.com", {
+      await sendTemplateEmail("new-inquiry", "liv@goodchaptercollective.com", {
         templateData: { email, inquiry: data.chapter, comments: data.comments },
         idempotencyKey: `new-inquiry-${email}-${Date.now()}`,
         replyTo: email,
