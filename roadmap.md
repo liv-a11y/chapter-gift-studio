@@ -24,4 +24,4 @@
 - [x] Merge the full narrative and waitlist into the public home page
 - [x] Improve the existing gift recommender with a useful Lovable AI feature
 - [x] Make the Gmail signature tagline angsty and add more color
-- [ ] Add comments box to pilot form and email each entry to liv@goodchapter.com (blocked: email domain setup)
+- [x] Add comments box to pilot form and email each entry to liv@goodchapter.com
