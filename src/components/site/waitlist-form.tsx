@@ -56,7 +56,7 @@ export function WaitlistForm({ pilot = false }: { pilot?: boolean }) {
     setStatus("done");
   }
 
-  const segment = segments[pilot && chapter ? chapter : "Consumer"] ?? segments.Consumer;
+  const segment = segments[pilot && chapter ? chapter : "Consumer"] ?? segments.Consumer!;
   if (status === "done" && pilot) {
     return (
       <div className="w-full border-2 border-foreground bg-card" role="status">
