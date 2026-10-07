@@ -4,6 +4,8 @@ import { SiteShell } from "@/components/site/site-shell";
 import { WaitlistForm } from "@/components/site/waitlist-form";
 import { ToasterLine } from "@/components/site/illustration";
 import emptyRoom from "@/assets/07-moving-out.png.asset.json";
+import mfInterior from "@/assets/marshall-field-interior.jpg.asset.json";
+import mfStreet from "@/assets/marshall-field-1906.jpg.asset.json";
 
 const title = "You shouldn't need a wedding to get a toaster";
 const description = "The old script is getting a rewrite. Good Chapter Co. is opening its first circle. Request an invitation.";
@@ -48,19 +50,46 @@ function PilotGate() {
         </div>
       </section>
       <div className="border-t-2 border-foreground">
-        <section className="site-container py-10 md:py-14">
-          <p className="eyebrow text-emphasis">Why we exist</p>
-          <div className="mt-4 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <h2 className="max-w-2xl font-display text-[32px] leading-[1.08] sm:text-[44px]">To learn more about our why.</h2>
-            <Link
-              to="/read"
-              className="inline-flex shrink-0 items-center gap-3 rounded-[4px] border-2 border-primary bg-primary px-5 py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-primary-foreground hover:bg-foreground hover:text-background"
-            >
-              Read the essays
-              <span aria-hidden="true">→</span>
-            </Link>
+        <section className="site-container py-12 md:py-20" aria-labelledby="why-we-exist">
+          <div className="grid gap-10 md:grid-cols-[minmax(260px,.75fr)_minmax(0,1.25fr)] md:gap-14 lg:gap-20">
+            <div>
+              <div className="grid grid-cols-2 overflow-hidden rounded-[4px] border-2 border-foreground bg-card">
+                <div className="col-span-2 flex items-end justify-between gap-5 border-b-2 border-foreground bg-highlight p-5">
+                  <span className="font-display text-[52px] leading-none sm:text-[64px]">1924</span>
+                  <span className="eyebrow text-right">One accepted<br />life script</span>
+                </div>
+                <img src={mfInterior.url} alt="Archival photograph of the Marshall Field's store interior, about 1910, with tall columns and shoppers on the main floor." loading="lazy" width={300} height={446} className="aspect-square h-full w-full border-r-2 border-foreground object-cover grayscale" />
+                <div className="flex flex-col justify-between p-5">
+                  <span className="eyebrow text-emphasis">The bridal list</span>
+                  <p className="mt-8 font-display text-[22px] leading-[1.12] sm:text-[24px]">China.<br />Silver.<br />Crystal.</p>
+                </div>
+                <img src={mfStreet.url} alt="Archival 1906 postcard of crowds on the street outside the Marshall Field's store." loading="lazy" width={1920} height={1254} className="col-span-2 aspect-[3/2] h-full w-full border-t-2 border-foreground object-cover" />
+                <div className="col-span-2 flex items-end justify-between gap-5 border-t-2 border-foreground bg-primary p-5 text-primary-foreground">
+                  <span className="font-display text-[52px] leading-none sm:text-[64px]">Now</span>
+                  <span className="eyebrow text-right">Every life<br />worth marking</span>
+                </div>
+              </div>
+              <p className="mt-4 text-[14px] leading-[1.5] text-muted-foreground">Archival images: Marshall Field's, about 1906 to 1910. Public domain, via Wikimedia Commons.</p>
+            </div>
+            <div className="min-w-0">
+              <p className="eyebrow text-emphasis">Why we exist</p>
+              <h2 id="why-we-exist" className="mt-5 font-display text-[34px] leading-[1.06] sm:text-[48px] lg:text-[56px]">
+                The registry was built for a woman leaving her father's house for her husband's. <span className="text-emphasis">We built one for everything else she does.</span>
+              </h2>
+              <p className="mt-7 max-w-[40rem] text-[17px] leading-[1.55] text-muted-foreground">In 1924, a department store made care easy to give at marriage. China, silver, crystal, and a list so nobody guessed.</p>
+              <p className="mt-4 max-w-[40rem] text-[17px] leading-[1.55] text-muted-foreground">Women kept building lives outside that script. Buying homes alone. Starting over. Moving somewhere new. The care stayed. The ritual did not.</p>
+              <div className="mt-10 border-t-2 border-foreground pt-6">
+                <p className="font-display text-[24px] leading-[1.2] sm:text-[28px]">To learn more about our why.</p>
+                <Link
+                  to="/read"
+                  className="mt-5 inline-flex items-center gap-3 rounded-[4px] border-2 border-primary bg-primary px-5 py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-primary-foreground hover:bg-foreground hover:text-background"
+                >
+                  Read our why
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </div>
+            </div>
           </div>
-          <p className="mt-4 max-w-[34rem] text-[17px] leading-[1.5] text-muted-foreground">Why it takes a ring to get a toaster, why nobody asks for a skillet, and the rules we are unlearning.</p>
         </section>
       </div>
     </SiteShell>
