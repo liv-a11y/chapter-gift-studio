@@ -4,7 +4,7 @@ import { WaitlistForm } from "@/components/site/waitlist-form";
 import keyDoor from "@/assets/01-key-and-door.png.asset.json";
 
 const title = "You shouldn't need a wedding to get a toaster";
-const description = "The old script is getting a rewrite. Good Chapter Collective is opening its first circle. Request an invitation.";
+const description = "The old script is getting a rewrite. Good Chapter Co. is opening its first circle. Request an invitation.";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
@@ -24,16 +24,21 @@ function PilotGate() {
     <SiteShell pilot>
       <section className="site-container pb-12 pt-10 md:pb-16 md:pt-14">
         <p className="eyebrow text-emphasis">The old script ends here.</p>
-        <h1 className="mt-6 max-w-5xl font-display text-[48px] leading-[1.02] sm:text-[72px] lg:text-[96px]">Good Chapter<br />Collective<span className="text-coral">.</span></h1>
-        <div className="mt-7 flex flex-wrap items-end justify-between gap-6 border-b-2 border-foreground pb-8">
+        <h1 className="mt-6 max-w-5xl font-display text-[48px] leading-[1.02] sm:text-[72px] lg:text-[96px]">Good Chapter<br />Co<span className="text-coral">.</span></h1>
+        <div className="mt-7 border-b-2 border-foreground pb-8">
           <p className="max-w-[32rem] text-[20px] leading-[1.5] sm:text-[24px]">You shouldn't need a wedding to get a <span className="bg-highlight px-1 text-foreground">toaster.</span></p>
-          <span className="bg-emphasis px-4 py-2 font-display text-[24px] text-emphasis-foreground">Nobody asks.</span>
         </div>
         <div className="mt-8 grid gap-8 md:grid-cols-[1fr_1.1fr] md:gap-14">
           <div className="min-w-0">
             <p className="font-display text-[30px] leading-[1.15]">Something good is taking shape.</p>
             <p className="mt-3 max-w-md text-[17px] leading-[1.5] text-muted-foreground">For the lives that never came with a gift list. A different kind of circle. A few people first.</p>
             <img src={keyDoor.url} alt="A person holding a large key stands beside an open door." width={1536} height={1024} fetchPriority="high" className="mt-5 aspect-[3/2] w-full max-w-[360px] rounded-[4px] border-2 border-foreground object-contain mix-blend-multiply" />
+            <div className="mt-6 max-w-md border-2 border-foreground bg-card p-5">
+              <p className="eyebrow text-emphasis">Since 1924</p>
+              <p className="mt-3 text-[17px] leading-[1.5] text-muted-foreground">A department store invented the gift list. It came with a wedding. A hundred years later, it still does.</p>
+              <p className="mt-4 font-display text-[24px] leading-[1.15]"><span className="bg-emphasis px-3 py-1 text-emphasis-foreground">Nobody asks.</span></p>
+              <p className="mt-3 text-[15px] leading-[1.5] text-muted-foreground">Not about the first apartment. Not about the fresh start. Good Chapter asks.</p>
+            </div>
           </div>
           <div className="min-w-0 pt-1">
             <WaitlistForm pilot />
