@@ -26,3 +26,5 @@
 - [x] Make the Gmail signature tagline angsty and add more color
 - [x] Add comments box to pilot form and email each entry to liv@goodchapter.com
 - [x] Swap homepage art to the Empty Room illustration and sharpen the since-1924 card copy
+- [x] Send homepage entries to liv@goodchaptercollective.com (goodchapter.com bounced, blocked)
+- [x] Add the editorial piece to the homepage

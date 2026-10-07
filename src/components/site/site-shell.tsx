@@ -66,7 +66,7 @@ export function SiteShell({ children, pilot = false }: { children: ReactNode; pi
         <div className="site-container flex flex-wrap items-center justify-between gap-5 py-7 text-[14px]">
           <p>Good people. Different rules.</p>
           <Link to="/story" className="underline underline-offset-4 hover:text-highlight">Read the story ↗</Link>
-          <a href="mailto:liv@goodchapterco.com" className="underline underline-offset-4 hover:text-highlight">liv@goodchapterco.com</a>
+          <a href="mailto:liv@goodchaptercollective.com" className="underline underline-offset-4 hover:text-highlight">liv@goodchaptercollective.com</a>
         </div>
       </footer> : <SiteFooter />}
     </div>
@@ -80,7 +80,7 @@ function SiteFooter() {
         <div>
           <Link to="/" className="font-display text-3xl"><BrandMark inverse /></Link>
           <p className="mt-5 max-w-md text-lg leading-[1.5] text-background/80">Not a wedding. Not a baby. Still worth celebrating on purpose.</p>
-          <a href="mailto:liv@goodchapter.com" className="mt-7 inline-block text-[15px] font-semibold underline underline-offset-4">liv@goodchapter.com</a>
+          <a href="mailto:liv@goodchaptercollective.com" className="mt-7 inline-block text-[15px] font-semibold underline underline-offset-4">liv@goodchaptercollective.com</a>
         </div>
         <nav className="grid grid-cols-2 gap-x-6 gap-y-3 text-[15px] md:justify-self-end" aria-label="Footer navigation">
           <Link to="/">Home</Link>

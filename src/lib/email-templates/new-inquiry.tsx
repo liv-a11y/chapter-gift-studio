@@ -29,7 +29,7 @@ export const template = {
   component: NewInquiry,
   subject: (d: Record<string, any>) => `New request: ${d['inquiry'] ?? 'General inquiry'}`,
   displayName: 'New invitation request (to Liv)',
-  to: 'liv@goodchapter.com',
+  to: 'liv@goodchaptercollective.com',
   previewData: { email: 'friend@example.com', inquiry: 'Investor', comments: 'Loved the toaster line.' },
 } satisfies TemplateEntry
 

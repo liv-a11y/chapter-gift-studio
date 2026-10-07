@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site/site-shell";
 import { WaitlistForm } from "@/components/site/waitlist-form";
 import { ToasterLine } from "@/components/site/illustration";
+import { HistoryArticleBody } from "@/components/site/history-article";
 import emptyRoom from "@/assets/07-moving-out.png.asset.json";
 
 const title = "You shouldn't need a wedding to get a toaster";
@@ -46,6 +47,9 @@ function PilotGate() {
           </div>
         </div>
       </section>
+      <div className="border-t-2 border-foreground">
+        <HistoryArticleBody />
+      </div>
     </SiteShell>
   );
 }

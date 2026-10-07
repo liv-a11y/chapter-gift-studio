@@ -97,7 +97,7 @@ function PartnersPage() {
             </p>
             <div className="mt-1 flex flex-wrap gap-4">
               <Button asChild size="lg">
-                <a href="mailto:liv@goodchapter.com?subject=Good%20Chapter%20partnership">Book a call</a>
+                <a href="mailto:liv@goodchaptercollective.com?subject=Good%20Chapter%20partnership">Book a call</a>
               </Button>
               <Button asChild variant="outline" size="lg">
                 <a href="#partners">Find your page</a>
@@ -182,10 +182,10 @@ function PartnersPage() {
           <h2 className="site-h2 max-w-[20ch]">Pilot partners for Autumn 2026. Fully concierge-managed.</h2>
           <div className="flex flex-wrap items-center gap-6">
             <Button asChild size="lg" className="border-2 border-background bg-background text-foreground hover:-rotate-1 hover:bg-background">
-              <a href="mailto:liv@goodchapter.com?subject=Good%20Chapter%20pilot">Book a call</a>
+              <a href="mailto:liv@goodchaptercollective.com?subject=Good%20Chapter%20pilot">Book a call</a>
             </Button>
-            <a href="mailto:liv@goodchapter.com" className="text-sm font-medium underline underline-offset-4 transition-colors duration-175 hover:text-background/80">
-              liv@goodchapter.com
+            <a href="mailto:liv@goodchaptercollective.com" className="text-sm font-medium underline underline-offset-4 transition-colors duration-175 hover:text-background/80">
+              liv@goodchaptercollective.com
             </a>
           </div>
         </div>

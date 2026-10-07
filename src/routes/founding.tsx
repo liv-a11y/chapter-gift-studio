@@ -42,7 +42,7 @@ function FoundingPage() {
         ] },
         { n: "IV", heading: "Join the first edition", body: [
           "If this belongs inside your work, your community, or the way you care for people, we would like to hear what you see.",
-          <a key="email" href="mailto:liv@goodchapter.com?subject=Founding%20partner" className={inlineLink}>Write to Liv about becoming a founding partner.</a>,
+          <a key="email" href="mailto:liv@goodchaptercollective.com?subject=Founding%20partner" className={inlineLink}>Write to Liv about becoming a founding partner.</a>,
         ] },
       ]}
       pullQuote="The ritual gets better when the people who need it help write it."
