@@ -27,12 +27,10 @@ function PilotGate() {
         <p className="eyebrow text-emphasis">The old script ends here.</p>
         <h1 className="mt-6 max-w-5xl font-display text-[48px] leading-[1.02] sm:text-[72px] lg:text-[96px]">Good Chapter<br />Co<span className="text-coral">.</span></h1>
         <div className="mt-7 border-b-2 border-foreground pb-8">
-          <p className="max-w-[32rem] text-[20px] leading-[1.5] sm:text-[24px]">You shouldn't need a wedding to get a <span className="bg-highlight px-1 text-foreground">toaster.</span></p>
+          <p className="max-w-[34rem] text-[20px] leading-[1.5] sm:text-[24px]">Something good is taking shape. For the lives that never came with a gift list.</p>
         </div>
-        <div className="mt-8 grid gap-8 md:grid-cols-[1fr_1.1fr] md:gap-14">
+        <div className="mt-8 grid gap-8 md:grid-cols-2 md:gap-12 lg:gap-16">
           <div className="min-w-0">
-            <p className="font-display text-[30px] leading-[1.15]">Something good is taking shape.</p>
-            <p className="mt-3 max-w-md text-[17px] leading-[1.5] text-muted-foreground">For the lives that never came with a gift list. A different kind of circle. A few people first.</p>
             <img src={keyDoor.url} alt="A person holding a large key stands beside an open door." width={1536} height={1024} fetchPriority="high" className="mt-5 aspect-[3/2] w-full max-w-[360px] rounded-[4px] border-2 border-foreground object-contain mix-blend-multiply" />
             <div className="mt-6 max-w-md border-2 border-foreground bg-card p-5">
               <p className="eyebrow text-emphasis">Since 1924</p>
