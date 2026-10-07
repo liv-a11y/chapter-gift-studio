@@ -53,7 +53,7 @@ export function WaitlistForm({ pilot = false }: { pilot?: boolean }) {
         </div>
         <div className="p-6">
           <p className="font-display text-[30px] leading-[1.08] sm:text-[38px]">We’ll write when the next circle opens.</p>
-          <p className="mt-4 text-[17px] leading-[1.5] text-muted-foreground">One email. No spam. No pressure.</p>
+          <p className="mt-4 text-[17px] leading-[1.5] text-muted-foreground">No pressure.</p>
         </div>
       </div>
     );
@@ -61,9 +61,8 @@ export function WaitlistForm({ pilot = false }: { pilot?: boolean }) {
 
   return (
     <form onSubmit={onSubmit} noValidate className="w-full border-2 border-foreground bg-card">
-      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b-2 border-foreground bg-foreground px-5 py-3 text-background">
+      <div className="border-b-2 border-foreground bg-foreground px-5 py-3 text-background">
         <span className="eyebrow">{pilot ? "Request an invitation" : "Get on the list"}</span>
-        <span className="eyebrow text-background/60">One email · No spam</span>
       </div>
       <div className="p-5 sm:p-6">
         {pilot ? <div>

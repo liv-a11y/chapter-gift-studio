@@ -15,7 +15,7 @@ const links = [
 export function BrandMark({ inverse = false }: { inverse?: boolean }) {
   return (
     <span className={inverse ? "text-background" : "text-foreground"}>
-      Good Chapter<span className="text-coral">.</span>
+      Good Chapter Co<span className="text-coral">.</span>
     </span>
   );
 }
