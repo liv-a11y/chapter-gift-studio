@@ -27,7 +27,7 @@ const NewInquiry = ({ email, inquiry, comments }: Props) => (
 
 export const template = {
   component: NewInquiry,
-  subject: (d: Record<string, any>) => `New request: ${d.inquiry ?? 'General inquiry'}`,
+  subject: (d: Record<string, any>) => `New request: ${d['inquiry'] ?? 'General inquiry'}`,
   displayName: 'New invitation request (to Liv)',
   to: 'liv@goodchapter.com',
   previewData: { email: 'friend@example.com', inquiry: 'Investor', comments: 'Loved the toaster line.' },
