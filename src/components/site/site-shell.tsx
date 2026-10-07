@@ -65,7 +65,7 @@ export function SiteShell({ children, pilot = false }: { children: ReactNode; pi
       {pilot ? <footer className="border-t-2 border-foreground bg-foreground text-background">
         <div className="site-container flex flex-wrap items-center justify-between gap-5 py-7 text-[14px]">
           <p>Good people. Different rules.</p>
-          <Link to="/story" className="underline underline-offset-4 hover:text-highlight">Read the story ↗</Link>
+          <Link to="/read" className="underline underline-offset-4 hover:text-highlight">Our why ↗</Link>
           <a href="mailto:liv@goodchaptercollective.com" className="underline underline-offset-4 hover:text-highlight">liv@goodchaptercollective.com</a>
         </div>
       </footer> : <SiteFooter />}
