@@ -3,25 +3,16 @@ import { useState } from "react";
 
 import { SiteShell } from "@/components/site/site-shell";
 import { catalog, segments, tiers, type ImageKey, type SegmentId } from "@/lib/catalog";
-import candle from "@/assets/p-terracotta-candle-600.webp.asset.json";
-import aperitif from "@/assets/p-bright-citron-kettle-600.webp.asset.json";
-import frame from "@/assets/p-houseplant-600.webp.asset.json";
-import cookware from "@/assets/p-cast-iron-pan-600.webp.asset.json";
-import pottery from "@/assets/p-cobalt-mug-600.webp.asset.json";
-import lamp from "@/assets/p-cobalt-table-lamp-600.webp.asset.json";
-import throwImg from "@/assets/p-cream-bath-towels-600.webp.asset.json";
-import bench from "@/assets/p-knit-blanket-600.webp.asset.json";
+import candle from "@/assets/candle.jpg";
+import aperitif from "@/assets/aperitif.jpg";
+import frame from "@/assets/frame.jpg";
+import cookware from "@/assets/cookware.jpg";
+import pottery from "@/assets/pottery.jpg";
+import lamp from "@/assets/lamp.jpg";
+import throwImg from "@/assets/throw.jpg";
+import bench from "@/assets/bench.jpg";
 
-const images: Record<ImageKey, string> = {
-  candle: candle.url,
-  aperitif: aperitif.url,
-  frame: frame.url,
-  cookware: cookware.url,
-  pottery: pottery.url,
-  lamp: lamp.url,
-  throw: throwImg.url,
-  bench: bench.url,
-};
+const images: Record<ImageKey, string> = { candle, aperitif, frame, cookware, pottery, lamp, throw: throwImg, bench };
 
 export const Route = createFileRoute("/catalog")({
   head: () => ({ meta: [
