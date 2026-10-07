@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site/site-shell";
 import { WaitlistForm } from "@/components/site/waitlist-form";
 import { ToasterLine } from "@/components/site/illustration";
-import { HistoryArticleBody } from "@/components/site/history-article";
 import emptyRoom from "@/assets/07-moving-out.png.asset.json";
 
 const title = "You shouldn't need a wedding to get a toaster";
@@ -48,7 +48,20 @@ function PilotGate() {
         </div>
       </section>
       <div className="border-t-2 border-foreground">
-        <HistoryArticleBody />
+        <section className="site-container py-10 md:py-14">
+          <p className="eyebrow text-emphasis">The story</p>
+          <div className="mt-4 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <h2 className="max-w-2xl font-display text-[32px] leading-[1.08] sm:text-[44px]">A hundred years of toasters, for brides only.</h2>
+            <Link
+              to="/history"
+              className="inline-flex shrink-0 items-center gap-3 rounded-[4px] border-2 border-primary bg-primary px-5 py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-primary-foreground hover:bg-foreground hover:text-background"
+            >
+              Read it in full
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+          <p className="mt-4 max-w-[34rem] text-[17px] leading-[1.5] text-muted-foreground">In 1924 a department store invented the gift list for one kind of life. We wrote the story of everyone it left out.</p>
+        </section>
       </div>
     </SiteShell>
   );
