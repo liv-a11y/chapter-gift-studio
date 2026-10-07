@@ -1,6 +1,6 @@
 import { SiteShell } from "@/components/site/site-shell";
 
-export type LegalSection = { heading: string; paragraphs?: string[]; items?: string[] };
+export type LegalSection = { heading: string; paragraphs?: string[]; items?: string[]; after?: string[] };
 
 export function LegalPage({ title, intro, sections }: { title: string; intro: string; sections: LegalSection[] }) {
   return (
@@ -16,6 +16,7 @@ export function LegalPage({ title, intro, sections }: { title: string; intro: st
               <h2 className="font-display text-[28px] leading-[1.15]">{s.heading}</h2>
               {s.paragraphs?.map((p) => <p key={p} className="mt-4 text-[18px] leading-[1.65]">{p}</p>)}
               {s.items && <ul className="mt-4 list-disc space-y-3 pl-6 text-[18px] leading-[1.65]">{s.items.map((i) => <li key={i}>{i}</li>)}</ul>}
+              {s.after?.map((p) => <p key={p} className="mt-4 text-[18px] leading-[1.65]">{p}</p>)}
             </section>
           ))}
         </div>

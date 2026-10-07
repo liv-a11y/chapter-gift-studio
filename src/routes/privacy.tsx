@@ -30,14 +30,7 @@ export const Route = createFileRoute("/privacy")({
           "To understand who is interested, so we can decide which partners and communities to approach first.",
           "To keep the site secure and working.",
           "To meet legal obligations.",
-        ], paragraphs: undefined },
-        { heading: "", paragraphs: [] },
-      ].filter((s) => s.heading).concat([
-        { heading: "Not sold", paragraphs: [] },
-      ].filter(() => false)).map((s) => s.heading === "How we use it" ? { ...s, paragraphs: undefined } : s).concat([])
-        .flatMap((s) => s.heading === "How we use it" ? [s, { heading: "\u200b", paragraphs: ["We do not sell your personal information. We do not share it for cross-context behavioral advertising."] }] : [s])
-        .map((s) => s.heading === "\u200b" ? { ...s, heading: "We do not sell your information" } : s)
-        .concat([
+        ], after: ["We do not sell your personal information. We do not share it for cross-context behavioral advertising."] },
           { heading: "Who we share it with", paragraphs: ["We share information only with service providers who help us run the site and send email, under terms that limit their use of it. Current providers: [site host], [form tool], [email tool], [analytics tool, if any]. We may also disclose information if the law requires it, or in a merger or sale of the company, in which case we will tell you if your information is affected."] },
           { heading: "How long we keep it", paragraphs: ["We keep waitlist information until the pilot ends or you ask us to delete it, plus a reasonable period afterward for records and legal needs. [Counsel to set a specific period.]"] },
           { heading: "Your choices and rights", items: [
@@ -50,7 +43,7 @@ export const Route = createFileRoute("/privacy")({
           { heading: "Security", paragraphs: ["We use reasonable safeguards, but no system is perfectly secure. If a breach affects your information, we will notify you as the law requires."] },
           { heading: "Changes", paragraphs: ["If we make material changes, we will update the date above and, where we have your email, tell you."] },
           { heading: "Contact", paragraphs: ["Good Chapter, Co., [mailing address]. Email: [privacy email]."] },
-        ])}
+      ]}
     />
   ),
 });

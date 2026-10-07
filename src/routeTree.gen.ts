@@ -20,6 +20,7 @@ import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as NewRouteImport } from './routes/new'
 import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as PreviewRouteImport } from './routes/preview'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ReadRouteImport } from './routes/read'
 import { Route as StoryRouteImport } from './routes/story'
 import { Route as JournalHowToShowUpWithoutBeingWeirdRouteImport } from './routes/journal.how-to-show-up-without-being-weird'
@@ -84,6 +85,11 @@ const PreviewRoute = PreviewRouteImport.update({
   path: '/preview',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReadRoute = ReadRouteImport.update({
   id: '/read',
   path: '/read',
@@ -139,6 +145,7 @@ export interface FileRoutesByFullPath {
   '/new': typeof NewRoute
   '/partners': typeof PartnersRouteWithChildren
   '/preview': typeof PreviewRoute
+  '/privacy': typeof PrivacyRoute
   '/read': typeof ReadRoute
   '/story': typeof StoryRoute
   '/journal/how-to-show-up-without-being-weird': typeof JournalHowToShowUpWithoutBeingWeirdRoute
@@ -160,6 +167,7 @@ export interface FileRoutesByTo {
   '/new': typeof NewRoute
   '/partners': typeof PartnersRouteWithChildren
   '/preview': typeof PreviewRoute
+  '/privacy': typeof PrivacyRoute
   '/read': typeof ReadRoute
   '/story': typeof StoryRoute
   '/journal/how-to-show-up-without-being-weird': typeof JournalHowToShowUpWithoutBeingWeirdRoute
@@ -182,6 +190,7 @@ export interface FileRoutesById {
   '/new': typeof NewRoute
   '/partners': typeof PartnersRouteWithChildren
   '/preview': typeof PreviewRoute
+  '/privacy': typeof PrivacyRoute
   '/read': typeof ReadRoute
   '/story': typeof StoryRoute
   '/journal/how-to-show-up-without-being-weird': typeof JournalHowToShowUpWithoutBeingWeirdRoute
@@ -205,6 +214,7 @@ export interface FileRouteTypes {
     | '/new'
     | '/partners'
     | '/preview'
+    | '/privacy'
     | '/read'
     | '/story'
     | '/journal/how-to-show-up-without-being-weird'
@@ -226,6 +236,7 @@ export interface FileRouteTypes {
     | '/new'
     | '/partners'
     | '/preview'
+    | '/privacy'
     | '/read'
     | '/story'
     | '/journal/how-to-show-up-without-being-weird'
@@ -247,6 +258,7 @@ export interface FileRouteTypes {
     | '/new'
     | '/partners'
     | '/preview'
+    | '/privacy'
     | '/read'
     | '/story'
     | '/journal/how-to-show-up-without-being-weird'
@@ -269,6 +281,7 @@ export interface RootRouteChildren {
   NewRoute: typeof NewRoute
   PartnersRoute: typeof PartnersRouteWithChildren
   PreviewRoute: typeof PreviewRoute
+  PrivacyRoute: typeof PrivacyRoute
   ReadRoute: typeof ReadRoute
   StoryRoute: typeof StoryRoute
   JournalHowToShowUpWithoutBeingWeirdRoute: typeof JournalHowToShowUpWithoutBeingWeirdRoute
@@ -353,6 +366,13 @@ declare module '@tanstack/react-router' {
       path: '/preview'
       fullPath: '/preview'
       preLoaderRoute: typeof PreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/read': {
@@ -442,6 +462,7 @@ const rootRouteChildren: RootRouteChildren = {
   NewRoute: NewRoute,
   PartnersRoute: PartnersRouteWithChildren,
   PreviewRoute: PreviewRoute,
+  PrivacyRoute: PrivacyRoute,
   ReadRoute: ReadRoute,
   StoryRoute: StoryRoute,
   JournalHowToShowUpWithoutBeingWeirdRoute:
