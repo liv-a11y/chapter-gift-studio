@@ -98,7 +98,11 @@ function SiteFooter() {
           <Link to="/partners/real-estate">Real estate</Link>
           <Link to="/partners/brands">Brands</Link>
           <Link to="/investors">Investors</Link>
+          <Link to="/privacy">Privacy</Link>
+          <Link to="/terms">Terms</Link>
+          <a href="mailto:liv@goodchaptercollective.com">Contact</a>
         </nav>
+        <p className="text-[14px] text-background/70 md:col-span-2">© 2026 Good Chapter, Co. All rights reserved.</p>
       </div>
     </footer>
   );
