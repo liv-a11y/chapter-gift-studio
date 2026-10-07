@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site/site-shell";
 import { WaitlistForm } from "@/components/site/waitlist-form";
+import { ToasterLine } from "@/components/site/illustration";
 import keyDoor from "@/assets/01-key-and-door.png.asset.json";
 
 const title = "You shouldn't need a wedding to get a toaster";
