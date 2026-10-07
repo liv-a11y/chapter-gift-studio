@@ -26,7 +26,7 @@ export function SiteShell({ children, pilot = false }: { children: ReactNode; pi
     <div className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-50 border-b-2 border-foreground bg-background">
         <div className="site-container flex min-h-20 items-center gap-2 py-3 sm:gap-4">
-          <Link to="/" className="shrink-0 font-display text-xl sm:text-2xl" aria-label="Good Chapter home">
+          <Link to="/" className="shrink-0 font-display text-xl sm:text-2xl" aria-label="Good Chapter Co. home">
             <BrandMark />
           </Link>
           {pilot ? <span className="eyebrow ml-auto text-emphasis">Private pilot</span> : <><nav className="ml-auto hidden items-center gap-7 lg:flex" aria-label="Main navigation">
