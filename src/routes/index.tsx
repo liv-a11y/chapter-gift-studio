@@ -31,8 +31,8 @@ function PilotGate() {
         </div>
         <div className="mt-8 grid gap-8 md:grid-cols-2 md:gap-12 lg:gap-16">
           <div className="min-w-0">
-            <img src={keyDoor.url} alt="A person holding a large key stands beside an open door." width={1536} height={1024} fetchPriority="high" className="mt-5 aspect-[3/2] w-full max-w-[360px] rounded-[4px] border-2 border-foreground object-contain mix-blend-multiply" />
-            <div className="mt-6 max-w-md border-2 border-foreground bg-card p-5">
+            <img src={keyDoor.url} alt="A person holding a large key stands beside an open door." width={1536} height={1024} fetchPriority="high" className="aspect-[3/2] w-full max-w-[420px] rounded-[4px] border-2 border-foreground object-contain mix-blend-multiply" />
+            <div className="mt-6 border-2 border-foreground bg-card p-5 sm:p-6">
               <p className="eyebrow text-emphasis">Since 1924</p>
               <ToasterLine className="mt-3 text-[24px] leading-[1.2]" />
               <p className="mt-4 text-[17px] leading-[1.5] text-muted-foreground">A century ago, a department store decided you only deserve support if you get married or have a baby.</p>
