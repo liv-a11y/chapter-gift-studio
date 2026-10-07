@@ -21,10 +21,23 @@ import {
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
-import aperitif from "@/assets/aperitif.jpg";
-import candle from "@/assets/candle.jpg";
-import cookware from "@/assets/cookware.jpg";
-import frame from "@/assets/frame.jpg";
+import kettleA from "@/assets/p-bright-citron-kettle-600.webp.asset.json";
+import panA from "@/assets/p-cast-iron-pan-600.webp.asset.json";
+import cleaningA from "@/assets/p-cleaning-help-600.webp.asset.json";
+import mugA from "@/assets/p-cobalt-mug-600.webp.asset.json";
+import lampA from "@/assets/p-cobalt-table-lamp-600.webp.asset.json";
+import toolboxA from "@/assets/p-cobalt-toolbox-600.webp.asset.json";
+import towelsA from "@/assets/p-cream-bath-towels-600.webp.asset.json";
+import coffeeA from "@/assets/p-forest-coffee-maker-600.webp.asset.json";
+import plantA from "@/assets/p-houseplant-600.webp.asset.json";
+import blanketA from "@/assets/p-knit-blanket-600.webp.asset.json";
+import mealA from "@/assets/p-meal-help.png.asset.json";
+import movingA from "@/assets/p-moving-help-600.webp.asset.json";
+import suitcaseA from "@/assets/p-terracotta-suitcase.webp.asset.json";
+import candleA from "@/assets/p-terracotta-candle-600.webp.asset.json";
+
+const candle = candleA.url;
+const allPhotos = [kettleA, panA, cleaningA, mugA, lampA, toolboxA, towelsA, coffeeA, plantA, blanketA, mealA, movingA, suitcaseA, candleA].map((a) => a.url);
 import { GiftRecommender } from "@/components/gift-recommender";
 import type { Recommendation } from "@/lib/recommend.functions";
 import { Button } from "@/components/ui/button";
@@ -49,14 +62,14 @@ type Item = {
 };
 
 const items: Item[] = [
-  { id: 1, brand: "OTHERLAND", name: "Rattan candle", price: 36, band: "Easy yes", reason: "For making the first night feel like home.", image: candle },
-  { id: 2, brand: "GHIA", name: "First sip set", price: 48, band: "Easy yes", reason: "For a proper toast to the keys.", image: aperitif },
-  { id: 3, brand: "FRAMEBRIDGE", name: "Tabletop frame", price: 49, band: "Easy yes", reason: "For the photo that makes it officially hers.", image: frame },
-  { id: 4, brand: "OTHERLAND", name: "Three candle set", price: 89, band: "Considered", reason: "For a different mood in every new room.", image: candle },
-  { id: 5, brand: "GHIA", name: "Aperitif duo", price: 76, band: "Considered", reason: "For hosting without making it a whole thing.", image: aperitif },
-  { id: 6, brand: "FRAMEBRIDGE", name: "Gallery wall pair", price: 110, band: "Considered", reason: "For the blank wall she keeps talking about.", image: frame },
-  { id: 7, brand: "CARAWAY", name: "Sauté pan", price: 145, band: "Practical", reason: "Because one excellent pan beats five bad ones.", image: cookware },
-  { id: 8, brand: "CARAWAY", name: "Cookware set", price: 395, band: "Group candidate", reason: "A kitchen foundation from everyone who loves her.", image: cookware },
+  { id: 1, brand: "CERAMICS", name: "Checkered candle", price: 34, band: "Easy yes", reason: "For making the first night smell like hers.", image: candleA.url },
+  { id: 2, brand: "STONEWARE", name: "Cobalt check mug", price: 38, band: "Easy yes", reason: "The heavy mug that quietly becomes the only one.", image: mugA.url },
+  { id: 3, brand: "PLANTS", name: "Pothos in a tile pot", price: 45, band: "Easy yes", reason: "Something alive in the empty room.", image: plantA.url },
+  { id: 4, brand: "KITCHEN", name: "Cast iron skillet", price: 65, band: "Considered", reason: "One pan that outlives every apartment after this one.", image: panA.url },
+  { id: 5, brand: "KITCHEN", name: "Citron kettle", price: 75, band: "Considered", reason: "Because boiling water should feel like a small win.", image: kettleA.url },
+  { id: 6, brand: "BATH", name: "Striped towel set", price: 96, band: "Considered", reason: "To retire the frayed towels from the last place.", image: towelsA.url },
+  { id: 7, brand: "TOOLS", name: "Cobalt toolbox", price: 140, band: "Practical", reason: "Nobody puts a toolbox on a bridal list. She needs one most.", image: toolboxA.url },
+  { id: 8, brand: "LIGHTING", name: "Cobalt dome lamp", price: 240, band: "Group candidate", reason: "Good light for the first night in, from everyone who loves her.", image: lampA.url },
 ];
 
 const bandLabels: Record<Band, string> = {
@@ -81,7 +94,7 @@ export function GoodChapterDemo({ initialView }: { initialView: View }) {
   const approvedItems = useMemo(() => chapterItems.filter((item) => kept.has(item.id)), [chapterItems, kept]);
 
   function useAiEdit(ideas: Recommendation[]) {
-    const images = [candle, aperitif, frame, cookware];
+    const images = allPhotos;
     const nextItems: Item[] = ideas.map((idea, index) => ({
       id: index + 101,
       brand: idea.brand.toUpperCase(),
