@@ -5,8 +5,8 @@ import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 
 const links = [
-  { label: "How it works", to: "/", hash: "how" },
-  { label: "Chapters", to: "/", hash: "chapters" },
+  { label: "How it works", to: "/story", hash: "how" },
+  { label: "Chapters", to: "/story", hash: "chapters" },
   { label: "Read", to: "/read" },
   { label: "Partners", to: "/partners" },
   { label: "Investors", to: "/investors" },
@@ -20,7 +20,7 @@ export function BrandMark({ inverse = false }: { inverse?: boolean }) {
   );
 }
 
-export function SiteShell({ children }: { children: ReactNode }) {
+export function SiteShell({ children, pilot = false }: { children: ReactNode; pilot?: boolean }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -29,7 +29,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <Link to="/" className="shrink-0 font-display text-xl sm:text-2xl" aria-label="Good Chapter home">
             <BrandMark />
           </Link>
-          <nav className="ml-auto hidden items-center gap-7 lg:flex" aria-label="Main navigation">
+          {pilot ? <span className="eyebrow ml-auto text-emphasis">Private pilot</span> : <><nav className="ml-auto hidden items-center gap-7 lg:flex" aria-label="Main navigation">
             {links.map((link) => "hash" in link ? (
               <Link key={link.label} to={link.to} hash={link.hash} className="text-[15px] font-medium transition-colors duration-175 hover:text-primary">
                 {link.label}
@@ -45,9 +45,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </Button>
           <button type="button" onClick={() => setOpen(!open)} className="flex size-11 shrink-0 items-center justify-center rounded-sm border-2 border-foreground lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open}>
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
-          </button>
+          </button></>}
         </div>
-        {open && (
+        {!pilot && open && (
           <nav className="border-t-2 border-foreground bg-background px-5 py-2 lg:hidden" aria-label="Mobile navigation">
             {links.map((link) => "hash" in link ? (
               <Link key={link.label} to={link.to} hash={link.hash} onClick={() => setOpen(false)} className="block border-b border-border py-4 text-lg font-medium last:border-b-0">
@@ -62,7 +62,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
         )}
       </header>
       <main>{children}</main>
-      <SiteFooter />
+      {pilot ? <footer className="border-t-2 border-foreground bg-foreground text-background">
+        <div className="site-container flex flex-wrap items-center justify-between gap-5 py-7 text-[14px]">
+          <p>Good people. Different rules.</p>
+          <Link to="/story" className="underline underline-offset-4 hover:text-highlight">Read the story ↗</Link>
+          <a href="mailto:liv@goodchapterco.com" className="underline underline-offset-4 hover:text-highlight">liv@goodchapterco.com</a>
+        </div>
+      </footer> : <SiteFooter />}
     </div>
   );
 }
