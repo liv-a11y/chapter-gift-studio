@@ -110,10 +110,10 @@ export function WaitlistForm({ pilot = false }: { pilot?: boolean }) {
             placeholder="you@example.com"
             aria-invalid={status === "error"}
             aria-describedby={status === "error" ? "waitlist-email-error" : undefined}
-            className="h-14 min-w-0 flex-1 rounded-sm border-2 border-foreground bg-background px-4 text-[18px] outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className={`h-14 min-w-0 shrink-0 ${pilot ? "w-full" : "sm:flex-1"} rounded-sm border-2 border-foreground bg-background px-4 text-[18px] outline-none focus-visible:ring-2 focus-visible:ring-primary`}
           />
           <Button type="submit" size="lg" disabled={status === "loading"} className="h-14 px-7 text-[17px]">
-            {status === "loading" ? "Adding you…" : <>Get on the list <ArrowRight className="size-5" /></>}
+            {status === "loading" ? "Adding you…" : <>{pilot ? "Count me in" : "Get on the list"} <ArrowRight className="size-5" /></>}
           </Button>
         </div>
         {status === "error" && <p id="waitlist-email-error" className="mt-3 text-[15px] text-emphasis">{error}</p>}

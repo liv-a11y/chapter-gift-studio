@@ -1,5 +1,5 @@
 # Roadmap
-- [ ] Replace homepage with cryptic pilot gate, preserve full story, and verify inquiry signup
+- [x] Replace homepage with cryptic pilot gate, preserve full story, and verify inquiry signup
 - [x] Redesign guest landing and browse around private gift claims
 - [x] Add claim, off-list, confirmation, gifted, loading, empty, and error states
 - [x] Apply the Good Chapter typography and color system
