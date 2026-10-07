@@ -10,12 +10,14 @@ const inquiryTypes = ["Consumer", "Founding partner: Employer", "Founding partne
 const schema = z.object({
   email: z.string().trim().email("That email doesn’t look quite right.").max(254),
   chapter: z.string().max(80).optional(),
+  comments: z.string().trim().max(1000, "Keep it under 1,000 characters.").optional(),
 });
 type Status = "idle" | "loading" | "done" | "error";
 
 export function WaitlistForm({ pilot = false }: { pilot?: boolean }) {
   const [email, setEmail] = useState("");
   const [chapter, setChapter] = useState<string | undefined>();
+  const [comments, setComments] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
 
@@ -26,7 +28,7 @@ export function WaitlistForm({ pilot = false }: { pilot?: boolean }) {
       setStatus("error");
       return;
     }
-    const parsed = schema.safeParse({ email, chapter });
+    const parsed = schema.safeParse({ email, chapter, comments: comments || undefined });
     if (!parsed.success) {
       setError(parsed.error.issues[0]?.message ?? "Please check your email.");
       setStatus("error");
@@ -36,7 +38,7 @@ export function WaitlistForm({ pilot = false }: { pilot?: boolean }) {
     setError("");
     const { error: databaseError } = await supabase
       .from("waitlist_signups")
-      .insert({ email: parsed.data.email.toLowerCase(), chapter: parsed.data.chapter ?? null });
+      .insert({ email: parsed.data.email.toLowerCase(), chapter: parsed.data.chapter ?? null, comments: parsed.data.comments || null });
     if (databaseError && databaseError.code !== "23505") {
       setError("Something went sideways. Try again in a moment.");
       setStatus("error");
@@ -92,6 +94,11 @@ export function WaitlistForm({ pilot = false }: { pilot?: boolean }) {
             })}
           </div>
         </fieldset>}
+        {pilot && <div className="mt-6">
+          <label htmlFor="waitlist-comments" className="eyebrow block text-muted-foreground">Comments. Optional.</label>
+          <textarea id="waitlist-comments" rows={4} maxLength={1000} value={comments} disabled={status === "loading"} onChange={(event) => setComments(event.target.value)} placeholder="Tell us what brought you here." className="mt-3 w-full rounded-[4px] border-2 border-foreground bg-background px-4 py-3 font-sans text-[17px] outline-none focus-visible:ring-2 focus-visible:ring-primary" />
+          <p className="mt-2 text-[14px] text-muted-foreground">Please leave out names or details about anyone else.</p>
+        </div>}
         <label htmlFor="waitlist-email" className="eyebrow mt-6 block text-muted-foreground">Your email</label>
         <div className={`mt-3 flex flex-col gap-3 ${pilot ? "" : "sm:flex-row"}`}>
           <input

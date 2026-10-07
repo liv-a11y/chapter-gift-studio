@@ -17,18 +17,21 @@ export type Database = {
       waitlist_signups: {
         Row: {
           chapter: string | null
+          comments: string | null
           created_at: string
           email: string
           id: string
         }
         Insert: {
           chapter?: string | null
+          comments?: string | null
           created_at?: string
           email: string
           id?: string
         }
         Update: {
           chapter?: string | null
+          comments?: string | null
           created_at?: string
           email?: string
           id?: string
