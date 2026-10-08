@@ -8,14 +8,7 @@ import mfStreet from "@/assets/marshall-field-1906.jpg.asset.json";
 import familyDoor from "@/assets/03-family-through-door.png.asset.json";
 import { Illustration, ToasterIllustration, ToasterLine } from "@/components/site/illustration";
 
-import aperitif from "@/assets/aperitif.jpg";
-import bench from "@/assets/bench.jpg";
-import candle from "@/assets/candle.jpg";
-import cookware from "@/assets/cookware.jpg";
-import frame from "@/assets/frame.jpg";
-import lamp from "@/assets/lamp.jpg";
-import pottery from "@/assets/pottery.jpg";
-import throwImg from "@/assets/throw.jpg";
+import { sampleProducts } from "@/lib/sample-products";
 import { SiteShell } from "@/components/site/site-shell";
 import { Button } from "@/components/ui/button";
 
@@ -39,16 +32,7 @@ const steps = [
   { n: "03", title: "Guests give.", copy: "Friends and family claim ideas to coordinate. No awkward group chats, no checkout, no invoice." },
 ];
 
-const gifts = [
-  { band: "Under $50", name: "Otherland Fallen Fir candle", reason: "For the first quiet night when the boxes are still everywhere.", photo: candle },
-  { band: "Under $50", name: "Handmade stoneware mug set", reason: "For the slow morning coffee that finally isn't from a to-go cup.", photo: pottery },
-  { band: "$50 to $100", name: "Ghia aperitif set", reason: "For her alcohol-free Friday dinners around the new table.", photo: aperitif },
-  { band: "$50 to $100", name: "Ceramic bedside lamp", reason: "The lamp she needs, without ever having to name it herself.", photo: lamp },
-  { band: "$100 to $250", name: "Custom Framebridge print", reason: "A permanent place for the photo from her solo closing day.", photo: frame },
-  { band: "$100 to $250", name: "Soft wool throw", reason: "For the reading chair she has already claimed by the window.", photo: throwImg },
-  { band: "Splurge", name: "Caraway ceramic pan", reason: "A real upgrade for the elaborate one-pan dinners she loves making.", photo: cookware },
-  { band: "Splurge", name: "Entryway bench", reason: "So the shoes, tote bags, and dog lead finally have a landing place.", photo: bench },
-];
+const gifts = sampleProducts;
 
 const assurances = [
   "You approve every item and every guest.",
@@ -218,7 +202,7 @@ function HomePage() {
           <div className="mt-14 grid overflow-hidden rounded-sm border-2 border-foreground sm:grid-cols-2 lg:grid-cols-4">
             {gifts.map((gift, index) => (
               <article key={gift.name} className={`lift-card flex min-w-0 flex-col bg-card ${index > 0 ? "border-t-2 border-foreground sm:border-t-0" : ""} ${index % 2 === 1 ? "sm:border-l-2 sm:border-foreground" : ""} ${index >= 2 ? "sm:border-t-2 sm:border-foreground" : ""} ${index % 4 !== 0 ? "lg:border-l-2 lg:border-foreground" : "lg:border-l-0"} ${index >= 4 ? "lg:border-t-2 lg:border-foreground" : "lg:border-t-0"}`}>
-                <img src={gift.photo} alt="" className="aspect-[4/3] w-full border-b-2 border-foreground object-cover" />
+                <img src={gift.photo} alt={gift.name} loading="lazy" className="aspect-[4/3] w-full border-b-2 border-foreground object-cover" />
                 <div className="flex flex-1 flex-col p-5"><span className="eyebrow text-emphasis">{gift.band}</span><h3 className="mt-3 font-display text-2xl leading-[1.1]">{gift.name}</h3><p className="mt-3 text-[15px] leading-[1.5] text-muted-foreground">{gift.reason}</p></div>
               </article>
             ))}
