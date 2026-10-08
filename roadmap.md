@@ -1,4 +1,5 @@
 # Roadmap
+- [ ] Replace old public product imagery with the uploaded photos and verify matching sample gifts.
 - [x] Replace homepage with cryptic pilot gate, preserve full story, and verify inquiry signup
 - [x] Redesign guest landing and browse around private gift claims
 - [x] Add claim, off-list, confirmation, gifted, loading, empty, and error states
