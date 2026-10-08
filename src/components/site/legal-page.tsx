@@ -9,7 +9,7 @@ export function LegalPage({ title, intro, sections }: { title: string; intro: st
         <div className="mx-auto max-w-[42rem]">
           <p className="eyebrow text-emphasis">Legal</p>
           <h1 className="mt-4 font-display text-[44px] leading-[1.05] sm:text-[60px]">{title}</h1>
-          <p className="mt-5 eyebrow text-muted-foreground">Last updated: [date]</p>
+          <p className="mt-5 eyebrow text-muted-foreground">Last updated: October 1, 2026</p>
           <p className="mt-8 text-[19px] leading-[1.65]">{intro}</p>
           {sections.map((s) => (
             <section key={s.heading} className="mt-12 border-t-2 border-foreground pt-6">
