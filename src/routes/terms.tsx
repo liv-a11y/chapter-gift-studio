@@ -26,10 +26,10 @@ export const Route = createFileRoute("/terms")({
         { heading: "Our content", paragraphs: ["The site, the Good Chapter name and branding, and our original text and design belong to us or our licensors. Historical images are public domain and credited on the page. You may share links to the site, but may not copy our content or use our name or marks without written permission."] },
         { heading: "Acceptable use", paragraphs: ["Do not interfere with the site, attempt unauthorized access, scrape it, or submit false or harmful content."] },
         { heading: "No warranties", paragraphs: [`The site is provided "as is" and "as available." We make no warranties of any kind, to the extent the law allows.`] },
-        { heading: "Limit of liability", paragraphs: ["To the extent the law allows, Good Chapter is not liable for indirect, incidental, or consequential damages arising from your use of the site, and our total liability for any claim is limited to [$100 or counsel's figure]."] },
+        { heading: "Limit of liability", paragraphs: ["To the extent the law allows, Good Chapter is not liable for indirect, incidental, or consequential damages arising from your use of the site, and our total liability for any claim is limited to $100."] },
         { heading: "Changes and termination", paragraphs: ["We may update these terms or suspend access at any time. Continued use after an update means you accept it."] },
-        { heading: "Governing law", paragraphs: ["These terms are governed by the laws of [State], without regard to conflict-of-law rules. Disputes will be handled in the courts located in [county, State], unless counsel prefers arbitration. [Counsel to decide.]"] },
-        { heading: "Contact", paragraphs: ["Good Chapter, Co., [mailing address]. Email: [contact email]."] },
+        { heading: "Governing law", paragraphs: ["These terms are governed by the laws of Indiana, without regard to conflict-of-law rules. Disputes will be handled in the courts located in Marion County, Indiana."] },
+        { heading: "Contact", paragraphs: ["Good Chapter, Co., 358 Terrace Ave, Indianapolis, IN 46225. Email: info@goodchaptercollective.com."] },
       ]}
     />
   ),
