@@ -8,6 +8,9 @@ import mfStreet from "@/assets/marshall-field-1906.jpg.asset.json";
 import familyDoor from "@/assets/03-family-through-door.png.asset.json";
 import { Illustration, ToasterIllustration, ToasterLine } from "@/components/site/illustration";
 
+import sceneKitchen from "@/assets/scene-kitchen-moving-day.png.asset.json";
+import sceneDesk from "@/assets/scene-desk-nook.png.asset.json";
+import sceneLiving from "@/assets/scene-living-dining.png.asset.json";
 import { sampleProducts } from "@/lib/sample-products";
 import { SiteShell } from "@/components/site/site-shell";
 import { Button } from "@/components/ui/button";
@@ -151,6 +154,21 @@ function HomePage() {
       </section>
 
       <Unlearning />
+
+      <section className="border-t-2 border-foreground" aria-labelledby="real-rooms">
+        <div className="site-container site-section">
+          <p className="eyebrow text-emphasis">What it looks like now</p>
+          <h2 id="real-rooms" className="site-h2 mt-5 max-w-[22ch]">Boxes still taped. Keys on the counter. Nobody threw her a shower.</h2>
+          <figure className="mt-10">
+            <img src={sceneKitchen.url} alt="A sunlit kitchen with a yellow kettle on the stove, an open moving box of dishes, keys on the counter, and two blue stools." loading="lazy" width={1536} height={1024} className="aspect-[3/2] w-full rounded-[4px] border-2 border-foreground object-cover" />
+          </figure>
+          <div className="mt-6 grid gap-6 sm:grid-cols-2">
+            <img src={sceneLiving.url} alt="A living room with a round dining table, a blue chair, moving boxes, and a striped blanket on a sofa." loading="lazy" width={1536} height={1024} className="aspect-[3/2] w-full rounded-[4px] border-2 border-foreground object-cover" />
+            <img src={sceneDesk.url} alt="A desk with a blue dome lamp, an open notebook, a checkered mug, and a striped sweater on the chair." loading="lazy" width={1536} height={1024} className="aspect-[3/2] w-full rounded-[4px] border-2 border-foreground object-cover" />
+          </div>
+          <p className="mt-6 max-w-[42rem] text-[17px] leading-[1.5] text-muted-foreground">A first place, bought alone. A kettle, a skillet, a lamp. Small things that make a room hers. This is the chapter the registry never covered.</p>
+        </div>
+      </section>
 
       <section>
         <div className="site-container site-section grid items-center gap-14 lg:grid-cols-[minmax(320px,.82fr)_minmax(0,1.18fr)] lg:gap-20">
