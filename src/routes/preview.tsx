@@ -5,23 +5,16 @@ import toasterCouple from "@/assets/06-toaster-and-couple.png.asset.json";
 import familyDoor from "@/assets/03-family-through-door.png.asset.json";
 import { Illustration, ToasterIllustration, ToasterLine } from "@/components/site/illustration";
 
-import aperitif from "@/assets/aperitif.jpg";
-import bench from "@/assets/bench.jpg";
-import candle from "@/assets/candle.jpg";
-import cookware from "@/assets/cookware.jpg";
-import frame from "@/assets/frame.jpg";
-import lamp from "@/assets/lamp.jpg";
-import pottery from "@/assets/pottery.jpg";
-import throwImg from "@/assets/throw.jpg";
+import { sampleProducts } from "@/lib/sample-products";
 import { SiteShell } from "@/components/site/site-shell";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/preview")({
   head: () => ({
     meta: [
-      { title: "Good Chapter — Full site preview" }, { name: "robots", content: "noindex" },
+      { title: "Good Chapter .  Full site preview" }, { name: "robots", content: "noindex" },
       { name: "description", content: "The registry served one old life script. Good Chapter helps friends show up for first homes, fresh starts, recovery, and everything else." },
-      { property: "og:title", content: "Good Chapter — The anti-registry for everything else she does" },
+      { property: "og:title", content: "Good Chapter .  The anti-registry for everything else she does" },
       { property: "og:description", content: "The registry served one old life script. Good Chapter helps friends show up for first homes, fresh starts, recovery, and everything else." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -33,19 +26,10 @@ export const Route = createFileRoute("/preview")({
 const steps = [
   { n: "01", title: "A friend starts.", copy: "One friend starts the chapter so the honoree never has to ask." },
   { n: "02", title: "The person decides.", copy: "Maya keeps, cuts, or adds items in complete privacy. The friend never sees edits." },
-  { n: "03", title: "Guests give.", copy: "Friends and family claim ideas to coordinate—no awkward group chats, no checkout, no invoice." },
+  { n: "03", title: "Guests give.", copy: "Friends and family claim ideas to coordinate. no awkward group chats, no checkout, no invoice." },
 ];
 
-const gifts = [
-  { band: "Under $50", name: "Otherland Fallen Fir candle", reason: "For the first quiet night when the boxes are still everywhere.", photo: candle },
-  { band: "Under $50", name: "Handmade stoneware mug set", reason: "For the slow morning coffee that finally isn't from a to-go cup.", photo: pottery },
-  { band: "$50–$100", name: "Ghia aperitif set", reason: "For her alcohol-free Friday dinners around the new table.", photo: aperitif },
-  { band: "$50–$100", name: "Ceramic bedside lamp", reason: "The lamp she needs, without ever having to name it herself.", photo: lamp },
-  { band: "$100–$250", name: "Custom Framebridge print", reason: "A permanent place for the photo from her solo closing day.", photo: frame },
-  { band: "$100–$250", name: "Soft wool throw", reason: "For the reading chair she has already claimed by the window.", photo: throwImg },
-  { band: "Splurge", name: "Caraway ceramic pan", reason: "A real upgrade for the elaborate one-pan dinners she loves making.", photo: cookware },
-  { band: "Splurge", name: "Entryway bench", reason: "So the shoes, tote bags, and dog lead finally have a landing place.", photo: bench },
-];
+const gifts = sampleProducts;
 
 const assurances = [
   "You approve every item and every guest.",
@@ -114,7 +98,7 @@ function HomePage() {
                   <span className="font-display text-[52px] leading-none sm:text-[64px]">1924</span>
                   <span className="eyebrow text-right text-muted-foreground">One accepted<br />life script</span>
                 </div>
-                <img src={cookware} alt="Cookware representing the traditional new household" className="aspect-square h-full w-full border-r-2 border-foreground object-cover" />
+                <img src={sampleProducts[3].photo} alt="Cast iron skillet" className="aspect-square h-full w-full border-r-2 border-foreground object-cover" />
                 <div className="flex flex-col justify-between p-5">
                   <span className="eyebrow text-emphasis">The bridal list</span>
                   <p className="mt-10 font-display text-[24px] leading-[1.12]">China.<br />Silver.<br />Crystal.</p>
@@ -125,8 +109,8 @@ function HomePage() {
                     <span className="eyebrow text-right text-primary-foreground/80">Every life<br />worth marking</span>
                   </div>
                 </div>
-                <img src={frame} alt="A framed memory chosen for a first home" className="aspect-square h-full w-full border-r-2 border-foreground object-cover" />
-                <img src={aperitif} alt="A thoughtful gift for a life lived outside the old script" className="aspect-square h-full w-full object-cover" />
+                <img src={sampleProducts[6].photo} alt="Cobalt toolbox" className="aspect-square h-full w-full border-r-2 border-foreground object-cover" />
+                <img src={sampleProducts[4].photo} alt="Citron kettle" className="aspect-square h-full w-full object-cover" />
               </div>
               <p className="mt-5 text-[15px] leading-[1.5] text-muted-foreground">From one prescribed household to every way a life can change.</p>
             </div>
@@ -141,7 +125,7 @@ function HomePage() {
               </p>
               <div className="mt-10 grid gap-6 text-[17px] leading-[1.5] text-muted-foreground sm:grid-cols-2 sm:gap-10">
                 <p>It made care legible at marriage: here is the household, here is what it needs, here is how everyone can help without guessing.</p>
-                <p>But women kept building lives outside that script—buying homes alone, starting over, getting sober, healing, moving cities. The care stayed. The ritual did not.</p>
+                <p>But women kept building lives outside that script. buying homes alone, starting over, getting sober, healing, moving cities. The care stayed. The ritual did not.</p>
               </div>
               <p className="mt-10 border-t-2 border-foreground pt-6 font-display text-[28px] leading-[1.18] sm:text-[34px]">
                 Good Chapter is not a better wedding registry. It is the ritual for everything the registry left out.
@@ -157,7 +141,7 @@ function HomePage() {
                   </li>
                   <li id="source-2" className="grid grid-cols-[1.5rem_1fr] gap-2">
                     <span className="font-mono text-foreground">2</span>
-                    <span>Good Chapter Brand Guidelines v3, September 2026. This is Good Chapter’s interpretation of the old social script—not a quotation from Marshall Field’s.</span>
+                    <span>Good Chapter Brand Guidelines v3, September 2026. This is Good Chapter’s interpretation of the old social script. not a quotation from Marshall Field’s.</span>
                   </li>
                 </ol>
               </aside>
@@ -221,7 +205,7 @@ function HomePage() {
           <div className="mt-12 grid overflow-hidden rounded-sm border-2 border-foreground sm:grid-cols-2 lg:grid-cols-4">
             {gifts.map((gift, index) => (
               <article key={gift.name} className={`lift-card flex min-w-0 flex-col bg-card ${index > 0 ? "border-t-2 border-foreground sm:border-t-0" : ""} ${index % 2 === 1 ? "sm:border-l-2 sm:border-foreground" : ""} ${index >= 2 ? "sm:border-t-2 sm:border-foreground" : ""} ${index % 4 !== 0 ? "lg:border-l-2 lg:border-foreground" : "lg:border-l-0"} ${index >= 4 ? "lg:border-t-2 lg:border-foreground" : "lg:border-t-0"}`}>
-                <img src={gift.photo} alt="" className="aspect-[4/3] w-full border-b-2 border-foreground object-cover" />
+                <img src={gift.photo} alt={gift.name} loading="lazy" className="aspect-[4/3] w-full border-b-2 border-foreground object-cover" />
                 <div className="flex flex-1 flex-col p-5"><span className="eyebrow text-emphasis">{gift.band}</span><h3 className="mt-3 font-display text-2xl leading-[1.1]">{gift.name}</h3><p className="mt-3 text-[15px] leading-[1.5] text-muted-foreground">{gift.reason}</p></div>
               </article>
             ))}

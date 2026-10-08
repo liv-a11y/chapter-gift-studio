@@ -2,17 +2,14 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { sampleProducts } from "@/lib/sample-products";
 import { SiteShell } from "@/components/site/site-shell";
-import aperitif from "@/assets/aperitif.jpg";
-import candle from "@/assets/candle.jpg";
-import cookware from "@/assets/cookware.jpg";
-import frame from "@/assets/frame.jpg";
 
 export const Route = createFileRoute("/partners")({
   head: () => ({ meta: [
-    { title: "Partners — Good Chapter" },
+    { title: "Partners .  Good Chapter" },
     { name: "description", content: "Employers, agents and brands start a Good Chapter on someone's behalf. The person approves it privately. Nobody has to ask." },
-    { property: "og:title", content: "Partners — Good Chapter" },
+    { property: "og:title", content: "Partners .  Good Chapter" },
     { property: "og:description", content: "Employers, agents and brands start a Good Chapter on someone's behalf. The person approves it privately. Nobody has to ask." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
@@ -32,13 +29,13 @@ const pathways = [
     label: "Employers & benefits brokers",
     headline: "The milestone benefit for everything after the wedding.",
     bullets: [
-      "Routes existing $100–$300 milestone stipends",
+      "Routes existing $100 to $300 milestone stipends",
       "A teammate starts it, HR never sees the list",
       "Plugs into Workhuman, Snappy and Slack",
     ],
     footer: "For employers",
-    photo: aperitif,
-    alt: "Friends raising glasses in a new home",
+    photo: sampleProducts[4].photo,
+    alt: "Citron kettle",
   },
   {
     to: "/partners/real-estate",
@@ -50,8 +47,8 @@ const pathways = [
       "Your name on every gift that arrives",
     ],
     footer: "For agents",
-    photo: frame,
-    alt: "A framed print leaning against a fresh wall",
+    photo: sampleProducts[6].photo,
+    alt: "Cobalt toolbox",
   },
   {
     to: "/partners/brands",
@@ -63,8 +60,8 @@ const pathways = [
       "Exclusive SKUs, earned with real data",
     ],
     footer: "For brands",
-    photo: cookware,
-    alt: "A cookware set on a kitchen counter",
+    photo: sampleProducts[3].photo,
+    alt: "Cast iron skillet",
   },
 ];
 
@@ -105,13 +102,13 @@ function PartnersPage() {
             </div>
           </div>
           <div className="relative mx-auto aspect-square w-full max-w-[520px]" aria-hidden="true">
-            <img src={candle} alt="" className="absolute left-0 top-0 h-[78%] w-[78%] rounded-sm border-2 border-foreground object-cover" />
-            <img src={frame} alt="" className="absolute bottom-0 right-0 h-[48%] w-[48%] rotate-2 rounded-sm border-2 border-foreground object-cover" />
+            <img src={sampleProducts[0].photo} alt="" className="absolute left-0 top-0 h-[78%] w-[78%] rounded-sm border-2 border-foreground object-cover" />
+            <img src={sampleProducts[1].photo} alt="" className="absolute bottom-0 right-0 h-[48%] w-[48%] rotate-2 rounded-sm border-2 border-foreground object-cover" />
           </div>
         </div>
       </section>
 
-      {/* Ink band — 3 steps */}
+      {/* Ink band .  3 steps */}
       <section className="bg-foreground text-background">
         <div className="site-container site-section">
           <p className="eyebrow text-background/70">How it works</p>
