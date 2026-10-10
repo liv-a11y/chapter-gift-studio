@@ -73,9 +73,9 @@ function GivingPage() {
           </div>
           <div className="flex flex-col gap-4">
             <p className="eyebrow text-emphasis">No cause picked</p>
-            <h2 className="site-h2">Unassigned margin funds classrooms.</h2>
+            <h2 className="site-h2">Every other chapter helps a teacher start a child’s next one.</h2>
             <p className="site-body">
-              Not every chapter needs a matching cause. When none is chosen, the share goes to DonorsChoose, where public school teachers ask for the supplies their students need. Pencils. Books. A rug for story time.
+              When no cause is chosen, our margin goes to DonorsChoose. Public school teachers asking for what their students need. Books. Pencils. A rug for story time. Helping a kid start their next chapter right.
             </p>
           </div>
         </div>
