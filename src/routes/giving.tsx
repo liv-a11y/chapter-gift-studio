@@ -2,6 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { SiteShell } from "@/components/site/site-shell";
 import donorsChoose from "@/assets/donorschoose-logo.png.asset.json";
+import trevor from "@/assets/trevor-project-logo.webp.asset.json";
+import hotline from "@/assets/domestic-violence-hotline-logo.webp.asset.json";
+import habitat from "@/assets/habitat-for-humanity-logo.webp.asset.json";
+import shatterproof from "@/assets/shatterproof-logo.webp.asset.json";
+import adoption from "@/assets/dave-thomas-foundation-logo.webp.asset.json";
+import dougy from "@/assets/dougy-center-logo.webp.asset.json";
 
 const DESC =
   "A share of every chapter goes to a nonprofit that knows it. Unassigned margin funds public classrooms through DonorsChoose. Paid from our margin, never the gift.";
@@ -20,15 +26,15 @@ export const Route = createFileRoute("/giving")({
   component: GivingPage,
 });
 
-type Cause = { chapter: string; org: string; sub?: string; copy: string; rule: string; tile: string };
+type Cause = { chapter: string; org: string; copy: string; rule: string; logo: string; width: number; height: number };
 
 const causes: Cause[] = [
-  { chapter: "Coming out", org: "The Trevor Project", copy: "Crisis support for LGBTQ young people.", rule: "border-t-primary", tile: "bg-emphasis text-emphasis-foreground" },
-  { chapter: "Divorce and starting over", org: "National Domestic Violence Hotline", copy: "Safety and support for people leaving.", rule: "border-t-emphasis", tile: "bg-card text-foreground" },
-  { chapter: "First place", org: "Habitat for Humanity", copy: "Homes for people who need one.", rule: "border-t-foreground", tile: "bg-card text-primary" },
-  { chapter: "Sobriety", org: "Shatterproof", copy: "Treatment and recovery support.", rule: "border-t-primary", tile: "bg-highlight text-foreground" },
-  { chapter: "Adoption and foster", org: "Dave Thomas Foundation", sub: "for Adoption", copy: "Homes for children in foster care.", rule: "border-t-emphasis", tile: "bg-card text-foreground" },
-  { chapter: "Grief and healing", org: "Dougy Center", copy: "Support for grieving children and families.", rule: "border-t-foreground", tile: "bg-card text-primary" },
+  { chapter: "Coming out", org: "The Trevor Project", copy: "Crisis support for LGBTQ young people.", rule: "border-t-primary", logo: trevor.url, width: 662, height: 362 },
+  { chapter: "Divorce and starting over", org: "National Domestic Violence Hotline", copy: "Safety and support for people leaving.", rule: "border-t-emphasis", logo: hotline.url, width: 370, height: 352 },
+  { chapter: "First place", org: "Habitat for Humanity", copy: "Homes for people who need one.", rule: "border-t-foreground", logo: habitat.url, width: 700, height: 234 },
+  { chapter: "Sobriety", org: "Shatterproof", copy: "Treatment and recovery support.", rule: "border-t-primary", logo: shatterproof.url, width: 597, height: 108 },
+  { chapter: "Adoption and foster", org: "Dave Thomas Foundation for Adoption", copy: "Homes for children in foster care.", rule: "border-t-emphasis", logo: adoption.url, width: 652, height: 224 },
+  { chapter: "Grief and healing", org: "Dougy Center", copy: "Support for grieving children and families.", rule: "border-t-foreground", logo: dougy.url, width: 700, height: 607 },
 ];
 
 function GivingPage() {
@@ -46,9 +52,8 @@ function GivingPage() {
             {causes.map((c) => (
               <article key={c.chapter} className={`flex flex-col gap-3 rounded-[4px] border-2 border-foreground border-t-[6px] ${c.rule} bg-background p-4`}>
                 <p className="eyebrow text-emphasis">{c.chapter}</p>
-                <div className={`flex h-24 flex-col items-center justify-center rounded-[4px] border-2 border-foreground px-3 text-center ${c.tile}`}>
-                  <span className="font-display text-xl leading-tight">{c.org}</span>
-                  {c.sub && <span className="text-sm">{c.sub}</span>}
+                <div className="flex h-40 items-center justify-center">
+                  <img src={c.logo} alt={`${c.org} logo`} width={c.width} height={c.height} className="max-h-full max-w-full object-contain" loading="lazy" />
                 </div>
                 <p className="text-sm">{c.copy}</p>
               </article>
@@ -56,7 +61,7 @@ function GivingPage() {
           </div>
 
           <p className="text-xs text-muted-foreground">
-            Illustrative pairings, no agreements signed. Logos shown as name marks until approved. Percentage to be set, from our margin, not the gift. Structure set with counsel.
+            Illustrative pairings only. No agreements signed or endorsements implied. Logos belong to their respective organizations. Percentage to be set, from our margin, not the gift. Structure set with counsel.
           </p>
         </div>
       </section>

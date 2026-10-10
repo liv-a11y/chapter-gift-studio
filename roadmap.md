@@ -1,4 +1,5 @@
 # Roadmap
+- [x] Extract the nonprofit logos from the pitch deck and replace the Giving Back beta name marks.
 - [x] Replace old public product imagery with the uploaded photos and verify matching sample gifts.
 - [x] Replace homepage with cryptic pilot gate, preserve full story, and verify inquiry signup
 - [x] Redesign guest landing and browse around private gift claims
