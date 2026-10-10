@@ -96,6 +96,7 @@ function SiteFooter() {
           <Link to="/partners">Partners</Link>
           <Link to="/partners/employers">Employers</Link>
           <Link to="/partners/real-estate">Real estate</Link>
+          <Link to="/giving">Giving back</Link>
           <Link to="/partners/brands">Brands</Link>
           <Link to="/investors">Investors</Link>
           <Link to="/privacy">Privacy</Link>

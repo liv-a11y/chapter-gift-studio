@@ -14,6 +14,7 @@ import { Route as ApproveRouteImport } from './routes/approve'
 import { Route as CatalogRouteImport } from './routes/catalog'
 import { Route as FounderRouteImport } from './routes/founder'
 import { Route as FoundingRouteImport } from './routes/founding'
+import { Route as GivingRouteImport } from './routes/giving'
 import { Route as GuestRouteImport } from './routes/guest'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as InvestorsRouteImport } from './routes/investors'
@@ -55,6 +56,11 @@ const FounderRoute = FounderRouteImport.update({
 const FoundingRoute = FoundingRouteImport.update({
   id: '/founding',
   path: '/founding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GivingRoute = GivingRouteImport.update({
+  id: '/giving',
+  path: '/giving',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GuestRoute = GuestRouteImport.update({
@@ -151,6 +157,7 @@ export interface FileRoutesByFullPath {
   '/catalog': typeof CatalogRoute
   '/founder': typeof FounderRoute
   '/founding': typeof FoundingRoute
+  '/giving': typeof GivingRoute
   '/guest': typeof GuestRoute
   '/history': typeof HistoryRoute
   '/investors': typeof InvestorsRoute
@@ -175,6 +182,7 @@ export interface FileRoutesByTo {
   '/catalog': typeof CatalogRoute
   '/founder': typeof FounderRoute
   '/founding': typeof FoundingRoute
+  '/giving': typeof GivingRoute
   '/guest': typeof GuestRoute
   '/history': typeof HistoryRoute
   '/investors': typeof InvestorsRoute
@@ -200,6 +208,7 @@ export interface FileRoutesById {
   '/catalog': typeof CatalogRoute
   '/founder': typeof FounderRoute
   '/founding': typeof FoundingRoute
+  '/giving': typeof GivingRoute
   '/guest': typeof GuestRoute
   '/history': typeof HistoryRoute
   '/investors': typeof InvestorsRoute
@@ -226,6 +235,7 @@ export interface FileRouteTypes {
     | '/catalog'
     | '/founder'
     | '/founding'
+    | '/giving'
     | '/guest'
     | '/history'
     | '/investors'
@@ -250,6 +260,7 @@ export interface FileRouteTypes {
     | '/catalog'
     | '/founder'
     | '/founding'
+    | '/giving'
     | '/guest'
     | '/history'
     | '/investors'
@@ -274,6 +285,7 @@ export interface FileRouteTypes {
     | '/catalog'
     | '/founder'
     | '/founding'
+    | '/giving'
     | '/guest'
     | '/history'
     | '/investors'
@@ -299,6 +311,7 @@ export interface RootRouteChildren {
   CatalogRoute: typeof CatalogRoute
   FounderRoute: typeof FounderRoute
   FoundingRoute: typeof FoundingRoute
+  GivingRoute: typeof GivingRoute
   GuestRoute: typeof GuestRoute
   HistoryRoute: typeof HistoryRoute
   InvestorsRoute: typeof InvestorsRoute
@@ -350,6 +363,13 @@ declare module '@tanstack/react-router' {
       path: '/founding'
       fullPath: '/founding'
       preLoaderRoute: typeof FoundingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/giving': {
+      id: '/giving'
+      path: '/giving'
+      fullPath: '/giving'
+      preLoaderRoute: typeof GivingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/guest': {
@@ -496,6 +516,7 @@ const rootRouteChildren: RootRouteChildren = {
   CatalogRoute: CatalogRoute,
   FounderRoute: FounderRoute,
   FoundingRoute: FoundingRoute,
+  GivingRoute: GivingRoute,
   GuestRoute: GuestRoute,
   HistoryRoute: HistoryRoute,
   InvestorsRoute: InvestorsRoute,
