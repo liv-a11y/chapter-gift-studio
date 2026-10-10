@@ -45,7 +45,7 @@ function GivingPage() {
           <p className="eyebrow text-emphasis">Giving back . Beta</p>
           <h1 className="site-h1 max-w-[20ch]">A share of every chapter goes to a nonprofit that knows it.</h1>
           <p className="self-start rounded-[4px] bg-highlight px-3 py-1 font-display text-lg text-foreground md:text-xl">
-            Employer and real estate clients can request a local nonprofit.
+            Partners can direct giving to a local nonprofit in their community, or one their team cares about.
           </p>
 
           <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
