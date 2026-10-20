@@ -65,7 +65,7 @@ function PortalPage() {
   function addChapter() {
     if (remaining < anchor) return;
     const n = entries.length + 1;
-    setEntries([...entries, { id: n, team: TEAMS[n % TEAMS.length], category: CATEGORIES[n % CATEGORIES.length], status: "Started", week: Math.min(13, 4 + Math.ceil(n / 3)) }]);
+    setEntries([...entries, { id: n, team: TEAMS[n % TEAMS.length]!, category: CATEGORIES[n % CATEGORIES.length]!, status: "Started", week: Math.min(13, 4 + Math.ceil(n / 3)) }]);
   }
   function advance(id: number) {
     const next: Record<Status, Status> = { Started: "Approved", Approved: "Gift sent", "Gift sent": "Gift sent", Declined: "Declined" };
