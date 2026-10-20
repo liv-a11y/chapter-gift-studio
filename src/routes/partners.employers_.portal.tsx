@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 
 import { SiteShell } from "@/components/site/site-shell";
+import { GiftFlow } from "@/components/site/gift-flow";
+import { Ticker } from "@/components/site/portal-ui";
 
 const title = "Employer portal prototype. Good Chapter, Co.";
 const description = "Walk through a sample employer pilot: set the pool, choose the anchor gift, and see a counts-only ledger and give back tracker.";
@@ -75,7 +77,7 @@ function PortalPage() {
     setEntries(entries.map((e) => (e.id === id && e.status === "Started" ? { ...e, status: "Declined" } : e)));
   }
 
-  const tabs = ["Pool", "Anchor gift", "Ledger", "Give back"];
+  const tabs = ["Pool", "Anchor gift", "Ledger", "Give back", "Gift flow"];
 
   return (
     <SiteShell>
@@ -84,10 +86,10 @@ function PortalPage() {
         <h1 className="mt-4 font-display text-4xl leading-tight sm:text-5xl">Your pilot, from the company side.</h1>
         <p className="mt-5 max-w-2xl text-lg leading-relaxed">Set a pool. Pick the anchor gift. Watch chapters move. You see counts and spend. You never see names, addresses, or what anyone kept.</p>
 
-        <div className="mt-10 grid grid-cols-2 gap-2 sm:grid-cols-4" role="tablist">
+        <div className="mt-10 grid grid-cols-2 border-2 border-foreground sm:grid-cols-5" role="tablist">
           {tabs.map((t, i) => (
             <button key={t} role="tab" aria-selected={step === i + 1} onClick={() => setStep(i + 1)}
-              className={`rounded-sm border-2 border-foreground px-3 py-3 text-left font-mono text-xs uppercase tracking-[0.14em] hover:bg-foreground hover:text-background ${step === i + 1 ? "bg-highlight" : ""}`}>
+              className={`border-foreground px-3 py-3 text-left font-mono text-xs uppercase tracking-[0.14em] hover:bg-foreground hover:text-background ${i > 0 ? "sm:border-l-2" : ""} ${step === i + 1 ? "bg-foreground text-background" : ""}`}>
               {String(i + 1).padStart(2, "0")} {t}
             </button>
           ))}
@@ -179,6 +181,14 @@ function PortalPage() {
                   </div>
                   <p className="mt-2 text-sm">{money(giveTarget)} if the full pool is used. Reported once a year in the impact report.</p>
                 </div>
+                <NextBtn onClick={() => setStep(5)} />
+              </div>
+            )}
+            {step === 5 && (
+              <div>
+                <h2 className="font-display text-2xl">One chapter, start to finish.</h2>
+                <p className="mt-2 mb-6 leading-relaxed">Approve, fund from the pool, let teammates keep adding, deliver with a quiet thank-you.</p>
+                <GiftFlow anchor={anchor} />
               </div>
             )}
           </div>
@@ -189,8 +199,8 @@ function PortalPage() {
               <Row k="Pool" v={money(pool)} />
               <Row k="Anchor gift" v={money(anchor)} />
               <Row k="Cap per employee" v={`${cap} per year`} />
-              <Row k="Committed" v={money(committed)} />
-              <Row k="Remaining" v={money(remaining)} />
+              <Row k="Committed" v={<Ticker value={committed} />} />
+              <Row k="Remaining" v={<Ticker value={remaining} />} />
               <Row k="Gifts sent" v={String(sent)} />
               <Row k="Give back" v={money(giveBack)} />
             </dl>
@@ -207,8 +217,8 @@ function PortalPage() {
   );
 }
 
-function Row({ k, v }: { k: string; v: string }) {
-  return <div className="flex justify-between gap-4 border-b-2 border-foreground pb-2"><dt className="eyebrow">{k}</dt><dd className="font-display">{v}</dd></div>;
+function Row({ k, v }: { k: string; v: React.ReactNode }) {
+  return <div className="flex justify-between gap-4 border-b-2 border-foreground pb-2"><dt className="eyebrow">{k}</dt><dd className="font-mono tabular-nums">{v}</dd></div>;
 }
 
 function NextBtn({ onClick }: { onClick: () => void }) {
