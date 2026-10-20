@@ -28,6 +28,7 @@ import { Route as StoryRouteImport } from './routes/story'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as JournalHowToShowUpWithoutBeingWeirdRouteImport } from './routes/journal.how-to-show-up-without-being-weird'
 import { Route as JournalVulnerabilityTaxRouteImport } from './routes/journal.vulnerability-tax'
+import { Route as PartnersIndexRouteImport } from './routes/partners.index'
 import { Route as PartnersBrandsRouteImport } from './routes/partners.brands'
 import { Route as PartnersEmployersRouteImport } from './routes/partners.employers'
 import { Route as PartnersRealEstateRouteImport } from './routes/partners.real-estate'
@@ -129,6 +130,11 @@ const JournalVulnerabilityTaxRoute = JournalVulnerabilityTaxRouteImport.update({
   path: '/journal/vulnerability-tax',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PartnersIndexRoute = PartnersIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PartnersRoute,
+} as any)
 const PartnersBrandsRoute = PartnersBrandsRouteImport.update({
   id: '/brands',
   path: '/brands',
@@ -174,6 +180,7 @@ export interface FileRoutesByFullPath {
   '/partners/brands': typeof PartnersBrandsRoute
   '/partners/employers': typeof PartnersEmployersRoute
   '/partners/real-estate': typeof PartnersRealEstateRoute
+  '/partners/': typeof PartnersIndexRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesByTo {
@@ -187,7 +194,6 @@ export interface FileRoutesByTo {
   '/history': typeof HistoryRoute
   '/investors': typeof InvestorsRoute
   '/new': typeof NewRoute
-  '/partners': typeof PartnersRouteWithChildren
   '/preview': typeof PreviewRoute
   '/privacy': typeof PrivacyRoute
   '/read': typeof ReadRoute
@@ -199,6 +205,7 @@ export interface FileRoutesByTo {
   '/partners/brands': typeof PartnersBrandsRoute
   '/partners/employers': typeof PartnersEmployersRoute
   '/partners/real-estate': typeof PartnersRealEstateRoute
+  '/partners': typeof PartnersIndexRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesById {
@@ -225,6 +232,7 @@ export interface FileRoutesById {
   '/partners/brands': typeof PartnersBrandsRoute
   '/partners/employers': typeof PartnersEmployersRoute
   '/partners/real-estate': typeof PartnersRealEstateRoute
+  '/partners/': typeof PartnersIndexRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRouteTypes {
@@ -252,6 +260,7 @@ export interface FileRouteTypes {
     | '/partners/brands'
     | '/partners/employers'
     | '/partners/real-estate'
+    | '/partners/'
     | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -265,7 +274,6 @@ export interface FileRouteTypes {
     | '/history'
     | '/investors'
     | '/new'
-    | '/partners'
     | '/preview'
     | '/privacy'
     | '/read'
@@ -277,6 +285,7 @@ export interface FileRouteTypes {
     | '/partners/brands'
     | '/partners/employers'
     | '/partners/real-estate'
+    | '/partners'
     | '/lovable/email/transactional/preview'
   id:
     | '__root__'
@@ -302,6 +311,7 @@ export interface FileRouteTypes {
     | '/partners/brands'
     | '/partners/employers'
     | '/partners/real-estate'
+    | '/partners/'
     | '/lovable/email/transactional/preview'
   fileRoutesById: FileRoutesById
 }
@@ -463,6 +473,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JournalVulnerabilityTaxRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/partners/': {
+      id: '/partners/'
+      path: '/'
+      fullPath: '/partners/'
+      preLoaderRoute: typeof PartnersIndexRouteImport
+      parentRoute: typeof PartnersRoute
+    }
     '/partners/brands': {
       id: '/partners/brands'
       path: '/brands'
@@ -498,12 +515,14 @@ interface PartnersRouteChildren {
   PartnersBrandsRoute: typeof PartnersBrandsRoute
   PartnersEmployersRoute: typeof PartnersEmployersRoute
   PartnersRealEstateRoute: typeof PartnersRealEstateRoute
+  PartnersIndexRoute: typeof PartnersIndexRoute
 }
 
 const PartnersRouteChildren: PartnersRouteChildren = {
   PartnersBrandsRoute: PartnersBrandsRoute,
   PartnersEmployersRoute: PartnersEmployersRoute,
   PartnersRealEstateRoute: PartnersRealEstateRoute,
+  PartnersIndexRoute: PartnersIndexRoute,
 }
 
 const PartnersRouteWithChildren = PartnersRoute._addFileChildren(
