@@ -79,7 +79,7 @@ function PilotGate() {
               <p className="mt-7 max-w-[40rem] text-[17px] leading-[1.55] text-muted-foreground">In 1924, a department store made care easy to give at marriage. China, silver, crystal, and a list so nobody guessed.</p>
               <p className="mt-4 max-w-[40rem] text-[17px] leading-[1.55] text-muted-foreground">Women kept building lives outside that script. Buying homes alone. Starting over. Moving somewhere new. The care stayed. The ritual did not.</p>
               <div className="mt-10 border-t-2 border-foreground pt-6">
-                <p className="font-display text-[24px] leading-[1.2] sm:text-[28px]">To learn more about our why.</p>
+                <p className="font-display text-[24px] leading-[1.2] sm:text-[28px]">Every chapter deserves the care. Here is why.</p>
                 <Link
                   to="/read"
                   className="mt-5 inline-flex items-center gap-3 rounded-[4px] border-2 border-primary bg-primary px-5 py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-primary-foreground hover:bg-foreground hover:text-background"

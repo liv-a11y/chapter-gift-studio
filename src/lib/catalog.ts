@@ -11,10 +11,10 @@ export const segments: { id: SegmentId; name: string; blurb: string }[] = [
 ];
 
 export const tiers: { id: TierId; name: string; range: string }[] = [
-  { id: "easy-yes", name: "Easy yes", range: "$25–50" },
-  { id: "considered", name: "Considered", range: "$60–120" },
-  { id: "foundation", name: "Practical foundation", range: "$120–250" },
-  { id: "group", name: "Group splurge", range: "$250–500" },
+  { id: "easy-yes", name: "Easy yes", range: "$25 to $50" },
+  { id: "considered", name: "Considered", range: "$60 to $120" },
+  { id: "foundation", name: "Practical foundation", range: "$120 to $250" },
+  { id: "group", name: "Group splurge", range: "$250 to $500" },
 ];
 
 export type ImageKey = "candle" | "aperitif" | "frame" | "cookware" | "pottery" | "lamp" | "throw" | "bench";

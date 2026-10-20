@@ -99,8 +99,8 @@ function EmployersPage() {
         <div className="site-container max-w-2xl py-14">
           <p className="eyebrow text-emphasis">Founding employers</p>
           <h2 className="mt-3 font-display text-3xl sm:text-4xl">Ask about a pilot.</h2>
-          <p className="mt-4 mb-8 text-lg">Choose “Founding partner: Employer” below. We read every note.</p>
-          <WaitlistForm pilot />
+          <p className="mt-4 mb-8 text-lg">Tell us who you are. Liv reads every note and writes back to set up a real conversation.</p>
+          <WaitlistForm pilot defaultInquiry="Founding partner: Employer" />
         </div>
       </section>
     </SiteShell>
