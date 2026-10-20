@@ -6,7 +6,7 @@ import { SiteShell } from "@/components/site/site-shell";
 const title = "Employer portal prototype. Good Chapter, Co.";
 const description = "Walk through a sample employer pilot: set the pool, choose the anchor gift, and see a counts-only ledger and give back tracker.";
 
-export const Route = createFileRoute("/partners/employers/portal")({
+export const Route = createFileRoute("/partners/employers_/portal")({
   head: () => ({
     meta: [
       { title },
