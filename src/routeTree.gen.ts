@@ -32,6 +32,7 @@ import { Route as PartnersIndexRouteImport } from './routes/partners.index'
 import { Route as PartnersBrandsRouteImport } from './routes/partners.brands'
 import { Route as PartnersEmployersRouteImport } from './routes/partners.employers'
 import { Route as PartnersRealEstateRouteImport } from './routes/partners.real-estate'
+import { Route as PartnersEmployersPortalRouteImport } from './routes/partners.employers.portal'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
 const IndexRoute = IndexRouteImport.update({
@@ -150,6 +151,11 @@ const PartnersRealEstateRoute = PartnersRealEstateRouteImport.update({
   path: '/real-estate',
   getParentRoute: () => PartnersRoute,
 } as any)
+const PartnersEmployersPortalRoute = PartnersEmployersPortalRouteImport.update({
+  id: '/portal',
+  path: '/portal',
+  getParentRoute: () => PartnersEmployersRoute,
+} as any)
 const LovableEmailTransactionalPreviewRoute =
   LovableEmailTransactionalPreviewRouteImport.update({
     id: '/lovable/email/transactional/preview',
@@ -178,9 +184,10 @@ export interface FileRoutesByFullPath {
   '/journal/how-to-show-up-without-being-weird': typeof JournalHowToShowUpWithoutBeingWeirdRoute
   '/journal/vulnerability-tax': typeof JournalVulnerabilityTaxRoute
   '/partners/brands': typeof PartnersBrandsRoute
-  '/partners/employers': typeof PartnersEmployersRoute
+  '/partners/employers': typeof PartnersEmployersRouteWithChildren
   '/partners/real-estate': typeof PartnersRealEstateRoute
   '/partners/': typeof PartnersIndexRoute
+  '/partners/employers/portal': typeof PartnersEmployersPortalRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesByTo {
@@ -203,9 +210,10 @@ export interface FileRoutesByTo {
   '/journal/how-to-show-up-without-being-weird': typeof JournalHowToShowUpWithoutBeingWeirdRoute
   '/journal/vulnerability-tax': typeof JournalVulnerabilityTaxRoute
   '/partners/brands': typeof PartnersBrandsRoute
-  '/partners/employers': typeof PartnersEmployersRoute
+  '/partners/employers': typeof PartnersEmployersRouteWithChildren
   '/partners/real-estate': typeof PartnersRealEstateRoute
   '/partners': typeof PartnersIndexRoute
+  '/partners/employers/portal': typeof PartnersEmployersPortalRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesById {
@@ -230,9 +238,10 @@ export interface FileRoutesById {
   '/journal/how-to-show-up-without-being-weird': typeof JournalHowToShowUpWithoutBeingWeirdRoute
   '/journal/vulnerability-tax': typeof JournalVulnerabilityTaxRoute
   '/partners/brands': typeof PartnersBrandsRoute
-  '/partners/employers': typeof PartnersEmployersRoute
+  '/partners/employers': typeof PartnersEmployersRouteWithChildren
   '/partners/real-estate': typeof PartnersRealEstateRoute
   '/partners/': typeof PartnersIndexRoute
+  '/partners/employers/portal': typeof PartnersEmployersPortalRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRouteTypes {
@@ -261,6 +270,7 @@ export interface FileRouteTypes {
     | '/partners/employers'
     | '/partners/real-estate'
     | '/partners/'
+    | '/partners/employers/portal'
     | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -286,6 +296,7 @@ export interface FileRouteTypes {
     | '/partners/employers'
     | '/partners/real-estate'
     | '/partners'
+    | '/partners/employers/portal'
     | '/lovable/email/transactional/preview'
   id:
     | '__root__'
@@ -312,6 +323,7 @@ export interface FileRouteTypes {
     | '/partners/employers'
     | '/partners/real-estate'
     | '/partners/'
+    | '/partners/employers/portal'
     | '/lovable/email/transactional/preview'
   fileRoutesById: FileRoutesById
 }
@@ -501,6 +513,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PartnersRealEstateRouteImport
       parentRoute: typeof PartnersRoute
     }
+    '/partners/employers/portal': {
+      id: '/partners/employers/portal'
+      path: '/portal'
+      fullPath: '/partners/employers/portal'
+      preLoaderRoute: typeof PartnersEmployersPortalRouteImport
+      parentRoute: typeof PartnersEmployersRoute
+    }
     '/lovable/email/transactional/preview': {
       id: '/lovable/email/transactional/preview'
       path: '/lovable/email/transactional/preview'
@@ -511,16 +530,27 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface PartnersEmployersRouteChildren {
+  PartnersEmployersPortalRoute: typeof PartnersEmployersPortalRoute
+}
+
+const PartnersEmployersRouteChildren: PartnersEmployersRouteChildren = {
+  PartnersEmployersPortalRoute: PartnersEmployersPortalRoute,
+}
+
+const PartnersEmployersRouteWithChildren =
+  PartnersEmployersRoute._addFileChildren(PartnersEmployersRouteChildren)
+
 interface PartnersRouteChildren {
   PartnersBrandsRoute: typeof PartnersBrandsRoute
-  PartnersEmployersRoute: typeof PartnersEmployersRoute
+  PartnersEmployersRoute: typeof PartnersEmployersRouteWithChildren
   PartnersRealEstateRoute: typeof PartnersRealEstateRoute
   PartnersIndexRoute: typeof PartnersIndexRoute
 }
 
 const PartnersRouteChildren: PartnersRouteChildren = {
   PartnersBrandsRoute: PartnersBrandsRoute,
-  PartnersEmployersRoute: PartnersEmployersRoute,
+  PartnersEmployersRoute: PartnersEmployersRouteWithChildren,
   PartnersRealEstateRoute: PartnersRealEstateRoute,
   PartnersIndexRoute: PartnersIndexRoute,
 }
