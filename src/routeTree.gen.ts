@@ -32,6 +32,7 @@ import { Route as PartnersIndexRouteImport } from './routes/partners.index'
 import { Route as PartnersBrandsRouteImport } from './routes/partners.brands'
 import { Route as PartnersEmployersRouteImport } from './routes/partners.employers'
 import { Route as PartnersRealEstateRouteImport } from './routes/partners.real-estate'
+import { Route as PartnersEmployersPortalRouteImport } from './routes/partners.employers_.portal'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
 const IndexRoute = IndexRouteImport.update({
@@ -150,6 +151,11 @@ const PartnersRealEstateRoute = PartnersRealEstateRouteImport.update({
   path: '/real-estate',
   getParentRoute: () => PartnersRoute,
 } as any)
+const PartnersEmployersPortalRoute = PartnersEmployersPortalRouteImport.update({
+  id: '/employers_/portal',
+  path: '/employers/portal',
+  getParentRoute: () => PartnersRoute,
+} as any)
 const LovableEmailTransactionalPreviewRoute =
   LovableEmailTransactionalPreviewRouteImport.update({
     id: '/lovable/email/transactional/preview',
@@ -181,6 +187,7 @@ export interface FileRoutesByFullPath {
   '/partners/employers': typeof PartnersEmployersRoute
   '/partners/real-estate': typeof PartnersRealEstateRoute
   '/partners/': typeof PartnersIndexRoute
+  '/partners/employers/portal': typeof PartnersEmployersPortalRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesByTo {
@@ -206,6 +213,7 @@ export interface FileRoutesByTo {
   '/partners/employers': typeof PartnersEmployersRoute
   '/partners/real-estate': typeof PartnersRealEstateRoute
   '/partners': typeof PartnersIndexRoute
+  '/partners/employers/portal': typeof PartnersEmployersPortalRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesById {
@@ -233,6 +241,7 @@ export interface FileRoutesById {
   '/partners/employers': typeof PartnersEmployersRoute
   '/partners/real-estate': typeof PartnersRealEstateRoute
   '/partners/': typeof PartnersIndexRoute
+  '/partners/employers_/portal': typeof PartnersEmployersPortalRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRouteTypes {
@@ -261,6 +270,7 @@ export interface FileRouteTypes {
     | '/partners/employers'
     | '/partners/real-estate'
     | '/partners/'
+    | '/partners/employers/portal'
     | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -286,6 +296,7 @@ export interface FileRouteTypes {
     | '/partners/employers'
     | '/partners/real-estate'
     | '/partners'
+    | '/partners/employers/portal'
     | '/lovable/email/transactional/preview'
   id:
     | '__root__'
@@ -312,6 +323,7 @@ export interface FileRouteTypes {
     | '/partners/employers'
     | '/partners/real-estate'
     | '/partners/'
+    | '/partners/employers_/portal'
     | '/lovable/email/transactional/preview'
   fileRoutesById: FileRoutesById
 }
@@ -501,6 +513,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PartnersRealEstateRouteImport
       parentRoute: typeof PartnersRoute
     }
+    '/partners/employers_/portal': {
+      id: '/partners/employers_/portal'
+      path: '/employers/portal'
+      fullPath: '/partners/employers/portal'
+      preLoaderRoute: typeof PartnersEmployersPortalRouteImport
+      parentRoute: typeof PartnersRoute
+    }
     '/lovable/email/transactional/preview': {
       id: '/lovable/email/transactional/preview'
       path: '/lovable/email/transactional/preview'
@@ -516,6 +535,7 @@ interface PartnersRouteChildren {
   PartnersEmployersRoute: typeof PartnersEmployersRoute
   PartnersRealEstateRoute: typeof PartnersRealEstateRoute
   PartnersIndexRoute: typeof PartnersIndexRoute
+  PartnersEmployersPortalRoute: typeof PartnersEmployersPortalRoute
 }
 
 const PartnersRouteChildren: PartnersRouteChildren = {
@@ -523,6 +543,7 @@ const PartnersRouteChildren: PartnersRouteChildren = {
   PartnersEmployersRoute: PartnersEmployersRoute,
   PartnersRealEstateRoute: PartnersRealEstateRoute,
   PartnersIndexRoute: PartnersIndexRoute,
+  PartnersEmployersPortalRoute: PartnersEmployersPortalRoute,
 }
 
 const PartnersRouteWithChildren = PartnersRoute._addFileChildren(

@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { SiteShell } from "@/components/site/site-shell";
 import { WaitlistForm } from "@/components/site/waitlist-form";
@@ -84,6 +84,7 @@ function EmployersPage() {
           <p className="eyebrow text-emphasis">The pilot</p>
           <h2 className="mt-3 font-display text-3xl sm:text-4xl">Small pool. Clear rules. Real chapters.</h2>
           <p className="mt-4 text-lg leading-relaxed">A sample pilot: a $10,000 pool with a $200 anchor gift covers about fifty chapters over 90 days. You set the numbers.</p>
+          <Link to="/partners/employers/portal" className="mt-6 inline-block rounded-sm border-2 border-foreground bg-primary px-5 py-3 text-primary-foreground hover:bg-foreground hover:text-background">Walk the portal prototype</Link>
           <div className="mt-8 grid gap-4">
             {guardrails.map((g) => (
               <div key={g.h} className="rounded-sm border-2 border-foreground p-5">
