@@ -73,10 +73,10 @@ const items: Item[] = [
 ];
 
 const bandLabels: Record<Band, string> = {
-  "Easy yes": "$25–50",
-  Considered: "$60–120",
-  Practical: "$40–150",
-  "Group candidate": "$200–400",
+  "Easy yes": "$25 to $50",
+  Considered: "$60 to $120",
+  Practical: "$40 to $150",
+  "Group candidate": "$200 to $400",
 };
 
 export function GoodChapterDemo({ initialView }: { initialView: View }) {
@@ -156,7 +156,7 @@ function FriendFlow({ step, setStep, guests, setGuests, items: chapterItems, onU
 function ChapterStep({ onContinue }: { onContinue: () => void }) {
   return (
     <div className="mx-auto max-w-[1500px] px-5 py-10 md:px-10 md:py-16">
-      <StepHeader number="01" eyebrow="Start a chapter" title={<>What is Maya<br /><em>stepping into?</em></>} copy="You start it. Maya approves it privately. Then it comes from you — never her." />
+      <StepHeader number="01" eyebrow="Start a chapter" title={<>What is Maya<br /><em>stepping into?</em></>} copy="You start it. Maya approves it privately. Then it comes from you. Never her." />
       <div className="mt-12 grid gap-4 md:grid-cols-3">
         <button onClick={onContinue} className="group relative min-h-64 overflow-hidden rounded-sm border-2 border-foreground bg-secondary p-6 text-left  transition-transform hover:-translate-y-1 md:col-span-2">
           <div className="absolute right-6 top-6 flex size-10 items-center justify-center rounded-full bg-foreground text-background"><Check className="size-5" /></div>
@@ -184,11 +184,11 @@ const sparkPrompts = [
 
 const tailoredReasons: Record<number, string> = {
   1: "Because overhead lighting is a crime, and you know she agrees.",
-  2: "For the shoes-off, something-bubbly ritual — now in a real glass.",
+  2: "For the shoes-off, something-bubbly ritual, now in a real glass.",
   3: "For the one Lisbon photo that finally leaves the folder.",
   4: "Candles are a food group. This is a balanced diet.",
   5: "For Fleetwood Mac, windows open, friends on the floor.",
-  6: "For the blank wall — Lisbon, part two and three.",
+  6: "For the blank wall. Lisbon, part two and three.",
   7: "For the very serious shakshuka. It deserves a good pan.",
   8: "The pans she's never owned, from everyone who's eaten her shakshuka.",
 };
@@ -234,7 +234,7 @@ function EditStep({ onBack, onContinue, items: chapterItems }: { onBack: () => v
       <FlowTop onBack={onBack} label="First Place · 2 of 3" />
       <div className="mt-9 flex flex-col justify-between gap-5 border-b border-foreground pb-8 md:flex-row md:items-end">
         <div><p className="eyebrow">Eight things · Four price bands</p><h1 className="mt-3 font-display text-5xl md:text-7xl">The edit for Maya.</h1></div>
-        <p className="max-w-sm text-sm leading-6 text-muted-foreground">Tailored from what you told us — candles, shakshuka, Lisbon, Fleetwood Mac. Each one has a reason, so nobody has to guess why it belongs.</p>
+        <p className="max-w-sm text-sm leading-6 text-muted-foreground">Tailored from what you told us. Candles, shakshuka, Lisbon, Fleetwood Mac. Each one has a reason, so nobody has to guess why it belongs.</p>
       </div>
       <BandSummary />
       <div className="mt-8 grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">{chapterItems.map((item) => <ProductCard key={item.id} item={{ ...item, reason: tailoredReasons[item.id] ?? item.reason }} mode="edit" />)}</div>
@@ -247,7 +247,7 @@ function EditStep({ onBack, onContinue, items: chapterItems }: { onBack: () => v
 }
 
 function BandSummary() {
-  const summaries = [["3", "Easy yes", "$25–50"], ["3", "Considered", "$60–120"], ["1", "Practical", "$40–150"], ["1", "Group", "$200–400"]];
+  const summaries = [["3", "Easy yes", "$25 to $50"], ["3", "Considered", "$60 to $120"], ["1", "Practical", "$40 to $150"], ["1", "Group", "$200 to $400"]];
   return <div className="mt-5 grid grid-cols-2 border border-border md:grid-cols-4">{summaries.map(([count, label, range]) => <div key={label} className="flex items-center gap-3 border-b border-r border-border p-4 last:border-r-0 md:border-b-0"><span className="font-display text-3xl">{count}</span><div><p className="text-xs font-bold uppercase">{label}</p><p className="text-xs text-muted-foreground">{range}</p></div></div>)}</div>;
 }
 
@@ -347,7 +347,7 @@ function GuestLanding({ claimed, onBrowse, onOffList }: { claimed: number; onBro
     </section>
     <section className="border-2 border-foreground md:grid md:grid-cols-[.7fr_1.3fr]">
       <div className="bg-emphasis p-5 text-emphasis-foreground md:p-7"><p className="font-mono text-[10px] uppercase">Chapter status</p><p className="mt-3 font-display text-3xl">8 ideas · {claimed} already claimed</p></div>
-      <div className="p-5 md:p-7"><p className="text-sm leading-6">Claiming an idea helps the group avoid duplicates. You can purchase it anywhere you like. Good Chapter coordinates the choice—not the money or order.</p><div className="mt-6 flex flex-col items-start gap-4 sm:flex-row sm:items-center"><Button size="lg" onClick={onBrowse}>See what Sam needs <ArrowRight className="size-4" /></Button><button onClick={onOffList} className="text-sm font-semibold underline underline-offset-4">I’d rather bring something off-list</button></div></div>
+      <div className="p-5 md:p-7"><p className="text-sm leading-6">Claiming an idea helps the group avoid duplicates. You can purchase it anywhere you like. Good Chapter coordinates the choice. Not the money, not the order.</p><div className="mt-6 flex flex-col items-start gap-4 sm:flex-row sm:items-center"><Button size="lg" onClick={onBrowse}>See what Sam needs <ArrowRight className="size-4" /></Button><button onClick={onOffList} className="text-sm font-semibold underline underline-offset-4">I’d rather bring something off-list</button></div></div>
     </section>
   </div>;
 }
@@ -379,7 +379,7 @@ function ClaimConfirmed({ gift, onBrowse, onGifted }: { gift: Item | undefined; 
 }
 
 function GiftedState({ onBrowse }: { onBrowse: () => void }) {
-  return <div className="mx-auto flex min-h-[calc(100vh-112px)] max-w-3xl items-center px-4 py-12 sm:px-6"><div className="w-full border-t-2 border-foreground pt-7"><Heart className="size-10" /><p className="eyebrow mt-7">A good thing, given</p><h1 className="mt-3 font-display text-6xl leading-[.95]">Thank you for helping make this new place feel more like Sam’s.</h1><p className="mt-6 max-w-xl text-lg leading-7">Good Chapter is here to make showing up easier—not to make anyone ask.</p><div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center"><Button size="lg">Send Sam a note <MessageCircle className="size-4" /></Button><button onClick={onBrowse} className="text-sm font-semibold underline underline-offset-4">Return to the Chapter</button></div></div></div>;
+  return <div className="mx-auto flex min-h-[calc(100vh-112px)] max-w-3xl items-center px-4 py-12 sm:px-6"><div className="w-full border-t-2 border-foreground pt-7"><Heart className="size-10" /><p className="eyebrow mt-7">A good thing, given</p><h1 className="mt-3 font-display text-6xl leading-[.95]">Thank you for helping make this new place feel more like Sam’s.</h1><p className="mt-6 max-w-xl text-lg leading-7">Good Chapter is here to make showing up easier. Never to make anyone ask.</p><div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center"><Button size="lg">Send Sam a note <MessageCircle className="size-4" /></Button><button onClick={onBrowse} className="text-sm font-semibold underline underline-offset-4">Return to the Chapter</button></div></div></div>;
 }
 
 function GuestSystemState({ icon, title, copy, action, onAction }: { icon?: React.ReactNode; title: string; copy: string; action?: string; onAction?: () => void }) {

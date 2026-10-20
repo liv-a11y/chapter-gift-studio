@@ -2,9 +2,9 @@ import React from 'react'
 import { Body, Container, Head, Heading, Html, Preview, Section, Text } from '@react-email/components'
 import type { TemplateEntry } from './registry'
 
-interface Props { email?: string; inquiry?: string; comments?: string }
+interface Props { email?: string; inquiry?: string; comments?: string; contactName?: string; organization?: string; roleTitle?: string; teamSize?: string }
 
-const NewInquiry = ({ email, inquiry, comments }: Props) => (
+const NewInquiry = ({ email, inquiry, comments, contactName, organization, roleTitle, teamSize }: Props) => (
   <Html lang="en" dir="ltr">
     <Head />
     <Preview>New invitation request from {email ?? 'someone'}</Preview>
@@ -17,6 +17,10 @@ const NewInquiry = ({ email, inquiry, comments }: Props) => (
           <Text style={value}>{email ?? 'Not given'}</Text>
           <Text style={label}>HERE AS</Text>
           <Text style={value}>{inquiry ?? 'Not chosen'}</Text>
+          {contactName ? <><Text style={label}>NAME</Text><Text style={value}>{contactName}</Text></> : null}
+          {organization ? <><Text style={label}>ORGANIZATION</Text><Text style={value}>{organization}</Text></> : null}
+          {roleTitle ? <><Text style={label}>ROLE</Text><Text style={value}>{roleTitle}</Text></> : null}
+          {teamSize ? <><Text style={label}>TEAM SIZE</Text><Text style={value}>{teamSize}</Text></> : null}
           <Text style={label}>COMMENTS</Text>
           <Text style={value}>{comments || 'No comments.'}</Text>
         </Section>
@@ -27,7 +31,7 @@ const NewInquiry = ({ email, inquiry, comments }: Props) => (
 
 export const template = {
   component: NewInquiry,
-  subject: (d: Record<string, any>) => `New request: ${d['inquiry'] ?? 'General inquiry'}`,
+  subject: (d: Record<string, any>) => `New request: ${d['inquiry'] ?? 'General inquiry'}${d['organization'] ? `, ${d['organization']}` : ''}`,
   displayName: 'New invitation request (to Liv)',
   to: 'liv@goodchaptercollective.com',
   previewData: { email: 'friend@example.com', inquiry: 'Investor', comments: 'Loved the toaster line.' },

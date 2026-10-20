@@ -30,3 +30,5 @@
 - [x] Swap homepage art to the Empty Room illustration and sharpen the since-1924 card copy
 - [x] Send homepage entries to liv@goodchaptercollective.com (goodchapter.com bounced, blocked)
 - [x] Add the editorial piece to the homepage
+- [x] Site-wide tone and dash polish
+- [x] Employer inquiry form sends partner details to Liv

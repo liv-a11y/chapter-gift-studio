@@ -36,7 +36,7 @@ function CatalogPage() {
           <section key={t.id} className="site-container pb-20">
             <div className="flex items-baseline justify-between border-b-2 border-foreground pb-3">
               <h2 className="font-display text-[clamp(28px,3vw,40px)] leading-[1.05]">{t.name}</h2>
-              <span className="font-mono text-xs uppercase tracking-[0.14em]">{t.range.replaceAll("–", " to ")} · {list.length}</span>
+              <span className="font-mono text-xs uppercase tracking-[0.14em]">{t.range} · {list.length}</span>
             </div>
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {list.map((i) => (
