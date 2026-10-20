@@ -32,3 +32,5 @@
 - [x] Add the editorial piece to the homepage
 - [x] Site-wide tone and dash polish
 - [x] Employer inquiry form sends partner details to Liv
+- [x] Interactive employer portal prototype at /partners/employers/portal
+- [x] Give back tracker in the employer portal
