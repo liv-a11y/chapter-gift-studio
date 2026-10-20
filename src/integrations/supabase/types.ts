@@ -18,23 +18,35 @@ export type Database = {
         Row: {
           chapter: string | null
           comments: string | null
+          contact_name: string | null
           created_at: string
           email: string
           id: string
+          organization: string | null
+          role_title: string | null
+          team_size: string | null
         }
         Insert: {
           chapter?: string | null
           comments?: string | null
+          contact_name?: string | null
           created_at?: string
           email: string
           id?: string
+          organization?: string | null
+          role_title?: string | null
+          team_size?: string | null
         }
         Update: {
           chapter?: string | null
           comments?: string | null
+          contact_name?: string | null
           created_at?: string
           email?: string
           id?: string
+          organization?: string | null
+          role_title?: string | null
+          team_size?: string | null
         }
         Relationships: []
       }
