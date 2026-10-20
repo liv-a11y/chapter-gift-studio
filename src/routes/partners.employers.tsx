@@ -83,7 +83,7 @@ function EmployersPage() {
         <div>
           <p className="eyebrow text-emphasis">The pilot</p>
           <h2 className="mt-3 font-display text-3xl sm:text-4xl">Small pool. Clear rules. Real chapters.</h2>
-          <p className="mt-4 text-lg leading-relaxed">A sample pilot: a $2,500 pool with a $200 anchor gift covers about a dozen chapters over 90 days. You set the numbers.</p>
+          <p className="mt-4 text-lg leading-relaxed">A sample pilot: a $10,000 pool with a $200 anchor gift covers about fifty chapters over 90 days. You set the numbers.</p>
           <div className="mt-8 grid gap-4">
             {guardrails.map((g) => (
               <div key={g.h} className="rounded-sm border-2 border-foreground p-5">
