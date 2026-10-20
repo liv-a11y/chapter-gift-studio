@@ -197,7 +197,8 @@ function PortalPage() {
             <div className="mt-4 h-3 rounded-sm border-2 border-foreground" aria-label={`${Math.round((committed / pool) * 100)}% of pool committed`}>
               <div className="h-full bg-emphasis" style={{ width: `${Math.min(100, (committed / pool) * 100)}%` }} />
             </div>
-            <Link to="/partners/employers" className="mt-6 inline-block eyebrow underline hover:bg-foreground hover:text-background">Back to employers</Link>
+            <Link to="/partners/employers/dashboard" className="mt-6 block eyebrow underline hover:bg-foreground hover:text-background">See the dashboard</Link>
+            <Link to="/partners/employers" className="mt-2 inline-block eyebrow underline hover:bg-foreground hover:text-background">Back to employers</Link>
           </aside>
         </div>
         <p className="eyebrow mt-8">Prototype with sample data. Nothing here is saved, charged, or sent.</p>
