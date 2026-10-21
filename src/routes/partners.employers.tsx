@@ -76,7 +76,7 @@ function EmployersPage() {
             <Photo src={kettle.url} alt="A citron kettle." />
             <Photo src={blanket.url} alt="A knit blanket." />
           </div>
-          <p className="eyebrow mt-4">Sample gifts. Guests buy from the retailer option they prefer.</p>
+          <p className="eyebrow mt-4">Sample gifts. From independent makers, trusted retailers, and friends of Good Chapter. No platform fees. Never marked up above retail.</p>
         </div>
       </section>
 
