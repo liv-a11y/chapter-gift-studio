@@ -211,7 +211,7 @@ function HomePage() {
             <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground">First Place chapter · Eight thoughtful gifts</p>
           </div>
           <p className="site-body mt-6 max-w-[42rem] text-muted-foreground">No awkward asking. Just people showing up. Here is one whole chapter, from the first hello to the last claimed gift.</p>
-          <div className="mt-12 grid gap-10 md:grid-cols-3 md:gap-12">
+          <div className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 md:gap-12">
             {steps.map((step) => <div key={step.n} className="border-t-2 border-foreground pt-5"><span className="font-display text-5xl text-primary">{step.n}</span><h3 className="mt-7 font-display text-[28px] leading-[1.1]">{step.title}</h3><p className="mt-4 text-[17px] leading-[1.5] text-muted-foreground">{step.copy}</p></div>)}
           </div>
           <Illustration
