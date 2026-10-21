@@ -30,9 +30,10 @@ export const Route = createFileRoute("/story")({
 });
 
 const steps = [
-  { n: "01", title: "A friend starts.", copy: "One friend starts the chapter so the honoree never has to ask." },
-  { n: "02", title: "The person decides.", copy: "The person keeps, cuts, or adds items in complete privacy. The friend never sees edits." },
-  { n: "03", title: "Guests give.", copy: "Friends and family claim ideas to coordinate. No awkward group chats, no checkout, no invoice." },
+  { n: "01", title: "Someone thinks of you.", copy: "A friend recognizes a chapter worth celebrating, tells us what you're stepping into, and starts something good." },
+  { n: "02", title: "You make it yours.", copy: "Privately review, swap, and keep what fits. Nothing is shared until you're ready. Your friend never sees your edits." },
+  { n: "03", title: "You choose your people.", copy: "Share the invitation with whoever you like. It comes from the friend who started it, so you never write your own gift request." },
+  { n: "04", title: "They show up.", copy: "Your people choose useful gifts and help celebrate the life you're building." },
 ];
 
 const gifts = sampleProducts;
@@ -64,8 +65,9 @@ function HomePage() {
         <div className="site-container grid items-center gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(380px,.92fr)] lg:gap-16">
           <div className="flex flex-col items-start gap-7">
             <p className="eyebrow text-emphasis">A registry for the rest of it</p>
-            <h1 className="site-h1 max-w-[13ch]">A friend starts it. The person approves it. <span className="bg-emphasis px-2 text-emphasis-foreground">Nobody asks.</span></h1>
-            <p className="site-body max-w-[38rem] text-muted-foreground">Friend-started. Person-approved. For first homes, fresh starts, messy new beginnings, recovery, new cities: every chapter weddings never covered.</p>
+            <h1 className="site-h1 max-w-[14ch]">You shouldn't have to ask to be <span className="bg-emphasis px-2 text-emphasis-foreground">celebrated.</span></h1>
+            <p className="font-display text-[28px] leading-[1.15]">A friend starts the chapter. You keep what fits.</p>
+            <p className="site-body max-w-[38rem] text-muted-foreground">For first homes, fresh starts, new cities, and every chapter weddings never covered.</p>
             <div className="mt-1 flex flex-wrap gap-4">
               <Button asChild size="lg"><Link to="/new">Start one for a friend <ArrowRight className="size-4" /></Link></Button>
               <Button asChild variant="outline" size="lg"><a href="#how">How it works</a></Button>

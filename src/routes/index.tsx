@@ -40,8 +40,9 @@ function PilotGate() {
               <ToasterLine className="mt-3 text-[24px] leading-[1.2]" />
               <p className="mt-4 text-[17px] leading-[1.5] text-muted-foreground">A century ago, a department store decided you only deserve support if you get married or have a baby.</p>
               <p className="mt-3 text-[17px] leading-[1.5] text-muted-foreground"><span className="font-medium text-foreground">The empty room. The solo move. The new job nobody throws a party for.</span> For a lot of people that is the biggest chapter of their life, and they are supposed to furnish it alone.</p>
-              <p className="mt-4 font-display text-[24px] leading-[1.15]"><span className="bg-emphasis px-3 py-1 text-emphasis-foreground">You shouldn't have to ask.</span></p>
-              <p className="mt-3 text-[15px] leading-[1.5] text-muted-foreground">We are setting a new norm. Your people show up for every chapter of life, not just the two that come with a registry.</p>
+              <p className="mt-4 font-display text-[24px] leading-[1.15]"><span className="bg-emphasis px-3 py-1 text-emphasis-foreground">You shouldn't have to ask to be celebrated.</span></p>
+              <p className="mt-5 font-display text-[22px] leading-[1.2]">A friend starts the chapter. You keep what fits.</p>
+              <p className="mt-3 text-[15px] leading-[1.5] text-muted-foreground">Your friend tells us what you're stepping into. You make it yours in private, choose who to share it with, and let your people show up.</p>
             </div>
           </div>
           <div className="min-w-0 pt-1">
