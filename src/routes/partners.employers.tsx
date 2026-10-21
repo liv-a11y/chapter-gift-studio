@@ -49,8 +49,10 @@ function EmployersPage() {
       <section className="site-container grid gap-10 py-14 lg:grid-cols-2 lg:items-center lg:py-20">
         <div>
           <p className="eyebrow text-emphasis">Founding employers · 90 day pilot</p>
-          <h1 className="mt-4 font-display text-4xl leading-tight sm:text-5xl">The benefit for the chapters HR has no policy for.</h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed">A first home bought alone. A parent moving in. Starting over. Good teams want to show up. Passing a hat in Slack feels intrusive, and flowers feel thin. Good Chapter gives your company a quiet way to help.</p>
+          <h1 className="mt-4 font-display text-4xl leading-tight sm:text-5xl">Company swag isn't care. And life happens outside of maternity leave.</h1>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed">The baby shower gets a Slack collection. The teammate who bought a house alone gets crickets. A tumbler with a logo was never the answer.</p>
+          <p className="mt-6 max-w-xl font-display text-2xl leading-snug">The company anchors the first gift. Teammates add in. The employee privately chooses what stays.</p>
+          <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">Recognition for the whole person, every chapter, not just two. No prying, no pity gifts, no admin work.</p>
         </div>
         <img src={kitchen.url} alt="A kitchen on moving day with a citron kettle, dishes in a moving box, and keys on the counter." width={1200} height={800} className="aspect-[3/2] w-full rounded-sm border-2 border-foreground object-cover" />
       </section>
