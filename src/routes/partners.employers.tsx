@@ -82,7 +82,7 @@ function EmployersPage() {
           <p className="eyebrow text-emphasis">The gap</p>
           <h2 className="mt-3 font-display text-3xl sm:text-4xl">Leave covers the loss. Who covers the first apartment?</h2>
           <p className="mt-5 text-lg leading-relaxed">Employers do right by the hard moments. Almost nothing exists for the good ones. A first place. A new role. A long awaited arrival. HR rarely hears about them.</p>
-          <p className="mt-8 w-fit max-w-full rounded-sm border-2 border-foreground bg-highlight px-5 py-4 font-display text-2xl leading-snug text-highlight-foreground sm:text-3xl">Sometimes a teammate knows. Sometimes a manager knows. Good Chapter turns &ldquo;we should do something&rdquo; into something real.</p>
+          <p className="mt-8 w-fit max-w-full rounded-[4px] border-2 border-foreground bg-highlight px-5 py-4 font-display text-2xl leading-snug text-highlight-foreground sm:text-3xl">Sometimes a teammate knows. Sometimes a manager knows. Good Chapter turns &ldquo;we should do something&rdquo; into something real.</p>
         </div>
       </section>
 
