@@ -27,33 +27,33 @@ export const Route = createFileRoute("/partners/employers")({
 });
 
 const steps = [
-  { n: "01", h: "A teammate starts a draft.", p: "A coworker or manager picks a few curated gifts that fit. A draft, not an announcement." },
-  { n: "02", h: "The employee approves it.", p: "Two clicks. They keep what fits and swap what does not. Nothing moves forward until they say yes." },
-  { n: "03", h: "The company covers the anchor.", p: "Your pilot pool funds the first gift. Teammates can add a note or one useful thing, never required." },
-  { n: "04", h: "It arrives.", p: "At an address the employee enters. It stays out of employer reporting." },
+  { n: "01", h: "A teammate starts a draft.", p: "A coworker picks a few curated gifts that fit. A draft, not an announcement." },
+  { n: "02", h: "The employee approves it.", p: "Two clicks. Keep what fits, swap what does not. Nothing moves until they say yes." },
+  { n: "03", h: "The company covers the anchor.", p: "Your pool funds the first gift. Teammates may add one, never required." },
+  { n: "04", h: "It arrives.", p: "To an address the employee enters. Never in employer reporting." },
 ];
 
 const measures = [
-  { h: "Support gap", p: "\u201CMy team notices what matters to me,\u201D asked in your own engagement survey." },
-  { h: "Support multiplier", p: "How often teammates add something after the company gift." },
-  { h: "Reach", p: "People who added something after the company gift was claimed." },
+  { h: "Support gap", p: "\u201CMy team notices what matters to me,\u201D in your own survey." },
+  { h: "Support multiplier", p: "How often teammates add after the company gift." },
+  { h: "Reach", p: "People who added after the gift was claimed." },
   { h: "Recipient pulse", p: "One question after delivery: did it feel thoughtful?" },
 ];
 
 const privacy = [
   "Counts and spend only. Never a name, a reason, or a message.",
   "Groups under five roll up, so no one can be identified.",
-  "The address stays out of employer reporting and is used only to coordinate delivery.",
+  "The address is used only for delivery. Never in employer reporting.",
   "Taking part is optional. Not taking part is silent.",
   "Not an EAP or a clinical service. It sits beside leave and never replaces it.",
 ];
 
 const faq = [
   { q: "Does my company see why?", a: "No. Counts and spend only." },
-  { q: "Is this cash or a stipend?", a: "No. It is a useful, curated object the employee chooses to keep." },
-  { q: "Who authorizes the money?", a: "HR sets a pool in advance, as pre-funded credits or a capped monthly invoice. Nothing is charged until the employee approves." },
-  { q: "How does the survey connect?", a: "Add four questions to your next engagement survey. We read the aggregate results with you." },
-  { q: "What about tax?", a: "We are confirming treatment with counsel and will not give guidance until then." },
+  { q: "Is this cash or a stipend?", a: "No. A useful object the employee chooses to keep." },
+  { q: "Who authorizes the money?", a: "HR sets a pool in advance. Nothing is charged until the employee approves." },
+  { q: "How does the survey connect?", a: "Add four questions to your next survey. We read the results together." },
+  { q: "What about tax?", a: "We are confirming treatment with counsel. No guidance until then." },
 ];
 
 function Photo({ src, alt }: { src: string; alt: string }) {
@@ -67,7 +67,7 @@ function EmployersPage() {
         <div>
           <p className="eyebrow text-emphasis">For people and HR leaders</p>
           <h1 className="mt-4 font-display text-4xl leading-tight sm:text-5xl">Company swag isn't care. And life happens outside of maternity leave.</h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed">Good Chapter turns a small piece of your engagement budget into useful gifts for the moments that never make the HR calendar.</p>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed">Your engagement budget, turned into useful gifts for the moments that never make the HR calendar.</p>
           <div className="mt-8 flex flex-wrap items-center gap-5">
             <a href="#pilot" className="inline-block rounded-sm border-2 border-foreground bg-primary px-5 py-3 text-primary-foreground hover:bg-foreground hover:text-background">Start a pilot with 20 to 40 people</a>
             <Link to="/partners/employers/dashboard" className="underline underline-offset-4 hover:bg-foreground hover:text-background">See what HR sees</Link>
@@ -81,8 +81,8 @@ function EmployersPage() {
         <div className="site-container max-w-3xl py-14">
           <p className="eyebrow text-emphasis">The gap</p>
           <h2 className="mt-3 font-display text-3xl sm:text-4xl">Leave covers the loss. Who covers the first apartment?</h2>
-          <p className="mt-5 text-lg leading-relaxed">Employers do right by the hard moments. Almost nothing exists for the good ones, a first place, a new role, a long awaited arrival, because HR usually never hears about them.</p>
-          <p className="mt-8 border-t-2 border-foreground pt-6 font-display text-2xl leading-snug sm:text-3xl">Sometimes a teammate knows. Sometimes a manager knows. Good Chapter turns &ldquo;we should do something&rdquo; into something real.</p>
+          <p className="mt-5 text-lg leading-relaxed">Employers do right by the hard moments. Almost nothing exists for the good ones. A first place. A new role. A long awaited arrival. HR rarely hears about them.</p>
+          <p className="mt-8 w-fit max-w-full rounded-sm border-2 border-foreground bg-highlight px-5 py-4 font-display text-2xl leading-snug text-highlight-foreground sm:text-3xl">Sometimes a teammate knows. Sometimes a manager knows. Good Chapter turns &ldquo;we should do something&rdquo; into something real.</p>
         </div>
       </section>
 
@@ -128,7 +128,7 @@ function EmployersPage() {
         <div>
           <p className="eyebrow text-emphasis">The pilot</p>
           <h2 className="mt-3 font-display text-3xl sm:text-4xl">A modest pilot. A clearer signal.</h2>
-          <p className="mt-4 text-lg leading-relaxed">A sample pilot: a $10,000 pool with a $200 anchor gift covers about fifty chapters over 90 days. You set the numbers. The gift is the cost.</p>
+          <p className="mt-4 text-lg leading-relaxed">A $10,000 pool with a $200 anchor gift covers about fifty chapters over 90 days. You set the numbers. The gift is the cost.</p>
           <Link to="/partners/employers/portal" className="mt-6 inline-block rounded-sm border-2 border-foreground px-5 py-3 hover:bg-foreground hover:text-background">Walk the portal prototype</Link>
           <img src={desk.url} alt="A desk nook with blue drawers, a notebook, a checkered mug, and a plant." loading="lazy" width={1200} height={800} className="mt-8 aspect-[3/2] w-full rounded-sm border-2 border-foreground object-cover" />
         </div>
