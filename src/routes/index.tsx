@@ -28,21 +28,19 @@ function PilotGate() {
     <SiteShell pilot>
       <section className="site-container pb-12 pt-10 md:pb-16 md:pt-14">
         <p className="eyebrow text-emphasis">The old script ends here.</p>
-        <h1 className="mt-6 max-w-5xl font-display text-[48px] leading-[1.02] sm:text-[72px] lg:text-[96px]">Good Chapter<br />Co<span className="text-coral">.</span></h1>
-        <div className="mt-7 border-b-2 border-foreground pb-8">
-          <p className="max-w-[34rem] text-[20px] leading-[1.5] sm:text-[24px]">Something good is taking shape. For the lives that never came with a gift list.</p>
-        </div>
-        <div className="mt-8 grid gap-8 md:grid-cols-2 md:gap-12 lg:gap-16">
+        <h1 className="mt-5 max-w-4xl font-display text-[40px] leading-[1.05] sm:text-[56px] lg:text-[72px]">Something good is taking shape.</h1>
+        <p className="mt-5 max-w-[34rem] text-[19px] leading-[1.5] text-muted-foreground sm:text-[22px]">For the lives that never came with a gift list.</p>
+        <div className="mt-10 grid gap-10 md:grid-cols-2 md:gap-12 lg:gap-16">
           <div className="min-w-0">
-            <img src={emptyRoom.url} alt="Two rooms side by side. One is furnished with a sofa, lamp, and plant, and a person stands inside with hands in pockets. The other is empty with bare walls and an open door, and a second person walks in carrying a yellow bag." width={1536} height={1024} fetchPriority="high" className="aspect-[3/2] w-full max-w-[420px] rounded-[4px] border-2 border-foreground bg-background object-cover" />
-            <div className="mt-6 border-2 border-foreground bg-card p-5 sm:p-6">
+            <img src={emptyRoom.url} alt="Two rooms side by side. One is furnished with a sofa, lamp, and plant, and a person stands inside with hands in pockets. The other is empty with bare walls and an open door, and a second person walks in carrying a yellow bag." width={1536} height={1024} fetchPriority="high" className="aspect-[3/2] w-full rounded-[4px] bg-background object-cover mix-blend-multiply" />
+            <div className="mt-8">
               <p className="eyebrow text-emphasis">Since 1924</p>
-              <ToasterLine className="mt-3 text-[24px] leading-[1.2]" />
-              <p className="mt-4 text-[17px] leading-[1.5] text-muted-foreground">A century ago, a department store decided you only deserve support if you get married or have a baby.</p>
-              <p className="mt-3 text-[17px] leading-[1.5] text-muted-foreground"><span className="font-medium text-foreground">The empty room. The solo move. The new job nobody throws a party for.</span> For a lot of people that is the biggest chapter of their life, and they are supposed to furnish it alone.</p>
-              <p className="mt-4 font-display text-[24px] leading-[1.15]"><span className="bg-emphasis px-3 py-1 text-emphasis-foreground">You shouldn't have to ask to be celebrated.</span></p>
-              <p className="mt-5 font-display text-[22px] leading-[1.2]">A friend starts the chapter. You keep what fits.</p>
-              <p className="mt-3 text-[15px] leading-[1.5] text-muted-foreground">Your friend tells us what you're stepping into. You make it yours in private, choose who to share it with, and let your people show up.</p>
+              <ToasterLine className="mt-3 text-[26px] leading-[1.2]" />
+              <p className="mt-4 text-[17px] leading-[1.55] text-muted-foreground">A century ago, a department store decided you only deserve support if you get married or have a baby.</p>
+              <p className="mt-3 text-[17px] leading-[1.55] text-muted-foreground"><span className="font-medium text-foreground">The empty room. The solo move. The new job nobody throws a party for.</span> For a lot of people that is the biggest chapter of their life, and they are supposed to furnish it alone.</p>
+              <blockquote className="mt-8 border-t-2 border-foreground pt-5 font-display text-[28px] leading-[1.15] text-emphasis sm:text-[32px]">You shouldn't have to ask to be celebrated.</blockquote>
+              <p className="mt-6 font-display text-[22px] leading-[1.2]">A friend starts the chapter. You keep what fits.</p>
+              <p className="mt-3 text-[16px] leading-[1.55] text-muted-foreground">Your friend tells us what you're stepping into. You make it yours in private, choose who to share it with, and let your people show up.</p>
             </div>
           </div>
           <div className="min-w-0 pt-1">
