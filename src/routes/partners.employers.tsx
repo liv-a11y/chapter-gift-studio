@@ -10,7 +10,7 @@ import kitchen from "@/assets/scene-kitchen-moving-day.png.asset.json";
 import desk from "@/assets/scene-desk-nook.png.asset.json";
 
 const title = "For employers. Good Chapter, Co.";
-const description = "A quiet, private way for companies to show up for employees during the life chapters no policy covers.";
+const description = "A small, private pilot that helps teams show up for the life chapters that never make the HR calendar.";
 
 export const Route = createFileRoute("/partners/employers")({
   head: () => ({
@@ -27,20 +27,37 @@ export const Route = createFileRoute("/partners/employers")({
 });
 
 const steps = [
-  { n: "01", h: "A teammate starts it quietly.", p: "A coworker or manager picks a few curated gifts that fit the moment. No forms to route. No approval chain." },
-  { n: "02", h: "The employee approves privately.", p: "It lands in their personal inbox. They keep, swap, or decline. Nobody on the team sees what changed." },
-  { n: "03", h: "The company covers the anchor.", p: "Your pilot pool funds the first gift automatically. No receipts. No reimbursement forms." },
-  { n: "04", h: "The team adds a note, if invited.", p: "Only if the employee opens it up. No progress bars. No tally of who gave. Nobody asks." },
+  { n: "01", h: "A teammate starts a draft.", p: "A coworker or manager picks a few curated gifts that fit. A draft, not an announcement." },
+  { n: "02", h: "The employee approves it.", p: "Two clicks. They keep what fits and swap what does not. Nothing moves forward until they say yes." },
+  { n: "03", h: "The company covers the anchor.", p: "Your pilot pool funds the first gift. Teammates can add a note or one useful thing, never required." },
+  { n: "04", h: "It arrives.", p: "At an address the employee enters. It stays out of employer reporting." },
 ];
 
-const guardrails = [
-  { h: "Zero IT integration", p: "Corporate card or a monthly invoice. No HRIS sync, no SSO ticket." },
-  { h: "Spend controls", p: "A fixed pilot pool, a set anchor gift per chapter, and a yearly cap per employee." },
-  { h: "Counts-only reporting", p: "Monthly summaries of spend, team, and fulfillment date. Never home addresses. Never personal details." },
+const measures = [
+  { h: "Support gap", p: "\u201CMy team notices what matters to me,\u201D asked in your own engagement survey." },
+  { h: "Support multiplier", p: "How often teammates add something after the company gift." },
+  { h: "Reach", p: "People who added something after the company gift was claimed." },
+  { h: "Recipient pulse", p: "One question after delivery: did it feel thoughtful?" },
 ];
 
-function Photo({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
-  return <img src={src} alt={alt} loading="lazy" width={600} height={600} className={`w-full rounded-sm border-2 border-foreground object-cover ${className}`} />;
+const privacy = [
+  "Counts and spend only. Never a name, a reason, or a message.",
+  "Groups under five roll up, so no one can be identified.",
+  "The address stays out of employer reporting and is used only to coordinate delivery.",
+  "Taking part is optional. Not taking part is silent.",
+  "Not an EAP or a clinical service. It sits beside leave and never replaces it.",
+];
+
+const faq = [
+  { q: "Does my company see why?", a: "No. Counts and spend only." },
+  { q: "Is this cash or a stipend?", a: "No. It is a useful, curated object the employee chooses to keep." },
+  { q: "Who authorizes the money?", a: "HR sets a pool in advance, as pre-funded credits or a capped monthly invoice. Nothing is charged until the employee approves." },
+  { q: "How does the survey connect?", a: "Add four questions to your next engagement survey. We read the aggregate results with you." },
+  { q: "What about tax?", a: "We are confirming treatment with counsel and will not give guidance until then." },
+];
+
+function Photo({ src, alt }: { src: string; alt: string }) {
+  return <img src={src} alt={alt} loading="lazy" width={600} height={600} className="w-full rounded-sm border-2 border-foreground object-cover" />;
 }
 
 function EmployersPage() {
@@ -48,63 +65,103 @@ function EmployersPage() {
     <SiteShell>
       <section className="site-container grid gap-10 py-14 lg:grid-cols-2 lg:items-center lg:py-20">
         <div>
-          <p className="eyebrow text-emphasis">Founding employers · 90 day pilot</p>
+          <p className="eyebrow text-emphasis">For people and HR leaders</p>
           <h1 className="mt-4 font-display text-4xl leading-tight sm:text-5xl">Company swag isn't care. And life happens outside of maternity leave.</h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed">The baby shower gets a Slack collection. The teammate who bought a house alone gets crickets. A tumbler with a logo was never the answer.</p>
-          <p className="mt-6 max-w-xl font-display text-2xl leading-snug">The company anchors the first gift. Teammates add in. The employee privately chooses what stays.</p>
-          <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">Recognition for the whole person, every chapter, not just two. No prying, no pity gifts, no admin work.</p>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed">Good Chapter turns a small piece of your engagement budget into useful gifts for the moments that never make the HR calendar.</p>
+          <div className="mt-8 flex flex-wrap items-center gap-5">
+            <a href="#pilot" className="inline-block rounded-sm border-2 border-foreground bg-primary px-5 py-3 text-primary-foreground hover:bg-foreground hover:text-background">Start a pilot with 20 to 40 people</a>
+            <Link to="/partners/employers/dashboard" className="underline underline-offset-4 hover:bg-foreground hover:text-background">See what HR sees</Link>
+          </div>
+          <p className="eyebrow mt-4">Counts and spend only. Nobody sees why. No integration to start.</p>
         </div>
         <img src={kitchen.url} alt="A kitchen on moving day with a citron kettle, dishes in a moving box, and keys on the counter." width={1200} height={800} className="aspect-[3/2] w-full rounded-sm border-2 border-foreground object-cover" />
       </section>
 
       <section className="border-y-2 border-foreground">
-        <div className="site-container py-14">
-          <p className="eyebrow text-emphasis">How it works</p>
-          <h2 className="mt-3 font-display text-3xl sm:text-4xl">Four steps. Nobody asks.</h2>
-          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {steps.map((s) => (
-              <div key={s.n} className="rounded-sm border-2 border-foreground p-5">
-                <p className="eyebrow">{s.n}</p>
-                <h3 className="mt-3 font-display text-xl">{s.h}</h3>
-                <p className="mt-3 leading-relaxed">{s.p}</p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
-            <Photo src={toolbox.url} alt="A cobalt toolbox." />
-            <Photo src={pan.url} alt="A cast iron pan." />
-            <Photo src={kettle.url} alt="A citron kettle." />
-            <Photo src={blanket.url} alt="A knit blanket." />
-          </div>
-          <p className="eyebrow mt-4">Sample gifts. From independent makers, trusted retailers, and friends of Good Chapter. No platform fees. Never marked up above retail.</p>
+        <div className="site-container max-w-3xl py-14">
+          <p className="eyebrow text-emphasis">The gap</p>
+          <h2 className="mt-3 font-display text-3xl sm:text-4xl">Leave covers the loss. Who covers the first apartment?</h2>
+          <p className="mt-5 text-lg leading-relaxed">Employers do right by the hard moments. Almost nothing exists for the good ones, a first place, a new role, a long awaited arrival, because HR usually never hears about them.</p>
+          <p className="mt-8 border-t-2 border-foreground pt-6 font-display text-2xl leading-snug sm:text-3xl">Sometimes a teammate knows. Sometimes a manager knows. Good Chapter turns &ldquo;we should do something&rdquo; into something real.</p>
         </div>
       </section>
 
-      <section className="site-container grid gap-10 py-14 lg:grid-cols-2 lg:items-center">
-        <img src={desk.url} alt="A desk nook with blue drawers, a notebook, a checkered mug, and a plant." loading="lazy" width={1200} height={800} className="aspect-[3/2] w-full rounded-sm border-2 border-foreground object-cover" />
+      <section className="site-container py-14">
+        <p className="eyebrow text-emphasis">How it works</p>
+        <h2 className="mt-3 font-display text-3xl sm:text-4xl">Four steps. Nobody asks.</h2>
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {steps.map((s) => (
+            <div key={s.n} className="rounded-sm border-2 border-foreground p-5">
+              <p className="eyebrow">{s.n}</p>
+              <h3 className="mt-3 font-display text-xl">{s.h}</h3>
+              <p className="mt-3 leading-relaxed">{s.p}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <Photo src={toolbox.url} alt="A cobalt toolbox." />
+          <Photo src={pan.url} alt="A cast iron pan." />
+          <Photo src={kettle.url} alt="A citron kettle." />
+          <Photo src={blanket.url} alt="A knit blanket." />
+        </div>
+        <p className="eyebrow mt-4">Sample gifts. From independent makers, trusted retailers, and friends of Good Chapter. No platform fees. Never marked up above retail.</p>
+        <p className="mt-6 max-w-2xl text-lg leading-relaxed">Good Chapter directs a share of its margin to a cause your company selects.</p>
+      </section>
+
+      <section className="border-y-2 border-foreground">
+        <div className="site-container py-14">
+          <p className="eyebrow text-emphasis">What a pilot measures</p>
+          <h2 className="mt-3 font-display text-3xl sm:text-4xl">Four numbers. No names.</h2>
+          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {measures.map((m) => (
+              <div key={m.h} className="rounded-sm border-2 border-foreground p-5">
+                <h3 className="eyebrow">{m.h}</h3>
+                <p className="mt-3 leading-relaxed">{m.p}</p>
+              </div>
+            ))}
+          </div>
+          <p className="eyebrow mt-6">No pilot has run yet. We will report these in your own numbers at day 90.</p>
+        </div>
+      </section>
+
+      <section className="site-container grid gap-10 py-14 lg:grid-cols-2 lg:items-start">
         <div>
           <p className="eyebrow text-emphasis">The pilot</p>
-          <h2 className="mt-3 font-display text-3xl sm:text-4xl">Small pool. Clear rules. Real chapters.</h2>
-          <p className="mt-4 text-lg leading-relaxed">A sample pilot: a $10,000 pool with a $200 anchor gift covers about fifty chapters over 90 days. You set the numbers.</p>
-          <Link to="/partners/employers/portal" className="mt-6 inline-block rounded-sm border-2 border-foreground bg-primary px-5 py-3 text-primary-foreground hover:bg-foreground hover:text-background">Walk the portal prototype</Link>
-          <div className="mt-8 grid gap-4">
-            {guardrails.map((g) => (
-              <div key={g.h} className="rounded-sm border-2 border-foreground p-5">
-                <h3 className="eyebrow">{g.h}</h3>
-                <p className="mt-2 leading-relaxed">{g.p}</p>
-              </div>
+          <h2 className="mt-3 font-display text-3xl sm:text-4xl">A modest pilot. A clearer signal.</h2>
+          <p className="mt-4 text-lg leading-relaxed">A sample pilot: a $10,000 pool with a $200 anchor gift covers about fifty chapters over 90 days. You set the numbers. The gift is the cost.</p>
+          <Link to="/partners/employers/portal" className="mt-6 inline-block rounded-sm border-2 border-foreground px-5 py-3 hover:bg-foreground hover:text-background">Walk the portal prototype</Link>
+          <img src={desk.url} alt="A desk nook with blue drawers, a notebook, a checkered mug, and a plant." loading="lazy" width={1200} height={800} className="mt-8 aspect-[3/2] w-full rounded-sm border-2 border-foreground object-cover" />
+        </div>
+        <div>
+          <p className="eyebrow text-emphasis">Privacy</p>
+          <h2 className="mt-3 font-display text-3xl sm:text-4xl">Private by design, so HR can say yes.</h2>
+          <ul className="mt-6 grid gap-3">
+            {privacy.map((p) => (
+              <li key={p} className="rounded-sm border-2 border-foreground p-4 leading-relaxed">{p}</li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
-      <section className="border-t-2 border-foreground">
-        <div className="site-container max-w-2xl py-14">
-          <p className="eyebrow text-emphasis">Founding employers</p>
-          <h2 className="mt-3 font-display text-3xl sm:text-4xl">Ask about a pilot.</h2>
-          <p className="mt-4 mb-8 text-lg">Tell us who you are. Liv reads every note and writes back to set up a real conversation.</p>
-          <WaitlistForm pilot defaultInquiry="Founding partner: Employer" />
+      <section className="border-y-2 border-foreground">
+        <div className="site-container max-w-3xl py-14">
+          <p className="eyebrow text-emphasis">HR questions</p>
+          <dl className="mt-6 grid gap-6">
+            {faq.map((f) => (
+              <div key={f.q} className="border-t-2 border-foreground pt-4">
+                <dt className="font-display text-xl">{f.q}</dt>
+                <dd className="mt-2 text-lg leading-relaxed">{f.a}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
+      </section>
+
+      <section id="pilot" className="site-container max-w-2xl py-14">
+        <p className="eyebrow text-emphasis">Founding employers</p>
+        <h2 className="mt-3 font-display text-3xl sm:text-4xl">Start small. Learn something real.</h2>
+        <p className="mt-4 mb-8 text-lg">Add four questions to your next survey. Pilot with one team. Review four numbers at day 90. Liv reads every note.</p>
+        <WaitlistForm pilot defaultInquiry="Founding partner: Employer" />
       </section>
     </SiteShell>
   );
