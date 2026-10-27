@@ -32,6 +32,7 @@ import { Route as PartnersIndexRouteImport } from './routes/partners.index'
 import { Route as PartnersBrandsRouteImport } from './routes/partners.brands'
 import { Route as PartnersEmployersRouteImport } from './routes/partners.employers'
 import { Route as PartnersRealEstateRouteImport } from './routes/partners.real-estate'
+import { Route as PartnersRolesRouteImport } from './routes/partners.roles'
 import { Route as PartnersEmployersDashboardRouteImport } from './routes/partners.employers_.dashboard'
 import { Route as PartnersEmployersPortalRouteImport } from './routes/partners.employers_.portal'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -152,6 +153,11 @@ const PartnersRealEstateRoute = PartnersRealEstateRouteImport.update({
   path: '/real-estate',
   getParentRoute: () => PartnersRoute,
 } as any)
+const PartnersRolesRoute = PartnersRolesRouteImport.update({
+  id: '/roles',
+  path: '/roles',
+  getParentRoute: () => PartnersRoute,
+} as any)
 const PartnersEmployersDashboardRoute =
   PartnersEmployersDashboardRouteImport.update({
     id: '/employers_/dashboard',
@@ -193,6 +199,7 @@ export interface FileRoutesByFullPath {
   '/partners/brands': typeof PartnersBrandsRoute
   '/partners/employers': typeof PartnersEmployersRoute
   '/partners/real-estate': typeof PartnersRealEstateRoute
+  '/partners/roles': typeof PartnersRolesRoute
   '/partners/': typeof PartnersIndexRoute
   '/partners/employers/dashboard': typeof PartnersEmployersDashboardRoute
   '/partners/employers/portal': typeof PartnersEmployersPortalRoute
@@ -220,6 +227,7 @@ export interface FileRoutesByTo {
   '/partners/brands': typeof PartnersBrandsRoute
   '/partners/employers': typeof PartnersEmployersRoute
   '/partners/real-estate': typeof PartnersRealEstateRoute
+  '/partners/roles': typeof PartnersRolesRoute
   '/partners': typeof PartnersIndexRoute
   '/partners/employers/dashboard': typeof PartnersEmployersDashboardRoute
   '/partners/employers/portal': typeof PartnersEmployersPortalRoute
@@ -249,6 +257,7 @@ export interface FileRoutesById {
   '/partners/brands': typeof PartnersBrandsRoute
   '/partners/employers': typeof PartnersEmployersRoute
   '/partners/real-estate': typeof PartnersRealEstateRoute
+  '/partners/roles': typeof PartnersRolesRoute
   '/partners/': typeof PartnersIndexRoute
   '/partners/employers_/dashboard': typeof PartnersEmployersDashboardRoute
   '/partners/employers_/portal': typeof PartnersEmployersPortalRoute
@@ -279,6 +288,7 @@ export interface FileRouteTypes {
     | '/partners/brands'
     | '/partners/employers'
     | '/partners/real-estate'
+    | '/partners/roles'
     | '/partners/'
     | '/partners/employers/dashboard'
     | '/partners/employers/portal'
@@ -306,6 +316,7 @@ export interface FileRouteTypes {
     | '/partners/brands'
     | '/partners/employers'
     | '/partners/real-estate'
+    | '/partners/roles'
     | '/partners'
     | '/partners/employers/dashboard'
     | '/partners/employers/portal'
@@ -334,6 +345,7 @@ export interface FileRouteTypes {
     | '/partners/brands'
     | '/partners/employers'
     | '/partners/real-estate'
+    | '/partners/roles'
     | '/partners/'
     | '/partners/employers_/dashboard'
     | '/partners/employers_/portal'
@@ -526,6 +538,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PartnersRealEstateRouteImport
       parentRoute: typeof PartnersRoute
     }
+    '/partners/roles': {
+      id: '/partners/roles'
+      path: '/roles'
+      fullPath: '/partners/roles'
+      preLoaderRoute: typeof PartnersRolesRouteImport
+      parentRoute: typeof PartnersRoute
+    }
     '/partners/employers_/dashboard': {
       id: '/partners/employers_/dashboard'
       path: '/employers/dashboard'
@@ -554,6 +573,7 @@ interface PartnersRouteChildren {
   PartnersBrandsRoute: typeof PartnersBrandsRoute
   PartnersEmployersRoute: typeof PartnersEmployersRoute
   PartnersRealEstateRoute: typeof PartnersRealEstateRoute
+  PartnersRolesRoute: typeof PartnersRolesRoute
   PartnersIndexRoute: typeof PartnersIndexRoute
   PartnersEmployersDashboardRoute: typeof PartnersEmployersDashboardRoute
   PartnersEmployersPortalRoute: typeof PartnersEmployersPortalRoute
@@ -563,6 +583,7 @@ const PartnersRouteChildren: PartnersRouteChildren = {
   PartnersBrandsRoute: PartnersBrandsRoute,
   PartnersEmployersRoute: PartnersEmployersRoute,
   PartnersRealEstateRoute: PartnersRealEstateRoute,
+  PartnersRolesRoute: PartnersRolesRoute,
   PartnersIndexRoute: PartnersIndexRoute,
   PartnersEmployersDashboardRoute: PartnersEmployersDashboardRoute,
   PartnersEmployersPortalRoute: PartnersEmployersPortalRoute,
