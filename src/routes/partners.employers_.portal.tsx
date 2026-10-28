@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { SiteShell } from "@/components/site/site-shell";
 import { GiftFlow } from "@/components/site/gift-flow";
 import { Ticker } from "@/components/site/portal-ui";
-import { SplitDesk } from "@/components/site/split-desk";
+import { CareCockpit } from "@/components/site/care-cockpit";
 
 const title = "Employer portal prototype. Good Chapter, Co.";
 const description = "Walk through a sample employer pilot: set the pool, choose the anchor gift, and see a counts-only ledger and give back tracker.";
@@ -212,7 +212,7 @@ function PortalPage() {
             <Link to="/partners/employers" className="mt-2 inline-block eyebrow underline hover:bg-foreground hover:text-background">Back to employers</Link>
           </aside>
         </div>
-        <SplitDesk anchor={anchor} />
+        <CareCockpit anchor={anchor} />
         <p className="eyebrow mt-8">Prototype with sample data. Nothing here is saved, charged, or sent.</p>
       </section>
     </SiteShell>
