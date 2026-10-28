@@ -61,6 +61,8 @@ export function CareCockpit({ anchor }: { anchor: number }) {
     { id: "employee", label: "03 Employee", sees: "Chooses on their phone." },
     { id: "admin", label: "04 People Ops", sees: "Counts only. Nothing personal." },
   ];
+  const roleIdx = roles.findIndex((r) => r.id === role);
+  function go(d: 1 | -1) { const n = roles[roleIdx + d]; if (n) setRole(n.id); }
 
   return (
     <section className="mt-16" aria-labelledby="cockpit-heading">
@@ -73,33 +75,23 @@ export function CareCockpit({ anchor }: { anchor: number }) {
         <button onClick={reset} className="w-fit eyebrow underline hover:bg-foreground hover:text-background">Start over</button>
       </div>
 
-      {/* Progress rail */}
-      <ol className="mt-10 grid grid-cols-4 gap-3" aria-label="Chapter progress">
-        {STEPS.map((x, i) => {
-          const on = stage !== "closed" && i <= stepIdx;
-          return (
-            <li key={x.s} className={`border-t-2 pt-3 font-mono text-[11px] uppercase tracking-[0.14em] ${on ? "border-foreground" : "border-foreground/20 text-muted-foreground"}`}>
-              <span className="opacity-70">{String(i + 1).padStart(2, "0")}</span> {x.label}
-            </li>
-          );
-        })}
-      </ol>
-      {stage === "closed" && <p className="mt-2 eyebrow">Closed quietly. Nobody is told why. Nothing drawn.</p>}
+      {stage === "closed" && <p className="mt-6 eyebrow">Closed quietly. Nobody is told why. Nothing drawn.</p>}
 
       <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_23rem]">
-        {/* Left: role views */}
+        {/* Left: sequential scenes */}
         <div>
-          <div className="flex flex-wrap gap-x-8 gap-y-3" role="tablist" aria-label="View as">
-            {roles.map((r) => (
-              <button key={r.id} role="tab" aria-selected={role === r.id} onClick={() => setRole(r.id)}
-                className={`border-b-2 pb-2 text-left font-mono text-[11px] uppercase tracking-[0.14em] hover:bg-foreground hover:text-background ${role === r.id ? "border-foreground" : "border-transparent text-muted-foreground"}`}>
-                {r.label}
-              </button>
-            ))}
+          <div className="flex items-center justify-between gap-4">
+            <p className="eyebrow">Scene {roleIdx + 1} of 04 · {roles[roleIdx]!.sees}</p>
+            <div className="flex gap-2">
+              <button onClick={() => go(-1)} disabled={roleIdx === 0} aria-label="Previous scene" className="rounded-[4px] bg-card px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] hover:bg-foreground hover:text-background disabled:opacity-40">Back</button>
+              <button onClick={() => go(1)} disabled={roleIdx === roles.length - 1} aria-label="Next scene" className="rounded-[4px] bg-card px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] hover:bg-foreground hover:text-background disabled:opacity-40">Next</button>
+            </div>
           </div>
-          <p className="mt-3 text-sm text-muted-foreground">{roles.find((r) => r.id === role)!.sees}</p>
+          <div className="mt-3 flex gap-1" aria-hidden="true">
+            {roles.map((r, i) => <span key={r.id} className={`h-1 flex-1 rounded-[2px] ${i <= roleIdx ? "bg-foreground" : "bg-card"}`} />)}
+          </div>
 
-          <div className="mt-6 border-t-2 border-foreground">
+          <div className="mt-6">
             {role === "manager" && (
               <Pane eyebrow="Step 01 · Manager" title={stage === "idle" ? "Someone on your team just signed a lease." : "You started it. That is the whole job."}>
                 <p>{stage === "idle" ? "You do not need details. One tap sends a private invite. They decide everything after that." : "You will see when it moves. You will not see what they chose."}</p>
@@ -243,9 +235,9 @@ function label(s: Stage) {
 
 function Pane({ eyebrow, title, children }: { eyebrow: string; title: string; children: React.ReactNode }) {
   return (
-    <div className="p-6 sm:p-8">
+    <div className="rounded-[4px] bg-card p-6 sm:p-10">
       <p className="eyebrow text-emphasis">{eyebrow}</p>
-      <h3 className="mt-3 font-display text-2xl leading-tight sm:text-3xl">{title}</h3>
+      <h3 className="mt-4 font-display text-3xl leading-tight sm:text-4xl">{title}</h3>
       <div className="mt-3 leading-relaxed">{children}</div>
     </div>
   );
@@ -253,9 +245,9 @@ function Pane({ eyebrow, title, children }: { eyebrow: string; title: string; ch
 
 function Facts({ rows }: { rows: [string, string][] }) {
   return (
-    <dl className="mt-6 space-y-2">
+    <dl className="mt-6 space-y-1 rounded-[4px] bg-background p-4">
       {rows.map(([k, v]) => (
-        <div key={k} className="flex justify-between gap-4 border-b-2 border-foreground pb-2"><dt className="eyebrow">{k}</dt><dd className="font-mono text-sm tabular-nums">{v}</dd></div>
+        <div key={k} className="flex justify-between gap-4 py-1"><dt className="eyebrow">{k}</dt><dd className="font-mono text-sm tabular-nums">{v}</dd></div>
       ))}
     </dl>
   );
@@ -263,7 +255,7 @@ function Facts({ rows }: { rows: [string, string][] }) {
 
 function Stat({ k, v, hl }: { k: string; v: React.ReactNode; hl?: boolean }) {
   return (
-    <div className={`rounded-sm border-2 border-foreground p-4 ${hl ? "bg-highlight" : ""}`}>
+    <div className={`rounded-[4px] p-5 ${hl ? "bg-highlight" : "bg-background"}`}>
       <p className="font-mono text-[11px] uppercase tracking-[0.14em]">{k}</p>
       <p className="mt-2 font-mono text-2xl">{v}</p>
     </div>
