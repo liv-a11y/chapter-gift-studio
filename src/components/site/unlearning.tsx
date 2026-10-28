@@ -1,8 +1,6 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-
-import bench from "@/assets/02-bench.png.asset.json";
-import { Illustration } from "@/components/site/illustration";
 
 const barriers = [
   {
@@ -14,6 +12,7 @@ const barriers = [
     n: "02",
     title: "The vulnerability tax",
     body: "People will eat off one plate before they ask for help. A friend starts it, so nobody has to ask.",
+    to: "/journal/vulnerability-tax" as const,
   },
   {
     n: "03",
@@ -24,41 +23,59 @@ const barriers = [
 
 export function Unlearning({ headingLevel = "h2" }: { headingLevel?: "h1" | "h2" }) {
   const H = headingLevel;
+  const [open, setOpen] = useState<string | null>("01");
   return (
     <section className="site-section" aria-labelledby="unlearning">
-      <div className="site-container">
-        <p className="eyebrow text-emphasis">Essays · Cultural barriers</p>
-        <H id="unlearning" className={`${headingLevel === "h1" ? "site-h1" : "site-h2"} mt-5 max-w-[16ch]`}>
-          The rules we are unlearning.
-        </H>
-        <p className="mt-6 max-w-[40rem] text-[18px] leading-[1.5] text-muted-foreground">
-          Why it takes an engagement ring to get a toaster, why nobody asks for a skillet, and how we start celebrating the rest of life on purpose.
-        </p>
-
-        <ol className="mt-14 grid gap-10 md:grid-cols-3 md:gap-12">
-          {barriers.map((b) => (
-            <li key={b.n} className="border-t-2 border-foreground pt-6">
-              <span className="eyebrow text-emphasis">{b.n}</span>
-              <h3 className="mt-4 font-display text-[28px] leading-[1.08]">{b.title}</h3>
-              <p className="mt-4 text-[17px] leading-[1.5] text-muted-foreground">{b.body}</p>
-            </li>
-          ))}
-        </ol>
-
-        <Link
-          to="/journal/vulnerability-tax"
-          className="group mt-10 grid items-center gap-8 rounded-[4px] border-2 border-foreground bg-card p-5 hover:bg-foreground hover:text-background sm:p-7 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]"
-        >
-          <Illustration src={bench.url} alt="Two people sitting together on a simple bench beneath a wandering loop of ink line." />
-          <div>
-            <p className="eyebrow text-emphasis group-hover:text-background">Founder note</p>
-            <h3 className="mt-4 font-display text-[clamp(32px,4vw,48px)] leading-[1.04]">The vulnerability tax</h3>
-            <p className="mt-4 text-[18px] leading-[1.5]">Nobody wants to ask for a pan. Why a friend has to start it.</p>
-            <span className="mt-6 inline-flex items-center gap-2 font-medium text-primary group-hover:text-background">
-              Read the essay <ArrowRight className="size-4" />
-            </span>
+      <div className="site-container grid gap-14 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] md:items-center">
+        {/* Folio cover */}
+        <div className="mx-auto w-full max-w-[22rem] rounded-[4px] bg-card p-6 sm:p-8" aria-hidden="true">
+          <div className="flex aspect-[3/4] flex-col justify-between rounded-[4px] bg-primary p-6 text-primary-foreground">
+            <p className="font-mono text-[11px] uppercase tracking-[0.14em]">Good Chapter, Co. · Vol. 01</p>
+            <div>
+              <p className="font-display text-[clamp(30px,6vw,40px)] leading-[1.02]">The rules we are unlearning.</p>
+              <span className="mt-5 block h-3 w-16 bg-highlight" />
+            </div>
+            <p className="font-mono text-[11px] uppercase tracking-[0.14em]">Three essays</p>
           </div>
-        </Link>
+        </div>
+
+        <div>
+          <p className="eyebrow text-emphasis">Essays · Cultural barriers</p>
+          <H id="unlearning" className={`${headingLevel === "h1" ? "site-h1" : "site-h2"} mt-5 max-w-[16ch]`}>
+            The rules we are unlearning.
+          </H>
+          <p className="mt-6 max-w-[40rem] text-[18px] leading-[1.6] text-muted-foreground">
+            Why it takes an engagement ring to get a toaster, why nobody asks for a skillet, and how we start celebrating the rest of life on purpose.
+          </p>
+
+          <ol className="mt-12 space-y-3" aria-label="Contents">
+            {barriers.map((b) => {
+              const isOpen = open === b.n;
+              return (
+                <li key={b.n} className={`rounded-[4px] ${isOpen ? "bg-card" : ""}`}>
+                  <button
+                    onClick={() => setOpen(isOpen ? null : b.n)}
+                    aria-expanded={isOpen}
+                    className="flex w-full items-baseline gap-5 rounded-[4px] px-5 py-4 text-left hover:bg-foreground hover:text-background"
+                  >
+                    <span className="eyebrow text-emphasis">{b.n}</span>
+                    <span className="font-display text-[24px] leading-[1.1]">{b.title}</span>
+                  </button>
+                  {isOpen && (
+                    <div className="px-5 pb-6 pl-[3.6rem]">
+                      <p className="text-[18px] leading-[1.65]">{b.body}</p>
+                      {b.to && (
+                        <Link to={b.to} className="mt-4 inline-flex items-center gap-2 font-medium text-primary hover:bg-foreground hover:text-background">
+                          Read the essay <ArrowRight className="size-4" />
+                        </Link>
+                      )}
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </div>
       </div>
     </section>
   );
