@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApproveRouteImport } from './routes/approve'
 import { Route as CatalogRouteImport } from './routes/catalog'
+import { Route as FirstPlaceRouteImport } from './routes/first-place'
 import { Route as FounderRouteImport } from './routes/founder'
 import { Route as FoundingRouteImport } from './routes/founding'
 import { Route as GivingRouteImport } from './routes/giving'
@@ -50,6 +51,11 @@ const ApproveRoute = ApproveRouteImport.update({
 const CatalogRoute = CatalogRouteImport.update({
   id: '/catalog',
   path: '/catalog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FirstPlaceRoute = FirstPlaceRouteImport.update({
+  id: '/first-place',
+  path: '/first-place',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FounderRoute = FounderRouteImport.update({
@@ -180,6 +186,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/approve': typeof ApproveRoute
   '/catalog': typeof CatalogRoute
+  '/first-place': typeof FirstPlaceRoute
   '/founder': typeof FounderRoute
   '/founding': typeof FoundingRoute
   '/giving': typeof GivingRoute
@@ -209,6 +216,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/approve': typeof ApproveRoute
   '/catalog': typeof CatalogRoute
+  '/first-place': typeof FirstPlaceRoute
   '/founder': typeof FounderRoute
   '/founding': typeof FoundingRoute
   '/giving': typeof GivingRoute
@@ -238,6 +246,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/approve': typeof ApproveRoute
   '/catalog': typeof CatalogRoute
+  '/first-place': typeof FirstPlaceRoute
   '/founder': typeof FounderRoute
   '/founding': typeof FoundingRoute
   '/giving': typeof GivingRoute
@@ -269,6 +278,7 @@ export interface FileRouteTypes {
     | '/'
     | '/approve'
     | '/catalog'
+    | '/first-place'
     | '/founder'
     | '/founding'
     | '/giving'
@@ -298,6 +308,7 @@ export interface FileRouteTypes {
     | '/'
     | '/approve'
     | '/catalog'
+    | '/first-place'
     | '/founder'
     | '/founding'
     | '/giving'
@@ -326,6 +337,7 @@ export interface FileRouteTypes {
     | '/'
     | '/approve'
     | '/catalog'
+    | '/first-place'
     | '/founder'
     | '/founding'
     | '/giving'
@@ -356,6 +368,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApproveRoute: typeof ApproveRoute
   CatalogRoute: typeof CatalogRoute
+  FirstPlaceRoute: typeof FirstPlaceRoute
   FounderRoute: typeof FounderRoute
   FoundingRoute: typeof FoundingRoute
   GivingRoute: typeof GivingRoute
@@ -396,6 +409,13 @@ declare module '@tanstack/react-router' {
       path: '/catalog'
       fullPath: '/catalog'
       preLoaderRoute: typeof CatalogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/first-place': {
+      id: '/first-place'
+      path: '/first-place'
+      fullPath: '/first-place'
+      preLoaderRoute: typeof FirstPlaceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/founder': {
@@ -597,6 +617,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApproveRoute: ApproveRoute,
   CatalogRoute: CatalogRoute,
+  FirstPlaceRoute: FirstPlaceRoute,
   FounderRoute: FounderRoute,
   FoundingRoute: FoundingRoute,
   GivingRoute: GivingRoute,
