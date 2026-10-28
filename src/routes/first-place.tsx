@@ -22,7 +22,7 @@ export const Route = createFileRoute("/first-place")({
 const phases = ["Closing", "A friend starts it", "Maya approves it", "The invitation", "A guest gives"] as const;
 type Product = (typeof sampleProducts)[number];
 
-const btn = "inline-flex items-center justify-center rounded-[4px] border-2 border-calm bg-calm px-5 py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-calm-foreground hover:bg-foreground hover:border-foreground hover:text-background";
+const btn = "inline-flex items-center justify-center rounded-[4px] border-2 border-primary bg-primary px-5 py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-primary-foreground hover:bg-foreground hover:border-foreground hover:text-background";
 const ghost = "inline-flex items-center justify-center rounded-[4px] border-2 border-foreground px-5 py-3 font-mono text-[12px] uppercase tracking-[0.14em] hover:bg-foreground hover:text-background";
 const label = "font-mono text-[11px] uppercase tracking-[0.14em]";
 
@@ -46,7 +46,7 @@ function FirstPlace() {
               <button
                 onClick={() => setStep(i)}
                 aria-current={i === step ? "step" : undefined}
-                className={`${label} rounded-[4px] px-3 py-2 ${i === step ? "bg-calm text-calm-foreground" : i < step ? "bg-mist" : "hover:bg-foreground hover:text-background"}`}
+                className={`${label} rounded-[4px] px-3 py-2 ${i === step ? "bg-primary text-primary-foreground" : i < step ? "bg-mist" : "hover:bg-foreground hover:text-background"}`}
               >
                 0{i + 1} {p}
               </button>
@@ -215,7 +215,7 @@ function ProductRow({ p, note }: { p: Product; note?: string | undefined }) {
       <div className="min-w-0">
         <p className="font-medium">{p.name} <span className="text-muted-foreground">${p.price}</span></p>
         <p className="text-[15px] leading-snug text-muted-foreground">{p.reason}</p>
-        {note && <p className={`${label} mt-1 text-calm`}>{note}</p>}
+        {note && <p className={`${label} mt-1 text-primary`}>{note}</p>}
       </div>
     </div>
   );
