@@ -35,10 +35,10 @@ export function Unlearning({ headingLevel = "h2" }: { headingLevel?: "h1" | "h2"
           Why it takes an engagement ring to get a toaster, why nobody asks for a skillet, and how we start celebrating the rest of life on purpose.
         </p>
 
-        <ol className="mt-14 grid gap-6 md:grid-cols-3">
+        <ol className="mt-14 grid gap-10 md:grid-cols-3 md:gap-12">
           {barriers.map((b) => (
-            <li key={b.n} className="rounded-[4px] border-2 border-foreground p-6">
-              <span className="eyebrow text-muted-foreground">{b.n}</span>
+            <li key={b.n} className="border-t-2 border-foreground pt-6">
+              <span className="eyebrow text-emphasis">{b.n}</span>
               <h3 className="mt-4 font-display text-[28px] leading-[1.08]">{b.title}</h3>
               <p className="mt-4 text-[17px] leading-[1.5] text-muted-foreground">{b.body}</p>
             </li>

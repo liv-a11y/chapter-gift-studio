@@ -74,11 +74,11 @@ export function CareCockpit({ anchor }: { anchor: number }) {
       </div>
 
       {/* Progress rail */}
-      <ol className="mt-8 grid grid-cols-4 rounded-sm border-2 border-foreground" aria-label="Chapter progress">
+      <ol className="mt-10 grid grid-cols-4 gap-3" aria-label="Chapter progress">
         {STEPS.map((x, i) => {
           const on = stage !== "closed" && i <= stepIdx;
           return (
-            <li key={x.s} className={`px-3 py-3 font-mono text-[11px] uppercase tracking-[0.14em] ${i > 0 ? "border-l-2 border-foreground" : ""} ${on ? "bg-foreground text-background" : ""}`}>
+            <li key={x.s} className={`border-t-2 pt-3 font-mono text-[11px] uppercase tracking-[0.14em] ${on ? "border-foreground" : "border-foreground/20 text-muted-foreground"}`}>
               <span className="opacity-70">{String(i + 1).padStart(2, "0")}</span> {x.label}
             </li>
           );
@@ -86,20 +86,20 @@ export function CareCockpit({ anchor }: { anchor: number }) {
       </ol>
       {stage === "closed" && <p className="mt-2 eyebrow">Closed quietly. Nobody is told why. Nothing drawn.</p>}
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_23rem]">
+      <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_23rem]">
         {/* Left: role views */}
         <div>
-          <div className="grid grid-cols-2 rounded-sm border-2 border-foreground sm:grid-cols-4" role="tablist" aria-label="View as">
-            {roles.map((r, i) => (
+          <div className="flex flex-wrap gap-x-8 gap-y-3" role="tablist" aria-label="View as">
+            {roles.map((r) => (
               <button key={r.id} role="tab" aria-selected={role === r.id} onClick={() => setRole(r.id)}
-                className={`px-3 py-3 text-left hover:bg-foreground hover:text-background ${i % 2 ? "border-l-2 border-foreground" : ""} ${i > 1 ? "border-t-2 border-foreground sm:border-t-0" : ""} ${i === 2 ? "sm:border-l-2" : ""} ${role === r.id ? "bg-highlight" : ""}`}>
-                <span className="block font-mono text-[11px] uppercase tracking-[0.14em]">{r.label}</span>
-                <span className="mt-1 hidden text-sm sm:block">{r.sees}</span>
+                className={`border-b-2 pb-2 text-left font-mono text-[11px] uppercase tracking-[0.14em] hover:bg-foreground hover:text-background ${role === r.id ? "border-foreground" : "border-transparent text-muted-foreground"}`}>
+                {r.label}
               </button>
             ))}
           </div>
+          <p className="mt-3 text-sm text-muted-foreground">{roles.find((r) => r.id === role)!.sees}</p>
 
-          <div className="mt-4 rounded-sm border-2 border-foreground bg-background">
+          <div className="mt-6 border-t-2 border-foreground">
             {role === "manager" && (
               <Pane eyebrow="Step 01 · Manager" title={stage === "idle" ? "Someone on your team just signed a lease." : "You started it. That is the whole job."}>
                 <p>{stage === "idle" ? "You do not need details. One tap sends a private invite. They decide everything after that." : "You will see when it moves. You will not see what they chose."}</p>
