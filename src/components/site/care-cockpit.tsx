@@ -139,14 +139,27 @@ export function CareCockpit({ anchor }: { anchor: number }) {
         </div>
 
         {/* Right: employee phone */}
-        <div className="mx-auto w-full max-w-[23rem] lg:sticky lg:top-6 lg:self-start">
-          <p className="mb-2 eyebrow">Employee's phone</p>
-          <div className="rounded-[4px] border-2 border-foreground bg-foreground p-2">
-            <div className="overflow-hidden rounded-sm bg-background">
-              <div className="flex justify-between border-b-2 border-foreground px-3 py-2 font-mono text-[10px] uppercase tracking-[0.14em]">
+        <div className="mx-auto w-full max-w-[22rem] lg:sticky lg:top-6 lg:self-start">
+          <p className="mb-3 text-center eyebrow">03 · Employee's phone</p>
+          <div className={`relative rounded-[3.25rem] bg-foreground p-[10px] ${role === "employee" ? "outline outline-2 outline-offset-4 outline-primary" : ""}`}>
+            {/* side buttons */}
+            <span aria-hidden="true" className="absolute -left-[3px] top-28 h-8 w-[3px] rounded-l bg-foreground" />
+            <span aria-hidden="true" className="absolute -left-[3px] top-40 h-14 w-[3px] rounded-l bg-foreground" />
+            <span aria-hidden="true" className="absolute -right-[3px] top-36 h-20 w-[3px] rounded-r bg-foreground" />
+            <div className="relative overflow-hidden rounded-[2.6rem] bg-background">
+              {/* status bar + dynamic island */}
+              <div className="relative flex h-12 items-center justify-between px-7 text-[13px] font-medium">
+                <span>9:41</span>
+                <span aria-hidden="true" className="absolute left-1/2 top-2.5 h-7 w-24 -translate-x-1/2 rounded-full bg-foreground" />
+                <span aria-hidden="true" className="flex items-center gap-1">
+                  <span className="flex items-end gap-[2px]">{[4, 6, 8, 10].map((h) => <span key={h} className="w-[3px] rounded-[1px] bg-foreground" style={{ height: h }} />)}</span>
+                  <span className="ml-1 flex h-[11px] w-6 items-center rounded-[3px] border border-foreground p-[1px]"><span className="h-full w-4/5 rounded-[1px] bg-foreground" /></span>
+                </span>
+              </div>
+              <div className="flex items-center justify-between px-5 pb-2 font-mono text-[10px] uppercase tracking-[0.14em]">
                 <span>Good Chapter, Co.</span><span>Only you</span>
               </div>
-              <div className="min-h-[34rem] p-4">
+              <div className="h-[36rem] overflow-y-auto px-5 pb-10 pt-2">
                 {stage === "idle" && <Quiet>Nothing yet. Nobody has asked them anything.</Quiet>}
                 {stage === "closed" && <Quiet>Closed. No reason needed. No one is told.</Quiet>}
 
