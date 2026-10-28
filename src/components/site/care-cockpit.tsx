@@ -28,7 +28,7 @@ const GIFTS: Gift[] = [
 ];
 
 type Stage = "idle" | "started" | "approved" | "sent" | "closed";
-type Role = "admin" | "manager" | "peer";
+type Role = "admin" | "manager" | "peer" | "employee";
 const PEER_ADDS = [40, 25, 60, 35, 50];
 const STEPS: { s: Stage; label: string }[] = [
   { s: "idle", label: "Quiet" },
@@ -56,9 +56,10 @@ export function CareCockpit({ anchor }: { anchor: number }) {
   function swap(dir: 1 | -1) { setPick((pick + dir + GIFTS.length) % GIFTS.length); }
 
   const roles: { id: Role; label: string; sees: string }[] = [
-    { id: "manager", label: "Manager", sees: "Starts it. Sees status only." },
-    { id: "peer", label: "Teammate", sees: "Adds quietly. Sees no one else's amount." },
-    { id: "admin", label: "People Ops", sees: "Pool and counts. Nothing personal." },
+    { id: "manager", label: "01 Manager", sees: "Starts it. Sees status only." },
+    { id: "peer", label: "02 Teammates", sees: "Add quietly. No amounts shown." },
+    { id: "employee", label: "03 Employee", sees: "Chooses on their phone." },
+    { id: "admin", label: "04 People Ops", sees: "Counts only. Nothing personal." },
   ];
 
   return (
