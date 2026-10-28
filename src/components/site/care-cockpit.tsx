@@ -89,10 +89,10 @@ export function CareCockpit({ anchor }: { anchor: number }) {
       <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_23rem]">
         {/* Left: role views */}
         <div>
-          <div className="grid grid-cols-3 rounded-sm border-2 border-foreground" role="tablist" aria-label="View as">
+          <div className="grid grid-cols-2 rounded-sm border-2 border-foreground sm:grid-cols-4" role="tablist" aria-label="View as">
             {roles.map((r, i) => (
               <button key={r.id} role="tab" aria-selected={role === r.id} onClick={() => setRole(r.id)}
-                className={`px-3 py-3 text-left hover:bg-foreground hover:text-background ${i > 0 ? "border-l-2 border-foreground" : ""} ${role === r.id ? "bg-highlight" : ""}`}>
+                className={`px-3 py-3 text-left hover:bg-foreground hover:text-background ${i % 2 ? "border-l-2 border-foreground" : ""} ${i > 1 ? "border-t-2 border-foreground sm:border-t-0" : ""} ${i === 2 ? "sm:border-l-2" : ""} ${role === r.id ? "bg-highlight" : ""}`}>
                 <span className="block font-mono text-[11px] uppercase tracking-[0.14em]">{r.label}</span>
                 <span className="mt-1 hidden text-sm sm:block">{r.sees}</span>
               </button>
@@ -101,20 +101,31 @@ export function CareCockpit({ anchor }: { anchor: number }) {
 
           <div className="mt-4 rounded-sm border-2 border-foreground bg-background">
             {role === "manager" && (
-              <Pane eyebrow="Manager view" title={stage === "idle" ? "Someone on your team just signed a lease." : "You started it. That is the whole job."}>
+              <Pane eyebrow="Step 01 · Manager" title={stage === "idle" ? "Someone on your team just signed a lease." : "You started it. That is the whole job."}>
                 <p>{stage === "idle" ? "You do not need details. One tap sends a private invite. They decide everything after that." : "You will see when it moves. You will not see what they chose."}</p>
                 <Facts rows={[["Status", label(stage)], ["Object", "Private"], ["Address", "Never shown"]]} />
-                {stage === "idle" && <Primary onClick={() => setStage("started")}>Start a chapter, privately</Primary>}
+                {stage === "idle" && <Primary onClick={() => { setStage("started"); setRole("peer"); }}>Start a chapter, privately</Primary>}
               </Pane>
             )}
             {role === "peer" && (
-              <Pane eyebrow="Teammate view" title={stage === "idle" ? "Nothing to see yet." : "Want to add to it? Only if you want to."}>
+              <Pane eyebrow="Step 02 · Teammates" title={stage === "idle" ? "Nothing to see yet." : "Want to add to it? Only if you want to."}>
                 <p>{stage === "idle" ? "A manager has not started anything." : "Your amount stays yours. No leaderboard, no names, no reminders."}</p>
                 <Facts rows={[["Teammates who added", String(adds.length)], ["Added together", money(added)], ["Per person amounts", "Hidden"]]} />
-                {(stage === "started" || stage === "approved") && (
-                  <Primary onClick={addPeer} disabled={adds.length >= PEER_ADDS.length}>
-                    {adds.length >= PEER_ADDS.length ? "Plenty. Thank you." : `Add ${money(PEER_ADDS[adds.length]!)} quietly`}
-                  </Primary>
+                {stage === "started" && (
+                  <div className="flex flex-wrap items-center gap-4">
+                    <Primary onClick={addPeer} disabled={adds.length >= PEER_ADDS.length}>
+                      {adds.length >= PEER_ADDS.length ? "Plenty. Thank you." : `Add ${money(PEER_ADDS[adds.length]!)} quietly`}
+                    </Primary>
+                    <button onClick={() => setRole("employee")} className="mt-6 eyebrow underline hover:bg-foreground hover:text-background">Next. Their turn</button>
+                  </div>
+                )}
+              </Pane>
+            )}
+            {role === "employee" && (
+              <Pane eyebrow="Step 03 · Employee" title={stage === "idle" ? "Their phone is quiet." : stage === "started" ? "Now it is theirs." : "They chose. Work does not know what."}>
+                <p>{stage === "started" ? "On the phone, they swipe through objects, keep one, or close it quietly. No one is told either way." : "Everything here happens on their phone, and only there."}</p>
+                {(stage === "sent" || stage === "closed") && (
+                  <button onClick={() => setRole("admin")} className="mt-6 eyebrow underline hover:bg-foreground hover:text-background">Next. What People Ops sees</button>
                 )}
               </Pane>
             )}
@@ -217,6 +228,7 @@ export function CareCockpit({ anchor }: { anchor: number }) {
                   </div>
                 )}
               </div>
+              <span aria-hidden="true" className="absolute bottom-2 left-1/2 h-[5px] w-32 -translate-x-1/2 rounded-full bg-foreground" />
             </div>
           </div>
         </div>
