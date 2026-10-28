@@ -208,7 +208,7 @@ function Scene({ eyebrow, title, children }: { eyebrow: string; title: string; c
   );
 }
 
-function ProductRow({ p, note }: { p: Product; note?: string }) {
+function ProductRow({ p, note }: { p: Product; note?: string | undefined }) {
   return (
     <div className="mt-4 flex items-center gap-4 rounded-[4px] bg-card p-3">
       <img src={p.photo} alt={p.name} className="size-20 shrink-0 rounded-[4px] object-cover" />
