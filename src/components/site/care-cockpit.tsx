@@ -28,7 +28,7 @@ const GIFTS: Gift[] = [
 ];
 
 type Stage = "idle" | "started" | "approved" | "sent" | "closed";
-type Role = "admin" | "manager" | "peer";
+type Role = "admin" | "manager" | "peer" | "employee";
 const PEER_ADDS = [40, 25, 60, 35, 50];
 const STEPS: { s: Stage; label: string }[] = [
   { s: "idle", label: "Quiet" },
@@ -56,9 +56,10 @@ export function CareCockpit({ anchor }: { anchor: number }) {
   function swap(dir: 1 | -1) { setPick((pick + dir + GIFTS.length) % GIFTS.length); }
 
   const roles: { id: Role; label: string; sees: string }[] = [
-    { id: "manager", label: "Manager", sees: "Starts it. Sees status only." },
-    { id: "peer", label: "Teammate", sees: "Adds quietly. Sees no one else's amount." },
-    { id: "admin", label: "People Ops", sees: "Pool and counts. Nothing personal." },
+    { id: "manager", label: "01 Manager", sees: "Starts it. Sees status only." },
+    { id: "peer", label: "02 Teammates", sees: "Add quietly. No amounts shown." },
+    { id: "employee", label: "03 Employee", sees: "Chooses on their phone." },
+    { id: "admin", label: "04 People Ops", sees: "Counts only. Nothing personal." },
   ];
 
   return (
@@ -67,7 +68,7 @@ export function CareCockpit({ anchor }: { anchor: number }) {
         <div>
           <p className="eyebrow text-emphasis">Care cockpit · One chapter, four views</p>
           <h2 id="cockpit-heading" className="mt-3 font-display text-3xl leading-tight sm:text-5xl">Everyone sees only their part.</h2>
-          <p className="mt-3 max-w-2xl text-lg leading-relaxed">Switch roles on the left. The employee's phone on the right stays theirs. Nobody at work sees the object, the note, or the address.</p>
+          <p className="mt-3 max-w-2xl text-lg leading-relaxed">Follow it in order. Manager, teammates, the employee, then People Ops. Nobody at work sees the object, the note, or the address.</p>
         </div>
         <button onClick={reset} className="w-fit eyebrow underline hover:bg-foreground hover:text-background">Start over</button>
       </div>
@@ -88,10 +89,10 @@ export function CareCockpit({ anchor }: { anchor: number }) {
       <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_23rem]">
         {/* Left: role views */}
         <div>
-          <div className="grid grid-cols-3 rounded-sm border-2 border-foreground" role="tablist" aria-label="View as">
+          <div className="grid grid-cols-2 rounded-sm border-2 border-foreground sm:grid-cols-4" role="tablist" aria-label="View as">
             {roles.map((r, i) => (
               <button key={r.id} role="tab" aria-selected={role === r.id} onClick={() => setRole(r.id)}
-                className={`px-3 py-3 text-left hover:bg-foreground hover:text-background ${i > 0 ? "border-l-2 border-foreground" : ""} ${role === r.id ? "bg-highlight" : ""}`}>
+                className={`px-3 py-3 text-left hover:bg-foreground hover:text-background ${i % 2 ? "border-l-2 border-foreground" : ""} ${i > 1 ? "border-t-2 border-foreground sm:border-t-0" : ""} ${i === 2 ? "sm:border-l-2" : ""} ${role === r.id ? "bg-highlight" : ""}`}>
                 <span className="block font-mono text-[11px] uppercase tracking-[0.14em]">{r.label}</span>
                 <span className="mt-1 hidden text-sm sm:block">{r.sees}</span>
               </button>
@@ -100,25 +101,36 @@ export function CareCockpit({ anchor }: { anchor: number }) {
 
           <div className="mt-4 rounded-sm border-2 border-foreground bg-background">
             {role === "manager" && (
-              <Pane eyebrow="Manager view" title={stage === "idle" ? "Someone on your team just signed a lease." : "You started it. That is the whole job."}>
+              <Pane eyebrow="Step 01 · Manager" title={stage === "idle" ? "Someone on your team just signed a lease." : "You started it. That is the whole job."}>
                 <p>{stage === "idle" ? "You do not need details. One tap sends a private invite. They decide everything after that." : "You will see when it moves. You will not see what they chose."}</p>
                 <Facts rows={[["Status", label(stage)], ["Object", "Private"], ["Address", "Never shown"]]} />
-                {stage === "idle" && <Primary onClick={() => setStage("started")}>Start a chapter, privately</Primary>}
+                {stage === "idle" && <Primary onClick={() => { setStage("started"); setRole("peer"); }}>Start a chapter, privately</Primary>}
               </Pane>
             )}
             {role === "peer" && (
-              <Pane eyebrow="Teammate view" title={stage === "idle" ? "Nothing to see yet." : "Want to add to it? Only if you want to."}>
+              <Pane eyebrow="Step 02 · Teammates" title={stage === "idle" ? "Nothing to see yet." : "Want to add to it? Only if you want to."}>
                 <p>{stage === "idle" ? "A manager has not started anything." : "Your amount stays yours. No leaderboard, no names, no reminders."}</p>
                 <Facts rows={[["Teammates who added", String(adds.length)], ["Added together", money(added)], ["Per person amounts", "Hidden"]]} />
-                {(stage === "started" || stage === "approved") && (
-                  <Primary onClick={addPeer} disabled={adds.length >= PEER_ADDS.length}>
-                    {adds.length >= PEER_ADDS.length ? "Plenty. Thank you." : `Add ${money(PEER_ADDS[adds.length]!)} quietly`}
-                  </Primary>
+                {stage === "started" && (
+                  <div className="flex flex-wrap items-center gap-4">
+                    <Primary onClick={addPeer} disabled={adds.length >= PEER_ADDS.length}>
+                      {adds.length >= PEER_ADDS.length ? "Plenty. Thank you." : `Add ${money(PEER_ADDS[adds.length]!)} quietly`}
+                    </Primary>
+                    <button onClick={() => setRole("employee")} className="mt-6 eyebrow underline hover:bg-foreground hover:text-background">Next. Their turn</button>
+                  </div>
+                )}
+              </Pane>
+            )}
+            {role === "employee" && (
+              <Pane eyebrow="Step 03 · Employee" title={stage === "idle" ? "Their phone is quiet." : stage === "started" ? "Now it is theirs." : "They chose. Work does not know what."}>
+                <p>{stage === "started" ? "On the phone, they swipe through objects, keep one, or close it quietly. No one is told either way." : "Everything here happens on their phone, and only there."}</p>
+                {(stage === "sent" || stage === "closed") && (
+                  <button onClick={() => setRole("admin")} className="mt-6 eyebrow underline hover:bg-foreground hover:text-background">Next. What People Ops sees</button>
                 )}
               </Pane>
             )}
             {role === "admin" && (
-              <Pane eyebrow="People Ops view" title="Care, accounted for.">
+              <Pane eyebrow="Step 04 · People Ops" title="Care, accounted for.">
                 <p>Counts and spend. Never the person, the reason, or the object.</p>
                 <div className="mt-6 grid gap-3 sm:grid-cols-3">
                   <Stat k="Anchor drawn" v={<Ticker value={locked ? anchor : 0} />} />
@@ -138,14 +150,27 @@ export function CareCockpit({ anchor }: { anchor: number }) {
         </div>
 
         {/* Right: employee phone */}
-        <div className="mx-auto w-full max-w-[23rem] lg:sticky lg:top-6 lg:self-start">
-          <p className="mb-2 eyebrow">Employee's phone</p>
-          <div className="rounded-[4px] border-2 border-foreground bg-foreground p-2">
-            <div className="overflow-hidden rounded-sm bg-background">
-              <div className="flex justify-between border-b-2 border-foreground px-3 py-2 font-mono text-[10px] uppercase tracking-[0.14em]">
+        <div className="mx-auto w-full max-w-[22rem] lg:sticky lg:top-6 lg:self-start">
+          <p className="mb-3 text-center eyebrow">03 · Employee's phone</p>
+          <div className={`relative rounded-[3.25rem] bg-foreground p-[10px] ${role === "employee" ? "outline outline-2 outline-offset-4 outline-primary" : ""}`}>
+            {/* side buttons */}
+            <span aria-hidden="true" className="absolute -left-[3px] top-28 h-8 w-[3px] rounded-l bg-foreground" />
+            <span aria-hidden="true" className="absolute -left-[3px] top-40 h-14 w-[3px] rounded-l bg-foreground" />
+            <span aria-hidden="true" className="absolute -right-[3px] top-36 h-20 w-[3px] rounded-r bg-foreground" />
+            <div className="relative overflow-hidden rounded-[2.6rem] bg-background">
+              {/* status bar + dynamic island */}
+              <div className="relative flex h-12 items-center justify-between px-7 text-[13px] font-medium">
+                <span>9:41</span>
+                <span aria-hidden="true" className="absolute left-1/2 top-2.5 h-7 w-24 -translate-x-1/2 rounded-full bg-foreground" />
+                <span aria-hidden="true" className="flex items-center gap-1">
+                  <span className="flex items-end gap-[2px]">{[4, 6, 8, 10].map((h) => <span key={h} className="w-[3px] rounded-[1px] bg-foreground" style={{ height: h }} />)}</span>
+                  <span className="ml-1 flex h-[11px] w-6 items-center rounded-[3px] border border-foreground p-[1px]"><span className="h-full w-4/5 rounded-[1px] bg-foreground" /></span>
+                </span>
+              </div>
+              <div className="flex items-center justify-between px-5 pb-2 font-mono text-[10px] uppercase tracking-[0.14em]">
                 <span>Good Chapter, Co.</span><span>Only you</span>
               </div>
-              <div className="min-h-[34rem] p-4">
+              <div className="h-[36rem] overflow-y-auto px-5 pb-4 pt-2">
                 {stage === "idle" && <Quiet>Nothing yet. Nobody has asked them anything.</Quiet>}
                 {stage === "closed" && <Quiet>Closed. No reason needed. No one is told.</Quiet>}
 
@@ -203,6 +228,7 @@ export function CareCockpit({ anchor }: { anchor: number }) {
                   </div>
                 )}
               </div>
+              <div aria-hidden="true" className="flex h-7 items-center justify-center border-t border-foreground/10"><span className="h-[5px] w-32 rounded-full bg-foreground" /></div>
             </div>
           </div>
         </div>
