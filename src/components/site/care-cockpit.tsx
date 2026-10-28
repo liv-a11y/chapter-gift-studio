@@ -68,7 +68,7 @@ export function CareCockpit({ anchor }: { anchor: number }) {
         <div>
           <p className="eyebrow text-emphasis">Care cockpit · One chapter, four views</p>
           <h2 id="cockpit-heading" className="mt-3 font-display text-3xl leading-tight sm:text-5xl">Everyone sees only their part.</h2>
-          <p className="mt-3 max-w-2xl text-lg leading-relaxed">Switch roles on the left. The employee's phone on the right stays theirs. Nobody at work sees the object, the note, or the address.</p>
+          <p className="mt-3 max-w-2xl text-lg leading-relaxed">Follow it in order. Manager, teammates, the employee, then People Ops. Nobody at work sees the object, the note, or the address.</p>
         </div>
         <button onClick={reset} className="w-fit eyebrow underline hover:bg-foreground hover:text-background">Start over</button>
       </div>
@@ -130,7 +130,7 @@ export function CareCockpit({ anchor }: { anchor: number }) {
               </Pane>
             )}
             {role === "admin" && (
-              <Pane eyebrow="People Ops view" title="Care, accounted for.">
+              <Pane eyebrow="Step 04 · People Ops" title="Care, accounted for.">
                 <p>Counts and spend. Never the person, the reason, or the object.</p>
                 <div className="mt-6 grid gap-3 sm:grid-cols-3">
                   <Stat k="Anchor drawn" v={<Ticker value={locked ? anchor : 0} />} />
