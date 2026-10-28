@@ -170,7 +170,7 @@ export function CareCockpit({ anchor }: { anchor: number }) {
               <div className="flex items-center justify-between px-5 pb-2 font-mono text-[10px] uppercase tracking-[0.14em]">
                 <span>Good Chapter, Co.</span><span>Only you</span>
               </div>
-              <div className="h-[36rem] overflow-y-auto px-5 pb-10 pt-2">
+              <div className="h-[36rem] overflow-y-auto px-5 pb-4 pt-2">
                 {stage === "idle" && <Quiet>Nothing yet. Nobody has asked them anything.</Quiet>}
                 {stage === "closed" && <Quiet>Closed. No reason needed. No one is told.</Quiet>}
 
@@ -228,7 +228,7 @@ export function CareCockpit({ anchor }: { anchor: number }) {
                   </div>
                 )}
               </div>
-              <span aria-hidden="true" className="absolute bottom-2 left-1/2 h-[5px] w-32 -translate-x-1/2 rounded-full bg-foreground" />
+              <div aria-hidden="true" className="flex h-7 items-center justify-center border-t border-foreground/10"><span className="h-[5px] w-32 rounded-full bg-foreground" /></div>
             </div>
           </div>
         </div>
