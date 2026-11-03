@@ -3,7 +3,7 @@ import { SiteShell } from "@/components/site/site-shell";
 import { WaitlistForm } from "@/components/site/waitlist-form";
 import { ToasterLine } from "@/components/site/illustration";
 import throwPhoto from "@/assets/g-08-check-wool-throw.webp.asset.json";
-import lampPhoto from "@/assets/g-02-bedside-lamp.webp.asset.json";
+import toasterPhoto from "@/assets/checked-toaster.png.asset.json";
 import espressoPhoto from "@/assets/g-01-espresso-machine.webp.asset.json";
 import mugPhoto from "@/assets/speckled-mug.png.asset.json";
 
@@ -30,7 +30,7 @@ const steps = [
 ];
 
 const objects = [
-  { photo: lampPhoto.url, name: "Bedside lamp", note: "Good light for the first night in.", alt: "A ceramic bedside lamp with a pleated shade on a small table." },
+  { photo: toasterPhoto.url, name: "Checked toaster", note: "Yes, the toaster. No wedding required.", alt: "A two slot toaster painted in red and cream checks." },
   { photo: throwPhoto.url, name: "Checked wool throw", note: "For the chair that is still the only chair.", alt: "A checked wool throw folded over a chair." },
   { photo: espressoPhoto.url, name: "Espresso machine", note: "A small ritual for a new morning.", alt: "A marble finish espresso machine on a kitchen counter." },
 ];
