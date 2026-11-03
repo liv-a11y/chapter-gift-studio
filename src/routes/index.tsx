@@ -88,7 +88,7 @@ function FrontDoor() {
 
       <section className="site-container py-20 md:py-32">
         <div className="grid items-end gap-10 md:grid-cols-[1fr_1.2fr] md:gap-16">
-          <img src={objects[2].photo} alt={objects[2].alt} loading="lazy" width={900} height={1100} className="aspect-[4/5] w-full rounded-[4px] object-cover" />
+          <img src={espressoPhoto.url} alt="A marble finish espresso machine on a kitchen counter." loading="lazy" width={900} height={1100} className="aspect-[4/5] w-full rounded-[4px] object-cover" />
           <div>
             <p className="eyebrow text-emphasis">Where gifts come from</p>
             <p className="mt-5 font-display text-[30px] leading-[1.2] sm:text-[38px]">Gifts come directly from independent makers, trusted retailers, and friends of Good Chapter.</p>
