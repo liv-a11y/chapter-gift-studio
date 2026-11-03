@@ -1,11 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site/site-shell";
 import { WaitlistForm } from "@/components/site/waitlist-form";
 import { ToasterLine } from "@/components/site/illustration";
-import emptyRoom from "@/assets/07-moving-out.png.asset.json";
-import mfInterior from "@/assets/marshall-field-interior.jpg.asset.json";
-import mfStreet from "@/assets/marshall-field-1906.jpg.asset.json";
+import throwPhoto from "@/assets/g-08-check-wool-throw.webp.asset.json";
+import lampPhoto from "@/assets/g-02-bedside-lamp.webp.asset.json";
+import espressoPhoto from "@/assets/g-01-espresso-machine.webp.asset.json";
+import tinsPhoto from "@/assets/g-15-striped-salt-tins.webp.asset.json";
 
 const title = "You shouldn't need a wedding to get a toaster";
 const description = "The old script is getting a rewrite. Good Chapter Co. is opening its first circle. Request an invitation.";
@@ -20,77 +20,96 @@ export const Route = createFileRoute("/")({
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:description", content: description },
   ] }),
-  component: PilotGate,
+  component: FrontDoor,
 });
 
-function PilotGate() {
+const steps = [
+  { n: "I", title: "A friend starts it.", copy: "They notice the chapter. The first apartment, the fresh start, the move nobody threw a party for." },
+  { n: "II", title: "The person approves it.", copy: "In private. Keep what fits, swap what does not. Nothing goes out until they say so." },
+  { n: "III", title: "Their people show up.", copy: "Each guest picks one real object. Nobody doubles up. Nobody sees who gave what." },
+];
+
+const objects = [
+  { photo: lampPhoto.url, name: "Bedside lamp", note: "Good light for the first night in.", alt: "A ceramic bedside lamp with a pleated shade on a small table." },
+  { photo: throwPhoto.url, name: "Checked wool throw", note: "For the chair that is still the only chair.", alt: "A checked wool throw folded over a chair." },
+  { photo: espressoPhoto.url, name: "Espresso machine", note: "A small ritual for a new morning.", alt: "A marble finish espresso machine on a kitchen counter." },
+];
+
+function FrontDoor() {
   return (
     <SiteShell pilot>
-      <section className="site-container pb-12 pt-10 md:pb-16 md:pt-14">
-        <p className="eyebrow text-emphasis">The old script ends here.</p>
-        <h1 className="mt-5 max-w-4xl font-display text-[40px] leading-[1.05] sm:text-[56px] lg:text-[72px]">Something good is taking shape.</h1>
-        <p className="mt-5 max-w-[34rem] text-[19px] leading-[1.5] text-muted-foreground sm:text-[22px]">For the lives that never came with a gift list.</p>
-        <div className="mt-10 grid gap-10 md:grid-cols-2 md:gap-12 lg:gap-16">
-          <div className="min-w-0">
-            <img src={emptyRoom.url} alt="Two rooms side by side. One is furnished with a sofa, lamp, and plant, and a person stands inside with hands in pockets. The other is empty with bare walls and an open door, and a second person walks in carrying a yellow bag." width={1536} height={1024} fetchPriority="high" className="aspect-[3/2] w-full rounded-[4px] bg-background object-cover mix-blend-multiply" />
-            <div className="mt-8">
-              <p className="eyebrow text-emphasis">Since 1924</p>
-              <ToasterLine className="mt-3 text-[26px] leading-[1.2]" />
-              <p className="mt-4 text-[17px] leading-[1.55] text-muted-foreground">A century ago, a department store decided you only deserve support if you get married or have a baby.</p>
-              <p className="mt-3 text-[17px] leading-[1.55] text-muted-foreground"><span className="font-medium text-foreground">The empty room. The solo move. The new job nobody throws a party for.</span> For a lot of people that is the biggest chapter of their life, and they are supposed to furnish it alone.</p>
-              <blockquote className="mt-8 border-t-2 border-foreground pt-5 font-display text-[28px] leading-[1.15] text-emphasis sm:text-[32px]">You shouldn't have to ask to be celebrated.</blockquote>
-              <p className="mt-6 font-display text-[22px] leading-[1.2]">A friend starts the chapter. You keep what fits.</p>
-              <p className="mt-3 text-[16px] leading-[1.55] text-muted-foreground">Your friend tells us what you're stepping into. You make it yours in private, choose who to share it with, and let your people show up.</p>
-            </div>
-          </div>
-          <div className="min-w-0 pt-1">
-            <WaitlistForm pilot />
+      <section className="site-container pb-16 pt-14 md:pb-28 md:pt-24">
+        <p className="eyebrow text-emphasis">Since 1924, nobody asks.</p>
+        <h1 className="mt-6 max-w-5xl font-display text-[44px] leading-[1.04] sm:text-[64px] lg:text-[88px]">
+          <ToasterLine />
+        </h1>
+        <p className="mt-8 max-w-[36rem] text-[19px] leading-[1.6] text-muted-foreground sm:text-[21px]">
+          When a friend steps into a big chapter, start it for them. They privately keep what fits. Their people fill the house.
+        </p>
+        <div className="mt-10 flex flex-wrap items-center gap-6">
+          <a href="#invite" className="inline-flex items-center rounded-[4px] bg-primary px-6 py-4 font-mono text-[12px] uppercase tracking-[0.14em] text-primary-foreground hover:bg-foreground hover:text-background">Request an invitation</a>
+          <Link to="/first-place" className="font-mono text-[12px] uppercase tracking-[0.14em] underline underline-offset-[6px] hover:text-emphasis">See Maya's chapter</Link>
+        </div>
+      </section>
+
+      <section className="site-container pb-20 md:pb-32" aria-label="Sample objects">
+        <div className="grid gap-4 md:grid-cols-[1.4fr_1fr] md:gap-6">
+          <figure className="rounded-[4px] bg-card p-4 sm:p-6">
+            <img src={tinsPhoto.url} alt="Three striped salt tins on a kitchen counter." width={1200} height={900} fetchPriority="high" className="aspect-[4/3] w-full rounded-[4px] object-cover" />
+            <figcaption className="mt-5 flex flex-wrap items-baseline justify-between gap-3">
+              <span className="font-display text-[24px]">Maya's first place</span>
+              <span className="eyebrow text-muted-foreground">Started by a friend. Approved by Maya.</span>
+            </figcaption>
+          </figure>
+          <div className="grid gap-4 sm:grid-cols-3 md:grid-cols-1 md:gap-6">
+            {objects.slice(0, 2).map((o) => (
+              <figure key={o.name} className="rounded-[4px] bg-card p-4">
+                <img src={o.photo} alt={o.alt} loading="lazy" width={600} height={450} className="aspect-[4/3] w-full rounded-[4px] object-cover" />
+                <figcaption className="mt-4"><p className="font-display text-[19px]">{o.name}</p><p className="mt-1 text-[15px] leading-[1.5] text-muted-foreground">{o.note}</p></figcaption>
+              </figure>
+            ))}
           </div>
         </div>
       </section>
-      <div className="border-t-2 border-foreground">
-        <section className="site-container py-12 md:py-20" aria-labelledby="why-we-exist">
-          <div className="grid gap-10 md:grid-cols-[minmax(260px,.75fr)_minmax(0,1.25fr)] md:gap-14 lg:gap-20">
-            <div>
-              <div className="grid grid-cols-2 overflow-hidden rounded-[4px] border-2 border-foreground bg-card">
-                <div className="col-span-2 flex items-end justify-between gap-5 border-b-2 border-foreground bg-highlight p-5">
-                  <span className="font-display text-[52px] leading-none sm:text-[64px]">1924</span>
-                  <span className="eyebrow text-right">One accepted<br />life script</span>
-                </div>
-                <img src={mfInterior.url} alt="Archival photograph of the Marshall Field's store interior, about 1910, with tall columns and shoppers on the main floor." loading="lazy" width={300} height={446} className="aspect-square h-full w-full border-r-2 border-foreground object-cover grayscale" />
-                <div className="flex flex-col justify-between p-5">
-                  <span className="eyebrow text-emphasis">The bridal list</span>
-                  <p className="mt-8 font-display text-[22px] leading-[1.12] sm:text-[24px]">China.<br />Silver.<br />Crystal.</p>
-                </div>
-                <img src={mfStreet.url} alt="Archival 1906 postcard of crowds on the street outside the Marshall Field's store." loading="lazy" width={1920} height={1254} className="col-span-2 aspect-[3/2] h-full w-full border-t-2 border-foreground object-cover" />
-                <div className="col-span-2 flex items-end justify-between gap-5 border-t-2 border-foreground bg-primary p-5 text-primary-foreground">
-                  <span className="font-display text-[52px] leading-none sm:text-[64px]">Now</span>
-                  <span className="eyebrow text-right">Every life<br />worth marking</span>
-                </div>
-              </div>
-              <p className="mt-4 text-[14px] leading-[1.5] text-muted-foreground">Archival images: Marshall Field's, about 1906 to 1910. Public domain, via Wikimedia Commons.</p>
-            </div>
-            <div className="min-w-0">
-              <p className="eyebrow text-emphasis">Why we exist</p>
-              <h2 id="why-we-exist" className="mt-5 font-display text-[34px] leading-[1.06] sm:text-[48px] lg:text-[56px]">
-                The registry was built for a woman leaving her father's house for her husband's. <span className="text-emphasis">We built one for everything else she does.</span>
-              </h2>
-              <p className="mt-7 max-w-[40rem] text-[17px] leading-[1.55] text-muted-foreground">In 1924, a department store made care easy to give at marriage. China, silver, crystal, and a list so nobody guessed.</p>
-              <p className="mt-4 max-w-[40rem] text-[17px] leading-[1.55] text-muted-foreground">Women kept building lives outside that script. Buying homes alone. Starting over. Moving somewhere new. The care stayed. The ritual did not.</p>
-              <div className="mt-10 border-t-2 border-foreground pt-6">
-                <p className="font-display text-[24px] leading-[1.2] sm:text-[28px]">Every chapter deserves the care. Here is why.</p>
-                <Link
-                  to="/read"
-                  className="mt-5 inline-flex items-center gap-3 rounded-[4px] border-2 border-primary bg-primary px-5 py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-primary-foreground hover:bg-foreground hover:text-background"
-                >
-                  Read our why
-                  <span aria-hidden="true">→</span>
-                </Link>
-              </div>
-            </div>
+
+      <section className="bg-card">
+        <div className="site-container py-20 md:py-32">
+          <p className="eyebrow text-emphasis">How a chapter works</p>
+          <h2 className="mt-5 max-w-3xl font-display text-[34px] leading-[1.1] sm:text-[48px]">No list to write. No asking for yourself.</h2>
+          <ol className="mt-14 grid gap-12 md:grid-cols-3 md:gap-10">
+            {steps.map((s) => (
+              <li key={s.n} className="border-t border-foreground/15 pt-6">
+                <span className="eyebrow text-emphasis">{s.n}</span>
+                <h3 className="mt-4 font-display text-[26px] leading-[1.15]">{s.title}</h3>
+                <p className="mt-3 text-[17px] leading-[1.65] text-muted-foreground">{s.copy}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="site-container py-20 md:py-32">
+        <div className="grid items-end gap-10 md:grid-cols-[1fr_1.2fr] md:gap-16">
+          <img src={objects[2].photo} alt={objects[2].alt} loading="lazy" width={900} height={1100} className="aspect-[4/5] w-full rounded-[4px] object-cover" />
+          <div>
+            <p className="eyebrow text-emphasis">Where gifts come from</p>
+            <p className="mt-5 font-display text-[30px] leading-[1.2] sm:text-[38px]">Gifts come directly from independent makers, trusted retailers, and friends of Good Chapter.</p>
+            <p className="mt-6 text-[17px] leading-[1.65] text-muted-foreground">No platform fees. Never marked up above retail.</p>
+            <Link to="/read" className="mt-8 inline-block font-mono text-[12px] uppercase tracking-[0.14em] underline underline-offset-[6px] hover:text-emphasis">Read our why</Link>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
+
+      <section id="invite" className="bg-card scroll-mt-24">
+        <div className="site-container grid gap-12 py-20 md:grid-cols-[1fr_1fr] md:gap-16 md:py-28">
+          <div>
+            <p className="eyebrow text-emphasis">Private pilot</p>
+            <h2 className="mt-5 font-display text-[34px] leading-[1.1] sm:text-[48px]">The first circle opens quietly.</h2>
+            <p className="mt-5 max-w-[30rem] text-[17px] leading-[1.65] text-muted-foreground">Friends, agents, employers, and the curious. Tell us who you are and we will write when the doors open.</p>
+          </div>
+          <WaitlistForm pilot />
+        </div>
+      </section>
     </SiteShell>
   );
 }
