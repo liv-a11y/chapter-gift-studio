@@ -5,7 +5,7 @@ import { ToasterLine } from "@/components/site/illustration";
 import throwPhoto from "@/assets/g-08-check-wool-throw.webp.asset.json";
 import lampPhoto from "@/assets/g-02-bedside-lamp.webp.asset.json";
 import espressoPhoto from "@/assets/g-01-espresso-machine.webp.asset.json";
-import tinsPhoto from "@/assets/g-15-striped-salt-tins.webp.asset.json";
+import mugPhoto from "@/assets/speckled-mug.png.asset.json";
 
 const title = "You shouldn't need a wedding to get a toaster";
 const description = "The old script is getting a rewrite. Good Chapter Co. is opening its first circle. Request an invitation.";
@@ -53,7 +53,7 @@ function FrontDoor() {
       <section className="site-container pb-20 md:pb-32" aria-label="Sample objects">
         <div className="grid gap-4 md:grid-cols-[1.4fr_1fr] md:gap-6">
           <figure className="flex flex-col rounded-[4px] bg-card p-4 sm:p-6">
-            <img src={tinsPhoto.url} alt="Three striped salt tins on a kitchen counter." width={1200} height={900} fetchPriority="high" className="aspect-[4/3] w-full flex-1 rounded-[4px] object-cover" />
+            <img src={mugPhoto.url} alt="A speckled ceramic mug with iced matcha resting on a stack of books." width={1200} height={1200} fetchPriority="high" className="aspect-[4/3] w-full flex-1 rounded-[4px] object-cover" />
             <figcaption className="mt-5 flex flex-wrap items-baseline justify-between gap-3">
               <span className="font-display text-[24px]">Maya's first place</span>
               <span className="eyebrow text-muted-foreground">Started by a friend. Approved by Maya.</span>
