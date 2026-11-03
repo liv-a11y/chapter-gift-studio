@@ -52,8 +52,8 @@ function FrontDoor() {
 
       <section className="site-container pb-20 md:pb-32" aria-label="Sample objects">
         <div className="grid gap-4 md:grid-cols-[1.4fr_1fr] md:gap-6">
-          <figure className="rounded-[4px] bg-card p-4 sm:p-6">
-            <img src={tinsPhoto.url} alt="Three striped salt tins on a kitchen counter." width={1200} height={900} fetchPriority="high" className="aspect-[4/3] w-full rounded-[4px] object-cover" />
+          <figure className="flex flex-col rounded-[4px] bg-card p-4 sm:p-6">
+            <img src={tinsPhoto.url} alt="Three striped salt tins on a kitchen counter." width={1200} height={900} fetchPriority="high" className="aspect-[4/3] w-full flex-1 rounded-[4px] object-cover" />
             <figcaption className="mt-5 flex flex-wrap items-baseline justify-between gap-3">
               <span className="font-display text-[24px]">Maya's first place</span>
               <span className="eyebrow text-muted-foreground">Started by a friend. Approved by Maya.</span>
