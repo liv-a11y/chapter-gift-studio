@@ -52,8 +52,8 @@ function RealEstatePage() {
       </section>
       <section className="site-container py-14">
         <p className="max-w-xl text-lg leading-relaxed">You get remembered for taste, not a logo. Your buyer gets a home that feels like theirs.</p>
-        <Link to="/first-place" className="mr-3 mt-6 inline-flex rounded-[4px] border-2 border-foreground px-5 py-3 font-mono text-[12px] uppercase tracking-[0.14em] hover:bg-foreground hover:text-background">See a sample chapter</Link>
-        <Link to="/" className="mt-6 inline-flex rounded-[4px] border-2 border-primary bg-primary px-5 py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-primary-foreground hover:bg-foreground hover:text-background">Request an invite</Link>
+        <Link to="/first-place" className="mr-3 mt-6 inline-flex rounded-[4px] border-2 border-foreground px-5 py-3 font-medium text-[14px] hover:bg-foreground hover:text-background">See a sample chapter</Link>
+        <Link to="/" className="mt-6 inline-flex rounded-[4px] border-2 border-primary bg-primary px-5 py-3 font-medium text-[14px] text-primary-foreground hover:bg-foreground hover:text-background">Request an invite</Link>
       </section>
     </SiteShell>
   );

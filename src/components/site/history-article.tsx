@@ -26,7 +26,7 @@ export function HistoryArticleBody({ eager = false }: { eager?: boolean }) {
   return (
     <article className="site-container pb-[112px] pt-14 md:pt-20">
       <header className="mx-auto max-w-[42rem]">
-        <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-emphasis">History · 1924</p>
+        <p className="font-medium text-[14px] text-emphasis">History · 1924</p>
         <h2 className="mt-5 font-display text-[clamp(40px,6vw,76px)] font-normal leading-[1.03] tracking-[-0.01em]">A hundred years of toasters, for brides only.</h2>
         <p className="mt-6 text-[20px] font-medium leading-[1.5] text-muted-foreground">In 1924 a department store gave one kind of life a gift list. Everyone else got a card.</p>
       </header>
@@ -39,7 +39,7 @@ export function HistoryArticleBody({ eager = false }: { eager?: boolean }) {
       <div className="mx-auto mt-14 max-w-[42rem]">
         {sections.map((s) => (
           <section key={s.n} className="[&+section]:mt-14">
-            <h3 className="font-mono text-[12px] uppercase tracking-[0.14em] text-emphasis">
+            <h3 className="font-medium text-[14px] text-emphasis">
               <span className="mr-3">{s.n}.</span>{s.heading}
             </h3>
             <div className="mt-5 space-y-6">
@@ -55,7 +55,7 @@ export function HistoryArticleBody({ eager = false }: { eager?: boolean }) {
         </blockquote>
 
         <aside className="mt-16 rounded-[4px] border-2 border-foreground p-6 md:p-8">
-          <h3 className="font-mono text-[12px] uppercase tracking-[0.14em]">Sources</h3>
+          <h3 className="font-medium text-[14px]">Sources</h3>
           <ul className="mt-5 space-y-4 text-[17px] leading-[1.55]">
             <li><a className={inlineLink} href="https://images.chicagohistory.org/asset/23427/" target="_blank" rel="noreferrer">Marshall Field's bridal-services archive, Chicago History Museum.</a></li>
             <li><a className={inlineLink} href="https://www.wttw.com/chicago-stories/marshall-fields/how-marshall-fields-transformed-shopping-from-errand-to-experience" target="_blank" rel="noreferrer">WTTW, Chicago Stories: how Marshall Field's changed shopping from an errand into an experience.</a></li>

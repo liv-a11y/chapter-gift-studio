@@ -6,9 +6,9 @@ import { sampleProducts } from "@/lib/sample-products";
 const phases = ["Closing", "A friend starts it", "Maya approves it", "The invitation", "A guest gives"] as const;
 type Product = (typeof sampleProducts)[number];
 
-const btn = "inline-flex items-center justify-center rounded-[4px] border-2 border-primary bg-primary px-5 py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-primary-foreground hover:bg-foreground hover:border-foreground hover:text-background";
-const ghost = "inline-flex items-center justify-center rounded-[4px] border-2 border-foreground px-5 py-3 font-mono text-[12px] uppercase tracking-[0.14em] hover:bg-foreground hover:text-background";
-const label = "font-mono text-[11px] uppercase tracking-[0.14em]";
+const btn = "inline-flex items-center justify-center rounded-[4px] border-2 border-primary bg-primary px-5 py-3 font-medium text-[14px] text-primary-foreground hover:bg-foreground hover:border-foreground hover:text-background";
+const ghost = "inline-flex items-center justify-center rounded-[4px] border-2 border-foreground px-5 py-3 font-medium text-[14px] hover:bg-foreground hover:text-background";
+const label = "font-medium text-[13px]";
 
 export function FirstPlaceJourney({ initialStep = 0 }: { initialStep?: number }) {
   const [step, setStep] = useState(initialStep);

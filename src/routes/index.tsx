@@ -45,8 +45,8 @@ function FrontDoor() {
           When a friend steps into a big chapter, start it for them. They privately keep what fits. Their people fill the house.
         </p>
         <div className="mt-10 flex flex-wrap items-center gap-6">
-          <a href="#invite" className="inline-flex items-center rounded-[4px] bg-primary px-6 py-4 font-mono text-[12px] uppercase tracking-[0.14em] text-primary-foreground hover:bg-foreground hover:text-background">Request an invitation</a>
-          <Link to="/first-place" className="font-mono text-[12px] uppercase tracking-[0.14em] underline underline-offset-[6px] hover:text-emphasis">See Maya's chapter</Link>
+          <a href="#invite" className="inline-flex items-center rounded-[4px] bg-primary px-6 py-4 font-medium text-[14px] text-primary-foreground hover:bg-foreground hover:text-background">Request an invitation</a>
+          <Link to="/first-place" className="font-medium text-[14px] underline underline-offset-[6px] hover:text-emphasis">See Maya's chapter</Link>
         </div>
       </section>
 
@@ -93,7 +93,7 @@ function FrontDoor() {
             <p className="eyebrow text-emphasis">Where gifts come from</p>
             <p className="mt-5 font-display text-[30px] leading-[1.2] sm:text-[38px]">Gifts come directly from independent makers, trusted retailers, and friends of Good Chapter.</p>
             <p className="mt-6 text-[17px] leading-[1.65] text-muted-foreground">No platform fees. Never marked up above retail.</p>
-            <Link to="/read" className="mt-8 inline-block font-mono text-[12px] uppercase tracking-[0.14em] underline underline-offset-[6px] hover:text-emphasis">Read our why</Link>
+            <Link to="/read" className="mt-8 inline-block font-medium text-[14px] underline underline-offset-[6px] hover:text-emphasis">Read our why</Link>
           </div>
         </div>
       </section>

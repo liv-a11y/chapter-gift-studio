@@ -30,12 +30,12 @@ export function Unlearning({ headingLevel = "h2" }: { headingLevel?: "h1" | "h2"
         {/* Folio cover */}
         <div className="mx-auto w-full max-w-[22rem] rounded-[4px] bg-card p-6 sm:p-8" aria-hidden="true">
           <div className="flex aspect-[3/4] flex-col justify-between rounded-[4px] bg-primary p-6 text-primary-foreground">
-            <p className="font-mono text-[11px] uppercase tracking-[0.14em]">Good Chapter, Co. · Vol. 01</p>
+            <p className="font-medium text-[13px]">Good Chapter, Co. · Vol. 01</p>
             <div>
               <p className="font-display text-[clamp(30px,6vw,40px)] leading-[1.02]">The rules we are unlearning.</p>
               <span className="mt-5 block h-3 w-16 bg-highlight" />
             </div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.14em]">Three essays</p>
+            <p className="font-medium text-[13px]">Three essays</p>
           </div>
         </div>
 

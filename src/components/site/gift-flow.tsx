@@ -24,7 +24,7 @@ export function GiftFlow({ anchor = ANCHOR_DEFAULT }: { anchor?: number }) {
     <div>
       <ol className="grid grid-cols-4 border-2 border-foreground">
         {STAGES.map((s, i) => (
-          <li key={s} className={`border-foreground px-2 py-2 font-mono text-[11px] uppercase tracking-[0.14em] ${i > 0 ? "border-l-2" : ""} ${i <= stage ? "bg-foreground text-background" : ""}`}>
+          <li key={s} className={`border-foreground px-2 py-2 font-medium text-[13px] ${i > 0 ? "border-l-2" : ""} ${i <= stage ? "bg-foreground text-background" : ""}`}>
             {String(i + 1).padStart(2, "0")} {s}
           </li>
         ))}
@@ -50,7 +50,7 @@ export function GiftFlow({ anchor = ANCHOR_DEFAULT }: { anchor?: number }) {
               <p>Invited teammates add what they want, quietly. No totals per person, no reminders, no leaderboard.</p>
               <div className="mt-4 flex flex-wrap gap-3">
                 <button disabled={adds.length >= ADDS.length} onClick={() => setAdds([...adds, ADDS[adds.length]!])}
-                  className="rounded-sm border-2 border-foreground px-4 py-2 font-mono text-xs uppercase tracking-[0.14em] hover:bg-foreground hover:text-background disabled:opacity-50">
+                  className="rounded-sm border-2 border-foreground px-4 py-2 font-medium text-[14px] hover:bg-foreground hover:text-background disabled:opacity-50">
                   + Simulate a teammate adding
                 </button>
                 <Action onClick={() => setStage(3)} inline>Send the gift</Action>
@@ -64,12 +64,12 @@ export function GiftFlow({ anchor = ANCHOR_DEFAULT }: { anchor?: number }) {
                 <Note to={`To ${adds.length || "the"} teammate${adds.length === 1 ? "" : "s"} who added`}>Your part landed. They got it. Nobody sees who gave what.</Note>
               </div>
               {extra > 0 && <p className="mt-4 text-sm">{money(extra)} over the object rolls into the next chapter on this team.</p>}
-              <button onClick={reset} className="mt-6 font-mono text-xs uppercase tracking-[0.14em] underline hover:bg-foreground hover:text-background">Run it again</button>
+              <button onClick={reset} className="mt-6 font-medium text-[14px] underline hover:bg-foreground hover:text-background">Run it again</button>
             </Step>
           )}
         </div>
 
-        <aside className="rounded-sm border-2 border-foreground p-4 font-mono text-xs uppercase tracking-[0.14em]">
+        <aside className="rounded-sm border-2 border-foreground p-4 font-medium text-[14px]">
           <p>Funding</p>
           <dl className="mt-3 space-y-2">
             <Line k="Pool anchor" v={stage >= 1 ? <Ticker value={stage >= 2 ? anchor : 0} /> : money(0)} />
@@ -93,7 +93,7 @@ export function GiftFlow({ anchor = ANCHOR_DEFAULT }: { anchor?: number }) {
 function Step({ eyebrow, title, children }: { eyebrow: string; title: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-emphasis">{eyebrow}</p>
+      <p className="font-medium text-[13px] text-emphasis">{eyebrow}</p>
       <h3 className="mt-2 font-display text-2xl">{title}</h3>
       <div className="mt-3 leading-relaxed">{children}</div>
     </div>
@@ -103,8 +103,8 @@ function Line({ k, v }: { k: string; v: React.ReactNode }) {
   return <div className="mt-2 flex justify-between gap-4 border-b-2 border-foreground pb-1"><dt>{k}</dt><dd className="tabular-nums">{v}</dd></div>;
 }
 function Note({ to, children }: { to: string; children: React.ReactNode }) {
-  return <div className="rounded-sm border-2 border-foreground bg-background p-4"><p className="font-mono text-[11px] uppercase tracking-[0.14em]">{to}</p><p className="mt-2 font-display text-lg leading-snug">{children}</p></div>;
+  return <div className="rounded-sm border-2 border-foreground bg-background p-4"><p className="font-medium text-[13px]">{to}</p><p className="mt-2 font-display text-lg leading-snug">{children}</p></div>;
 }
 function Action({ onClick, children, inline }: { onClick: () => void; children: React.ReactNode; inline?: boolean }) {
-  return <button onClick={onClick} className={`${inline ? "" : "mt-6"} rounded-sm border-2 border-foreground bg-primary px-4 py-2 font-mono text-xs uppercase tracking-[0.14em] text-primary-foreground hover:bg-foreground hover:text-background`}>{children}</button>;
+  return <button onClick={onClick} className={`${inline ? "" : "mt-6"} rounded-sm border-2 border-foreground bg-primary px-4 py-2 font-medium text-[14px] text-primary-foreground hover:bg-foreground hover:text-background`}>{children}</button>;
 }

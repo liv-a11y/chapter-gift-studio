@@ -59,22 +59,22 @@ export function GiftRecommender({ onUseIdeas }: { onUseIdeas?: (ideas: Recommend
 
   return (
     <section className="rounded-sm border-2 border-foreground bg-card p-5 md:p-7" aria-label="AI gift ideas">
-      <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground">Idea generator</p>
+      <p className="font-medium text-[14px] text-muted-foreground">Idea generator</p>
       <h2 className="mt-2 font-display text-3xl leading-tight">Describe the chapter. We’ll pitch eight ideas.</h2>
       <fieldset className="mt-5">
-        <legend className="font-mono text-[12px] uppercase tracking-[0.14em]">The chapter</legend>
+        <legend className="font-medium text-[14px]">The chapter</legend>
         <div className="mt-2 flex flex-wrap gap-2">
           {chapters.map((item) => <Button key={item.id} type="button" size="sm" variant={chapter === item.id ? "lime" : "outline"} onClick={() => setChapter(item.id)}>{item.label}</Button>)}
         </div>
       </fieldset>
       <fieldset className="mt-5">
-        <legend className="font-mono text-[12px] uppercase tracking-[0.14em]">What would help most?</legend>
+        <legend className="font-medium text-[14px]">What would help most?</legend>
         <div className="mt-2 flex flex-wrap gap-2">
           {focuses.map((item) => <Button key={item.id} type="button" size="sm" variant={focus === item.id ? "lime" : "outline"} onClick={() => setFocus(item.id)}>{item.label}</Button>)}
         </div>
       </fieldset>
       <fieldset className="mt-5">
-        <legend className="font-mono text-[12px] uppercase tracking-[0.14em]">How spicy?</legend>
+        <legend className="font-medium text-[14px]">How spicy?</legend>
         <div className="mt-2 grid grid-cols-3 gap-2">
           {spices.map((s) => (
             <button key={s.id} type="button" aria-pressed={spice === s.id} onClick={() => setSpice(s.id)}
@@ -94,10 +94,10 @@ export function GiftRecommender({ onUseIdeas }: { onUseIdeas?: (ideas: Recommend
           <ul className="mt-6 grid gap-3 sm:grid-cols-2">
             {ideas.map((i, idx) => (
               <li key={idx} className="rounded-sm border-2 border-foreground bg-background p-4">
-                <div className="flex items-baseline justify-between gap-2 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground"><span>{i.brand}</span><span>{i.price}</span></div>
+                <div className="flex items-baseline justify-between gap-2 font-medium text-[14px] text-muted-foreground"><span>{i.brand}</span><span>{i.price}</span></div>
                 <p className="mt-2 font-display text-xl leading-tight">{i.name}</p>
                 <p className="mt-2 text-[15px] leading-[1.5]">{i.reason}</p>
-                <p className="mt-3 font-mono text-[12px] uppercase tracking-[0.14em] text-primary">{i.band}</p>
+                <p className="mt-3 font-medium text-[14px] text-primary">{i.band}</p>
               </li>
             ))}
           </ul>
