@@ -40,9 +40,7 @@ function FrontDoor() {
     <SiteShell pilot>
       <section className="site-container pb-16 pt-14 md:pb-28 md:pt-24">
         <p className="eyebrow text-emphasis">Since 1924, nobody asks.</p>
-        <h1 className="mt-6 max-w-5xl font-display text-[44px] leading-[1.04] sm:text-[64px] lg:text-[88px]">
-          <ToasterLine />
-        </h1>
+        <ToasterLine as="h1" className="mt-6 max-w-5xl text-[44px] leading-[1.04] sm:text-[64px] lg:text-[88px]" />
         <p className="mt-8 max-w-[36rem] text-[19px] leading-[1.6] text-muted-foreground sm:text-[21px]">
           When a friend steps into a big chapter, start it for them. They privately keep what fits. Their people fill the house.
         </p>
