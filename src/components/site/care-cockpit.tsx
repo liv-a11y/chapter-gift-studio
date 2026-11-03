@@ -83,8 +83,8 @@ export function CareCockpit({ anchor }: { anchor: number }) {
           <div className="flex items-center justify-between gap-4">
             <p className="eyebrow">Scene {roleIdx + 1} of 04 · {roles[roleIdx]!.sees}</p>
             <div className="flex gap-2">
-              <button onClick={() => go(-1)} disabled={roleIdx === 0} aria-label="Previous scene" className="rounded-[4px] bg-card px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] hover:bg-foreground hover:text-background disabled:opacity-40">Back</button>
-              <button onClick={() => go(1)} disabled={roleIdx === roles.length - 1} aria-label="Next scene" className="rounded-[4px] bg-card px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] hover:bg-foreground hover:text-background disabled:opacity-40">Next</button>
+              <button onClick={() => go(-1)} disabled={roleIdx === 0} aria-label="Previous scene" className="rounded-[4px] bg-card px-3 py-2 font-medium text-[13px] hover:bg-foreground hover:text-background disabled:opacity-40">Back</button>
+              <button onClick={() => go(1)} disabled={roleIdx === roles.length - 1} aria-label="Next scene" className="rounded-[4px] bg-card px-3 py-2 font-medium text-[13px] hover:bg-foreground hover:text-background disabled:opacity-40">Next</button>
             </div>
           </div>
           <div className="mt-3 flex gap-1" aria-hidden="true">
@@ -159,7 +159,7 @@ export function CareCockpit({ anchor }: { anchor: number }) {
                   <span className="ml-1 flex h-[11px] w-6 items-center rounded-[3px] border border-foreground p-[1px]"><span className="h-full w-4/5 rounded-[1px] bg-foreground" /></span>
                 </span>
               </div>
-              <div className="flex items-center justify-between px-5 pb-2 font-mono text-[10px] uppercase tracking-[0.14em]">
+              <div className="flex items-center justify-between px-5 pb-2 font-medium text-[13px]">
                 <span>Good Chapter, Co.</span><span>Only you</span>
               </div>
               <div className="h-[36rem] overflow-y-auto px-5 pb-4 pt-2">
@@ -176,19 +176,19 @@ export function CareCockpit({ anchor }: { anchor: number }) {
                       <div className="p-3">
                         <div className="flex items-baseline justify-between gap-2">
                           <p className="font-display text-lg leading-tight">{gift.name}</p>
-                          <p className="font-mono text-sm">{money(gift.price)}</p>
+                          <p className="font-medium text-sm">{money(gift.price)}</p>
                         </div>
                         <p className="mt-1 text-sm">{gift.why}</p>
-                        {!fits && <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.14em] text-emphasis">Needs {money(gift.price - budget)} more from teammates</p>}
+                        {!fits && <p className="mt-2 font-medium text-[13px] text-emphasis">Needs {money(gift.price - budget)} more from teammates</p>}
                       </div>
                     </div>
                     <div className="mt-3 flex items-center justify-between gap-2">
-                      <button onClick={() => swap(-1)} aria-label="Previous object" className="rounded-sm border-2 border-foreground px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] hover:bg-foreground hover:text-background">Prev</button>
-                      <span className="font-mono text-[11px] uppercase tracking-[0.14em]">{pick + 1} of {GIFTS.length}</span>
-                      <button onClick={() => swap(1)} aria-label="Next object" className="rounded-sm border-2 border-foreground px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] hover:bg-foreground hover:text-background">Swap</button>
+                      <button onClick={() => swap(-1)} aria-label="Previous object" className="rounded-sm border-2 border-foreground px-3 py-2 font-medium text-[13px] hover:bg-foreground hover:text-background">Prev</button>
+                      <span className="font-medium text-[13px]">{pick + 1} of {GIFTS.length}</span>
+                      <button onClick={() => swap(1)} aria-label="Next object" className="rounded-sm border-2 border-foreground px-3 py-2 font-medium text-[13px] hover:bg-foreground hover:text-background">Swap</button>
                     </div>
                     <button onClick={() => setStage("approved")} disabled={!fits} className="mt-3 w-full rounded-sm border-2 border-foreground bg-primary px-3 py-3 text-primary-foreground hover:bg-foreground hover:text-background disabled:opacity-50">Keep this one</button>
-                    <button onClick={() => setStage("closed")} className="mt-2 w-full py-1 font-mono text-[11px] uppercase tracking-[0.14em] underline hover:bg-foreground hover:text-background">Not now. Close quietly</button>
+                    <button onClick={() => setStage("closed")} className="mt-2 w-full py-1 font-medium text-[13px] underline hover:bg-foreground hover:text-background">Not now. Close quietly</button>
                   </div>
                 )}
 
@@ -208,7 +208,7 @@ export function CareCockpit({ anchor }: { anchor: number }) {
                     {!opened ? (
                       <button onClick={() => setOpened(true)} className="mt-3 flex aspect-square w-full flex-col items-center justify-center rounded-sm border-2 border-foreground bg-highlight hover:bg-foreground hover:text-background">
                         <span className="font-display text-2xl">A parcel for you.</span>
-                        <span className="mt-2 font-mono text-[11px] uppercase tracking-[0.14em]">Tap to open</span>
+                        <span className="mt-2 font-medium text-[13px]">Tap to open</span>
                       </button>
                     ) : (
                       <div>
@@ -247,7 +247,7 @@ function Facts({ rows }: { rows: [string, string][] }) {
   return (
     <dl className="mt-6 space-y-1 rounded-[4px] bg-background p-4">
       {rows.map(([k, v]) => (
-        <div key={k} className="flex justify-between gap-4 py-1"><dt className="eyebrow">{k}</dt><dd className="font-mono text-sm tabular-nums">{v}</dd></div>
+        <div key={k} className="flex justify-between gap-4 py-1"><dt className="eyebrow">{k}</dt><dd className="font-medium text-sm tabular-nums">{v}</dd></div>
       ))}
     </dl>
   );
@@ -256,8 +256,8 @@ function Facts({ rows }: { rows: [string, string][] }) {
 function Stat({ k, v, hl }: { k: string; v: React.ReactNode; hl?: boolean }) {
   return (
     <div className={`rounded-[4px] p-5 ${hl ? "bg-highlight" : "bg-background"}`}>
-      <p className="font-mono text-[11px] uppercase tracking-[0.14em]">{k}</p>
-      <p className="mt-2 font-mono text-2xl">{v}</p>
+      <p className="font-medium text-[13px]">{k}</p>
+      <p className="mt-2 font-medium text-2xl">{v}</p>
     </div>
   );
 }

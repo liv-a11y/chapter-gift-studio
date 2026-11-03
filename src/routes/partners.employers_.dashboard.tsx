@@ -50,7 +50,7 @@ function DashboardPage() {
       <section className="site-container py-12 lg:py-16">
         <div className="flex flex-wrap items-end justify-between gap-4 border-b-2 border-foreground pb-6">
           <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-emphasis">Prototype · Sample data · Week 07 of 13</p>
+            <p className="font-medium text-[13px] text-emphasis">Prototype · Sample data · Week 07 of 13</p>
             <h1 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">Pools by team.</h1>
           </div>
           <p className="max-w-sm text-sm">Every dollar the company puts in, and every dollar teammates add on top. Counts only. No names.</p>
@@ -59,7 +59,7 @@ function DashboardPage() {
         <div className="mt-6 flex flex-wrap gap-2" role="tablist" aria-label="Filter by team">
           {[null, ...TEAMS.map((t) => t.team)].map((t) => (
             <button key={t ?? "all"} role="tab" aria-selected={sel === t} onClick={() => setSel(t)}
-              className={`rounded-sm border-2 border-foreground px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] hover:bg-foreground hover:text-background ${sel === t ? "bg-foreground text-background" : ""}`}>
+              className={`rounded-sm border-2 border-foreground px-3 py-1.5 font-medium text-[13px] hover:bg-foreground hover:text-background ${sel === t ? "bg-foreground text-background" : ""}`}>
               {t ?? "All teams"}
             </button>
           ))}
@@ -76,11 +76,11 @@ function DashboardPage() {
         <div className="mt-8 overflow-x-auto rounded-sm border-2 border-foreground">
           <table className="w-full min-w-[44rem] text-left">
             <thead className="bg-foreground text-background">
-              <tr className="font-mono text-[11px] uppercase tracking-[0.14em]">
+              <tr className="font-medium text-[13px]">
                 {["Team", "Pool", "Used", "Compounded", "Mult", "Ch", "Sent", "Spend"].map((h) => <th key={h} className="px-3 py-2 font-normal">{h}</th>)}
               </tr>
             </thead>
-            <tbody className="font-mono text-sm tabular-nums">
+            <tbody className="font-medium text-sm tabular-nums">
               {rows.map((r) => (
                 <tr key={r.team} onClick={() => setSel(sel === r.team ? null : r.team)}
                   className={`cursor-pointer border-t-2 border-foreground hover:bg-foreground hover:text-background ${sel === r.team ? "bg-highlight" : ""}`}>
@@ -102,7 +102,7 @@ function DashboardPage() {
             </tbody>
           </table>
         </div>
-        <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.14em]">Cobalt is pool used. Yellow is teammate giving. Teams under 3 chapters show as &lt;3.</p>
+        <p className="mt-2 font-medium text-[13px]">Cobalt is pool used. Yellow is teammate giving. Teams under 3 chapters show as &lt;3.</p>
 
         <div className="mt-8 grid gap-3 sm:grid-cols-3">
           <Kpi k="Give back" sub={`${GIVE_PCT}% of anchors · DonorsChoose`}><Ticker value={giveBack} /></Kpi>
@@ -111,10 +111,10 @@ function DashboardPage() {
         </div>
 
         <div className="mt-8 flex flex-wrap gap-4">
-          <Link to="/partners/employers/portal" className="font-mono text-xs uppercase tracking-[0.14em] underline hover:bg-foreground hover:text-background">Open the portal</Link>
-          <Link to="/partners/employers" className="font-mono text-xs uppercase tracking-[0.14em] underline hover:bg-foreground hover:text-background">Back to employers</Link>
+          <Link to="/partners/employers/portal" className="font-medium text-[14px] underline hover:bg-foreground hover:text-background">Open the portal</Link>
+          <Link to="/partners/employers" className="font-medium text-[14px] underline hover:bg-foreground hover:text-background">Back to employers</Link>
         </div>
-        <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.14em]">Prototype with sample data. Nothing here is saved, charged, or sent.</p>
+        <p className="mt-8 font-medium text-[13px]">Prototype with sample data. Nothing here is saved, charged, or sent.</p>
       </section>
     </SiteShell>
   );

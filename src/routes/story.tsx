@@ -84,7 +84,7 @@ function HomePage() {
       </section>
 
       <div className="border-y-2 border-foreground" aria-hidden="true">
-        <div className="flex items-center justify-between gap-6 overflow-hidden px-5 py-4 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground md:px-8">
+        <div className="flex items-center justify-between gap-6 overflow-hidden px-5 py-4 font-medium text-[14px] text-muted-foreground md:px-8">
           <span>The first home</span>
           <span>The fresh start</span>
           <span className="hidden sm:inline">The new city</span>
@@ -123,10 +123,10 @@ function HomePage() {
             <div>
               <p className="eyebrow text-emphasis">Why we exist</p>
               <h2 id="registry-story" className="site-h2 mt-5 max-w-[20ch]">
-                The registry was built for a woman leaving her father’s house for her husband’s. <span className="text-emphasis">We built one for everything else she does.</span><sup><a href="#source-2" className="ml-1 align-super font-mono text-[12px] text-primary underline decoration-1 underline-offset-2" aria-label="See source 2">2</a></sup>
+                The registry was built for a woman leaving her father’s house for her husband’s. <span className="text-emphasis">We built one for everything else she does.</span><sup><a href="#source-2" className="ml-1 align-super font-medium text-[14px] text-primary underline decoration-1 underline-offset-2" aria-label="See source 2">2</a></sup>
               </h2>
               <p className="mt-7 max-w-[42rem] text-[17px] leading-[1.5] text-muted-foreground">
-                In 1924, Marshall Field’s popularized the modern bridal registry: a list of china, silver, and crystal for a couple beginning one particular kind of life.<sup><a href="#source-1" className="ml-1 font-mono text-[12px] text-primary underline decoration-1 underline-offset-2" aria-label="See source 1">1</a></sup>
+                In 1924, Marshall Field’s popularized the modern bridal registry: a list of china, silver, and crystal for a couple beginning one particular kind of life.<sup><a href="#source-1" className="ml-1 font-medium text-[14px] text-primary underline decoration-1 underline-offset-2" aria-label="See source 1">1</a></sup>
               </p>
               <div className="mt-10 grid gap-6 text-[17px] leading-[1.5] text-muted-foreground sm:grid-cols-2 sm:gap-10">
                 <p>It made care legible at marriage: here is the household, here is what it needs, here is how everyone can help without guessing.</p>
@@ -139,13 +139,13 @@ function HomePage() {
                 <p className="eyebrow text-muted-foreground">Sources & context</p>
                 <ol className="mt-5 space-y-4 text-[15px] leading-[1.5] text-muted-foreground">
                   <li id="source-1" className="grid grid-cols-[1.5rem_1fr] gap-2">
-                    <span className="font-mono text-foreground">1</span>
+                    <span className="font-medium text-foreground">1</span>
                     <span>
                       Marshall Field’s bridal-services archive, Chicago History Museum; see also WTTW’s history of Marshall Field’s. <a href="https://images.chicagohistory.org/asset/23427/" target="_blank" rel="noreferrer" className="text-primary underline decoration-1 underline-offset-2">Museum archive ↗</a>{" · "}<a href="https://www.wttw.com/chicago-stories/marshall-fields/how-marshall-fields-transformed-shopping-from-errand-to-experience" target="_blank" rel="noreferrer" className="text-primary underline decoration-1 underline-offset-2">WTTW history ↗</a>
                     </span>
                   </li>
                   <li id="source-2" className="grid grid-cols-[1.5rem_1fr] gap-2">
-                    <span className="font-mono text-foreground">2</span>
+                    <span className="font-medium text-foreground">2</span>
                     <span>Good Chapter Brand Guidelines v3, September 2026. This is Good Chapter’s interpretation of the old social script,not a quotation from Marshall Field’s.</span>
                   </li>
                 </ol>
@@ -183,9 +183,9 @@ function HomePage() {
               <div className="max-w-[88%] self-start rounded-sm border-2 border-foreground bg-background px-4 py-3">Congrats on the house!! LMK if I can do anything</div>
               <div className="max-w-[82%] self-end rounded-sm bg-primary px-4 py-3 text-primary-foreground">
                 Sure, thank you so much
-                <span className="mt-1 block text-right font-mono text-[12px] uppercase tracking-[0.14em] text-primary-foreground/75">Read</span>
+                <span className="mt-1 block text-right font-medium text-[14px] text-primary-foreground/75">Read</span>
               </div>
-              <div className="flex items-center gap-3 py-2"><span className="h-px flex-1 bg-border" /><span className="font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground">3 weeks later</span><span className="h-px flex-1 bg-border" /></div>
+              <div className="flex items-center gap-3 py-2"><span className="h-px flex-1 bg-border" /><span className="font-medium text-[14px] text-muted-foreground">3 weeks later</span><span className="h-px flex-1 bg-border" /></div>
               <div className="rounded-sm border-2 border-dashed border-foreground p-5 text-center text-muted-foreground">
                 <span className="block font-display text-3xl text-foreground">···</span>
                 The intent is there. Without a simple action, nothing happens.
@@ -208,7 +208,7 @@ function HomePage() {
               <p className="eyebrow text-emphasis">How it works</p>
               <h2 className="site-h2 mt-5 max-w-[18ch]">A First Place chapter.</h2>
             </div>
-            <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground">First Place chapter · Eight thoughtful gifts</p>
+            <p className="font-medium text-[14px] text-muted-foreground">First Place chapter · Eight thoughtful gifts</p>
           </div>
           <p className="site-body mt-6 max-w-[42rem] text-muted-foreground">No awkward asking. Just people showing up. Here is one whole chapter, from the first hello to the last claimed gift.</p>
           <div className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 md:gap-12">

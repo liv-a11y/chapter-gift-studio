@@ -28,14 +28,14 @@ function RolesPage() {
   return (
     <SiteShell>
       <section className="site-container py-12 lg:py-16">
-        <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-emphasis">Prototype · Roles</p>
+        <p className="font-medium text-[13px] text-emphasis">Prototype · Roles</p>
         <h1 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">Who sees what.</h1>
         <p className="mt-4 max-w-xl">Seven roles. The person holds the final say. Whoever pays sees counts, not lives.</p>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {roles.map((r) => (
             <div key={r} className={`rounded-sm border-2 border-foreground p-4 ${r === "recipient" ? "bg-highlight" : ""}`}>
-              <p className="font-mono text-[11px] uppercase tracking-[0.14em]">{ROLES[r].label}</p>
+              <p className="font-medium text-[13px]">{ROLES[r].label}</p>
               <p className="mt-2 text-sm">{ROLES[r].who}</p>
               <p className="mt-2 text-sm opacity-80">{ROLES[r].access}</p>
             </div>
@@ -47,9 +47,9 @@ function RolesPage() {
           <table className="w-full min-w-[720px] text-sm">
             <thead>
               <tr className="border-b-2 border-foreground">
-                <th className="p-3 text-left font-mono text-[11px] uppercase tracking-[0.14em]">Information</th>
+                <th className="p-3 text-left font-medium text-[13px]">Information</th>
                 {roles.map((r) => (
-                  <th key={r} className="p-3 font-mono text-[11px] uppercase tracking-[0.14em]">{ROLES[r].label}</th>
+                  <th key={r} className="p-3 font-medium text-[13px]">{ROLES[r].label}</th>
                 ))}
               </tr>
             </thead>
@@ -60,7 +60,7 @@ function RolesPage() {
                   {roles.map((r) => {
                     const yes = CAN_SEE[r].includes(f);
                     return (
-                      <td key={r} className="p-3 text-center font-mono">
+                      <td key={r} className="p-3 text-center font-medium">
                         <span aria-hidden="true">{yes ? "●" : "·"}</span>
                         <span className="sr-only">{yes ? "Yes" : "No"}</span>
                       </td>
@@ -76,7 +76,7 @@ function RolesPage() {
         <ol className="mt-4 grid gap-3">
           {TRANSITIONS.map((t) => (
             <li key={t.from + t.to} className="rounded-sm border-2 border-foreground p-3 text-sm">
-              <span className="font-mono text-[11px] uppercase tracking-[0.14em]">{t.from.replace(/_/g, " ")} to {t.to.replace(/_/g, " ")}</span>
+              <span className="font-medium text-[13px]">{t.from.replace(/_/g, " ")} to {t.to.replace(/_/g, " ")}</span>
               <span className="ml-3">Only the {ROLES[t.by].label.toLowerCase()}.</span>
             </li>
           ))}

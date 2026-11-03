@@ -54,7 +54,7 @@ export function SplitDesk({ anchor }: { anchor: number }) {
       <div className="mt-6 flex flex-wrap gap-2" role="group" aria-label="Scenario">
         {SCENARIOS.map((s) => (
           <button key={s.id} onClick={() => reset(s.id)} aria-pressed={scenario === s.id}
-            className={`rounded-sm border-2 border-foreground px-3 py-2 font-mono text-[12px] uppercase tracking-[0.14em] hover:bg-foreground hover:text-background ${scenario === s.id ? "bg-highlight" : ""}`}>
+            className={`rounded-sm border-2 border-foreground px-3 py-2 font-medium text-[14px] hover:bg-foreground hover:text-background ${scenario === s.id ? "bg-highlight" : ""}`}>
             {s.label}
           </button>
         ))}
@@ -64,14 +64,14 @@ export function SplitDesk({ anchor }: { anchor: number }) {
         {/* Desk */}
         <div className="rounded-sm border-2 border-foreground">
           <div className="flex items-center justify-between border-b-2 border-foreground bg-foreground px-4 py-2 text-background">
-            <span className="font-mono text-[11px] uppercase tracking-[0.14em]">Company desk</span>
-            <span className="font-mono text-[11px] uppercase tracking-[0.14em]">Counts only</span>
+            <span className="font-medium text-[13px]">Company desk</span>
+            <span className="font-medium text-[13px]">Counts only</span>
           </div>
           <div className="p-5">
             <p className="leading-relaxed">{sc.note}</p>
             <ol className="mt-5 grid grid-cols-5 gap-1" aria-label="Chapter progress">
               {ORDER.map((s, i) => (
-                <li key={s} className={`border-2 border-foreground px-1 py-2 text-center font-mono text-[10px] uppercase tracking-[0.1em] ${stage !== "closed" && i <= idx ? "bg-highlight" : ""}`}>{LABEL[s]}</li>
+                <li key={s} className={`border-2 border-foreground px-1 py-2 text-center font-medium text-[13px] ${stage !== "closed" && i <= idx ? "bg-highlight" : ""}`}>{LABEL[s]}</li>
               ))}
             </ol>
             <dl className="mt-6 space-y-2">
@@ -86,7 +86,7 @@ export function SplitDesk({ anchor }: { anchor: number }) {
               {stage === "approved" && <DeskBtn onClick={() => { setExtra(120); setStage("teammates"); }}>Simulate teammates adding</DeskBtn>}
               {(stage === "approved" || stage === "teammates") && <DeskBtn onClick={() => setStage("sent")}>Mark gift sent</DeskBtn>}
               {(stage === "sent" || stage === "closed") && <DeskBtn onClick={() => reset(scenario)}>Start over</DeskBtn>}
-              {stage === "invited" && <p className="font-mono text-[11px] uppercase tracking-[0.14em]">Waiting. Nothing moves until they approve.</p>}
+              {stage === "invited" && <p className="font-medium text-[13px]">Waiting. Nothing moves until they approve.</p>}
             </div>
           </div>
         </div>
@@ -94,7 +94,7 @@ export function SplitDesk({ anchor }: { anchor: number }) {
         {/* Phone */}
         <div className="mx-auto w-full max-w-[22rem] rounded-[4px] border-2 border-foreground bg-background p-2">
           <div className="rounded-sm border-2 border-foreground">
-            <div className="flex justify-between border-b-2 border-foreground px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em]">
+            <div className="flex justify-between border-b-2 border-foreground px-3 py-1 font-medium text-[13px]">
               <span>Good Chapter</span><span>Private</span>
             </div>
             <div className="min-h-[26rem] p-4">
@@ -111,13 +111,13 @@ export function SplitDesk({ anchor }: { anchor: number }) {
                       <li key={g.id}>
                         <button onClick={() => setPick(g.id)} aria-pressed={pick === g.id}
                           className={`flex w-full justify-between rounded-sm border-2 border-foreground px-3 py-2 text-left text-sm hover:bg-foreground hover:text-background ${pick === g.id ? "bg-highlight" : ""}`}>
-                          <span>{g.name}</span><span className="font-mono">{money(g.price)}</span>
+                          <span>{g.name}</span><span className="font-medium">{money(g.price)}</span>
                         </button>
                       </li>
                     ))}
                   </ul>
                   <button onClick={() => setStage("approved")} className="mt-4 w-full rounded-sm border-2 border-foreground bg-primary px-3 py-3 text-primary-foreground hover:bg-foreground hover:text-background">Approve</button>
-                  <button onClick={() => setStage("closed")} className="mt-2 w-full font-mono text-[11px] uppercase tracking-[0.14em] underline hover:bg-foreground hover:text-background">Not now, close quietly</button>
+                  <button onClick={() => setStage("closed")} className="mt-2 w-full font-medium text-[13px] underline hover:bg-foreground hover:text-background">Not now, close quietly</button>
                 </div>
               )}
               {(stage === "approved" || stage === "teammates") && (
@@ -125,7 +125,7 @@ export function SplitDesk({ anchor }: { anchor: number }) {
                   <p className="eyebrow text-emphasis">Approved</p>
                   <p className="mt-2 font-display text-2xl leading-tight">{gift.name}.</p>
                   <p className="mt-2 text-sm">Your address stays with you. Your company does not see it.</p>
-                  <div className="mt-4 rounded-sm border-2 border-foreground p-3 font-mono text-[11px] uppercase tracking-[0.14em]">Shipping to the address you entered</div>
+                  <div className="mt-4 rounded-sm border-2 border-foreground p-3 font-medium text-[13px]">Shipping to the address you entered</div>
                   {stage === "teammates" && (
                     <p className="mt-4 rounded-sm border-2 border-foreground bg-highlight p-3 text-sm">A few teammates added {money(extra)} toward a second piece. No names, no amounts per person.</p>
                   )}
@@ -150,7 +150,7 @@ export function SplitDesk({ anchor }: { anchor: number }) {
 }
 
 function DRow({ k, v }: { k: string; v: string }) {
-  return <div className="flex justify-between gap-4 border-b-2 border-foreground pb-2"><dt className="eyebrow">{k}</dt><dd className="font-mono text-sm tabular-nums">{v}</dd></div>;
+  return <div className="flex justify-between gap-4 border-b-2 border-foreground pb-2"><dt className="eyebrow">{k}</dt><dd className="font-medium text-sm tabular-nums">{v}</dd></div>;
 }
 
 function DeskBtn({ onClick, children }: { onClick: () => void; children: React.ReactNode }) {

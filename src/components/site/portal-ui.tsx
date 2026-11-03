@@ -36,9 +36,9 @@ export function Kpi({ k, children, sub, tone }: { k: string; children: React.Rea
   const toneCls = tone === "highlight" ? "bg-highlight" : tone === "ink" ? "bg-foreground text-background" : "";
   return (
     <div className={`rounded-sm border-2 border-foreground p-4 ${toneCls}`}>
-      <p className="font-mono text-[11px] uppercase tracking-[0.14em]">{k}</p>
-      <p className="mt-2 font-mono text-3xl">{children}</p>
-      {sub && <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] opacity-80">{sub}</p>}
+      <p className="font-medium text-[13px]">{k}</p>
+      <p className="mt-2 font-medium text-3xl">{children}</p>
+      {sub && <p className="mt-1 font-medium text-[13px] opacity-80">{sub}</p>}
     </div>
   );
 }
