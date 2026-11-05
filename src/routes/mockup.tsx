@@ -168,10 +168,7 @@ function Mockup() {
                 Gifts come directly from independent makers, trusted retailers, and friends of Good Chapter. No platform fees. Never marked up above retail.
               </p>
             </div>
-            <div className="rounded-[4px] bg-background p-6 text-foreground md:p-8">
-              <p className="font-display text-[24px]">Request an invitation</p>
-              <div className="mt-6"><WaitlistForm pilot /></div>
-            </div>
+            <div className="text-foreground"><WaitlistForm pilot /></div>
           </div>
         </div>
       </section>
