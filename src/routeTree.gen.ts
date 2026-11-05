@@ -19,6 +19,7 @@ import { Route as GivingRouteImport } from './routes/giving'
 import { Route as GuestRouteImport } from './routes/guest'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as InvestorsRouteImport } from './routes/investors'
+import { Route as MockupRouteImport } from './routes/mockup'
 import { Route as NewRouteImport } from './routes/new'
 import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as PreviewRouteImport } from './routes/preview'
@@ -86,6 +87,11 @@ const HistoryRoute = HistoryRouteImport.update({
 const InvestorsRoute = InvestorsRouteImport.update({
   id: '/investors',
   path: '/investors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MockupRoute = MockupRouteImport.update({
+  id: '/mockup',
+  path: '/mockup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NewRoute = NewRouteImport.update({
@@ -193,6 +199,7 @@ export interface FileRoutesByFullPath {
   '/guest': typeof GuestRoute
   '/history': typeof HistoryRoute
   '/investors': typeof InvestorsRoute
+  '/mockup': typeof MockupRoute
   '/new': typeof NewRoute
   '/partners': typeof PartnersRouteWithChildren
   '/preview': typeof PreviewRoute
@@ -223,6 +230,7 @@ export interface FileRoutesByTo {
   '/guest': typeof GuestRoute
   '/history': typeof HistoryRoute
   '/investors': typeof InvestorsRoute
+  '/mockup': typeof MockupRoute
   '/new': typeof NewRoute
   '/preview': typeof PreviewRoute
   '/privacy': typeof PrivacyRoute
@@ -253,6 +261,7 @@ export interface FileRoutesById {
   '/guest': typeof GuestRoute
   '/history': typeof HistoryRoute
   '/investors': typeof InvestorsRoute
+  '/mockup': typeof MockupRoute
   '/new': typeof NewRoute
   '/partners': typeof PartnersRouteWithChildren
   '/preview': typeof PreviewRoute
@@ -285,6 +294,7 @@ export interface FileRouteTypes {
     | '/guest'
     | '/history'
     | '/investors'
+    | '/mockup'
     | '/new'
     | '/partners'
     | '/preview'
@@ -315,6 +325,7 @@ export interface FileRouteTypes {
     | '/guest'
     | '/history'
     | '/investors'
+    | '/mockup'
     | '/new'
     | '/preview'
     | '/privacy'
@@ -344,6 +355,7 @@ export interface FileRouteTypes {
     | '/guest'
     | '/history'
     | '/investors'
+    | '/mockup'
     | '/new'
     | '/partners'
     | '/preview'
@@ -375,6 +387,7 @@ export interface RootRouteChildren {
   GuestRoute: typeof GuestRoute
   HistoryRoute: typeof HistoryRoute
   InvestorsRoute: typeof InvestorsRoute
+  MockupRoute: typeof MockupRoute
   NewRoute: typeof NewRoute
   PartnersRoute: typeof PartnersRouteWithChildren
   PreviewRoute: typeof PreviewRoute
@@ -458,6 +471,13 @@ declare module '@tanstack/react-router' {
       path: '/investors'
       fullPath: '/investors'
       preLoaderRoute: typeof InvestorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mockup': {
+      id: '/mockup'
+      path: '/mockup'
+      fullPath: '/mockup'
+      preLoaderRoute: typeof MockupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/new': {
@@ -624,6 +644,7 @@ const rootRouteChildren: RootRouteChildren = {
   GuestRoute: GuestRoute,
   HistoryRoute: HistoryRoute,
   InvestorsRoute: InvestorsRoute,
+  MockupRoute: MockupRoute,
   NewRoute: NewRoute,
   PartnersRoute: PartnersRouteWithChildren,
   PreviewRoute: PreviewRoute,
