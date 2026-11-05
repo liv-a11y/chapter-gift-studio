@@ -33,8 +33,8 @@ export function ToasterLine({ as: Tag = "p", className = "", id }: { as?: "p" | 
   return (
     <Tag id={id} className={`font-display font-normal text-left ${className}`}>
       You shouldn’t have to get married to get a{" "}
-      <span aria-hidden="true" className="bg-highlight px-1.5 text-foreground">f$%#ng toaster.</span>
-      <span className="sr-only">fucking toaster.</span>
+      <span aria-hidden="true" className="bg-highlight px-1.5 text-foreground">f$%#ng</span>
+      <span className="sr-only">fucking</span> toaster.
     </Tag>
   );
 }
