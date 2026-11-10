@@ -59,7 +59,7 @@ export function Unlearning({ headingLevel = "h2" }: { headingLevel?: "h1" | "h2"
                     className="flex w-full items-baseline gap-5 rounded-[4px] px-5 py-4 text-left hover:bg-foreground hover:text-background"
                   >
                     <span className="eyebrow text-emphasis">{b.n}</span>
-                    <span className="font-display text-[24px] leading-[1.1]">{b.title}</span>
+                    <span className="font-display text-[26px] leading-[1.1]">{b.title}</span>
                   </button>
                   {isOpen && (
                     <div className="px-5 pb-6 pl-[3.6rem]">

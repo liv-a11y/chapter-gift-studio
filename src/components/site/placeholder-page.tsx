@@ -20,7 +20,7 @@ export function PlaceholderPage({ eyebrow, title, copy }: { eyebrow: string; tit
         </div>
       </section>
       <section className="bg-emphasis text-emphasis-foreground">
-        <div className="site-container py-16 md:py-20"><h2 className="site-h2 max-w-3xl">We’re building the thoughtful way to show up.</h2><Link to="/preview" className="mt-7 inline-block text-[15px] font-semibold underline underline-offset-4">See Good Chapter</Link></div>
+        <div className="site-container py-16 md:py-20"><h2 className="site-h2 max-w-3xl">A friend starts it. The person approves it. Nobody asks.</h2><Link to="/story" className="mt-7 inline-block text-[15px] font-semibold underline underline-offset-4">Read the story</Link></div>
       </section>
     </SiteShell>
   );

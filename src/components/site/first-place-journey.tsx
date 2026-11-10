@@ -19,7 +19,7 @@ export function FirstPlaceJourney({ initialStep = 0 }: { initialStep?: number })
   return (
     <main className="min-h-screen bg-background text-foreground">
       <header className="site-container flex items-center justify-between py-5">
-        <Link to="/" className="font-display text-xl">Good Chapter, Co.</Link>
+        <Link to="/" className="font-sans font-medium text-xl">Good Chapter, Co.</Link>
         <span className={`${label} text-emphasis`}>Sample chapter</span>
       </header>
 
@@ -98,7 +98,7 @@ export function FirstPlaceJourney({ initialStep = 0 }: { initialStep?: number })
           <Scene eyebrow="04 The invitation" title="Maya shares it with whoever she chooses.">
             <div className="mt-6 rounded-[4px] bg-mist p-6 sm:p-8">
               <p className={label}>A private link from Maya</p>
-              <p className="mt-4 font-display text-2xl leading-snug">Maya has a first place. Here are a few things that would make it hers.</p>
+              <p className="mt-4 font-display text-[26px] leading-snug">Maya has a first place. Here are a few things that would make it hers.</p>
               <p className="mt-4">Pick one. Shop wherever you like. We hold it so nobody doubles up.</p>
             </div>
             <p className="mt-6 text-muted-foreground">No public page. No activity feed. No running total.</p>

@@ -30,10 +30,10 @@ export const Route = createFileRoute("/story")({
 });
 
 const steps = [
-  { n: "01", title: "Someone thinks of you.", copy: "A friend recognizes a chapter worth celebrating, tells us what you're stepping into, and starts something good." },
+  { n: "01", title: "Someone thinks of you.", copy: "A friend sees the chapter you're stepping into and starts it. You never ask." },
   { n: "02", title: "You make it yours.", copy: "Privately review, swap, and keep what fits. Nothing is shared until you're ready. Your friend never sees your edits." },
   { n: "03", title: "You choose your people.", copy: "Share the invitation with whoever you like. It comes from the friend who started it, so you never write your own gift request." },
-  { n: "04", title: "They show up.", copy: "Your people choose useful gifts and help celebrate the life you're building." },
+  { n: "04", title: "They show up.", copy: "Each person picks one real object. Nobody doubles up." },
 ];
 
 const gifts = sampleProducts;
@@ -45,17 +45,17 @@ const assurances = [
 ];
 
 const chapters = [
-  ["First Place", "Buying a home on your own, with people ready to help make it yours."],
-  ["Moving In", "A new set of keys, a new neighborhood, and a home still taking shape."],
-  ["Starting Over", "Rebuilding a space and a rhythm after life changes direction."],
-  ["Fresh Start", "For the reset that deserves more than a quiet thumbs-up."],
-  ["Coming Out", "Living as yourself, with your people showing up to mark it."],
-  ["Adoption & Foster", "Welcoming someone home with care chosen for the life ahead."],
-  ["Coming Home", "A thoughtful landing after hospital, treatment, service, or time away."],
-  ["New City", "A soft arrival when familiar people are suddenly far away."],
-  ["Career Change", "The brave leap into new work, study, or an independent path."],
-    ["Recovery", "Practical comfort while healing takes the time it takes."],
-  ["Off-Script", "For the life moment that never came with a registry, but matters anyway."],
+  ["First Place", "Bought alone. One name on the deed. Empty rooms."],
+  ["Moving In", "Two kitchens becoming one."],
+  ["Starting Over", "After the split. A reset, furnished."],
+  ["Fresh Start", "The reset nobody threw a party for."],
+  ["Coming Out", "Living as yourself. Your people show up."],
+  ["Adoption & Foster", "A family, made."],
+  ["Coming Home", "Back from hospital, treatment, service, or time away."],
+  ["New City", "Nobody there yet."],
+  ["Career Change", "A different desk. A different week."],
+    ["Recovery", "Healing takes the time it takes."],
+  ["Off-Script", "It never came with a registry. It matters anyway."],
 ];
 
 function HomePage() {
@@ -64,7 +64,7 @@ function HomePage() {
       <section className="site-section">
         <div className="site-container grid items-center gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(380px,.92fr)] lg:gap-16">
           <div className="flex flex-col items-start gap-7">
-            <p className="eyebrow text-emphasis">A registry for the rest of it</p>
+            <p className="eyebrow text-emphasis">The anti-registry</p>
             <h1 className="site-h1 max-w-[14ch]">You shouldn't have to ask to be <span className="bg-emphasis px-2 text-emphasis-foreground">celebrated.</span></h1>
             <p className="font-display text-[28px] leading-[1.15]">A friend starts the chapter. You keep what fits.</p>
             <p className="site-body max-w-[38rem] text-muted-foreground">For first homes, fresh starts, new cities, and every chapter weddings never covered.</p>
@@ -108,7 +108,7 @@ function HomePage() {
                 <img src={mfInterior.url} alt="Archival photograph of the Marshall Field's store interior, about 1910, with tall columns and shoppers on the main floor." loading="lazy" width={300} height={446} className="aspect-square h-full w-full border-r-2 border-foreground object-cover grayscale" />
                 <div className="flex flex-col justify-between p-5">
                   <span className="eyebrow text-emphasis">The bridal list</span>
-                  <p className="mt-10 font-display text-[24px] leading-[1.12]">China.<br />Silver.<br />Crystal.</p>
+                  <p className="mt-10 font-display text-[26px] leading-[1.12]">China.<br />Silver.<br />Crystal.</p>
                 </div>
                 <img src={mfStreet.url} alt="Archival 1906 postcard of crowds on the street outside the Marshall Field's store." loading="lazy" width={1920} height={1254} className="col-span-2 aspect-[3/2] h-full w-full border-t-2 border-foreground object-cover" />
                 <div className="col-span-2 border-t-2 border-foreground bg-primary p-5 text-primary-foreground">
@@ -208,7 +208,7 @@ function HomePage() {
               <p className="eyebrow text-emphasis">How it works</p>
               <h2 className="site-h2 mt-5 max-w-[18ch]">A First Place chapter.</h2>
             </div>
-            <p className="font-medium text-[14px] text-muted-foreground">First Place chapter · Eight thoughtful gifts</p>
+            <p className="font-medium text-[14px] text-muted-foreground">First Place chapter · Eight real objects</p>
           </div>
           <p className="site-body mt-6 max-w-[42rem] text-muted-foreground">No awkward asking. Just people showing up. Here is one whole chapter, from the first hello to the last claimed gift.</p>
           <div className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 md:gap-12">
@@ -223,11 +223,11 @@ function HomePage() {
             {gifts.map((gift, index) => (
               <article key={gift.name} className={`lift-card flex min-w-0 flex-col bg-card ${index > 0 ? "border-t-2 border-foreground sm:border-t-0" : ""} ${index % 2 === 1 ? "sm:border-l-2 sm:border-foreground" : ""} ${index >= 2 ? "sm:border-t-2 sm:border-foreground" : ""} ${index % 4 !== 0 ? "lg:border-l-2 lg:border-foreground" : "lg:border-l-0"} ${index >= 4 ? "lg:border-t-2 lg:border-foreground" : "lg:border-t-0"}`}>
                 <img src={gift.photo} alt={gift.name} loading="lazy" className="aspect-[4/3] w-full border-b-2 border-foreground object-cover" />
-                <div className="flex flex-1 flex-col p-5"><span className="eyebrow text-emphasis">{gift.band}</span><h3 className="mt-3 font-display text-2xl leading-[1.1]">{gift.name}</h3><p className="mt-3 text-[15px] leading-[1.5] text-muted-foreground">{gift.reason}</p></div>
+                <div className="flex flex-1 flex-col p-5"><span className="eyebrow text-emphasis">{gift.band}</span><h3 className="mt-3 font-display text-[26px] leading-[1.1]">{gift.name}</h3><p className="mt-3 text-[15px] leading-[1.5] text-muted-foreground">{gift.reason}</p></div>
               </article>
             ))}
           </div>
-          <div className="border-x-2 border-b-2 border-foreground bg-highlight px-6 py-5 text-center font-display text-xl leading-[1.3]">The person receiving the gifts is never the person doing the asking.</div>
+          <div className="border-x-2 border-b-2 border-foreground bg-highlight px-6 py-5 text-center font-sans font-medium text-xl leading-[1.3]">The person receiving the gifts is never the person doing the asking.</div>
         </div>
       </section>
 
@@ -235,7 +235,7 @@ function HomePage() {
         <div className="site-container site-section grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
           <div><p className="eyebrow text-emphasis">Private by design</p><h2 className="site-h2 mt-5 max-w-[13ch]">Someone started one for you?</h2></div>
           <div className="grid gap-0 rounded-sm border-2 border-foreground bg-background sm:grid-cols-3">
-            {assurances.map((assurance, index) => <div key={assurance} className={`p-6 ${index > 0 ? "border-t-2 border-foreground sm:border-l-2 sm:border-t-0" : ""}`}><Check className="size-6 text-primary" aria-hidden="true" /><p className="mt-5 font-display text-2xl leading-[1.2]">{assurance}</p></div>)}
+            {assurances.map((assurance, index) => <div key={assurance} className={`p-6 ${index > 0 ? "border-t-2 border-foreground sm:border-l-2 sm:border-t-0" : ""}`}><Check className="size-6 text-primary" aria-hidden="true" /><p className="mt-5 font-display text-[26px] leading-[1.2]">{assurance}</p></div>)}
           </div>
         </div>
       </section>

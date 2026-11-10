@@ -169,13 +169,13 @@ export function CareCockpit({ anchor }: { anchor: number }) {
                 {stage === "started" && (
                   <div>
                     <p className="eyebrow text-emphasis">For you</p>
-                    <p className="mt-2 font-display text-2xl leading-tight">Someone at work started a chapter for you.</p>
+                    <p className="mt-2 font-display text-[26px] leading-tight">Someone at work started a chapter for you.</p>
                     <p className="mt-1 text-sm">The first {money(anchor)} is covered.{added > 0 ? ` Teammates added ${money(added)}.` : ""} Keep what fits.</p>
                     <div className="mt-4 rounded-sm border-2 border-foreground">
                       <img src={gift.img} alt={gift.name} width={600} height={600} className="aspect-square w-full border-b-2 border-foreground object-cover" />
                       <div className="p-3">
                         <div className="flex items-baseline justify-between gap-2">
-                          <p className="font-display text-lg leading-tight">{gift.name}</p>
+                          <p className="font-sans font-medium text-lg leading-tight">{gift.name}</p>
                           <p className="font-medium text-sm">{money(gift.price)}</p>
                         </div>
                         <p className="mt-1 text-sm">{gift.why}</p>
@@ -195,7 +195,7 @@ export function CareCockpit({ anchor }: { anchor: number }) {
                 {stage === "approved" && (
                   <div>
                     <p className="eyebrow text-emphasis">Yours</p>
-                    <p className="mt-2 font-display text-2xl leading-tight">{gift.name}.</p>
+                    <p className="mt-2 font-display text-[26px] leading-tight">{gift.name}.</p>
                     <img src={gift.img} alt={gift.name} width={600} height={600} className="mt-3 aspect-square w-full rounded-sm border-2 border-foreground object-cover" />
                     <p className="mt-3 text-sm">Your address stays with you. Work never sees it.</p>
                     <button onClick={() => setStage("sent")} className="mt-4 w-full rounded-sm border-2 border-foreground bg-primary px-3 py-3 text-primary-foreground hover:bg-foreground hover:text-background">Ship it to me</button>
@@ -207,13 +207,13 @@ export function CareCockpit({ anchor }: { anchor: number }) {
                     <p className="eyebrow text-emphasis">On its way</p>
                     {!opened ? (
                       <button onClick={() => setOpened(true)} className="mt-3 flex aspect-square w-full flex-col items-center justify-center rounded-sm border-2 border-foreground bg-highlight hover:bg-foreground hover:text-background">
-                        <span className="font-display text-2xl">A parcel for you.</span>
+                        <span className="font-display text-[26px]">A parcel for you.</span>
                         <span className="mt-2 font-medium text-[13px]">Tap to open</span>
                       </button>
                     ) : (
                       <div>
                         <img src={gift.img} alt={gift.name} width={600} height={600} className="mt-3 aspect-square w-full rounded-sm border-2 border-foreground object-cover" />
-                        <p className="mt-3 font-display text-xl leading-snug">For your everyday. No thank-you required.</p>
+                        <p className="mt-3 font-sans font-medium text-xl leading-snug">For your everyday. No thank-you required.</p>
                         <p className="mt-2 text-sm">Want to say something anyway? One quiet note goes to everyone at once.</p>
                       </div>
                     )}
@@ -267,5 +267,5 @@ function Primary({ onClick, children, disabled }: { onClick: () => void; childre
 }
 
 function Quiet({ children }: { children: React.ReactNode }) {
-  return <p className="mt-24 text-center font-display text-xl leading-snug">{children}</p>;
+  return <p className="mt-24 text-center font-sans font-medium text-xl leading-snug">{children}</p>;
 }

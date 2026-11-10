@@ -31,7 +31,7 @@ function RealEstatePage() {
           <p className="eyebrow text-emphasis">Real estate agents</p>
           <h1 className="mt-4 font-display text-4xl leading-tight sm:text-5xl">Nobody wants another branded cutting board.</h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed">Your buyer just spent their savings on a down payment. They are sitting in an empty house with boxes and no lamps. A pen with your number on it is not the moment.</p>
-          <p className="mt-6 max-w-xl font-display text-2xl leading-snug">You anchor the first real object. Their friends fill the rest of the house.</p>
+          <p className="mt-6 max-w-xl font-display text-[26px] leading-snug">You anchor the first real object. Their friends fill the rest of the house.</p>
         </div>
         <img src={emptyRoom.url} alt="Two rooms side by side. One is furnished with a sofa, lamp, and plant. The other is empty with bare walls and an open door, and a person walks in carrying a yellow bag." width={1536} height={1024} className="aspect-[3/2] w-full rounded-[4px] border-2 border-foreground object-cover" />
       </section>
@@ -43,7 +43,7 @@ function RealEstatePage() {
             {steps.map(([n, t, c]) => (
               <div key={n} className="border-t-2 border-foreground pt-5">
                 <span className="font-display text-4xl text-primary">{n}</span>
-                <h3 className="mt-5 font-display text-2xl">{t}</h3>
+                <h3 className="mt-5 font-display text-[26px]">{t}</h3>
                 <p className="mt-3 text-[17px] leading-[1.5] text-muted-foreground">{c}</p>
               </div>
             ))}

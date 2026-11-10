@@ -135,7 +135,7 @@ function Mockup() {
               </div>
               <figcaption className="mt-4">
                 <div className="flex items-baseline justify-between">
-                  <span className="font-display text-[22px]">{o.name}</span>
+                  <span className="font-display text-[26px]">{o.name}</span>
                   <span className="text-[13px] font-medium text-emphasis">{o.tier}</span>
                 </div>
                 <p className="mt-1 text-[15px] text-muted-foreground">{o.note}</p>
@@ -150,7 +150,7 @@ function Mockup() {
           </div>
           {chapters.map(([c, n]) => (
             <div key={c} className="grid grid-cols-2 border-b border-foreground/10 py-4 text-[15px]">
-              <span className="font-display text-[19px]">{c}</span><span className="text-muted-foreground">{n}</span>
+              <span className="font-sans font-medium text-[19px]">{c}</span><span className="text-muted-foreground">{n}</span>
             </div>
           ))}
         </div>

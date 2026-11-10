@@ -42,7 +42,7 @@ function RolesPage() {
           ))}
         </div>
 
-        <h2 className="mt-14 font-display text-2xl">What each role can see</h2>
+        <h2 className="mt-14 font-display text-[26px]">What each role can see</h2>
         <div className="mt-4 overflow-x-auto rounded-sm border-2 border-foreground">
           <table className="w-full min-w-[720px] text-sm">
             <thead>
@@ -72,7 +72,7 @@ function RolesPage() {
           </table>
         </div>
 
-        <h2 className="mt-14 font-display text-2xl">How a chapter moves</h2>
+        <h2 className="mt-14 font-display text-[26px]">How a chapter moves</h2>
         <ol className="mt-4 grid gap-3">
           {TRANSITIONS.map((t) => (
             <li key={t.from + t.to} className="rounded-sm border-2 border-foreground p-3 text-sm">

@@ -26,7 +26,7 @@ export function SiteShell({ children, pilot = false }: { children: ReactNode; pi
     <div className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-50 border-b-2 border-foreground bg-background">
         <div className="site-container flex min-h-20 items-center gap-2 py-3 sm:gap-4">
-          <Link to="/" className="shrink-0 font-display text-xl sm:text-2xl" aria-label="Good Chapter Co. home">
+          <Link to="/" className="shrink-0 font-display text-[26px]" aria-label="Good Chapter Co. home">
             <BrandMark />
           </Link>
           {pilot ? <span className="eyebrow ml-auto text-emphasis">Private pilot</span> : <><nav className="ml-auto hidden items-center gap-7 lg:flex" aria-label="Main navigation">
@@ -64,7 +64,7 @@ export function SiteShell({ children, pilot = false }: { children: ReactNode; pi
       <main>{children}</main>
       {pilot ? <footer className="border-t-2 border-foreground bg-foreground text-background">
         <div className="site-container flex flex-wrap items-center justify-between gap-5 py-7 text-[14px]">
-          <p>Good people. Different rules.</p>
+          <p>Not a wedding. Not a baby. Still worth celebrating on purpose.</p>
           <Link to="/read" className="underline underline-offset-4 hover:text-highlight">Our why ↗</Link>
           <a href="mailto:liv@goodchaptercollective.com" className="underline underline-offset-4 hover:text-highlight">liv@goodchaptercollective.com</a>
           <nav className="flex gap-4" aria-label="Legal"><Link to="/privacy" className="underline underline-offset-4 hover:text-highlight">Privacy</Link><Link to="/terms" className="underline underline-offset-4 hover:text-highlight">Terms</Link><a href="mailto:liv@goodchaptercollective.com" className="underline underline-offset-4 hover:text-highlight">Contact</a></nav>

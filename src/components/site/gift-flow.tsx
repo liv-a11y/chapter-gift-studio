@@ -94,7 +94,7 @@ function Step({ eyebrow, title, children }: { eyebrow: string; title: string; ch
   return (
     <div>
       <p className="font-medium text-[13px] text-emphasis">{eyebrow}</p>
-      <h3 className="mt-2 font-display text-2xl">{title}</h3>
+      <h3 className="mt-2 font-display text-[26px]">{title}</h3>
       <div className="mt-3 leading-relaxed">{children}</div>
     </div>
   );
@@ -103,7 +103,7 @@ function Line({ k, v }: { k: string; v: React.ReactNode }) {
   return <div className="mt-2 flex justify-between gap-4 border-b-2 border-foreground pb-1"><dt>{k}</dt><dd className="tabular-nums">{v}</dd></div>;
 }
 function Note({ to, children }: { to: string; children: React.ReactNode }) {
-  return <div className="rounded-sm border-2 border-foreground bg-background p-4"><p className="font-medium text-[13px]">{to}</p><p className="mt-2 font-display text-lg leading-snug">{children}</p></div>;
+  return <div className="rounded-sm border-2 border-foreground bg-background p-4"><p className="font-medium text-[13px]">{to}</p><p className="mt-2 font-sans font-medium text-lg leading-snug">{children}</p></div>;
 }
 function Action({ onClick, children, inline }: { onClick: () => void; children: React.ReactNode; inline?: boolean }) {
   return <button onClick={onClick} className={`${inline ? "" : "mt-6"} rounded-sm border-2 border-foreground bg-primary px-4 py-2 font-medium text-[14px] text-primary-foreground hover:bg-foreground hover:text-background`}>{children}</button>;

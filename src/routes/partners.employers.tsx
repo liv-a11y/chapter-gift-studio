@@ -82,7 +82,7 @@ function EmployersPage() {
           <p className="eyebrow text-emphasis">The gap</p>
           <h2 className="mt-3 font-display text-3xl sm:text-4xl">Leave covers the loss. Who covers the first apartment?</h2>
           <p className="mt-5 text-lg leading-relaxed">Employers do right by the hard moments. Almost nothing exists for the good ones. A first place. A new role. A parent moving in. HR rarely hears about them.</p>
-          <p className="mt-8 w-fit max-w-full rounded-[4px] border-2 border-foreground bg-highlight px-5 py-4 font-display text-2xl leading-snug text-highlight-foreground sm:text-3xl">Sometimes a teammate knows. Sometimes a manager knows. Good Chapter turns &ldquo;we should do something&rdquo; into something real.</p>
+          <p className="mt-8 w-fit max-w-full rounded-[4px] border-2 border-foreground bg-highlight px-5 py-4 font-display text-[26px] leading-snug text-highlight-foreground sm:text-3xl">Sometimes a teammate knows. Sometimes a manager knows. Good Chapter turns &ldquo;we should do something&rdquo; into something real.</p>
         </div>
       </section>
 
@@ -93,7 +93,7 @@ function EmployersPage() {
           {steps.map((s) => (
             <div key={s.n} className="rounded-sm border-2 border-foreground p-5">
               <p className="eyebrow">{s.n}</p>
-              <h3 className="mt-3 font-display text-xl">{s.h}</h3>
+              <h3 className="mt-3 font-sans font-medium text-xl">{s.h}</h3>
               <p className="mt-3 leading-relaxed">{s.p}</p>
             </div>
           ))}
@@ -149,7 +149,7 @@ function EmployersPage() {
           <dl className="mt-6 grid gap-6">
             {faq.map((f) => (
               <div key={f.q} className="border-t-2 border-foreground pt-4">
-                <dt className="font-display text-xl">{f.q}</dt>
+                <dt className="font-sans font-medium text-xl">{f.q}</dt>
                 <dd className="mt-2 text-lg leading-relaxed">{f.a}</dd>
               </div>
             ))}

@@ -104,7 +104,7 @@ export function SplitDesk({ anchor }: { anchor: number }) {
               {stage === "invited" && (
                 <div>
                   <p className="eyebrow text-emphasis">For you</p>
-                  <p className="mt-2 font-display text-2xl leading-tight">Someone at work started a chapter for you.</p>
+                  <p className="mt-2 font-display text-[26px] leading-tight">Someone at work started a chapter for you.</p>
                   <p className="mt-2 text-sm">The first gift is covered. Keep what fits.</p>
                   <ul className="mt-4 space-y-2">
                     {GIFTS.map((g) => (
@@ -123,7 +123,7 @@ export function SplitDesk({ anchor }: { anchor: number }) {
               {(stage === "approved" || stage === "teammates") && (
                 <div>
                   <p className="eyebrow text-emphasis">Approved</p>
-                  <p className="mt-2 font-display text-2xl leading-tight">{gift.name}.</p>
+                  <p className="mt-2 font-display text-[26px] leading-tight">{gift.name}.</p>
                   <p className="mt-2 text-sm">Your address stays with you. Your company does not see it.</p>
                   <div className="mt-4 rounded-sm border-2 border-foreground p-3 font-medium text-[13px]">Shipping to the address you entered</div>
                   {stage === "teammates" && (
@@ -134,7 +134,7 @@ export function SplitDesk({ anchor }: { anchor: number }) {
               {stage === "sent" && (
                 <div>
                   <p className="eyebrow text-emphasis">On its way</p>
-                  <p className="mt-2 font-display text-2xl leading-tight">Your {gift.name.toLowerCase()} ships this week.</p>
+                  <p className="mt-2 font-display text-[26px] leading-tight">Your {gift.name.toLowerCase()} ships this week.</p>
                   <p className="mt-4 text-sm">Want to say thank you? One quiet note goes to everyone at once. Optional.</p>
                 </div>
               )}
@@ -158,5 +158,5 @@ function DeskBtn({ onClick, children }: { onClick: () => void; children: React.R
 }
 
 function Empty({ children }: { children: React.ReactNode }) {
-  return <p className="mt-16 text-center font-display text-xl leading-snug">{children}</p>;
+  return <p className="mt-16 text-center font-sans font-medium text-xl leading-snug">{children}</p>;
 }

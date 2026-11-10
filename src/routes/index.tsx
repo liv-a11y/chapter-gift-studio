@@ -55,7 +55,7 @@ function FrontDoor() {
           <figure className="flex flex-col rounded-[4px] bg-card p-4 sm:p-6">
             <img src={mugPhoto.url} alt="A speckled ceramic mug with iced matcha resting on a stack of books." width={1200} height={1200} fetchPriority="high" className="aspect-[4/3] w-full flex-1 rounded-[4px] object-cover" />
             <figcaption className="mt-5 flex flex-wrap items-baseline justify-between gap-3">
-              <span className="font-display text-[24px]">Maya's first place</span>
+              <span className="font-display text-[26px]">Maya's first place</span>
               <span className="eyebrow text-muted-foreground">Started by a friend. Approved by Maya.</span>
             </figcaption>
           </figure>
@@ -63,7 +63,7 @@ function FrontDoor() {
             {objects.slice(0, 2).map((o) => (
               <figure key={o.name} className="rounded-[4px] bg-card p-4">
                 <img src={o.photo} alt={o.alt} loading="lazy" width={600} height={450} className="aspect-[4/3] w-full rounded-[4px] object-cover" />
-                <figcaption className="mt-4"><p className="font-display text-[19px]">{o.name}</p><p className="mt-1 text-[15px] leading-[1.5] text-muted-foreground">{o.note}</p></figcaption>
+                <figcaption className="mt-4"><p className="font-sans font-medium text-[19px]">{o.name}</p><p className="mt-1 text-[15px] leading-[1.5] text-muted-foreground">{o.note}</p></figcaption>
               </figure>
             ))}
           </div>

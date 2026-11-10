@@ -164,7 +164,7 @@ function PartnersPage() {
             {rules.map((rule, index) => (
               <div key={rule.n} className={`flex flex-col gap-3 border-foreground p-7 ${ruleBorders[index]}`}>
                 <span className="eyebrow text-primary">{rule.n}</span>
-                <h3 className="font-display text-2xl leading-[1.1]">{rule.title}</h3>
+                <h3 className="font-display text-[26px] leading-[1.1]">{rule.title}</h3>
                 <p className="text-base leading-[1.5] text-muted-foreground">{rule.copy}</p>
               </div>
             ))}

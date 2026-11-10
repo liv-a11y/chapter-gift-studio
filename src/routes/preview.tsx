@@ -101,7 +101,7 @@ function HomePage() {
                 <img src={sampleProducts[3].photo} alt="Cast iron skillet" className="aspect-square h-full w-full border-r-2 border-foreground object-cover" />
                 <div className="flex flex-col justify-between p-5">
                   <span className="eyebrow text-emphasis">The bridal list</span>
-                  <p className="mt-10 font-display text-[24px] leading-[1.12]">China.<br />Silver.<br />Crystal.</p>
+                  <p className="mt-10 font-display text-[26px] leading-[1.12]">China.<br />Silver.<br />Crystal.</p>
                 </div>
                 <div className="col-span-2 border-t-2 border-foreground bg-primary p-5 text-primary-foreground">
                   <div className="flex items-end justify-between gap-5">
@@ -206,11 +206,11 @@ function HomePage() {
             {gifts.map((gift, index) => (
               <article key={gift.name} className={`lift-card flex min-w-0 flex-col bg-card ${index > 0 ? "border-t-2 border-foreground sm:border-t-0" : ""} ${index % 2 === 1 ? "sm:border-l-2 sm:border-foreground" : ""} ${index >= 2 ? "sm:border-t-2 sm:border-foreground" : ""} ${index % 4 !== 0 ? "lg:border-l-2 lg:border-foreground" : "lg:border-l-0"} ${index >= 4 ? "lg:border-t-2 lg:border-foreground" : "lg:border-t-0"}`}>
                 <img src={gift.photo} alt={gift.name} loading="lazy" className="aspect-[4/3] w-full border-b-2 border-foreground object-cover" />
-                <div className="flex flex-1 flex-col p-5"><span className="eyebrow text-emphasis">{gift.band}</span><h3 className="mt-3 font-display text-2xl leading-[1.1]">{gift.name}</h3><p className="mt-3 text-[15px] leading-[1.5] text-muted-foreground">{gift.reason}</p></div>
+                <div className="flex flex-1 flex-col p-5"><span className="eyebrow text-emphasis">{gift.band}</span><h3 className="mt-3 font-display text-[26px] leading-[1.1]">{gift.name}</h3><p className="mt-3 text-[15px] leading-[1.5] text-muted-foreground">{gift.reason}</p></div>
               </article>
             ))}
           </div>
-          <div className="border-x-2 border-b-2 border-foreground bg-highlight px-6 py-5 text-center font-display text-xl leading-[1.3]">The person receiving the gifts is never the person doing the asking.</div>
+          <div className="border-x-2 border-b-2 border-foreground bg-highlight px-6 py-5 text-center font-sans font-medium text-xl leading-[1.3]">The person receiving the gifts is never the person doing the asking.</div>
         </div>
       </section>
 
@@ -218,7 +218,7 @@ function HomePage() {
         <div className="site-container site-section grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
           <div><p className="eyebrow text-emphasis">Private by design</p><h2 className="site-h2 mt-5 max-w-[13ch]">Someone started one for you?</h2></div>
           <div className="grid gap-0 rounded-sm border-2 border-foreground bg-background sm:grid-cols-3">
-            {assurances.map((assurance, index) => <div key={assurance} className={`p-6 ${index > 0 ? "border-t-2 border-foreground sm:border-l-2 sm:border-t-0" : ""}`}><Check className="size-6 text-primary" aria-hidden="true" /><p className="mt-5 font-display text-2xl leading-[1.2]">{assurance}</p></div>)}
+            {assurances.map((assurance, index) => <div key={assurance} className={`p-6 ${index > 0 ? "border-t-2 border-foreground sm:border-l-2 sm:border-t-0" : ""}`}><Check className="size-6 text-primary" aria-hidden="true" /><p className="mt-5 font-display text-[26px] leading-[1.2]">{assurance}</p></div>)}
           </div>
         </div>
       </section>
