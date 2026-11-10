@@ -10,7 +10,7 @@ import kitchen from "@/assets/scene-kitchen-moving-day.png.asset.json";
 import desk from "@/assets/scene-desk-nook.png.asset.json";
 
 const title = "For employers. Good Chapter, Co.";
-const description = "A small, private pilot that helps teams show up for the life chapters that never make the HR calendar.";
+const description = "A private way for teams to show up for the life chapters that never make the HR calendar.";
 
 export const Route = createFileRoute("/partners/employers")({
   head: () => ({
@@ -51,7 +51,7 @@ const privacy = [
 const faq = [
   { q: "Does my company see why?", a: "No. Counts and spend only." },
   { q: "Is this cash or a stipend?", a: "No. A useful object the employee chooses to keep." },
-  { q: "Who authorizes the money?", a: "HR sets a pool in advance. Nothing is charged until the employee approves." },
+  { q: "Who authorizes the money?", a: "HR sets a pool in advance. Nothing is drawn from the pool until the employee approves." },
   { q: "How does the survey connect?", a: "Add four questions to your next survey. We read the results together." },
   { q: "What about tax?", a: "We are confirming treatment with counsel. No guidance until then." },
 ];
@@ -69,7 +69,7 @@ function EmployersPage() {
           <h1 className="mt-4 font-display text-4xl leading-tight sm:text-5xl">Company swag isn't care. And life happens outside of maternity leave.</h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed">Your engagement budget, turned into useful gifts for the moments that never make the HR calendar.</p>
           <div className="mt-8 flex flex-wrap items-center gap-5">
-            <a href="#pilot" className="inline-block rounded-sm border-2 border-foreground bg-primary px-5 py-3 text-primary-foreground hover:bg-foreground hover:text-background">Start a pilot with 20 to 40 people</a>
+            <a href="#start" className="inline-block rounded-sm border-2 border-foreground bg-primary px-5 py-3 text-primary-foreground hover:bg-foreground hover:text-background">Start with your team</a>
             <Link to="/partners/employers/dashboard" className="underline underline-offset-4 hover:bg-foreground hover:text-background">See what HR sees</Link>
           </div>
           <p className="eyebrow mt-4">Counts and spend only. Nobody sees why. No integration to start.</p>
@@ -81,7 +81,7 @@ function EmployersPage() {
         <div className="site-container max-w-3xl py-14">
           <p className="eyebrow text-emphasis">The gap</p>
           <h2 className="mt-3 font-display text-3xl sm:text-4xl">Leave covers the loss. Who covers the first apartment?</h2>
-          <p className="mt-5 text-lg leading-relaxed">Employers do right by the hard moments. Almost nothing exists for the good ones. A first place. A new role. A long awaited arrival. HR rarely hears about them.</p>
+          <p className="mt-5 text-lg leading-relaxed">Employers do right by the hard moments. Almost nothing exists for the good ones. A first place. A new role. A parent moving in. HR rarely hears about them.</p>
           <p className="mt-8 w-fit max-w-full rounded-[4px] border-2 border-foreground bg-highlight px-5 py-4 font-display text-2xl leading-snug text-highlight-foreground sm:text-3xl">Sometimes a teammate knows. Sometimes a manager knows. Good Chapter turns &ldquo;we should do something&rdquo; into something real.</p>
         </div>
       </section>
@@ -110,7 +110,7 @@ function EmployersPage() {
 
       <section className="border-y-2 border-foreground">
         <div className="site-container py-14">
-          <p className="eyebrow text-emphasis">What a pilot measures</p>
+          <p className="eyebrow text-emphasis">What you measure</p>
           <h2 className="mt-3 font-display text-3xl sm:text-4xl">Four numbers. No names.</h2>
           <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {measures.map((m) => (
@@ -120,14 +120,14 @@ function EmployersPage() {
               </div>
             ))}
           </div>
-          <p className="eyebrow mt-6">No pilot has run yet. We will report these in your own numbers at day 90.</p>
+          <p className="eyebrow mt-6">No team has run this yet. We will report these in your own numbers at day 90.</p>
         </div>
       </section>
 
       <section className="site-container grid gap-10 py-14 lg:grid-cols-2 lg:items-start">
         <div>
-          <p className="eyebrow text-emphasis">The pilot</p>
-          <h2 className="mt-3 font-display text-3xl sm:text-4xl">A modest pilot. A clearer signal.</h2>
+          <p className="eyebrow text-emphasis">The budget</p>
+          <h2 className="mt-3 font-display text-3xl sm:text-4xl">A modest pool. A clearer signal.</h2>
           <p className="mt-4 text-lg leading-relaxed">A $10,000 pool with a $200 anchor gift covers about fifty chapters over 90 days. You set the numbers. The gift is the cost.</p>
           <Link to="/partners/employers/portal" className="mt-6 inline-block rounded-sm border-2 border-foreground px-5 py-3 hover:bg-foreground hover:text-background">Walk the portal prototype</Link>
           <img src={desk.url} alt="A desk nook with blue drawers, a notebook, a checkered mug, and a plant." loading="lazy" width={1200} height={800} className="mt-8 aspect-[3/2] w-full rounded-sm border-2 border-foreground object-cover" />
@@ -157,10 +157,10 @@ function EmployersPage() {
         </div>
       </section>
 
-      <section id="pilot" className="site-container max-w-2xl py-14">
+      <section id="start" className="site-container max-w-2xl py-14">
         <p className="eyebrow text-emphasis">Founding employers</p>
         <h2 className="mt-3 font-display text-3xl sm:text-4xl">Start small. Learn something real.</h2>
-        <p className="mt-4 mb-8 text-lg">Add four questions to your next survey. Pilot with one team. Review four numbers at day 90. Liv reads every note.</p>
+        <p className="mt-4 mb-8 text-lg">Add four questions to your next survey. Start with one team. Review four numbers at day 90. Liv reads every note.</p>
         <WaitlistForm pilot defaultInquiry="Founding partner: Employer" />
       </section>
     </SiteShell>

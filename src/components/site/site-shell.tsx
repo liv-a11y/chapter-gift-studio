@@ -41,7 +41,7 @@ export function SiteShell({ children, pilot = false }: { children: ReactNode; pi
             ))}
           </nav>
           <Button asChild size="sm" className="ml-auto px-3 text-[12px] sm:h-11 sm:px-5 sm:text-sm lg:ml-5">
-            <Link to="/new"><span className="sm:hidden">Start one</span><span className="hidden sm:inline">Start one for a friend</span></Link>
+            <Link to="/" hash="invite"><span className="sm:hidden">Start one</span><span className="hidden sm:inline">Start one for a friend</span></Link>
           </Button>
           <button type="button" onClick={() => setOpen(!open)} className="flex size-11 shrink-0 items-center justify-center rounded-sm border-2 border-foreground lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open}>
             {open ? <X className="size-5" /> : <Menu className="size-5" />}

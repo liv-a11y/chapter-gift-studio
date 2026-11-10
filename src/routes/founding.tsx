@@ -38,7 +38,7 @@ function FoundingPage() {
         ] },
         { n: "III", heading: "What we protect", body: [
           "The person stays in control. Their edits stay private. Guests see useful choices, not pressure, totals, or a public performance of care.",
-          "Good Chapter coordinates claims so gifts are not duplicated. Guests buy wherever they prefer. We do not collect payment or process orders.",
+          "Good Chapter coordinates claims so gifts are not duplicated. Guests will check out on Good Chapter when the pilot opens. Nothing is for sale here yet.",
         ] },
         { n: "IV", heading: "Join the first edition", body: [
           "If this belongs inside your work, your community, or the way you care for people, we would like to hear what you see.",

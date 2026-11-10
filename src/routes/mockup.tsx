@@ -88,7 +88,7 @@ function Mockup() {
         <Marker n={1} label="The origin" right="1924 to now" />
         <div className="mt-12 grid gap-12 md:grid-cols-[1.25fr_1fr] md:items-end md:gap-16">
           <div>
-            <p className="text-[14px] font-medium text-emphasis">Chicago, 1924. Rewritten for today.</p>
+            <p className="text-[14px] font-medium text-emphasis">1924. Rewritten for today.</p>
             <ToasterLine as="h1" className="mt-5 text-[40px] leading-[1.06] sm:text-[60px] lg:text-[76px]" />
             <p className="mt-8 max-w-[34rem] text-[19px] leading-[1.6] text-muted-foreground sm:text-[21px]">
               In 1924, department stores invented the wedding registry. A century later, it is still the only milestone that comes with a ritual. <span className="text-foreground">Good Chapter is for every chapter weddings missed.</span>

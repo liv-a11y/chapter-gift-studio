@@ -49,7 +49,7 @@ const chapters = [
   ["Moving In", "A new set of keys, a new neighborhood, and a home still taking shape."],
   ["Starting Over", "Rebuilding a space and a rhythm after life changes direction."],
   ["Fresh Start", "For the reset that deserves more than a quiet thumbs-up."],
-  ["New Baby Solo", "A growing family, supported without putting the asking on one parent."],
+  ["Coming Out", "Living as yourself, with your people showing up to mark it."],
   ["Adoption & Foster", "Welcoming someone home with care chosen for the life ahead."],
   ["Coming Home", "A thoughtful landing after hospital, treatment, service, or time away."],
   ["New City", "A soft arrival when familiar people are suddenly far away."],
@@ -88,9 +88,9 @@ function HomePage() {
           <span>The first home</span>
           <span>The fresh start</span>
           <span className="hidden sm:inline">The new city</span>
-          <span className="hidden md:inline">The year sober</span>
+          <span className="hidden md:inline">The big, lonely change</span>
           <span className="hidden sm:inline">The recovery</span>
-          <span className="hidden lg:inline">The solo baby</span>
+          <span className="hidden lg:inline">The coming out</span>
           <span className="hidden md:inline">The pivot</span>
           <span>The best of your life</span>
         </div>
@@ -130,7 +130,7 @@ function HomePage() {
               </p>
               <div className="mt-10 grid gap-6 text-[17px] leading-[1.5] text-muted-foreground sm:grid-cols-2 sm:gap-10">
                 <p>It made care legible at marriage: here is the household, here is what it needs, here is how everyone can help without guessing.</p>
-                <p>But women kept building lives outside that script,buying homes alone, starting over, healing, and moving somewhere new. The care stayed. The ritual did not.</p>
+                <p>But women kept building lives outside that script: buying homes alone, starting over, healing, and moving somewhere new. The care stayed. The ritual did not.</p>
               </div>
               <p className="mt-10 border-t-2 border-foreground pt-6 font-display text-[28px] leading-[1.18] sm:text-[34px]">
                 Good Chapter is not a better wedding registry. It is the ritual for everything the registry left out.
@@ -146,7 +146,7 @@ function HomePage() {
                   </li>
                   <li id="source-2" className="grid grid-cols-[1.5rem_1fr] gap-2">
                     <span className="font-medium text-foreground">2</span>
-                    <span>Good Chapter Brand Guidelines v3, September 2026. This is Good Chapter’s interpretation of the old social script,not a quotation from Marshall Field’s.</span>
+                    <span>This is Good Chapter’s interpretation of the old social script, not a quotation from Marshall Field’s.</span>
                   </li>
                 </ol>
               </aside>

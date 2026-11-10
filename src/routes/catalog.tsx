@@ -24,7 +24,7 @@ function CatalogPage() {
       <section className="site-container py-16 md:py-24">
         <p className="font-medium text-[14px]">Sample chapter · {items.length} items</p>
         <h1 className="mt-4 max-w-3xl font-display text-[clamp(44px,6vw,80px)] leading-[1.03] tracking-[-0.01em]">Fewer things. Better reasons.</h1>
-        <p className="mt-6 max-w-2xl text-lg leading-[1.5]">Eight sample ideas. Prices are illustrative. Guests buy wherever they like. Good Chapter keeps the group from doubling up.</p>
+        <p className="mt-6 max-w-2xl text-lg leading-[1.5]">Eight sample ideas. Prices are illustrative. Checkout opens with the pilot. Good Chapter keeps the group from doubling up.</p>
 
 
       </section>

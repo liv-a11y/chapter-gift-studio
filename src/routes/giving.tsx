@@ -32,7 +32,7 @@ const causes: Cause[] = [
   { chapter: "Coming out", org: "The Trevor Project", copy: "Crisis support for LGBTQ young people.", rule: "border-t-primary", logo: trevor.url, width: 662, height: 362 },
   { chapter: "Divorce and starting over", org: "National Domestic Violence Hotline", copy: "Safety and support for people leaving.", rule: "border-t-emphasis", logo: hotline.url, width: 370, height: 352 },
   { chapter: "First place", org: "Habitat for Humanity", copy: "Homes for people who need one.", rule: "border-t-foreground", logo: habitat.url, width: 700, height: 234 },
-  { chapter: "Sobriety", org: "Shatterproof", copy: "Treatment and recovery support.", rule: "border-t-primary", logo: shatterproof.url, width: 597, height: 108 },
+  { chapter: "A big, lonely change", org: "Shatterproof", copy: "Treatment and recovery support.", rule: "border-t-primary", logo: shatterproof.url, width: 597, height: 108 },
   { chapter: "Adoption and foster", org: "Dave Thomas Foundation for Adoption", copy: "Homes for children in foster care.", rule: "border-t-emphasis", logo: adoption.url, width: 652, height: 224 },
   { chapter: "Grief and healing", org: "Dougy Center", copy: "Support for grieving children and families.", rule: "border-t-foreground", logo: dougy.url, width: 700, height: 607 },
 ];

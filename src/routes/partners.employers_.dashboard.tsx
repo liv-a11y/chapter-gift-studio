@@ -105,7 +105,7 @@ function DashboardPage() {
         <p className="mt-2 font-medium text-[13px]">Cobalt is pool used. Yellow is teammate giving. Teams under 3 chapters show as &lt;3.</p>
 
         <div className="mt-8 grid gap-3 sm:grid-cols-3">
-          <Kpi k="Give back" sub={`${GIVE_PCT}% of anchors · DonorsChoose`}><Ticker value={giveBack} /></Kpi>
+          <Kpi k="Give back" sub={`${GIVE_PCT}% of anchors · sample rate`}><Ticker value={giveBack} /></Kpi>
           <Kpi k="Declines flagged">0</Kpi>
           <Kpi k="Data on people">None</Kpi>
         </div>

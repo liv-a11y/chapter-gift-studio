@@ -29,9 +29,9 @@ const pathways = [
     label: "Employers & benefits brokers",
     headline: "The milestone benefit for everything after the wedding.",
     bullets: [
-      "Routes existing $100 to $300 milestone stipends",
+      "Puts your existing engagement budget to work",
       "A teammate starts it, HR never sees the list",
-      "Plugs into Workhuman, Snappy and Slack",
+      "No integration needed to start",
     ],
     footer: "For employers",
     photo: sampleProducts[4].photo,
@@ -57,7 +57,6 @@ const pathways = [
     bullets: [
       "A named slot in chapters that fit you",
       "Co-branded editions for a single life moment",
-      "Exclusive SKUs, earned with real data",
     ],
     footer: "For brands",
     photo: sampleProducts[3].photo,
@@ -176,7 +175,7 @@ function PartnersPage() {
       {/* Clay closing CTA */}
       <section className="bg-emphasis text-emphasis-foreground">
         <div className="site-container flex flex-wrap items-center justify-between gap-10 py-16 md:py-20">
-          <h2 className="site-h2 max-w-[20ch]">Pilot partners for Autumn 2026. Fully concierge-managed.</h2>
+          <h2 className="site-h2 max-w-[20ch]">Founding partners, starting now. Fully concierge-managed.</h2>
           <div className="flex flex-wrap items-center gap-6">
             <Button asChild size="lg" className="border-2 border-background bg-background text-foreground hover:-rotate-1 hover:bg-background">
               <a href="mailto:liv@goodchaptercollective.com?subject=Good%20Chapter%20pilot">Book a call</a>

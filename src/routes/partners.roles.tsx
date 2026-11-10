@@ -77,7 +77,7 @@ function RolesPage() {
           {TRANSITIONS.map((t) => (
             <li key={t.from + t.to} className="rounded-sm border-2 border-foreground p-3 text-sm">
               <span className="font-medium text-[13px]">{t.from.replace(/_/g, " ")} to {t.to.replace(/_/g, " ")}</span>
-              <span className="ml-3">Only the {ROLES[t.by].label.toLowerCase()}.</span>
+              <span className="ml-3">Only {ROLES[t.by].label.toLowerCase().startsWith("the ") ? "" : "the "}{ROLES[t.by].label.toLowerCase()}.</span>
             </li>
           ))}
         </ol>
