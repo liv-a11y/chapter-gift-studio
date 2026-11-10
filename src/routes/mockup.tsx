@@ -2,13 +2,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site/site-shell";
 import { ToasterLine } from "@/components/site/illustration";
 import { WaitlistForm } from "@/components/site/waitlist-form";
-import throwPhoto from "@/assets/g-08-check-wool-throw.webp.asset.json";
-import toasterPhoto from "@/assets/checked-toaster.png.asset.json";
-import espressoPhoto from "@/assets/g-01-espresso-machine.webp.asset.json";
-import mugPhoto from "@/assets/speckled-mug.png.asset.json";
+import { sampleProducts } from "@/lib/sample-products";
+import livingScene from "@/assets/scene-living-dining.png.asset.json";
 
 const title = "Good Chapter, Co. Homepage study";
-const description = "A homepage layout study for Good Chapter, Co. Quiet index, real objects, private approval.";
+const description = "A homepage layout study for Good Chapter, Co. One wordmark, real objects, short headings.";
 
 export const Route = createFileRoute("/mockup")({
   head: () => ({
@@ -25,151 +23,117 @@ export const Route = createFileRoute("/mockup")({
   component: Mockup,
 });
 
-function Marker({ n, label, right, dark }: { n: number; label: string; right?: string; dark?: boolean }) {
-  return (
-    <div className={`grid grid-cols-[3rem_1fr_auto] items-baseline border-b pb-3 text-[13px] font-medium ${dark ? "border-background/25" : "border-foreground/15"}`}>
-      <span>({n})</span>
-      <span>{label}</span>
-      <span className="opacity-60">{right ?? "Good Chapter, Co."}</span>
-    </div>
-  );
-}
-
-const chapters = [
-  ["First place", "Keys, a bare kitchen, one chair."],
-  ["Fresh start", "A new lease on the same old life."],
-  ["New city", "Nobody to call for a drill."],
-  ["Coming home", "Back after a long hard stretch."],
-  ["Career leap", "The job that changes the week."],
-];
-
-const objects = [
-  { photo: toasterPhoto.url, name: "Checked toaster", tier: "Anchor piece", note: "Painted steel. Two wide slots.", from: "Independent maker", alt: "A two slot toaster painted in red and cream checks." },
-  { photo: throwPhoto.url, name: "Checked wool throw", tier: "Comfort", note: "Brushed wool, for the first cold night.", from: "Retailer option", alt: "A checked wool throw folded over a chair." },
-  { photo: espressoPhoto.url, name: "Espresso machine", tier: "Shared gift", note: "A few friends go in together.", from: "Retailer option", alt: "A marble finish espresso machine on a kitchen counter." },
-];
+const chapters = ["First place", "Divorce", "New city", "Coming out", "After a health scare", "A big, lonely change", "Off-script"];
 
 const steps = [
-  ["A friend starts it.", "They notice the chapter nobody threw a party for."],
-  ["The person approves it.", "In private. Keep what fits, swap what does not."],
-  ["Their people show up.", "One real object each. Nobody doubles up."],
+  { n: "01", title: "A friend starts it.", copy: "They see the chapter nobody threw a party for." },
+  { n: "02", title: "The person approves it.", copy: "In private. Keep what fits. Swap what does not." },
+  { n: "03", title: "Their people show up.", copy: "One real object each. Nobody doubles up." },
 ];
 
-function ApprovalSlip() {
-  const rows = [
-    ["Checked toaster", "Keep"],
-    ["Checked wool throw", "Keep"],
-    ["Scented candle", "Swap"],
-  ];
-  return (
-    <div className="rounded-[4px] bg-secondary p-6 md:p-8">
-      <div className="flex items-baseline justify-between text-[13px] font-medium">
-        <span>Maya's chapter</span>
-        <span className="opacity-60">Only Maya sees this</span>
-      </div>
-      <p className="mt-6 font-display text-[26px] leading-[1.15]">Keep what fits. Swap what does not.</p>
-      <ul className="mt-6">
-        {rows.map(([item, state]) => (
-          <li key={item} className="flex items-center justify-between border-t border-foreground/15 py-3 text-[15px]">
-            <span>{item}</span>
-            <span className={`rounded-[4px] px-2 py-0.5 text-[13px] font-medium ${state === "Keep" ? "bg-highlight text-foreground" : "border border-foreground/30"}`}>{state}</span>
-          </li>
-        ))}
-      </ul>
-      <div className="mt-6 inline-flex rounded-[4px] bg-primary px-5 py-3 text-[14px] font-medium text-primary-foreground">Approve my chapter</div>
-    </div>
-  );
+const featured = [sampleProducts[7], sampleProducts[3], sampleProducts[4], sampleProducts[6]];
+
+/** Parenthetical label, used for section markers and text links. */
+function Paren({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return <span className={`eyebrow ${className}`}>( {children} )</span>;
 }
 
 function Mockup() {
   return (
     <SiteShell pilot>
-      <section className="site-container pt-12 md:pt-20">
-        <Marker n={1} label="The origin" right="1924 to now" />
-        <div className="mt-12 grid gap-12 md:grid-cols-[1.25fr_1fr] md:items-end md:gap-16">
-          <div>
-            <p className="text-[14px] font-medium text-emphasis">1924. Rewritten for today.</p>
-            <ToasterLine as="h1" className="mt-5 text-[40px] leading-[1.06] sm:text-[60px] lg:text-[76px]" />
-            <p className="mt-8 max-w-[34rem] text-[19px] leading-[1.6] text-muted-foreground sm:text-[21px]">
-              In 1924, department stores invented the wedding registry. A century later, it is still the only milestone that comes with a ritual. <span className="text-foreground">Good Chapter is for every chapter weddings missed.</span>
-            </p>
-            <div className="mt-10 flex flex-wrap items-center gap-6">
-              <a href="#invite" className="inline-flex rounded-[4px] bg-primary px-6 py-4 text-[14px] font-medium text-primary-foreground hover:bg-foreground hover:text-background">Request an invitation</a>
-              <Link to="/first-place" className="text-[14px] font-medium underline underline-offset-[6px] hover:text-emphasis">See Maya's chapter</Link>
-            </div>
-          </div>
-          <figure>
-            <img src={mugPhoto.url} alt="A speckled ceramic mug with iced matcha resting on a stack of books." className="aspect-[4/5] w-full rounded-[4px] object-cover" />
-            <figcaption className="mt-3 flex justify-between text-[13px] font-medium">
-              <span>Speckled mug</span><span className="opacity-60">Independent maker</span>
-            </figcaption>
-          </figure>
+      {/* Hero: the wordmark is the headline. */}
+      <section className="site-container pt-10 md:pt-16">
+        <div className="flex flex-wrap items-baseline justify-between gap-3">
+          <Paren className="text-emphasis">The anti-registry</Paren>
+          <span className="eyebrow text-muted-foreground">Everything since 1924</span>
+        </div>
+        <h1 className="mt-4 font-display text-[clamp(56px,15.5vw,232px)] leading-[0.9] tracking-[-0.03em]">Good Chapter</h1>
+        <div className="mt-6 flex flex-wrap items-end justify-between gap-6 pb-8 md:pb-10">
+          <p className="max-w-[26ch] font-display text-[26px] leading-[1.15] sm:text-[32px]">A friend starts it. The person approves it. Nobody asks.</p>
+          <a href="#invite" className="eyebrow underline underline-offset-[6px] hover:text-primary">( Request an invitation )</a>
+        </div>
+      </section>
+      <img
+        src={livingScene.url}
+        alt="A living and dining room mid-move, with a table, a lamp, and boxes still on the floor."
+        width={1920}
+        height={1080}
+        fetchPriority="high"
+        className="block aspect-[16/9] w-full border-y-2 border-foreground object-cover md:aspect-[21/9]"
+      />
+
+      {/* Manifesto surface. */}
+      <section className="bg-emphasis text-emphasis-foreground">
+        <div className="site-container py-16 md:py-28">
+          <ToasterLine as="h2" className="max-w-[16ch] text-[clamp(40px,7vw,104px)] leading-[1]" />
         </div>
       </section>
 
-      <section className="site-container py-24 md:py-32">
-        <Marker n={2} label="The ritual" right="Three steps" />
-        <div className="mt-10 grid gap-12 md:grid-cols-[1.1fr_1fr] md:gap-16">
-          <ol>
-            {steps.map(([t, c], i) => (
-              <li key={t} className="grid grid-cols-[3rem_1fr] border-b border-foreground/15 py-7 first:pt-0">
-                <span className="text-[13px] font-medium opacity-60">0{i + 1}</span>
-                <div>
-                  <p className="font-display text-[28px] leading-[1.15]">{t}</p>
-                  <p className="mt-2 text-[16px] leading-[1.6] text-muted-foreground">{c}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-          <ApprovalSlip />
-        </div>
-      </section>
-
-      <section className="site-container pb-24 md:pb-32">
-        <Marker n={3} label="The objects" right={`Sample (${objects.length})`} />
-        <div className="mt-10 grid gap-10 md:grid-cols-3 md:gap-8">
-          {objects.map((o) => (
-            <figure key={o.name}>
-              <div className="rounded-[4px] bg-secondary p-4">
-                <img src={o.photo} alt={o.alt} loading="lazy" className="aspect-[4/5] w-full rounded-[2px] object-cover" />
-              </div>
-              <figcaption className="mt-4">
-                <div className="flex items-baseline justify-between">
-                  <span className="font-display text-[26px]">{o.name}</span>
-                  <span className="text-[13px] font-medium text-emphasis">{o.tier}</span>
-                </div>
-                <p className="mt-1 text-[15px] text-muted-foreground">{o.note}</p>
-                <p className="mt-3 border-t border-foreground/15 pt-3 text-[13px] font-medium opacity-60">Available from: {o.from}</p>
-              </figcaption>
-            </figure>
+      {/* Chapter ticker. */}
+      <div className="overflow-hidden border-y-2 border-foreground bg-background" aria-label="Chapters">
+        <ul className="flex gap-0 whitespace-nowrap py-4">
+          {chapters.map((c) => (
+            <li key={c} className="eyebrow shrink-0 border-r border-foreground/40 px-6 last:border-r-0">{c}</li>
           ))}
-        </div>
-        <div className="mt-20">
-          <div className="grid grid-cols-2 border-b border-foreground/15 pb-3 text-[13px] font-medium">
-            <span>Chapters</span><span className="opacity-60">({chapters.length})</span>
-          </div>
-          {chapters.map(([c, n]) => (
-            <div key={c} className="grid grid-cols-2 border-b border-foreground/10 py-4 text-[15px]">
-              <span className="font-sans font-medium text-[19px]">{c}</span><span className="text-muted-foreground">{n}</span>
-            </div>
+        </ul>
+      </div>
+
+      {/* The ritual. */}
+      <section className="site-container site-section">
+        <Paren className="text-emphasis">The ritual</Paren>
+        <h2 className="mt-4 font-display text-[clamp(44px,8vw,112px)] leading-[0.95]">Nobody asks.</h2>
+        <ol className="mt-12 grid gap-10 md:grid-cols-3">
+          {steps.map((s) => (
+            <li key={s.n} className="border-t-2 border-foreground pt-5">
+              <Paren>{s.n}</Paren>
+              <h3 className="mt-5 font-display text-[28px] leading-[1.1]">{s.title}</h3>
+              <p className="mt-3 max-w-[30ch] text-[17px] leading-[1.6] text-muted-foreground">{s.copy}</p>
+            </li>
           ))}
-        </div>
+        </ol>
       </section>
 
-      <section id="invite" className="bg-foreground text-background">
-        <div className="site-container py-24 md:py-32">
-          <Marker n={4} label="The pact" dark />
-          <div className="mt-12 grid gap-14 md:grid-cols-2 md:gap-16">
+      {/* Real objects. */}
+      <section className="border-y-2 border-foreground bg-card">
+        <div className="site-container site-section">
+          <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="font-display text-[32px] leading-[1.15] sm:text-[44px]">
-                No public list. No totals. Nobody sees who gave what. The person never has to ask.
-              </p>
-              <p className="mt-8 max-w-[30rem] text-[16px] leading-[1.6] opacity-75">
-                Gifts come directly from independent makers, trusted retailers, and friends of Good Chapter. No platform fees. Never marked up above retail.
-              </p>
+              <Paren className="text-emphasis">Maya's first place</Paren>
+              <h2 className="mt-4 font-display text-[clamp(44px,8vw,112px)] leading-[0.95]">Real objects.</h2>
             </div>
-            <div className="text-foreground"><WaitlistForm pilot /></div>
+            <Link to="/catalog" className="eyebrow underline underline-offset-[6px] hover:text-primary">( See all eight )</Link>
           </div>
+          <div className="mt-12 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+            {featured.map((p) => (
+              <article key={p.id} className="min-w-0">
+                <img src={p.photo} alt={p.name} loading="lazy" width={600} height={450} className="aspect-[4/5] w-full rounded-[4px] border-2 border-foreground object-cover" />
+                <p className="eyebrow mt-4 text-muted-foreground">{p.brand} · ${p.price} · Sample</p>
+                <h3 className="mt-2 font-display text-[26px] leading-[1.1]">{p.name}</h3>
+                <p className="mt-2 text-[17px] leading-[1.5] text-muted-foreground">{p.reason}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why. */}
+      <section className="site-container site-section">
+        <Paren className="text-emphasis">Why we exist</Paren>
+        <p className="mt-6 max-w-[24ch] font-display text-[clamp(32px,4.6vw,64px)] leading-[1.08]">
+          The registry was built for a woman leaving her father’s house for her husband’s. <span className="text-emphasis">We built one for everything else she does.</span>
+        </p>
+        <Link to="/history" className="eyebrow mt-10 inline-block underline underline-offset-[6px] hover:text-primary">( Read the history )</Link>
+      </section>
+
+      {/* Closing. */}
+      <section id="invite" className="scroll-mt-24 bg-foreground text-background">
+        <div className="site-container grid gap-12 py-20 md:grid-cols-2 md:gap-16 md:py-28">
+          <div>
+            <Paren className="text-background/70">Private pilot</Paren>
+            <h2 className="mt-4 font-display text-[clamp(64px,12vw,176px)] leading-[0.9]">Start<br />one.</h2>
+            <p className="mt-6 max-w-[28ch] text-[17px] leading-[1.6] text-background/80">Nothing is for sale yet. Tell us who you are and we will write when the first circle opens.</p>
+          </div>
+          <div className="text-foreground"><WaitlistForm pilot /></div>
         </div>
       </section>
     </SiteShell>
