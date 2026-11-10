@@ -37,24 +37,24 @@ const display = "font-display font-normal tracking-[-0.01em]";
 function FrontDoor() {
   return (
     <SiteShell pilot>
-      <section className="bg-primary text-primary-foreground">
+      <section className="border-b-[1.5px] border-foreground">
         <div className="site-container grid items-end gap-10 py-14 md:grid-cols-[minmax(0,1fr)_auto] md:gap-14 md:py-24">
           <div>
             <p className="eyebrow">Since 1924, nobody asks.</p>
-            <h1 className={`${display} mt-7 max-w-5xl text-[42px] lowercase leading-[1.03] sm:text-[60px] lg:text-[84px]`}>
+            <h1 className={`${display} mt-7 max-w-5xl text-[42px] lowercase leading-[1.1] sm:text-[60px] lg:text-[84px]`}>
               You shouldn’t have to get married to get a{" "}
-              <span aria-hidden="true" className="mx-[0.03em] inline-block rounded-[2px] bg-background px-[0.14em] pb-[0.09em] pt-[0.02em] leading-none text-emphasis">f$%#ng</span>
+              <span aria-hidden="true" className="mx-[0.03em] inline-block rounded-[2px] bg-primary px-[0.14em] pb-[0.09em] pt-[0.02em] leading-none text-primary-foreground">f$%#ng</span>
               <span className="sr-only">fucking</span> toaster.
             </h1>
             <p className="mt-7 max-w-[34rem] text-[19px] leading-[1.45] sm:text-[21px]">
               When a friend steps into a big chapter, start it for them. They privately keep what fits. Their people fill the house.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
-              <a href="#invite" data-slot="button" className="inline-flex min-h-[52px] items-center rounded-[4px] bg-background px-6 py-3.5 text-[16px] text-primary hover:bg-foreground hover:text-background">Request an invitation</a>
-              <Link to="/first-place" className="inline-flex min-h-11 items-center text-[18px] underline underline-offset-[6px]">See Maya’s chapter</Link>
+              <a href="#invite" data-slot="button" className="inline-flex min-h-[52px] items-center rounded-[4px] bg-primary px-6 py-3.5 text-[16px] text-primary-foreground hover:bg-foreground hover:text-background">Request an invitation</a>
+              <Link to="/first-place" className="inline-flex min-h-11 items-center text-[18px] underline underline-offset-[6px] hover:text-primary">See Maya’s chapter</Link>
             </div>
           </div>
-          <img src="/brand/door-paper.png" alt="" aria-hidden="true" width={786} height={732} fetchPriority="high" className="hidden h-auto w-[220px] md:block lg:w-[300px]" />
+          <img src="/brand/door-burgundy.png" alt="" aria-hidden="true" width={786} height={732} fetchPriority="high" className="hidden h-auto w-[220px] md:block lg:w-[300px]" />
         </div>
       </section>
 
