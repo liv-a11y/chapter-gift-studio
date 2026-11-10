@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site/site-shell";
 import { ToasterLine } from "@/components/site/illustration";
@@ -40,23 +41,31 @@ function Paren({ children, className = "" }: { children: React.ReactNode; classN
 }
 
 function Mockup() {
+  const [pulled, setPulled] = useState(false);
   return (
     <SiteShell pilot>
+      <div className="overflow-x-clip">
       {/* Hero: the wordmark is the headline. A key hangs over it. Drag it. */}
-      <div className="relative text-primary">
-        <HangingCard className="left-[89%] top-0 md:left-[58%]" hole={{ x: 60, y: 34 }} rope={210} tilt={16} bounce={0.35}>
+      <div className="relative text-foreground">
+        <HangingCard className="left-[91%] top-0 md:left-[94.5%]" hole={{ x: 60, y: 34 }} rope={290} tilt={16} bounce={0.35} onGrab={() => setPulled(true)}>
           <KeyShape />
+          <div
+            className="eyebrow absolute hidden h-10 w-[214px] items-center whitespace-nowrap rounded-[4px] border-2 border-foreground bg-card pl-3 text-foreground sm:flex"
+            style={{ left: 60 - 198, top: 34 - 20, transformOrigin: "198px 20px", transform: "rotate(-40deg)" }}
+          >
+            Maya just got the keys
+          </div>
         </HangingCard>
       </div>
       <section className="site-container pt-10 md:pt-16">
         <div className="flex flex-wrap items-baseline justify-between gap-3">
           <Paren className="text-emphasis">The anti-registry</Paren>
-          <span className="eyebrow text-muted-foreground">Everything since 1924</span>
+          <span className={`eyebrow mr-14 text-muted-foreground transition-opacity duration-500 motion-reduce:hidden ${pulled ? "opacity-0" : ""}`} aria-hidden="true">( Go on, pull it )</span>
         </div>
         <h1 className="mt-4 font-display text-[clamp(56px,15.5vw,232px)] leading-[0.9] tracking-[-0.03em]">Good Chapter</h1>
-        <div className="mt-6 flex flex-wrap items-end justify-between gap-6 pb-8 md:pb-10">
-          <p className="max-w-[26ch] font-display text-[26px] leading-[1.15] sm:text-[32px]">A friend starts it. The person approves it. Nobody asks.</p>
-          <a href="#invite" className="eyebrow underline underline-offset-[6px] hover:text-primary">( Request an invitation )</a>
+        <div className="mt-6 pb-8 md:pb-10">
+          <p className="max-w-[18ch] font-display text-[26px] leading-[1.15] sm:max-w-[26ch] sm:text-[32px]">A friend starts it. The person approves it. Nobody asks.</p>
+          <a href="#invite" className="eyebrow mt-6 inline-block text-primary underline underline-offset-[6px] hover:text-foreground">( Request an invitation )</a>
         </div>
       </section>
       <img
@@ -142,6 +151,7 @@ function Mockup() {
           <div className="text-foreground"><WaitlistForm pilot /></div>
         </div>
       </section>
+      </div>
     </SiteShell>
   );
 }

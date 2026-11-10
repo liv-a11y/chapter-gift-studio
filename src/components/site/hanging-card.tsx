@@ -12,6 +12,8 @@ type Props = {
   bounce?: number;
   /** Resting tilt in degrees, for objects that hang off-center. */
   tilt?: number;
+  /** Called the first time someone grabs it. */
+  onGrab?: () => void;
   /** Positions the anchor point. The anchor itself has no size. */
   className?: string;
 };
@@ -20,7 +22,9 @@ type Props = {
  * Hangs its child from a rope and lets people drag and fling it.
  * Decorative: hidden from assistive tech, static under reduced motion.
  */
-export function HangingCard({ children, hole, rope = 200, thickness = 3, bounce = 0.5, tilt = 0, className = "" }: Props) {
+export function HangingCard({ children, hole, rope = 200, thickness = 3, bounce = 0.5, tilt = 0, onGrab, className = "" }: Props) {
+  const onGrabRef = useRef(onGrab);
+  onGrabRef.current = onGrab;
   const anchorRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const scaleRef = useRef<HTMLDivElement>(null);
@@ -38,7 +42,7 @@ export function HangingCard({ children, hole, rope = 200, thickness = 3, bounce 
     let length = rope;
     const measure = () => {
       const w = window.innerWidth;
-      scale = w < 640 ? 0.5 : w < 1024 ? 0.75 : 1;
+      scale = Math.min(1, Math.max(0.55, w / 1280));
       length = rope * scale;
       scaler.style.transform = `scale(${scale})`;
     };
@@ -80,6 +84,17 @@ export function HangingCard({ children, hole, rope = 200, thickness = 3, bounce 
       vel.y += (ay - vel.y * drag) * dt;
       pos.x += vel.x * dt;
       pos.y += vel.y * dt;
+      // Never let a hard throw carry it up past the anchor.
+      const floor = length * 0.25;
+      if (pos.y < floor) {
+        pos.y = floor;
+        vel.y = Math.abs(vel.y) * 0.2;
+      }
+      const reach = length * 1.8;
+      if (Math.abs(pos.x) > reach) {
+        pos.x = Math.sign(pos.x) * reach;
+        vel.x *= -0.2;
+      }
     };
 
     const tick = (now: number) => {
@@ -108,6 +123,7 @@ export function HangingCard({ children, hole, rope = 200, thickness = 3, bounce 
       if (still) return;
       const p = local(e);
       dragging = true;
+      onGrabRef.current?.();
       grab.x = p.x - pos.x;
       grab.y = p.y - pos.y;
       lastMove = performance.now();
