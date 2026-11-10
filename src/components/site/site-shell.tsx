@@ -14,8 +14,9 @@ const links = [
 
 export function BrandMark({ inverse = false }: { inverse?: boolean }) {
   return (
-    <span className={inverse ? "text-background" : "text-foreground"}>
-      Good Chapter Co<span className="text-coral">.</span>
+    <span className="relative mt-2 block w-[124px] sm:w-[148px]">
+      <img src={inverse ? "/brand/wordmark-paper.png" : "/brand/wordmark-burgundy.png"} alt="good chapter co." width={1554} height={630} className="block h-auto w-full" />
+      <img src={inverse ? "/brand/tag-paper.png" : "/brand/tag-clay.png"} alt="" aria-hidden="true" width={965} height={1188} className="absolute left-[75%] top-[-20%] h-auto w-[24%] [transform:rotate(-9deg)_scaleX(-1)]" />
     </span>
   );
 }
@@ -24,12 +25,12 @@ export function SiteShell({ children, pilot = false }: { children: ReactNode; pi
   const [open, setOpen] = useState(false);
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-50 border-b-2 border-foreground bg-background">
+      <header className="sticky top-0 z-50 border-b-[1.5px] border-foreground bg-background">
         <div className="site-container flex min-h-20 items-center gap-2 py-3 sm:gap-4">
           <Link to="/" className="shrink-0 font-display text-xl sm:text-2xl" aria-label="Good Chapter Co. home">
             <BrandMark />
           </Link>
-          {pilot ? <span className="eyebrow ml-auto text-emphasis">Private pilot</span> : <><nav className="ml-auto hidden items-center gap-7 lg:flex" aria-label="Main navigation">
+          {pilot ? <><span className="eyebrow ml-auto hidden sm:inline">Private pilot</span><Button asChild size="sm" className="ml-auto px-4 text-[13px] sm:ml-5 sm:h-11 sm:px-5 sm:text-sm"><Link to="/" hash="invite">Request an invitation</Link></Button></> : <><nav className="ml-auto hidden items-center gap-7 lg:flex" aria-label="Main navigation">
             {links.map((link) => "hash" in link ? (
               <Link key={link.label} to={link.to} hash={link.hash} className="text-[15px] font-medium transition-colors duration-175 hover:text-primary">
                 {link.label}
