@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site/site-shell";
 import { ToasterLine } from "@/components/site/illustration";
 import { WaitlistForm } from "@/components/site/waitlist-form";
+import { HangingCard, KeyShape } from "@/components/site/hanging-card";
 import { sampleProducts } from "@/lib/sample-products";
 import livingScene from "@/assets/scene-living-dining.png.asset.json";
 
@@ -41,7 +42,12 @@ function Paren({ children, className = "" }: { children: React.ReactNode; classN
 function Mockup() {
   return (
     <SiteShell pilot>
-      {/* Hero: the wordmark is the headline. */}
+      {/* Hero: the wordmark is the headline. A key hangs over it. Drag it. */}
+      <div className="relative text-primary">
+        <HangingCard className="left-[89%] top-0 md:left-[58%]" hole={{ x: 60, y: 34 }} rope={210} tilt={16} bounce={0.35}>
+          <KeyShape />
+        </HangingCard>
+      </div>
       <section className="site-container pt-10 md:pt-16">
         <div className="flex flex-wrap items-baseline justify-between gap-3">
           <Paren className="text-emphasis">The anti-registry</Paren>
