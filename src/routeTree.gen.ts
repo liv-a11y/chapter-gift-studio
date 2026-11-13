@@ -28,6 +28,7 @@ import { Route as ReadRouteImport } from './routes/read'
 import { Route as SampleRouteImport } from './routes/sample'
 import { Route as StoryRouteImport } from './routes/story'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as GuestTokenRouteImport } from './routes/guest_.$token'
 import { Route as JournalHowToShowUpWithoutBeingWeirdRouteImport } from './routes/journal.how-to-show-up-without-being-weird'
 import { Route as JournalVulnerabilityTaxRouteImport } from './routes/journal.vulnerability-tax'
 import { Route as PartnersIndexRouteImport } from './routes/partners.index'
@@ -134,6 +135,11 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuestTokenRoute = GuestTokenRouteImport.update({
+  id: '/guest_/$token',
+  path: '/guest/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const JournalHowToShowUpWithoutBeingWeirdRoute =
   JournalHowToShowUpWithoutBeingWeirdRouteImport.update({
     id: '/journal/how-to-show-up-without-being-weird',
@@ -208,6 +214,7 @@ export interface FileRoutesByFullPath {
   '/sample': typeof SampleRoute
   '/story': typeof StoryRoute
   '/terms': typeof TermsRoute
+  '/guest/$token': typeof GuestTokenRoute
   '/journal/how-to-show-up-without-being-weird': typeof JournalHowToShowUpWithoutBeingWeirdRoute
   '/journal/vulnerability-tax': typeof JournalVulnerabilityTaxRoute
   '/partners/brands': typeof PartnersBrandsRoute
@@ -238,6 +245,7 @@ export interface FileRoutesByTo {
   '/sample': typeof SampleRoute
   '/story': typeof StoryRoute
   '/terms': typeof TermsRoute
+  '/guest/$token': typeof GuestTokenRoute
   '/journal/how-to-show-up-without-being-weird': typeof JournalHowToShowUpWithoutBeingWeirdRoute
   '/journal/vulnerability-tax': typeof JournalVulnerabilityTaxRoute
   '/partners/brands': typeof PartnersBrandsRoute
@@ -270,6 +278,7 @@ export interface FileRoutesById {
   '/sample': typeof SampleRoute
   '/story': typeof StoryRoute
   '/terms': typeof TermsRoute
+  '/guest_/$token': typeof GuestTokenRoute
   '/journal/how-to-show-up-without-being-weird': typeof JournalHowToShowUpWithoutBeingWeirdRoute
   '/journal/vulnerability-tax': typeof JournalVulnerabilityTaxRoute
   '/partners/brands': typeof PartnersBrandsRoute
@@ -303,6 +312,7 @@ export interface FileRouteTypes {
     | '/sample'
     | '/story'
     | '/terms'
+    | '/guest/$token'
     | '/journal/how-to-show-up-without-being-weird'
     | '/journal/vulnerability-tax'
     | '/partners/brands'
@@ -333,6 +343,7 @@ export interface FileRouteTypes {
     | '/sample'
     | '/story'
     | '/terms'
+    | '/guest/$token'
     | '/journal/how-to-show-up-without-being-weird'
     | '/journal/vulnerability-tax'
     | '/partners/brands'
@@ -364,6 +375,7 @@ export interface FileRouteTypes {
     | '/sample'
     | '/story'
     | '/terms'
+    | '/guest_/$token'
     | '/journal/how-to-show-up-without-being-weird'
     | '/journal/vulnerability-tax'
     | '/partners/brands'
@@ -396,6 +408,7 @@ export interface RootRouteChildren {
   SampleRoute: typeof SampleRoute
   StoryRoute: typeof StoryRoute
   TermsRoute: typeof TermsRoute
+  GuestTokenRoute: typeof GuestTokenRoute
   JournalHowToShowUpWithoutBeingWeirdRoute: typeof JournalHowToShowUpWithoutBeingWeirdRoute
   JournalVulnerabilityTaxRoute: typeof JournalVulnerabilityTaxRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
@@ -536,6 +549,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guest_/$token': {
+      id: '/guest_/$token'
+      path: '/guest/$token'
+      fullPath: '/guest/$token'
+      preLoaderRoute: typeof GuestTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/journal/how-to-show-up-without-being-weird': {
       id: '/journal/how-to-show-up-without-being-weird'
       path: '/journal/how-to-show-up-without-being-weird'
@@ -653,6 +673,7 @@ const rootRouteChildren: RootRouteChildren = {
   SampleRoute: SampleRoute,
   StoryRoute: StoryRoute,
   TermsRoute: TermsRoute,
+  GuestTokenRoute: GuestTokenRoute,
   JournalHowToShowUpWithoutBeingWeirdRoute:
     JournalHowToShowUpWithoutBeingWeirdRoute,
   JournalVulnerabilityTaxRoute: JournalVulnerabilityTaxRoute,

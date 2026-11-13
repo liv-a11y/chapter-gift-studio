@@ -14,6 +14,161 @@ export type Database = {
   }
   public: {
     Tables: {
+      chapter_claims: {
+        Row: {
+          chapter_id: string
+          claimed_at: string
+          display_name: string
+          guest_id: string
+          id: string
+          item_id: string
+        }
+        Insert: {
+          chapter_id: string
+          claimed_at?: string
+          display_name?: string
+          guest_id: string
+          id?: string
+          item_id: string
+        }
+        Update: {
+          chapter_id?: string
+          claimed_at?: string
+          display_name?: string
+          guest_id?: string
+          id?: string
+          item_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chapter_claims_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "chapters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "chapter_claims_guest_id_fkey"
+            columns: ["guest_id"]
+            isOneToOne: false
+            referencedRelation: "chapter_guests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "chapter_claims_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: true
+            referencedRelation: "chapter_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      chapter_guests: {
+        Row: {
+          chapter_id: string
+          created_at: string
+          guest_token: string
+          id: string
+        }
+        Insert: {
+          chapter_id: string
+          created_at?: string
+          guest_token: string
+          id?: string
+        }
+        Update: {
+          chapter_id?: string
+          created_at?: string
+          guest_token?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chapter_guests_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "chapters"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      chapter_items: {
+        Row: {
+          chapter_id: string
+          id: string
+          name: string
+          photo_url: string | null
+          position: number
+          price: number | null
+          source: string | null
+          source_url: string | null
+          status: string
+          why: string | null
+        }
+        Insert: {
+          chapter_id: string
+          id?: string
+          name: string
+          photo_url?: string | null
+          position?: number
+          price?: number | null
+          source?: string | null
+          source_url?: string | null
+          status?: string
+          why?: string | null
+        }
+        Update: {
+          chapter_id?: string
+          id?: string
+          name?: string
+          photo_url?: string | null
+          position?: number
+          price?: number | null
+          source?: string | null
+          source_url?: string | null
+          status?: string
+          why?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chapter_items_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "chapters"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      chapters: {
+        Row: {
+          chapter_type: string
+          created_at: string
+          id: string
+          person_decision: string
+          starter_name: string
+          state: string
+          title: string
+        }
+        Insert: {
+          chapter_type?: string
+          created_at?: string
+          id?: string
+          person_decision?: string
+          starter_name?: string
+          state?: string
+          title: string
+        }
+        Update: {
+          chapter_type?: string
+          created_at?: string
+          id?: string
+          person_decision?: string
+          starter_name?: string
+          state?: string
+          title?: string
+        }
+        Relationships: []
+      }
       waitlist_signups: {
         Row: {
           chapter: string | null
