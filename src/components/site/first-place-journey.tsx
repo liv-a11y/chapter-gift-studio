@@ -123,62 +123,95 @@ export function FirstPlaceJourney({ initialStep = 0 }: { initialStep?: number })
   );
 }
 
+type Claim = { from: string; mine: boolean };
+
 function GuestStep({ items, claimed, onClaim, onRestart }: { items: Product[]; claimed: string[]; onClaim: (id: string) => void; onRestart: () => void }) {
-  const [pick, setPick] = useState<Product | null>(null);
-  const [note, setNote] = useState("");
-  const [done, setDone] = useState(false);
-
-  if (done && pick) {
-    return (
-      <Scene eyebrow="Held for you" title={`The ${pick.name.toLowerCase()} is yours to give.`}>
-        <div className="mt-6 rounded-[4px] bg-card p-6">
-          <p className={label}>Your slip</p>
-          <ul className="mt-4 grid gap-2 text-[16px]">
-            <li>Object. {pick.name}</li>
-            <li>Shop anywhere. Retailer options are only suggestions.</li>
-            <li>Note. {note.trim() ? "Saved for Maya" : "None, that is fine"}</li>
-            <li>Nobody else can claim it now.</li>
-          </ul>
-        </div>
-        <p className="mt-6">Concierge status. Waiting on delivery. We will mark it arrived when Maya says so.</p>
-        <button className={`${ghost} mt-8`} onClick={onRestart}>Start the sample again</button>
-      </Scene>
-    );
-  }
-
-  if (pick) {
-    return (
-      <Scene eyebrow="05 A guest gives" title={`Why the ${pick.name.toLowerCase()}.`}>
-        <ProductRow p={pick} />
-        <label className="mt-6 block">
-          <span className={label}>A note for Maya, optional</span>
-          <textarea value={note} onChange={(e) => setNote(e.target.value)} maxLength={280} rows={3} className="mt-2 w-full rounded-[4px] border-2 border-foreground bg-card p-3" />
-        </label>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <button className={btn} onClick={() => { onClaim(pick.id); setDone(true); }}>Hold this one</button>
-          <button className={ghost} onClick={() => setPick(null)}>Back</button>
-        </div>
-      </Scene>
-    );
-  }
+  const [mine, setMine] = useState<Record<string, Claim>>({});
+  const [openId, setOpenId] = useState<string | null>(null);
+  const myIds = Object.keys(mine);
 
   return (
-    <Scene eyebrow="05 A guest gives" title="Pick one thing. That is the whole ask.">
+    <Scene eyebrow="05 A guest gives" title="Maya's chapter. Take the one you would most like to give.">
+      <p className="max-w-[46ch] text-muted-foreground">Eight things Maya read through and said yes to. Buy it wherever you like. Nothing here is a request for money.</p>
       {items.length === 0 ? (
-        <p className="mt-6">Maya has not approved anything yet. Check back soon.</p>
+        <p className="mt-6 rounded-[4px] bg-card p-5">There is nothing to give from this chapter yet. Your link will work once Maya says yes.</p>
       ) : (
-        <div className="mt-6 grid gap-3">
-          {items.map((p) => {
-            const taken = claimed.includes(p.id);
-            return (
-              <button key={p.id} disabled={taken} onClick={() => setPick(p)} className="text-left disabled:opacity-50">
-                <ProductRow p={p} note={taken ? "Already held" : undefined} />
-              </button>
-            );
-          })}
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          {items.map((p, i) => (
+            <GuestCard
+              key={p.id}
+              p={p}
+              index={i}
+              claim={mine[p.id] ?? (claimed.includes(p.id) ? { from: "Someone who cares", mine: false } : undefined)}
+              asking={openId === p.id}
+              onAsk={() => setOpenId(p.id)}
+              onCancel={() => setOpenId(null)}
+              onTake={(from) => { onClaim(p.id); setMine({ ...mine, [p.id]: { from, mine: true } }); setOpenId(null); }}
+            />
+          ))}
         </div>
       )}
+      {myIds.length > 0 && (
+        <div className="mt-8 rounded-[4px] bg-card p-6">
+          <p className={label}>Your slip</p>
+          <ul className="mt-3 grid gap-1 text-[16px]">
+            {myIds.map((id) => <li key={id}>{items.find((p) => p.id === id)?.name}. From {mine[id]?.from}.</li>)}
+            <li>Nobody else can take it now.</li>
+            <li>Concierge status. Waiting on delivery. We mark it arrived when Maya says so.</li>
+          </ul>
+        </div>
+      )}
+      <p className={`${label} mt-8 text-muted-foreground`}>A friend started this. Maya approved every item here.</p>
+      <button className={`${ghost} mt-6`} onClick={onRestart}>Start the sample again</button>
     </Scene>
+  );
+}
+
+function GuestCard({ p, index, claim, asking, onAsk, onCancel, onTake }: { p: Product; index: number; claim: Claim | undefined; asking: boolean; onAsk: () => void; onCancel: () => void; onTake: (from: string) => void }) {
+  const [name, setName] = useState("");
+  const [anon, setAnon] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const take = () => {
+    setSaving(true);
+    window.setTimeout(() => { setSaving(false); onTake(anon || !name.trim() ? "Someone who cares" : name.trim()); }, 400);
+  };
+  return (
+    <article className="flex flex-col overflow-hidden rounded-[4px] bg-card">
+      <img src={p.photo} alt={p.name} className="aspect-[4/3] w-full object-cover" />
+      <div className="flex flex-1 flex-col p-5">
+        <p className={`${label} text-muted-foreground`}>{String(index + 1).padStart(2, "0")}</p>
+        <h2 className="mt-1 font-display text-2xl leading-tight">{p.name}</h2>
+        <p className="mt-2 text-[16px] leading-snug">{p.reason}</p>
+        <div className="mt-3 flex items-baseline justify-between gap-3 text-[15px]">
+          <span className="text-muted-foreground">Available from any {p.brand.toLowerCase()} shop</span>
+          <span className="font-medium">${p.price}</span>
+        </div>
+        <div className="mt-auto pt-4">
+          {claim ? (
+            <div className="border-t border-border pt-4">
+              <p className={`${label} ${claim.mine ? "text-primary" : "text-muted-foreground"}`}>{claim.mine ? "Yours to give" : "Taken"}</p>
+              {claim.mine && <p className="mt-1 text-[16px]">From {claim.from}</p>}
+            </div>
+          ) : asking ? (
+            <div className="border-t border-border pt-4">
+              <label className={`${label} block`} htmlFor={`from-${p.id}`}>Who it is from</label>
+              {anon ? (
+                <p className="mt-2 rounded-[4px] border-2 border-foreground bg-background px-3 py-2 text-muted-foreground">Someone who cares</p>
+              ) : (
+                <input id={`from-${p.id}`} value={name} maxLength={60} placeholder="The Jones family" onChange={(e) => setName(e.target.value)} className="mt-2 w-full rounded-[4px] border-2 border-foreground bg-background px-3 py-2" />
+              )}
+              <button type="button" className={`${label} mt-3 underline underline-offset-4`} onClick={() => setAnon(!anon)}>{anon ? "Use a name instead" : "Give it without my name"}</button>
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                <button type="button" disabled={saving} className={btn} onClick={take}>{saving ? "Saving" : "Take it"}</button>
+                <button type="button" className={`${label} px-2 py-2 text-muted-foreground`} onClick={onCancel}>Never mind</button>
+              </div>
+            </div>
+          ) : (
+            <button type="button" className={`${ghost} w-full`} onClick={onAsk}>Take this one</button>
+          )}
+        </div>
+      </div>
+    </article>
   );
 }
 
