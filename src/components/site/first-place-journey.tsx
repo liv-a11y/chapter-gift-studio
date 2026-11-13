@@ -119,13 +119,13 @@ export function FirstPlaceJourney({ initialStep = 0 }: { initialStep?: number })
       </section>
 
       <footer className="site-container border-t-2 border-foreground py-8 text-[14px] text-muted-foreground">
-        A sample chapter. Prices and objects are illustrative. Good Chapter, Co. never takes payment here, and retailers listed are retailer options, not partners.
+        A sample chapter. Prices and objects are illustrative. Checkout runs on the Good Chapter shop, and retailers listed are retailer options, not partners.
       </footer>
     </main>
   );
 }
 
-type Claim = { from: string; mine: boolean; amount?: number | undefined };
+type Claim = { from: string; mine: boolean; amount?: number | undefined; note?: string | undefined };
 
 function GuestStep({ items, claimed, onClaim, onRestart }: { items: Product[]; claimed: string[]; onClaim: (id: string) => void; onRestart: () => void }) {
   const [mine, setMine] = useState<Record<string, Claim>>({});
@@ -150,11 +150,11 @@ function GuestStep({ items, claimed, onClaim, onRestart }: { items: Product[]; c
               asking={openId === p.id}
               onAsk={() => setOpenId(p.id)}
               onCancel={() => setOpenId(null)}
-              onTake={(from, amount) => {
+              onTake={(from, amount, note) => {
                 const total = amount ? (gathered[p.id] ?? 0) + amount : p.price;
                 if (!amount || total >= p.price) onClaim(p.id);
                 if (amount) setGathered({ ...gathered, [p.id]: total });
-                setMine({ ...mine, [p.id]: { from, mine: true, amount } });
+                setMine({ ...mine, [p.id]: { from, mine: true, amount, note } });
                 setOpenId(null);
               }}
             />
@@ -168,7 +168,7 @@ function GuestStep({ items, claimed, onClaim, onRestart }: { items: Product[]; c
             {myIds.map((id) => {
               const c = mine[id];
               const name = items.find((p) => p.id === id)?.name;
-              return <li key={id}>{c?.amount ? `$${c.amount} toward the ${name?.toLowerCase()}` : name}. From {c?.from}.</li>;
+              return <li key={id}>{c?.amount ? `$${c.amount} toward the ${name?.toLowerCase()}` : name}. From {c?.from}.{c?.note ? ` “${c.note}”` : ""}</li>;
             })}
             <li>Nobody else can take what is yours.</li>
             <li>Concierge status. Waiting on delivery. We mark it arrived when Maya says so.</li>
@@ -181,8 +181,9 @@ function GuestStep({ items, claimed, onClaim, onRestart }: { items: Product[]; c
   );
 }
 
-function GuestCard({ p, index, gathered, claim, asking, onAsk, onCancel, onTake }: { p: Product; index: number; gathered: number; claim: Claim | undefined; asking: boolean; onAsk: () => void; onCancel: () => void; onTake: (from: string, amount?: number) => void }) {
+function GuestCard({ p, index, gathered, claim, asking, onAsk, onCancel, onTake }: { p: Product; index: number; gathered: number; claim: Claim | undefined; asking: boolean; onAsk: () => void; onCancel: () => void; onTake: (from: string, amount?: number, note?: string) => void }) {
   const [name, setName] = useState("");
+  const [note, setNote] = useState("");
   const [anon, setAnon] = useState(false);
   const [saving, setSaving] = useState(false);
   const shareable = isShareable(p.price);
@@ -194,7 +195,7 @@ function GuestCard({ p, index, gathered, claim, asking, onAsk, onCancel, onTake 
   const canTake = mode === "whole" ? gathered === 0 : portion !== null;
   const take = () => {
     setSaving(true);
-    window.setTimeout(() => { setSaving(false); onTake(anon || !name.trim() ? "Someone who cares" : name.trim(), mode === "portion" ? portion ?? undefined : undefined); }, 400);
+    window.setTimeout(() => { setSaving(false); onTake(anon || !name.trim() ? "Someone who cares" : name.trim(), mode === "portion" ? portion ?? undefined : undefined, note.trim() || undefined); }, 400);
   };
   const chip = (n: number, text: string) => (
     <button key={text} type="button" aria-pressed={amount === n} onClick={() => { setAmount(n); setCustom(""); }}
@@ -217,13 +218,15 @@ function GuestCard({ p, index, gathered, claim, asking, onAsk, onCancel, onTake 
             <div className="border-t border-border pt-4">
               <p className={`${label} ${claim.mine ? "text-primary" : "text-muted-foreground"}`}>{claim.mine ? "Yours to give" : shareable && gathered >= p.price ? "Gathered together" : "Taken"}</p>
               {claim.mine && <p className="mt-1 text-[16px]">From {claim.from}</p>}
-              {claim.mine && <BuyButton id={p.id} />}
+              {claim.mine && claim.note && <p className="mt-1 text-[16px] text-muted-foreground">“{claim.note}”</p>}
+              {claim.mine && <BuyButton id={p.id} note={claim.note} from={claim.from} />}
             </div>
           ) : claim?.mine && claim.amount ? (
             <div className="border-t border-border pt-4">
               <p className={`${label} text-primary`}>{left === 0 ? "Gathered together" : "Your portion is held"}</p>
               <p className="mt-1 text-[16px]">${claim.amount} from {claim.from}</p>
-              <BuyButton id={p.id} amount={claim.amount} giftName={p.name} />
+              {claim.note && <p className="mt-1 text-[16px] text-muted-foreground">“{claim.note}”</p>}
+              <BuyButton id={p.id} amount={claim.amount} giftName={p.name} note={claim.note} from={claim.from} />
             </div>
           ) : asking ? (
             <div className="border-t border-border pt-4">
@@ -251,6 +254,8 @@ function GuestCard({ p, index, gathered, claim, asking, onAsk, onCancel, onTake 
                 <input id={`from-${p.id}`} value={name} maxLength={60} placeholder="The Jones family" onChange={(e) => setName(e.target.value)} className="mt-2 w-full rounded-[4px] border-2 border-foreground bg-background px-3 py-2" />
               )}
               <button type="button" className={`${label} mt-3 underline underline-offset-4`} onClick={() => setAnon(!anon)}>{anon ? "Use a name instead" : "Give it without my name"}</button>
+              <label className={`${label} mt-4 block`} htmlFor={`note-${p.id}`}>A line for Maya, if you like</label>
+              <textarea id={`note-${p.id}`} value={note} maxLength={200} rows={2} placeholder={mode === "portion" ? `Wanted to help with the ${p.name.toLowerCase()}.` : "For your first morning in."} onChange={(e) => setNote(e.target.value)} className="mt-2 w-full rounded-[4px] border-2 border-foreground bg-background px-3 py-2" />
               <div className="mt-4 flex flex-wrap items-center gap-3">
                 <button type="button" disabled={saving || !canTake} className={`${btn} disabled:opacity-50`} onClick={take}>{saving ? "Saving" : mode === "portion" ? (portion ? `Hold my $${portion}` : "Choose an amount") : "Take it"}</button>
                 <button type="button" className={`${label} px-2 py-2 text-muted-foreground`} onClick={onCancel}>Never mind</button>
@@ -265,7 +270,7 @@ function GuestCard({ p, index, gathered, claim, asking, onAsk, onCancel, onTake 
   );
 }
 
-function BuyButton({ id, amount, giftName }: { id: string; amount?: number; giftName?: string }) {
+function BuyButton({ id, amount, giftName, note, from }: { id: string; amount?: number; giftName?: string | undefined; note?: string | undefined; from?: string | undefined }) {
   const [state, setState] = useState<"idle" | "loading" | "error">("idle");
   const variant = amount ? SHARE_VARIANT : shopifyVariants[id];
   if (!variant) return null;
@@ -273,7 +278,7 @@ function BuyButton({ id, amount, giftName }: { id: string; amount?: number; gift
     setState("loading");
     const tab = window.open("", "_blank");
     try {
-      const url = await createGiftCheckout(variant, amount ?? 1, amount ? giftName : undefined);
+      const url = await createGiftCheckout(variant, amount ?? 1, amount ? giftName : undefined, note, from);
       if (tab) tab.location.href = url; else window.open(url, "_blank");
       setState("idle");
     } catch {

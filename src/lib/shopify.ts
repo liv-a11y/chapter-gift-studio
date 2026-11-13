@@ -19,11 +19,11 @@ export const SHARE_VARIANT = "gid://shopify/ProductVariant/51042813444161";
 
 const CART_CREATE = `mutation cartCreate($input: CartInput!) { cartCreate(input: $input) { cart { checkoutUrl } userErrors { message } } }`;
 
-export async function createGiftCheckout(variantId: string, quantity = 1, giftName?: string): Promise<string> {
+export async function createGiftCheckout(variantId: string, quantity = 1, giftName?: string, note?: string, from?: string): Promise<string> {
   const res = await fetch(SHOPIFY_STOREFRONT_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json", "X-Shopify-Storefront-Access-Token": SHOPIFY_STOREFRONT_TOKEN },
-    body: JSON.stringify({ query: CART_CREATE, variables: { input: { lines: [{ quantity, merchandiseId: variantId, attributes: giftName ? [{ key: "Toward", value: giftName }] : [] }] } } }),
+    body: JSON.stringify({ query: CART_CREATE, variables: { input: { lines: [{ quantity, merchandiseId: variantId, attributes: [...(giftName ? [{ key: "Toward", value: giftName }] : []), ...(from ? [{ key: "From", value: from }] : []), ...(note ? [{ key: "Note", value: note }] : [])] }], ...(note ? { note } : {}) } } }),
   });
   if (!res.ok) throw new Error(`Shopify ${res.status}`);
   const json = await res.json();
