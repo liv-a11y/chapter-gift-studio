@@ -14,13 +14,16 @@ export const shopifyVariants: Record<string, string> = {
   lamp: "gid://shopify/ProductVariant/51042794012737",
 };
 
+// $1 "Chapter gift share". A $50 portion is quantity 50.
+export const SHARE_VARIANT = "gid://shopify/ProductVariant/51042813444161";
+
 const CART_CREATE = `mutation cartCreate($input: CartInput!) { cartCreate(input: $input) { cart { checkoutUrl } userErrors { message } } }`;
 
-export async function createGiftCheckout(variantId: string): Promise<string> {
+export async function createGiftCheckout(variantId: string, quantity = 1, giftName?: string): Promise<string> {
   const res = await fetch(SHOPIFY_STOREFRONT_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json", "X-Shopify-Storefront-Access-Token": SHOPIFY_STOREFRONT_TOKEN },
-    body: JSON.stringify({ query: CART_CREATE, variables: { input: { lines: [{ quantity: 1, merchandiseId: variantId }] } } }),
+    body: JSON.stringify({ query: CART_CREATE, variables: { input: { lines: [{ quantity, merchandiseId: variantId, attributes: giftName ? [{ key: "Toward", value: giftName }] : [] }] } } }),
   });
   if (!res.ok) throw new Error(`Shopify ${res.status}`);
   const json = await res.json();

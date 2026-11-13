@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { sampleProducts } from "@/lib/sample-products";
-import { createGiftCheckout, shopifyVariants } from "@/lib/shopify";
+import { createGiftCheckout, SHARE_VARIANT, shopifyVariants } from "@/lib/shopify";
+import { isShareable, portionOptions, remaining, validPortion } from "@/lib/gift-shares";
 
 // Shared sample journey for /first-place and the focused demo routes.
 const phases = ["Closing", "A friend starts it", "Maya approves it", "The invitation", "A guest gives"] as const;
@@ -124,16 +125,17 @@ export function FirstPlaceJourney({ initialStep = 0 }: { initialStep?: number })
   );
 }
 
-type Claim = { from: string; mine: boolean };
+type Claim = { from: string; mine: boolean; amount?: number | undefined };
 
 function GuestStep({ items, claimed, onClaim, onRestart }: { items: Product[]; claimed: string[]; onClaim: (id: string) => void; onRestart: () => void }) {
   const [mine, setMine] = useState<Record<string, Claim>>({});
+  const [gathered, setGathered] = useState<Record<string, number>>({ lamp: 120 });
   const [openId, setOpenId] = useState<string | null>(null);
   const myIds = Object.keys(mine);
 
   return (
     <Scene eyebrow="05 A guest gives" title="Maya's chapter. Take the one you would most like to give.">
-      <p className="max-w-[46ch] text-muted-foreground">Eight things Maya read through and said yes to. Buy it wherever you like. Nothing here is a request for money.</p>
+      <p className="max-w-[46ch] text-muted-foreground">Give one thing on your own. On the bigger pieces, you can chip in a portion with others. Nothing here is a request for money.</p>
       {items.length === 0 ? (
         <p className="mt-6 rounded-[4px] bg-card p-5">There is nothing to give from this chapter yet. Your link will work once Maya says yes.</p>
       ) : (
@@ -143,11 +145,18 @@ function GuestStep({ items, claimed, onClaim, onRestart }: { items: Product[]; c
               key={p.id}
               p={p}
               index={i}
+              gathered={gathered[p.id] ?? 0}
               claim={mine[p.id] ?? (claimed.includes(p.id) ? { from: "Someone who cares", mine: false } : undefined)}
               asking={openId === p.id}
               onAsk={() => setOpenId(p.id)}
               onCancel={() => setOpenId(null)}
-              onTake={(from) => { onClaim(p.id); setMine({ ...mine, [p.id]: { from, mine: true } }); setOpenId(null); }}
+              onTake={(from, amount) => {
+                const total = amount ? (gathered[p.id] ?? 0) + amount : p.price;
+                if (!amount || total >= p.price) onClaim(p.id);
+                if (amount) setGathered({ ...gathered, [p.id]: total });
+                setMine({ ...mine, [p.id]: { from, mine: true, amount } });
+                setOpenId(null);
+              }}
             />
           ))}
         </div>
@@ -156,8 +165,12 @@ function GuestStep({ items, claimed, onClaim, onRestart }: { items: Product[]; c
         <div className="mt-8 rounded-[4px] bg-card p-6">
           <p className={label}>Your slip</p>
           <ul className="mt-3 grid gap-1 text-[16px]">
-            {myIds.map((id) => <li key={id}>{items.find((p) => p.id === id)?.name}. From {mine[id]?.from}.</li>)}
-            <li>Nobody else can take it now.</li>
+            {myIds.map((id) => {
+              const c = mine[id];
+              const name = items.find((p) => p.id === id)?.name;
+              return <li key={id}>{c?.amount ? `$${c.amount} toward the ${name?.toLowerCase()}` : name}. From {c?.from}.</li>;
+            })}
+            <li>Nobody else can take what is yours.</li>
             <li>Concierge status. Waiting on delivery. We mark it arrived when Maya says so.</li>
           </ul>
         </div>
@@ -168,14 +181,25 @@ function GuestStep({ items, claimed, onClaim, onRestart }: { items: Product[]; c
   );
 }
 
-function GuestCard({ p, index, claim, asking, onAsk, onCancel, onTake }: { p: Product; index: number; claim: Claim | undefined; asking: boolean; onAsk: () => void; onCancel: () => void; onTake: (from: string) => void }) {
+function GuestCard({ p, index, gathered, claim, asking, onAsk, onCancel, onTake }: { p: Product; index: number; gathered: number; claim: Claim | undefined; asking: boolean; onAsk: () => void; onCancel: () => void; onTake: (from: string, amount?: number) => void }) {
   const [name, setName] = useState("");
   const [anon, setAnon] = useState(false);
   const [saving, setSaving] = useState(false);
+  const shareable = isShareable(p.price);
+  const left = remaining(p.price, gathered);
+  const [mode, setMode] = useState<"whole" | "portion">(gathered > 0 ? "portion" : "whole");
+  const [amount, setAmount] = useState<number | null>(null);
+  const [custom, setCustom] = useState("");
+  const portion = mode === "portion" ? validPortion(amount ?? Number(custom), p.price, gathered) : null;
+  const canTake = mode === "whole" ? gathered === 0 : portion !== null;
   const take = () => {
     setSaving(true);
-    window.setTimeout(() => { setSaving(false); onTake(anon || !name.trim() ? "Someone who cares" : name.trim()); }, 400);
+    window.setTimeout(() => { setSaving(false); onTake(anon || !name.trim() ? "Someone who cares" : name.trim(), mode === "portion" ? portion ?? undefined : undefined); }, 400);
   };
+  const chip = (n: number, text: string) => (
+    <button key={text} type="button" aria-pressed={amount === n} onClick={() => { setAmount(n); setCustom(""); }}
+      className={`${label} rounded-[4px] border-2 border-foreground px-3 py-2 ${amount === n ? "bg-highlight text-foreground" : "hover:bg-foreground hover:text-background"}`}>{text}</button>
+  );
   return (
     <article className="flex flex-col overflow-hidden rounded-[4px] bg-card">
       <img src={p.photo} alt={p.name} className="aspect-[4/3] w-full object-cover" />
@@ -187,15 +211,39 @@ function GuestCard({ p, index, claim, asking, onAsk, onCancel, onTake }: { p: Pr
           <span className="text-muted-foreground">Available from the Good Chapter shop</span>
           <span className="font-medium">${p.price}</span>
         </div>
+        {shareable && gathered > 0 && left > 0 && <p className="mt-2 text-[15px] text-muted-foreground">${gathered} of ${p.price} gathered. ${left} left.</p>}
         <div className="mt-auto pt-4">
-          {claim ? (
+          {claim && (!claim.mine || !claim.amount) ? (
             <div className="border-t border-border pt-4">
-              <p className={`${label} ${claim.mine ? "text-primary" : "text-muted-foreground"}`}>{claim.mine ? "Yours to give" : "Taken"}</p>
+              <p className={`${label} ${claim.mine ? "text-primary" : "text-muted-foreground"}`}>{claim.mine ? "Yours to give" : shareable && gathered >= p.price ? "Gathered together" : "Taken"}</p>
               {claim.mine && <p className="mt-1 text-[16px]">From {claim.from}</p>}
               {claim.mine && <BuyButton id={p.id} />}
             </div>
+          ) : claim?.mine && claim.amount ? (
+            <div className="border-t border-border pt-4">
+              <p className={`${label} text-primary`}>{left === 0 ? "Gathered together" : "Your portion is held"}</p>
+              <p className="mt-1 text-[16px]">${claim.amount} from {claim.from}</p>
+              <BuyButton id={p.id} amount={claim.amount} giftName={p.name} />
+            </div>
           ) : asking ? (
             <div className="border-t border-border pt-4">
+              {shareable && (
+                <div className="mb-4 flex gap-2" role="radiogroup" aria-label="How you give">
+                  {gathered === 0 && <button type="button" role="radio" aria-checked={mode === "whole"} onClick={() => setMode("whole")} className={`${label} rounded-[4px] px-3 py-2 ${mode === "whole" ? "bg-foreground text-background" : "hover:bg-foreground hover:text-background"}`}>The whole thing</button>}
+                  <button type="button" role="radio" aria-checked={mode === "portion"} onClick={() => setMode("portion")} className={`${label} rounded-[4px] px-3 py-2 ${mode === "portion" ? "bg-foreground text-background" : "hover:bg-foreground hover:text-background"}`}>Chip in a portion</button>
+                </div>
+              )}
+              {mode === "portion" && (
+                <div className="mb-4">
+                  <div className="flex flex-wrap gap-2">
+                    {portionOptions(p.price, gathered).map((n) => chip(n, `$${n}`))}
+                    {chip(left, `Cover the rest, $${left}`)}
+                  </div>
+                  <label className={`${label} mt-3 block`} htmlFor={`amt-${p.id}`}>Or your own amount</label>
+                  <input id={`amt-${p.id}`} inputMode="numeric" value={custom} placeholder={`Up to $${left}`} onChange={(e) => { setCustom(e.target.value.replace(/\D/g, "")); setAmount(null); }} className="mt-2 w-full rounded-[4px] border-2 border-foreground bg-background px-3 py-2" />
+                  {custom && portion === null && <p className="mt-2 text-[15px] text-emphasis">Pick an amount from $1 to ${left}.</p>}
+                </div>
+              )}
               <label className={`${label} block`} htmlFor={`from-${p.id}`}>Who it is from</label>
               {anon ? (
                 <p className="mt-2 rounded-[4px] border-2 border-foreground bg-background px-3 py-2 text-muted-foreground">Someone who cares</p>
@@ -204,12 +252,12 @@ function GuestCard({ p, index, claim, asking, onAsk, onCancel, onTake }: { p: Pr
               )}
               <button type="button" className={`${label} mt-3 underline underline-offset-4`} onClick={() => setAnon(!anon)}>{anon ? "Use a name instead" : "Give it without my name"}</button>
               <div className="mt-4 flex flex-wrap items-center gap-3">
-                <button type="button" disabled={saving} className={btn} onClick={take}>{saving ? "Saving" : "Take it"}</button>
+                <button type="button" disabled={saving || !canTake} className={`${btn} disabled:opacity-50`} onClick={take}>{saving ? "Saving" : mode === "portion" ? (portion ? `Hold my $${portion}` : "Choose an amount") : "Take it"}</button>
                 <button type="button" className={`${label} px-2 py-2 text-muted-foreground`} onClick={onCancel}>Never mind</button>
               </div>
             </div>
           ) : (
-            <button type="button" className={`${ghost} w-full`} onClick={onAsk}>Take this one</button>
+            <button type="button" className={`${ghost} w-full`} onClick={onAsk}>{gathered > 0 ? "Chip in" : "Take this one"}</button>
           )}
         </div>
       </div>
@@ -217,15 +265,15 @@ function GuestCard({ p, index, claim, asking, onAsk, onCancel, onTake }: { p: Pr
   );
 }
 
-function BuyButton({ id }: { id: string }) {
+function BuyButton({ id, amount, giftName }: { id: string; amount?: number; giftName?: string }) {
   const [state, setState] = useState<"idle" | "loading" | "error">("idle");
-  const variant = shopifyVariants[id];
+  const variant = amount ? SHARE_VARIANT : shopifyVariants[id];
   if (!variant) return null;
   const buy = async () => {
     setState("loading");
     const tab = window.open("", "_blank");
     try {
-      const url = await createGiftCheckout(variant);
+      const url = await createGiftCheckout(variant, amount ?? 1, amount ? giftName : undefined);
       if (tab) tab.location.href = url; else window.open(url, "_blank");
       setState("idle");
     } catch {
@@ -235,7 +283,7 @@ function BuyButton({ id }: { id: string }) {
   };
   return (
     <div className="mt-3">
-      <button type="button" disabled={state === "loading"} className={`${btn} w-full`} onClick={buy}>{state === "loading" ? "Opening checkout" : "Buy it now"}</button>
+      <button type="button" disabled={state === "loading"} className={`${btn} w-full`} onClick={buy}>{state === "loading" ? "Opening checkout" : amount ? `Give my $${amount}` : "Buy it now"}</button>
       {state === "error" && <p className="mt-2 text-[15px] text-emphasis">Checkout did not open. Try once more.</p>}
     </div>
   );
