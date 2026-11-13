@@ -15,3 +15,5 @@
 - The homepage uses the pilot variant of `SiteShell` and `WaitlistForm`, while `/story` preserves the full narrative; the intake variant stores its predefined inquiry category in the existing optional waitlist context field to reuse the privacy-safe signup path.
 - Keep Lovable AI provider setup and run correlation in server-only modules, while client code imports only `*.functions.ts` wrappers, to protect credentials and preserve server boundaries.
 - The gift idea generator uses Anthropic Claude (`anthropic/claude-haiku-4-5`) via the gateway's native `/v1/messages` endpoint with `@ai-sdk/anthropic`, per user request; keep the exact `anthropic/` model id and stream with `streamText`.
+
+- Shopify Storefront checkout lives in `src/lib/shopify.ts`; sample gifts map to Shopify variants there, and guests buy one gift at a time via cartCreate so checkout stays on Shopify, not Good Chapter.

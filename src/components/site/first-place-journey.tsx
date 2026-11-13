@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { sampleProducts } from "@/lib/sample-products";
+import { createGiftCheckout, shopifyVariants } from "@/lib/shopify";
 
 // Shared sample journey for /first-place and the focused demo routes.
 const phases = ["Closing", "A friend starts it", "Maya approves it", "The invitation", "A guest gives"] as const;
@@ -183,7 +184,7 @@ function GuestCard({ p, index, claim, asking, onAsk, onCancel, onTake }: { p: Pr
         <h2 className="mt-1 font-display text-2xl leading-tight">{p.name}</h2>
         <p className="mt-2 text-[16px] leading-snug">{p.reason}</p>
         <div className="mt-3 flex items-baseline justify-between gap-3 text-[15px]">
-          <span className="text-muted-foreground">Available from any {p.brand.toLowerCase()} shop</span>
+          <span className="text-muted-foreground">Available from the Good Chapter shop</span>
           <span className="font-medium">${p.price}</span>
         </div>
         <div className="mt-auto pt-4">
@@ -191,6 +192,7 @@ function GuestCard({ p, index, claim, asking, onAsk, onCancel, onTake }: { p: Pr
             <div className="border-t border-border pt-4">
               <p className={`${label} ${claim.mine ? "text-primary" : "text-muted-foreground"}`}>{claim.mine ? "Yours to give" : "Taken"}</p>
               {claim.mine && <p className="mt-1 text-[16px]">From {claim.from}</p>}
+              {claim.mine && <BuyButton id={p.id} />}
             </div>
           ) : asking ? (
             <div className="border-t border-border pt-4">
@@ -212,6 +214,30 @@ function GuestCard({ p, index, claim, asking, onAsk, onCancel, onTake }: { p: Pr
         </div>
       </div>
     </article>
+  );
+}
+
+function BuyButton({ id }: { id: string }) {
+  const [state, setState] = useState<"idle" | "loading" | "error">("idle");
+  const variant = shopifyVariants[id];
+  if (!variant) return null;
+  const buy = async () => {
+    setState("loading");
+    const tab = window.open("", "_blank");
+    try {
+      const url = await createGiftCheckout(variant);
+      if (tab) tab.location.href = url; else window.open(url, "_blank");
+      setState("idle");
+    } catch {
+      tab?.close();
+      setState("error");
+    }
+  };
+  return (
+    <div className="mt-3">
+      <button type="button" disabled={state === "loading"} className={`${btn} w-full`} onClick={buy}>{state === "loading" ? "Opening checkout" : "Buy it now"}</button>
+      {state === "error" && <p className="mt-2 text-[15px] text-emphasis">Checkout did not open. Try once more.</p>}
+    </div>
   );
 }
 
