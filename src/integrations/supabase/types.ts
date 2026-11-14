@@ -141,30 +141,45 @@ export type Database = {
       }
       chapters: {
         Row: {
+          accept_token: string | null
           chapter_type: string
           created_at: string
+          decline_token: string | null
           id: string
+          person_decided_at: string | null
           person_decision: string
+          person_token: string | null
           starter_name: string
           state: string
+          story_line: string | null
           title: string
         }
         Insert: {
+          accept_token?: string | null
           chapter_type?: string
           created_at?: string
+          decline_token?: string | null
           id?: string
+          person_decided_at?: string | null
           person_decision?: string
+          person_token?: string | null
           starter_name?: string
           state?: string
+          story_line?: string | null
           title: string
         }
         Update: {
+          accept_token?: string | null
           chapter_type?: string
           created_at?: string
+          decline_token?: string | null
           id?: string
+          person_decided_at?: string | null
           person_decision?: string
+          person_token?: string | null
           starter_name?: string
           state?: string
+          story_line?: string | null
           title?: string
         }
         Relationships: []

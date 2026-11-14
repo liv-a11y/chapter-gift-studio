@@ -28,6 +28,7 @@ import { Route as ReadRouteImport } from './routes/read'
 import { Route as SampleRouteImport } from './routes/sample'
 import { Route as StoryRouteImport } from './routes/story'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as ChapterTokenRouteImport } from './routes/chapter.$token'
 import { Route as GuestTokenRouteImport } from './routes/guest_.$token'
 import { Route as JournalHowToShowUpWithoutBeingWeirdRouteImport } from './routes/journal.how-to-show-up-without-being-weird'
 import { Route as JournalVulnerabilityTaxRouteImport } from './routes/journal.vulnerability-tax'
@@ -36,6 +37,7 @@ import { Route as PartnersBrandsRouteImport } from './routes/partners.brands'
 import { Route as PartnersEmployersRouteImport } from './routes/partners.employers'
 import { Route as PartnersRealEstateRouteImport } from './routes/partners.real-estate'
 import { Route as PartnersRolesRouteImport } from './routes/partners.roles'
+import { Route as DecideTokenAnswerRouteImport } from './routes/decide.$token.$answer'
 import { Route as PartnersEmployersDashboardRouteImport } from './routes/partners.employers_.dashboard'
 import { Route as PartnersEmployersPortalRouteImport } from './routes/partners.employers_.portal'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -135,6 +137,11 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChapterTokenRoute = ChapterTokenRouteImport.update({
+  id: '/chapter/$token',
+  path: '/chapter/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GuestTokenRoute = GuestTokenRouteImport.update({
   id: '/guest_/$token',
   path: '/guest/$token',
@@ -176,6 +183,11 @@ const PartnersRolesRoute = PartnersRolesRouteImport.update({
   path: '/roles',
   getParentRoute: () => PartnersRoute,
 } as any)
+const DecideTokenAnswerRoute = DecideTokenAnswerRouteImport.update({
+  id: '/decide/$token/$answer',
+  path: '/decide/$token/$answer',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PartnersEmployersDashboardRoute =
   PartnersEmployersDashboardRouteImport.update({
     id: '/employers_/dashboard',
@@ -214,6 +226,7 @@ export interface FileRoutesByFullPath {
   '/sample': typeof SampleRoute
   '/story': typeof StoryRoute
   '/terms': typeof TermsRoute
+  '/chapter/$token': typeof ChapterTokenRoute
   '/guest/$token': typeof GuestTokenRoute
   '/journal/how-to-show-up-without-being-weird': typeof JournalHowToShowUpWithoutBeingWeirdRoute
   '/journal/vulnerability-tax': typeof JournalVulnerabilityTaxRoute
@@ -222,6 +235,7 @@ export interface FileRoutesByFullPath {
   '/partners/real-estate': typeof PartnersRealEstateRoute
   '/partners/roles': typeof PartnersRolesRoute
   '/partners/': typeof PartnersIndexRoute
+  '/decide/$token/$answer': typeof DecideTokenAnswerRoute
   '/partners/employers/dashboard': typeof PartnersEmployersDashboardRoute
   '/partners/employers/portal': typeof PartnersEmployersPortalRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -245,6 +259,7 @@ export interface FileRoutesByTo {
   '/sample': typeof SampleRoute
   '/story': typeof StoryRoute
   '/terms': typeof TermsRoute
+  '/chapter/$token': typeof ChapterTokenRoute
   '/guest/$token': typeof GuestTokenRoute
   '/journal/how-to-show-up-without-being-weird': typeof JournalHowToShowUpWithoutBeingWeirdRoute
   '/journal/vulnerability-tax': typeof JournalVulnerabilityTaxRoute
@@ -253,6 +268,7 @@ export interface FileRoutesByTo {
   '/partners/real-estate': typeof PartnersRealEstateRoute
   '/partners/roles': typeof PartnersRolesRoute
   '/partners': typeof PartnersIndexRoute
+  '/decide/$token/$answer': typeof DecideTokenAnswerRoute
   '/partners/employers/dashboard': typeof PartnersEmployersDashboardRoute
   '/partners/employers/portal': typeof PartnersEmployersPortalRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -278,6 +294,7 @@ export interface FileRoutesById {
   '/sample': typeof SampleRoute
   '/story': typeof StoryRoute
   '/terms': typeof TermsRoute
+  '/chapter/$token': typeof ChapterTokenRoute
   '/guest_/$token': typeof GuestTokenRoute
   '/journal/how-to-show-up-without-being-weird': typeof JournalHowToShowUpWithoutBeingWeirdRoute
   '/journal/vulnerability-tax': typeof JournalVulnerabilityTaxRoute
@@ -286,6 +303,7 @@ export interface FileRoutesById {
   '/partners/real-estate': typeof PartnersRealEstateRoute
   '/partners/roles': typeof PartnersRolesRoute
   '/partners/': typeof PartnersIndexRoute
+  '/decide/$token/$answer': typeof DecideTokenAnswerRoute
   '/partners/employers_/dashboard': typeof PartnersEmployersDashboardRoute
   '/partners/employers_/portal': typeof PartnersEmployersPortalRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -312,6 +330,7 @@ export interface FileRouteTypes {
     | '/sample'
     | '/story'
     | '/terms'
+    | '/chapter/$token'
     | '/guest/$token'
     | '/journal/how-to-show-up-without-being-weird'
     | '/journal/vulnerability-tax'
@@ -320,6 +339,7 @@ export interface FileRouteTypes {
     | '/partners/real-estate'
     | '/partners/roles'
     | '/partners/'
+    | '/decide/$token/$answer'
     | '/partners/employers/dashboard'
     | '/partners/employers/portal'
     | '/lovable/email/transactional/preview'
@@ -343,6 +363,7 @@ export interface FileRouteTypes {
     | '/sample'
     | '/story'
     | '/terms'
+    | '/chapter/$token'
     | '/guest/$token'
     | '/journal/how-to-show-up-without-being-weird'
     | '/journal/vulnerability-tax'
@@ -351,6 +372,7 @@ export interface FileRouteTypes {
     | '/partners/real-estate'
     | '/partners/roles'
     | '/partners'
+    | '/decide/$token/$answer'
     | '/partners/employers/dashboard'
     | '/partners/employers/portal'
     | '/lovable/email/transactional/preview'
@@ -375,6 +397,7 @@ export interface FileRouteTypes {
     | '/sample'
     | '/story'
     | '/terms'
+    | '/chapter/$token'
     | '/guest_/$token'
     | '/journal/how-to-show-up-without-being-weird'
     | '/journal/vulnerability-tax'
@@ -383,6 +406,7 @@ export interface FileRouteTypes {
     | '/partners/real-estate'
     | '/partners/roles'
     | '/partners/'
+    | '/decide/$token/$answer'
     | '/partners/employers_/dashboard'
     | '/partners/employers_/portal'
     | '/lovable/email/transactional/preview'
@@ -408,9 +432,11 @@ export interface RootRouteChildren {
   SampleRoute: typeof SampleRoute
   StoryRoute: typeof StoryRoute
   TermsRoute: typeof TermsRoute
+  ChapterTokenRoute: typeof ChapterTokenRoute
   GuestTokenRoute: typeof GuestTokenRoute
   JournalHowToShowUpWithoutBeingWeirdRoute: typeof JournalHowToShowUpWithoutBeingWeirdRoute
   JournalVulnerabilityTaxRoute: typeof JournalVulnerabilityTaxRoute
+  DecideTokenAnswerRoute: typeof DecideTokenAnswerRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
 }
 
@@ -549,6 +575,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/chapter/$token': {
+      id: '/chapter/$token'
+      path: '/chapter/$token'
+      fullPath: '/chapter/$token'
+      preLoaderRoute: typeof ChapterTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/guest_/$token': {
       id: '/guest_/$token'
       path: '/guest/$token'
@@ -604,6 +637,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/partners/roles'
       preLoaderRoute: typeof PartnersRolesRouteImport
       parentRoute: typeof PartnersRoute
+    }
+    '/decide/$token/$answer': {
+      id: '/decide/$token/$answer'
+      path: '/decide/$token/$answer'
+      fullPath: '/decide/$token/$answer'
+      preLoaderRoute: typeof DecideTokenAnswerRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/partners/employers_/dashboard': {
       id: '/partners/employers_/dashboard'
@@ -673,10 +713,12 @@ const rootRouteChildren: RootRouteChildren = {
   SampleRoute: SampleRoute,
   StoryRoute: StoryRoute,
   TermsRoute: TermsRoute,
+  ChapterTokenRoute: ChapterTokenRoute,
   GuestTokenRoute: GuestTokenRoute,
   JournalHowToShowUpWithoutBeingWeirdRoute:
     JournalHowToShowUpWithoutBeingWeirdRoute,
   JournalVulnerabilityTaxRoute: JournalVulnerabilityTaxRoute,
+  DecideTokenAnswerRoute: DecideTokenAnswerRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
 }
 export const routeTree = rootRouteImport
