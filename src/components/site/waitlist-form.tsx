@@ -24,7 +24,7 @@ const segments: Record<string, { helper: string; disclosure?: string; confirm: s
 };
 type Status = "idle" | "loading" | "done" | "error";
 
-export function WaitlistForm({ pilot = false, defaultInquiry }: { pilot?: boolean; defaultInquiry?: string }) {
+export function WaitlistForm({ pilot = false, defaultInquiry, onInquiryChange }: { pilot?: boolean; defaultInquiry?: string; onInquiryChange?: (inquiry: string | undefined) => void }) {
   const [email, setEmail] = useState("");
   const [chapter, setChapter] = useState<string | undefined>(defaultInquiry);
   const [partner, setPartner] = useState({ contactName: "", organization: "", roleTitle: "", teamSize: "" });
@@ -94,7 +94,7 @@ export function WaitlistForm({ pilot = false, defaultInquiry }: { pilot?: boolea
       <div className="p-5 sm:p-6">
         {pilot ? <div>
           <label htmlFor="waitlist-interest" className="eyebrow block text-emphasis">I'm here as</label>
-          <select id="waitlist-interest" required value={chapter ?? ""} disabled={status === "loading"} onChange={(event) => { setChapter(event.target.value || undefined); setStatus("idle"); }} className="mt-3 h-14 w-full rounded-[4px] border-2 border-foreground bg-background px-4 font-sans text-[17px] outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-describedby={status === "error" ? "waitlist-email-error" : undefined}>
+          <select id="waitlist-interest" required value={chapter ?? ""} disabled={status === "loading"} onChange={(event) => { setChapter(event.target.value || undefined); onInquiryChange?.(event.target.value || undefined); setStatus("idle"); }} className="mt-3 h-14 w-full rounded-[4px] border-2 border-foreground bg-background px-4 font-sans text-[17px] outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-describedby={status === "error" ? "waitlist-email-error" : undefined}>
             <option value="" disabled>Choose your way in</option>
             {inquiryTypes.map((choice) => <option key={choice} value={choice}>{choice}</option>)}
           </select>

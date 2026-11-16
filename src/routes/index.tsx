@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { SiteShell } from "@/components/site/site-shell";
 import { WaitlistForm } from "@/components/site/waitlist-form";
 import { Button } from "@/components/ui/button";
@@ -34,6 +35,39 @@ const objects = [
 
 const display = "font-display font-normal tracking-[-0.01em]";
 
+const inviteDefault = {
+  headline: "Join the pilot. Make showing up the new normal.",
+  line: "Friends, agents, employers, and the curious. Tell us who you are and we will write when the doors open.",
+};
+const inviteCopy: Record<string, { headline: string; line: string }> = {
+  "Founding partner: Employer": {
+    headline: "Make showing up part of work.",
+    line: "A chapter for the raise, the move, the leave, the diagnosis, the divorce nobody announces at the all hands. You set an amount aside per person. The person says yes first.",
+  },
+  "Founding partner: Real estate": {
+    headline: "Make showing up part of the move.",
+    line: "Closing day is the easy part. A chapter is what a realtor hands over after it, eight things the person actually needs, approved by them before anyone else sees it.",
+  },
+};
+
+function InviteBand() {
+  const [inquiry, setInquiry] = useState<string | undefined>();
+  const copy = (inquiry && inviteCopy[inquiry]) || inviteDefault;
+  return (
+    <section id="invite" className="scroll-mt-24 border-y-[1.5px] border-foreground bg-primary text-primary-foreground">
+      <div className="site-container grid gap-12 py-16 md:grid-cols-2 md:gap-16 md:py-24">
+        <div aria-live="polite">
+          <p className="eyebrow">Private pilot</p>
+          <h2 className={`${display} mt-5 text-[34px] lowercase leading-[1.04] sm:text-[52px]`}>{copy.headline}</h2>
+          <p className="mt-5 max-w-[30rem] text-[19px] leading-[1.45]">{copy.line}</p>
+          <img src="/brand/tag-paper.png" alt="" aria-hidden="true" loading="lazy" width={965} height={1188} className="mt-8 h-auto w-24 -rotate-[9deg]" />
+        </div>
+        <div className="text-foreground"><WaitlistForm pilot onInquiryChange={setInquiry} /></div>
+      </div>
+    </section>
+  );
+}
+
 function FrontDoor() {
   return (
     <SiteShell pilot>
@@ -47,7 +81,7 @@ function FrontDoor() {
               <span className="sr-only">fucking</span> toaster.
             </h1>
             <p className="mt-7 max-w-[34rem] text-[19px] leading-[1.45] sm:text-[21px]">
-              When a friend steps into a big chapter, start it for them. They privately keep what fits. Their people fill the house.
+              Good Chapter is making it easier to show up for the life that’s actually happening.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
               <a href="#invite" data-slot="button" className="inline-flex min-h-[52px] items-center rounded-[4px] bg-primary px-6 py-3.5 text-[16px] text-primary-foreground hover:bg-foreground hover:text-background">Request an invitation</a>
@@ -115,17 +149,7 @@ function FrontDoor() {
         </div>
       </section>
 
-      <section id="invite" className="scroll-mt-24 border-y-[1.5px] border-foreground">
-        <div className="site-container grid gap-12 py-16 md:grid-cols-2 md:gap-16 md:py-24">
-          <div>
-            <p className="eyebrow">Private pilot</p>
-            <h2 className={`${display} mt-5 text-[34px] lowercase leading-[1.04] sm:text-[52px]`}>The first circle opens quietly.</h2>
-            <p className="mt-5 max-w-[30rem] text-[19px] leading-[1.45]">Friends, agents, employers, and the curious. Tell us who you are and we will write when the doors open.</p>
-            <img src="/brand/tag-clay.png" alt="" aria-hidden="true" loading="lazy" width={965} height={1188} className="mt-8 h-auto w-24 -rotate-[9deg]" />
-          </div>
-          <WaitlistForm pilot />
-        </div>
-      </section>
+      <InviteBand />
 
       <section className="site-container py-16 md:py-28" aria-labelledby="registry-story">
         <div className="grid gap-12 lg:grid-cols-[minmax(300px,.72fr)_minmax(0,1.28fr)] lg:gap-20">

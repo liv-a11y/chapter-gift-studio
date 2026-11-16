@@ -7,7 +7,7 @@ export const PATHS = [
 export type PathId = (typeof PATHS)[number]["id"];
 export const BUDGET_PATHS: PathId[] = ["employer_pool", "realtor_budget"];
 
-export const CHAPTER_TYPES = ["A first place", "A fresh start", "A new city", "A new job", "Moving in together", "A change of pace", "Retirement"] as const;
+export const CHAPTER_TYPES = ["First home, alone", "Divorce", "Coming out", "After a health scare", "Moving in together", "New city", "New job", "A big lifestyle change", "Adoption", "Retirement", "Something else"] as const;
 
 export const CLUES = {
   evenings: { q: "Where do their evenings happen?", options: ["In the kitchen", "On the couch", "At a desk or a project", "Out with people"] },
