@@ -17,3 +17,4 @@
 - The gift idea generator uses Anthropic Claude (`anthropic/claude-haiku-4-5`) via the gateway's native `/v1/messages` endpoint with `@ai-sdk/anthropic`, per user request; keep the exact `anthropic/` model id and stream with `streamText`.
 
 - Shopify Storefront checkout lives in `src/lib/shopify.ts`; sample gifts map to Shopify variants there, and guests buy one gift at a time via cartCreate so checkout stays on Shopify, not Good Chapter.
+- The `/start` flow collects only structured choices (no honoree identity or free text) and issues private person and guest links instead of storing emails, to honor the privacy rules while reusing the existing chapter tables.

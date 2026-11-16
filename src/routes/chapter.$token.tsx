@@ -38,18 +38,17 @@ export const Route = createFileRoute("/chapter/$token")({
 function PersonChapter() {
   const c = Route.useLoaderData();
   const { token } = Route.useParams();
-  const first = c.title.split(/\s+/)[0] || "You";
   return (
     <main className="mx-auto w-full max-w-[900px] px-6 pb-24 pt-12">
       <p className="text-[14px] font-medium text-accent">{c.chapter_type}</p>
       <h1 className="mt-4 font-display text-[clamp(40px,8vw,84px)] leading-[0.95]">This is yours.</h1>
       <p className="mt-6 max-w-[46ch] text-[20px] leading-[1.45] text-foreground/85">
-        {first}, eight things, chosen one at a time, each with the reason it was chosen for you. Nothing reaches your guests until you answer.
+        Eight things, chosen one at a time, each with the reason it was chosen for you. Nothing reaches your guests until you answer.
       </p>
       {c.await_answer ? (
         <div className="mt-8 max-w-[560px] rounded border-2 border-foreground bg-card p-6">
           <p className="text-[14px] font-medium text-foreground/55">Your answer first</p>
-          <p className="mt-2 text-[20px] leading-[1.4]">Say yes, and the list opens to the people you named. Send it back and nothing goes out at all.</p>
+          <p className="mt-2 text-[20px] leading-[1.4]">Decline anything that does not fit. Say yes, and the rest opens to the people you named. Send it back and nothing goes out at all.</p>
           <div className="mt-4 flex flex-col gap-2 sm:flex-row">
             <Link to="/decide/$token/$answer" params={{ token: c.accept_token, answer: "accept" }} className="flex items-center justify-between gap-6 rounded border-2 border-primary bg-primary px-5 py-3 text-[14px] font-medium text-primary-foreground hover:bg-background hover:text-primary">
               <span>Accept it</span><span aria-hidden="true">→</span>

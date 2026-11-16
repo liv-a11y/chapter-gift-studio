@@ -26,6 +26,7 @@ import { Route as PreviewRouteImport } from './routes/preview'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ReadRouteImport } from './routes/read'
 import { Route as SampleRouteImport } from './routes/sample'
+import { Route as StartRouteImport } from './routes/start'
 import { Route as StoryRouteImport } from './routes/story'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ChapterTokenRouteImport } from './routes/chapter.$token'
@@ -127,6 +128,11 @@ const SampleRoute = SampleRouteImport.update({
   path: '/sample',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StartRoute = StartRouteImport.update({
+  id: '/start',
+  path: '/start',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StoryRoute = StoryRouteImport.update({
   id: '/story',
   path: '/story',
@@ -224,6 +230,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/read': typeof ReadRoute
   '/sample': typeof SampleRoute
+  '/start': typeof StartRoute
   '/story': typeof StoryRoute
   '/terms': typeof TermsRoute
   '/chapter/$token': typeof ChapterTokenRoute
@@ -257,6 +264,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/read': typeof ReadRoute
   '/sample': typeof SampleRoute
+  '/start': typeof StartRoute
   '/story': typeof StoryRoute
   '/terms': typeof TermsRoute
   '/chapter/$token': typeof ChapterTokenRoute
@@ -292,6 +300,7 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/read': typeof ReadRoute
   '/sample': typeof SampleRoute
+  '/start': typeof StartRoute
   '/story': typeof StoryRoute
   '/terms': typeof TermsRoute
   '/chapter/$token': typeof ChapterTokenRoute
@@ -328,6 +337,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/read'
     | '/sample'
+    | '/start'
     | '/story'
     | '/terms'
     | '/chapter/$token'
@@ -361,6 +371,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/read'
     | '/sample'
+    | '/start'
     | '/story'
     | '/terms'
     | '/chapter/$token'
@@ -395,6 +406,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/read'
     | '/sample'
+    | '/start'
     | '/story'
     | '/terms'
     | '/chapter/$token'
@@ -430,6 +442,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   ReadRoute: typeof ReadRoute
   SampleRoute: typeof SampleRoute
+  StartRoute: typeof StartRoute
   StoryRoute: typeof StoryRoute
   TermsRoute: typeof TermsRoute
   ChapterTokenRoute: typeof ChapterTokenRoute
@@ -559,6 +572,13 @@ declare module '@tanstack/react-router' {
       path: '/sample'
       fullPath: '/sample'
       preLoaderRoute: typeof SampleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/start': {
+      id: '/start'
+      path: '/start'
+      fullPath: '/start'
+      preLoaderRoute: typeof StartRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/story': {
@@ -711,6 +731,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   ReadRoute: ReadRoute,
   SampleRoute: SampleRoute,
+  StartRoute: StartRoute,
   StoryRoute: StoryRoute,
   TermsRoute: TermsRoute,
   ChapterTokenRoute: ChapterTokenRoute,

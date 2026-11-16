@@ -48,7 +48,7 @@ export function ChapterItem({ token, item, index, open, awaiting }: { token: str
               {error ? <p role="alert" className="mt-2 text-[15px] text-destructive">{error}</p> : status ? <p className="mt-2 text-[13px] font-medium text-foreground/55">{WORDS[status]}</p> : null}
             </>
           ) : (
-            <p className="text-[13px] font-medium text-foreground/50">{status ? WORDS[status] : awaiting ? "Say yes and you can answer this." : "Answers are closed."}</p>
+            <p className="text-[13px] font-medium text-foreground/50">{status ? WORDS[status] : "Answers are closed."}</p>
           )}
         </div>
       </div>

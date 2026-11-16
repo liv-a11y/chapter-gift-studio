@@ -31,7 +31,7 @@ export const getPersonChapter = createServerFn({ method: "GET" })
       await_answer: awaiting,
       accept_token: awaiting ? (c.accept_token as string) : "",
       decline_token: awaiting ? ((c.decline_token ?? "") as string) : "",
-      answers_open: ANSWERS_OPEN.includes(c.state) && !awaiting && decision !== "declined",
+      answers_open: ANSWERS_OPEN.includes(c.state) && decision === "pending",
       items: (items ?? []).map((i) => ({
         id: i.id as string, name: i.name as string, photo_url: (i.photo_url ?? "") as string, price: i.price as number | null,
         source: (i.source ?? "") as string, source_url: (i.source_url ?? "") as string, why: (i.why ?? "") as string, status: i.status as string,
@@ -45,7 +45,7 @@ export const answerItem = createServerFn({ method: "POST" })
     const db = await admin();
     const { data: c } = await db.from("chapters").select("id, state, person_decision, accept_token").eq("person_token", data.token).maybeSingle();
     if (!c || !ANSWERS_OPEN.includes(c.state)) return { ok: false };
-    if (c.accept_token && (c.person_decision || "pending") === "pending") return { ok: false };
+    if ((c.person_decision || "pending") !== "pending") return { ok: false };
     const { data: updated } = await db.from("chapter_items").update({ status: data.answer }).eq("id", data.itemId).eq("chapter_id", c.id).select("status").maybeSingle();
     return updated ? { ok: true, status: updated.status as string } : { ok: false };
   });
@@ -79,7 +79,7 @@ export const recordDecision = createServerFn({ method: "POST" })
     if (decision !== "pending") return { ok: true as const, decision: decision as string, decided_on: day(c.person_decided_at) };
     const now = new Date().toISOString();
     const next = data.answer === "accept"
-      ? { person_decision: "accepted", person_decided_at: now }
+      ? { person_decision: "accepted", person_decided_at: now, state: "sent_to_guests" }
       : { person_decision: "declined", person_decided_at: now, state: "declined" };
     // Only a still-pending chapter changes, so two clicks cannot race.
     await db.from("chapters").update(next).eq("id", c.id).eq("person_decision", "pending");

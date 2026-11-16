@@ -62,7 +62,7 @@ function HomePage() {
             <h1 className="site-h1 max-w-[13ch]">A friend starts it. The person approves it. <span className="bg-emphasis px-2 text-emphasis-foreground">Nobody asks.</span></h1>
             <p className="site-body max-w-[38rem] text-muted-foreground">Friend-started. Person-approved. For first homes, fresh starts, messy new beginnings, recovery, new cities: every chapter weddings never covered.</p>
             <div className="mt-1 flex flex-wrap gap-4">
-              <Button asChild size="lg"><Link to="/new">Start one for a friend <ArrowRight className="size-4" /></Link></Button>
+              <Button asChild size="lg"><Link to="/start">Start one for a friend <ArrowRight className="size-4" /></Link></Button>
               <Button asChild variant="outline" size="lg"><a href="#how">How it works</a></Button>
             </div>
           </div>
@@ -233,7 +233,7 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="bg-emphasis text-emphasis-foreground"><div className="site-container flex flex-wrap items-center justify-between gap-8 py-16 md:py-20"><h2 className="site-h2 max-w-[16ch]">Start one for someone you love.</h2><Button asChild variant="ink" size="lg"><Link to="/new">Start one for a friend <ArrowRight className="size-4" /></Link></Button></div></section>
+      <section className="bg-emphasis text-emphasis-foreground"><div className="site-container flex flex-wrap items-center justify-between gap-8 py-16 md:py-20"><h2 className="site-h2 max-w-[16ch]">Start one for someone you love.</h2><Button asChild variant="ink" size="lg"><Link to="/start">Start one for a friend <ArrowRight className="size-4" /></Link></Button></div></section>
     </SiteShell>
   );
 }
