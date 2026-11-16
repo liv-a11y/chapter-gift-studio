@@ -25,10 +25,17 @@ export function GuestItem({ item, index, open, onClaim }: { item: GuestItemData;
   };
   const buy = async () => {
     if (!variant) return;
-    setBuying(true);
-    try { window.open(await createGiftCheckout(variant, 1, item.name, undefined, claim?.display_name || "Someone who cares"), "_blank"); }
-    catch { setError("Checkout did not open. Try once more."); }
-    finally { setBuying(false); }
+    setBuying(true); setError("");
+    // Open the tab inside the click so popup blockers let it through, then send it to checkout.
+    const tab = window.open("", "_blank");
+    try {
+      const url = await createGiftCheckout(variant, 1, item.name, undefined, claim?.display_name || "Someone who cares");
+      if (tab) { tab.location.href = url; }
+      else { window.location.href = url; }
+    } catch {
+      tab?.close();
+      setError("Checkout did not open. Try once more.");
+    } finally { setBuying(false); }
   };
   const mine = claim?.mine;
 
