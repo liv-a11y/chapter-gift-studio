@@ -20,7 +20,8 @@ export const Route = createFileRoute("/start")({
 });
 
 const STANDING: ShelfItem[] = sampleProducts.map((p) => ({ id: p.id, name: p.name, price: p.price, band: p.band, photo: p.photo, why: p.reason }));
-const MOVES = ["The chapter", "Three clues", "The circle"];
+type StepId = "path" | "type" | ClueKey | "tone" | "amount" | "anchor" | "starter" | "guests";
+const stepsFor = (budget: boolean): StepId[] => ["path", "type", "evenings", "keeps", "taste", "tone", budget ? "amount" : "anchor", "starter", "guests"];
 
 type Form = {
   path: PathId | ""; chapterType: string; evenings: string; keeps: string; taste: string;
@@ -64,11 +65,14 @@ function StartPage() {
     return () => clearTimeout(t);
   }, [cluesReady, f.chapterType, f.evenings, f.keeps, f.taste, f.tone, cap, suggest]);
 
-  const canNext = [
-    Boolean(f.path && f.chapterType),
-    cluesReady && (budget ? f.amount > 0 : Boolean(f.anchorId)),
-    f.starterName.trim().length > 0 && f.guestCount > 0,
-  ][move];
+  const steps = stepsFor(budget);
+  const step = steps[Math.min(move, steps.length - 1)]!;
+  const last = move === steps.length - 1;
+  const ok: Record<StepId, boolean> = {
+    path: Boolean(f.path), type: Boolean(f.chapterType), evenings: Boolean(f.evenings), keeps: Boolean(f.keeps), taste: Boolean(f.taste),
+    tone: true, amount: f.amount > 0, anchor: Boolean(f.anchorId), starter: f.starterName.trim().length > 0, guests: f.guestCount > 0,
+  };
+  const canNext = ok[step];
 
   const finish = async () => {
     setSaving(true); setError("");
@@ -89,35 +93,46 @@ function StartPage() {
           <Link to="/" className="font-display text-[22px]">Good Chapter</Link>
           <Link to="/" className="text-[14px] font-medium underline underline-offset-4 hover:bg-foreground hover:text-background">Leave</Link>
         </div>
-        <ol className="mx-auto grid max-w-[1100px] grid-cols-3 px-6 pb-4">
-          {MOVES.map((m, i) => (
-            <li key={m} className={`border-t-2 pt-2 text-[13px] font-medium ${i <= move ? "border-primary text-foreground" : "border-foreground/25 text-foreground/50"}`}>{m}</li>
-          ))}
-        </ol>
+        <div className="mx-auto flex max-w-[1100px] items-center gap-4 px-6 pb-4">
+          <span className="shrink-0 text-[13px] font-medium text-foreground/60">Step {move + 1} of {steps.length}</span>
+          <div className="h-[2px] flex-1 bg-foreground/20"><div className="h-full bg-primary" style={{ width: `${((move + 1) / steps.length) * 100}%` }} /></div>
+        </div>
       </header>
 
       <main className="mx-auto grid max-w-[1100px] gap-10 px-6 pb-32 pt-10 md:grid-cols-[minmax(0,1fr)_22rem] md:pb-16">
         <section>
-          {move === 0 && (
+          {step === "path" && (
             <>
               <Q label="How it opens" q="Where does this chapter start?">
                 <Choices items={PATHS.map((p) => ({ id: p.id, title: p.title, line: p.line }))} value={f.path} onPick={(v) => set({ path: v as PathId, anchorId: "", amount: 0 })} />
               </Q>
+            </>
+          )}
+          {step === "type" && (
+            <>
               <Q label="The chapter" q="Which chapter is this?" hint="Pick the closest one. It shapes the list. It does not label the person.">
                 <Chips items={[...CHAPTER_TYPES]} value={f.chapterType} onPick={(v) => set({ chapterType: v })} />
               </Q>
             </>
           )}
-          {move === 1 && (
+          {(step === "evenings" || step === "keeps" || step === "taste") && (
             <>
-              {(Object.keys(CLUES) as ClueKey[]).map((k) => (
+              {[step].map((k) => (
                 <Q key={k} label="A clue" q={CLUES[k].q}>
                   <Chips items={[...CLUES[k].options]} value={f[k]} onPick={(v) => set({ [k]: v } as Partial<Form>)} />
                 </Q>
               ))}
+            </>
+          )}
+          {step === "tone" && (
+            <>
               <Q label="The voice" q="How should the reasons sound?">
                 <Chips items={TONES.map((t) => t.label)} value={TONES.find((t) => t.id === f.tone)!.label} onPick={(v) => set({ tone: TONES.find((t) => t.label === v)!.id })} />
               </Q>
+            </>
+          )}
+          {(step === "amount" || step === "anchor") && (
+            <>
               {budget ? (
                 <Q label="The amount" q="What is the amount per person?" hint="Nothing is charged here. The list is built inside the number.">
                   <Chips items={AMOUNTS.map((a) => `$${a}`)} value={f.amount ? `$${f.amount}` : ""} onPick={(v) => set({ amount: Number(v.slice(1)) })} />
@@ -137,11 +152,15 @@ function StartPage() {
               )}
             </>
           )}
-          {move === 2 && (
+          {step === "starter" && (
             <>
               <Q label="From you" q="What name should guests see?" hint="Your first name. Guests know who thought of this.">
                 <input className="w-full rounded border-2 border-foreground bg-card px-4 py-3 text-[19px] outline-none focus:border-primary" value={f.starterName} maxLength={40} onChange={(e) => set({ starterName: e.target.value })} placeholder="Your first name" />
               </Q>
+            </>
+          )}
+          {step === "guests" && (
+            <>
               <Q label="The circle" q="How many people will you invite?" hint="You get one private link per guest to send yourself. We never ask for their emails, and nobody sees who else is giving.">
                 <div className="flex items-center gap-3">
                   <Step onClick={() => set({ guestCount: Math.max(1, f.guestCount - 1) })} label="One fewer">−</Step>
@@ -156,9 +175,9 @@ function StartPage() {
           {error ? <p role="alert" className="mt-6 text-[16px] text-destructive">{error}</p> : null}
           <div className="mt-10 flex items-center gap-3">
             {move > 0 ? <button type="button" onClick={() => setMove(move - 1)} className="rounded border-2 border-foreground px-5 py-3 text-[14px] font-medium hover:bg-foreground hover:text-background">Back</button> : null}
-            <button type="button" disabled={!canNext || saving} onClick={() => (move < 2 ? setMove(move + 1) : finish())}
+            <button type="button" disabled={!canNext || saving} onClick={() => (!last ? setMove(move + 1) : finish())}
               className="rounded border-2 border-primary bg-primary px-6 py-3 text-[14px] font-medium text-primary-foreground hover:bg-background hover:text-primary disabled:opacity-40">
-              {move < 2 ? "Continue" : saving ? "Saving" : "Start the chapter"}
+              {!last ? "Continue" : saving ? "Saving" : "Start the chapter"}
             </button>
           </div>
         </section>
