@@ -58,7 +58,7 @@ function DecidePage() {
           <h1 className="mt-4 font-display text-[clamp(40px,8vw,76px)] leading-[0.95]">{settled.decision === "accepted" ? "Thank you." : "Sent back."}</h1>
           <p className="mt-6 max-w-[46ch] text-[20px] leading-[1.45] text-foreground/85">
             {settled.decision === "accepted"
-              ? `${d.person_first}, your chapter is accepted. ${d.starter_name} can now open it to the people you named. Nothing is charged to you.`
+              ? `Your chapter is accepted. ${d.starter_name} can now open it to the people you named. Nothing is charged to you.`
               : `Nothing went to the guests. ${d.starter_name} has your answer and can change the list before asking again.`}
           </p>
           {settled.decided_on ? <p className="mt-6 text-[14px] font-medium text-foreground/55">Answered {settled.decided_on}</p> : null}

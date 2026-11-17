@@ -39,7 +39,6 @@ function GuestChapter() {
   const chapter = Route.useLoaderData();
   const { token } = Route.useParams();
   const claim = useServerFn(claimItem);
-  const first = chapter.title.split(/\s+/)[0] || "their";
   const onClaim = (item_id: string, display_name: string) => claim({ data: { token, item_id, display_name } });
 
   return (
@@ -52,10 +51,10 @@ function GuestChapter() {
       </header>
       <main className="mx-auto max-w-[900px] px-6 pb-24 pt-12">
         <p className="text-[14px] font-medium text-destructive">{chapter.chapter_type}</p>
-        <h1 className="mt-4 font-display text-[clamp(40px,8vw,84px)] leading-none">{first}’s chapter.</h1>
+        <h1 className="mt-4 font-display text-[clamp(40px,8vw,84px)] leading-none">Their chapter.</h1>
         {chapter.open ? (
           <p className="mt-6 max-w-[46ch] text-[20px] leading-[1.45] text-foreground/85">
-            Eight things {first} read through and said yes to. Take the one you would most like to give. Nothing here was picked from a catalogue, and nothing is a request for money.
+            Eight things they read through and said yes to. Take the one you would most like to give. Nothing here was picked from a catalogue, and nothing is a request for money.
           </p>
         ) : (
           <p className="mt-6 max-w-[44ch] border-l-2 border-foreground pl-4 text-[20px] leading-[1.45]">
@@ -69,7 +68,7 @@ function GuestChapter() {
         ) : (
           <p className="mt-12 border-t border-foreground/25 pt-6 text-[20px] text-foreground/80">There is nothing to give from this chapter yet.</p>
         )}
-        <p className="mt-12 text-[14px] font-medium text-foreground/55">A friend started this. {first} approved every item here. Nobody asked.</p>
+        <p className="mt-12 text-[14px] font-medium text-foreground/55">A friend started this. The person approved every item here. Nobody asked.</p>
       </main>
     </div>
   );

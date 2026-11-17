@@ -64,7 +64,6 @@ export const getDecision = createServerFn({ method: "GET" })
     const decision = c.person_decision || "pending";
     return {
       decision: decision as string, settled: decision !== "pending", decided_on: day(c.person_decided_at),
-      person_first: ((c.title || "").split(/\s+/)[0] || "there") as string,
       starter_name: ((c.starter_name || "the friend who started it").trim()) as string,
       chapter_type: (c.chapter_type || "A chapter") as string,
     };
