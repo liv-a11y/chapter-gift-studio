@@ -30,7 +30,7 @@ export function SiteShell({ children, pilot = false }: { children: ReactNode; pi
           <Link to="/" className="shrink-0 font-display text-xl sm:text-2xl" aria-label="Good Chapter Co. home">
             <BrandMark />
           </Link>
-          {pilot ? <><span className="eyebrow ml-auto hidden sm:inline">Private pilot</span><Link to="/start" className="ml-auto hidden shrink-0 text-[14px] font-medium underline underline-offset-4 hover:text-primary sm:ml-5 sm:inline">Start a chapter</Link><Button asChild size="sm" className="ml-auto px-4 text-[13px] sm:ml-5 sm:h-11 sm:px-5 sm:text-sm"><Link to="/" hash="invite">Request an invitation</Link></Button></> : <><nav className="ml-auto hidden items-center gap-7 lg:flex" aria-label="Main navigation">
+          {pilot ? <><span className="eyebrow ml-auto hidden sm:inline">Private pilot</span><a href="https://start.goodchaptercollective.com" className="ml-auto hidden shrink-0 text-[14px] font-medium underline underline-offset-4 hover:text-primary sm:ml-5 sm:inline">Start a chapter</a><Button asChild size="sm" className="ml-auto px-4 text-[13px] sm:ml-5 sm:h-11 sm:px-5 sm:text-sm"><Link to="/" hash="invite">Request an invitation</Link></Button></> : <><nav className="ml-auto hidden items-center gap-7 lg:flex" aria-label="Main navigation">
             {links.map((link) => "hash" in link ? (
               <Link key={link.label} to={link.to} hash={link.hash} className="text-[15px] font-medium transition-colors duration-175 hover:text-primary">
                 {link.label}
@@ -42,7 +42,7 @@ export function SiteShell({ children, pilot = false }: { children: ReactNode; pi
             ))}
           </nav>
           <Button asChild size="sm" className="ml-auto px-3 text-[12px] sm:h-11 sm:px-5 sm:text-sm lg:ml-5">
-            <Link to="/start"><span className="sm:hidden">Start one</span><span className="hidden sm:inline">Start one for a friend</span></Link>
+            <a href="https://start.goodchaptercollective.com"><span className="sm:hidden">Start one</span><span className="hidden sm:inline">Start one for a friend</span></a>
           </Button>
           <button type="button" onClick={() => setOpen(!open)} className="flex size-11 shrink-0 items-center justify-center rounded-sm border-2 border-foreground lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open}>
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -66,7 +66,7 @@ export function SiteShell({ children, pilot = false }: { children: ReactNode; pi
       {pilot ? <footer className="border-t-2 border-foreground bg-foreground text-background">
         <div className="site-container flex flex-wrap items-center justify-between gap-5 py-7 text-[14px]">
           <p>Good people. Different rules.</p>
-          <Link to="/start" className="underline underline-offset-4 hover:text-highlight">Start a chapter</Link>
+          <a href="https://start.goodchaptercollective.com" className="underline underline-offset-4 hover:text-highlight">Start a chapter</a>
           <Link to="/first-place" className="underline underline-offset-4 hover:text-highlight">Maya’s chapter</Link>
           <Link to="/giving" className="underline underline-offset-4 hover:text-highlight">Giving back</Link>
           <Link to="/partners/brands" className="underline underline-offset-4 hover:text-highlight">Brands</Link>
@@ -91,7 +91,7 @@ function SiteFooter() {
         </div>
         <nav className="grid grid-cols-2 gap-x-6 gap-y-3 text-[15px] md:justify-self-end" aria-label="Footer navigation">
           <Link to="/">Home</Link>
-          <Link to="/start">Start a chapter</Link>
+          <a href="https://start.goodchaptercollective.com">Start a chapter</a>
           <Link to="/first-place">Maya’s chapter</Link>
           <Link to="/catalog">Catalog</Link>
           <Link to="/read">Read</Link>

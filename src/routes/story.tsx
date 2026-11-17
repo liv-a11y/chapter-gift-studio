@@ -69,7 +69,7 @@ function HomePage() {
             <p className="font-display text-[28px] leading-[1.15]">A friend starts the chapter. You keep what fits.</p>
             <p className="site-body max-w-[38rem] text-muted-foreground">For first homes, fresh starts, new cities, and every chapter weddings never covered.</p>
             <div className="mt-1 flex flex-wrap gap-4">
-              <Button asChild size="lg"><Link to="/start">Start one for a friend <ArrowRight className="size-4" /></Link></Button>
+              <Button asChild size="lg"><a href="https://start.goodchaptercollective.com">Start one for a friend <ArrowRight className="size-4" /></a></Button>
               <Button asChild variant="outline" size="lg"><a href="#how">How it works</a></Button>
             </div>
           </div>
