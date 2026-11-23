@@ -68,10 +68,11 @@
   --color-calm: var(--calm);
   --color-calm-foreground: var(--calm-foreground);
   --color-mist: var(--mist);
-  --font-display: "Raw Serif", "GC Display", "Fraunces", Georgia, serif;
+  --font-display: "GC Display", "Fraunces", Georgia, serif;
+  --font-stamp: "Raw Serif", "GC Display", Georgia, serif;
   --font-sans: "EB Garamond", Georgia, serif;
-  --font-ui: "DM Sans", system-ui, sans-serif;
-  --font-mono: "DM Mono", monospace;
+  --font-ui: "EB Garamond", Georgia, serif;
+  --font-mono: "EB Garamond", Georgia, serif;
   --shadow-editorial: none;
 }
 
@@ -202,7 +203,7 @@
 
   h1, h2, h3, [class*="font-display"], [class*="font-mono"] { font-size-adjust: none; }
 
-  [data-slot="button"] { font-family: var(--font-ui); font-weight: 700; font-size-adjust: none; }
+  [data-slot="button"] { font-family: var(--font-ui); font-weight: 600; letter-spacing: 0.02em; font-size-adjust: none; }
 
   button, input, textarea { font: inherit; }
 
@@ -289,4 +290,11 @@
   border-radius: 4px;
   transition: transform 170ms linear;
   &:hover { transform: translateY(-4px); }
+}
+
+/* Raw Serif stamp: short lines only. Takeaway band closes a section. */
+@utility so-band {
+  background: var(--emphasis);
+  color: var(--emphasis-foreground);
+  border-block: 1.5px solid var(--foreground);
 }

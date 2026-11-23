@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import mfInterior from "@/assets/marshall-field-interior.jpg.asset.json";
 import mfStreet from "@/assets/marshall-field-1906.jpg.asset.json";
 
-const title = "You shouldn't need a wedding to get a toaster";
+const title = "Divorce doesn't come with a china pattern | Good Chapter Co.";
 const description = "The old script is getting a rewrite. Good Chapter Co. is opening its first circle. Request an invitation.";
 
 export const Route = createFileRoute("/")({
@@ -74,14 +74,12 @@ function FrontDoor() {
       <section className="border-b-[1.5px] border-foreground">
         <div className="site-container grid items-end gap-10 py-14 md:grid-cols-[minmax(0,1fr)_auto] md:gap-14 md:py-24">
           <div>
-            <p className="eyebrow">Since 1924, nobody asks.</p>
-            <h1 className={`${display} mt-7 max-w-5xl text-[42px] lowercase leading-[1.1] sm:text-[60px] lg:text-[84px]`}>
-              You shouldn’t have to get married to get a{" "}
-              <span aria-hidden="true" className="mx-[0.03em] inline-block rounded-[2px] bg-primary px-[0.14em] pb-[0.09em] pt-[0.02em] leading-none text-primary-foreground">f$%#ng</span>
-              <span className="sr-only">fucking</span> toaster.
+            <p className="font-stamp text-[15px] font-bold uppercase tracking-[0.08em] text-emphasis sm:text-[17px]">You shouldn’t have to get married to get a toaster.</p>
+            <h1 className={`${display} mt-6 max-w-5xl text-[44px] lowercase leading-[1.02] sm:text-[64px] lg:text-[88px]`}>
+              Divorce doesn’t come with a china pattern.
             </h1>
             <p className="mt-7 max-w-[34rem] text-[19px] leading-[1.45] sm:text-[21px]">
-              Good Chapter is making it easier to show up for the life that’s actually happening.
+              A list for the chapters nobody throws a shower for. A friend starts it. The person approves it. Nobody asks.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
               <a href="#invite" data-slot="button" className="inline-flex min-h-[52px] items-center rounded-[4px] bg-primary px-6 py-3.5 text-[16px] text-primary-foreground hover:bg-foreground hover:text-background">Request an invitation</a>
@@ -119,7 +117,8 @@ function FrontDoor() {
         </div>
       </section>
 
-      <section className="border-y-[1.5px] border-foreground">
+<div className="so-band"><div className="site-container flex items-center gap-6 py-6 sm:py-8"><span aria-hidden="true" className="shrink-0 -rotate-[2.4deg] rounded-full border-[1.5px] border-current px-4 py-1 text-[14px] uppercase tracking-[0.24em]">So</span><p className="font-stamp text-[22px] font-bold lowercase leading-[1.15] sm:text-[32px]">a friend brings the surprise. the person keeps the say.</p></div></div>
+      <section className="border-b-[1.5px] border-foreground">
         <div className="site-container py-16 md:py-28">
           <p className="eyebrow">How a chapter works</p>
           <h2 className={`${display} mt-5 max-w-3xl text-[34px] lowercase leading-[1.04] sm:text-[52px]`}>No list to write. No asking for yourself.</h2>
@@ -127,7 +126,7 @@ function FrontDoor() {
             {steps.map((s) => (
               <li key={s.n} className="border-t-[1.5px] border-foreground pt-5">
                 <span className="font-mono text-[13px] uppercase tracking-[0.1em]">{s.n}</span>
-                <h3 className="mt-3 font-display text-[28px] font-normal leading-[1.1]">{s.title}</h3>
+                <h3 className="mt-3 font-stamp text-[26px] font-bold leading-[1.1]">{s.title}</h3>
                 <p className="mt-3 text-[18px] leading-[1.45]">{s.copy}</p>
               </li>
             ))}
@@ -149,6 +148,7 @@ function FrontDoor() {
         </div>
       </section>
 
+<div className="so-band"><div className="site-container flex items-center gap-6 py-6 sm:py-8"><span aria-hidden="true" className="shrink-0 -rotate-[2.4deg] rounded-full border-[1.5px] border-current px-4 py-1 text-[14px] uppercase tracking-[0.24em]">So</span><p className="font-stamp text-[22px] font-bold lowercase leading-[1.15] sm:text-[32px]">no fees. no feed. no asking for yourself.</p></div></div>
       <InviteBand />
 
       <section className="site-container py-16 md:py-28" aria-labelledby="registry-story">
